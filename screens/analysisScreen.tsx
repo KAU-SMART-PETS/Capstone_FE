@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-// Define types for disease data and pet data
+
 interface Disease {
   name: string;
   probability: number;
@@ -35,7 +35,7 @@ const petData: PetData = {
   ]
 };
 
-// Mock disease data with descriptions, notes, food
+
 const diseaseDetails: Record<string, DiseaseDetails> = {
   "피부염": {
     about: "피부염은 피부가 염증에 의해 붉고 가려운 상태입니다.",
@@ -58,15 +58,15 @@ const diseaseDetails: Record<string, DiseaseDetails> = {
 };
 
 const AnalysisScreen: React.FC = () => {
-  const navigation = useNavigation(); // Use navigation hook
+  const navigation = useNavigation(); 
 
   const getProbabilityColor = (probability: number): string => {
     if (probability > 80) {
-      return '#FF6B6B'; // Red
+      return '#FF6B6B'; 
     } else if (probability >= 60) {
-      return '#FFD700'; // Yellow
+      return '#FFD700'; 
     } else {
-      return '#32CD32'; // Green
+      return '#32CD32';
     }
   };
 
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     alignItems: 'center',
     padding: 20,
-    paddingBottom: 100, // Adjusted padding to avoid the content being hidden by the sticky button
+    paddingBottom: 100, 
   },
   petImage: {
     width: 120,
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#EEE',
     borderRadius: 8,
-    backgroundColor: '#F7F7F7', // Change this line
+    backgroundColor: '#F7F7F7', 
   },
   
   diseaseName: {
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     width: '100%',
   },
-  // Adjusted styles for left alignment of the notice
+
   noticeTitle: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     width: '100%',
   },
-  // Sticky button container
+
   stickyButtonContainer: {
     position: 'absolute',
     bottom: 20,
@@ -259,9 +259,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
-  // Space added at the bottom to account for the sticky button
+
   paddingBottomSpace: {
-    height: 100, // Adjust this value based on the button height
+    height: 100,
   },
 });
 

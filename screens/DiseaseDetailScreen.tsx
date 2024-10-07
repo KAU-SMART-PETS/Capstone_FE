@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 
-// Get screen width for dynamic sizing
+
 const screenWidth = Dimensions.get('window').width;
 
-// Define route params types
+
 type DiseaseDetailRouteParams = {
   disease: {
     name: string;

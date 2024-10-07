@@ -7,7 +7,7 @@ const App = () => {
   const [devices, setDevices] = useState([]);
   const [scanning, setScanning] = useState(false);
 
-  // Function to request permissions for Android
+ 
   const requestBluetoothPermissions = async () => {
     if (Platform.OS === 'android' && Platform.Version >= 23) {
       const granted = await PermissionsAndroid.requestMultiple([
@@ -27,10 +27,10 @@ const App = () => {
   };
 
   useEffect(() => {
-    // Request permissions when the app starts
+
     requestBluetoothPermissions();
 
-    // Cleanup BleManager when the component unmounts
+
     return () => {
       bleManager.destroy();
     };

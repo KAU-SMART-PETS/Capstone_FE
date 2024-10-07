@@ -19,17 +19,17 @@ const CameraScreen: React.FC = () => {
     })();
   }, []);
 
-  // Function to handle what happens after photo is taken
+ 
   const handlePhotoTaken = useCallback((path: string) => {
     setPhotoPath(path);
-    // You can add additional logic here if needed, like uploading the photo or processing it.
+    
   }, []);
 
   const takePhoto = useCallback(async () => {
     if (camera.current) {
       try {
         const photo = await camera.current.takePhoto();
-        handlePhotoTaken(photo.path);  // Trigger the handlePhotoTaken function with photo path
+        handlePhotoTaken(photo.path);  
       } catch (error) {
         console.error('Failed to take photo:', error);
       }
@@ -37,7 +37,7 @@ const CameraScreen: React.FC = () => {
   }, [camera, handlePhotoTaken]);
 
   const retakePhoto = useCallback(() => {
-    setPhotoPath(null); // Reset the photo preview to allow retaking
+    setPhotoPath(null); 
   }, []);
 
 
@@ -171,10 +171,10 @@ const styles = StyleSheet.create({
   confirmButton: {
     backgroundColor: '#73A8BA',
     paddingVertical: 10,
-    paddingHorizontal: 20, // More padding for pill shape
-    borderRadius: 30, // Higher value for pill shape
-    flex: 1, // Take equal width for both buttons
-    marginLeft: 10, // Spacing between buttons
+    paddingHorizontal: 20, 
+    borderRadius: 30, 
+    flex: 1, 
+    marginLeft: 10, 
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -184,19 +184,19 @@ const styles = StyleSheet.create({
   },
   analysisPromptContainer: {
     backgroundColor: '#e0e0e0',
-    paddingHorizontal: 20, 
-    borderRadius: 15,  // Adjust the radius to match the height for a pill shape
+    paddingHorizontal: 20,
+    borderRadius: 15,
     marginTop: 0,
-    height: 30,  // Ensure this height can fit your text
-    justifyContent: 'center',  // Center the text vertically
-    alignItems: 'center',      // Center the text horizontally
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
 },
 analysisPrompt: {
   color: 'black',
   fontSize: 13,
   textAlign: 'center',
-  marginTop: 0,    // Remove or reduce the margin
-  marginBottom: 0, // Remove or reduce the margin
+  marginTop: 0,
+  marginBottom: 0,
 },
 });
 
