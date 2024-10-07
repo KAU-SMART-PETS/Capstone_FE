@@ -31,11 +31,11 @@ const UserProfileView: React.FC = () => {
   });
 
   useEffect(() => {
-    // 여기서 실제 사용자 정보를 가져오는 API 호출
+    
   }, []);
 
   const handleSave = () => {
-    // 여기서 실제로 서버에 정보를 업데이트 
+    
     setEditingField(null);
     Alert.alert('알림', '정보가 성공적으로 업데이트되었습니다.');
   };
