@@ -27,7 +27,7 @@ const slidingLineWidth = tabWidth * 0.8; // 슬라이딩 바 너비를 탭 너�
 const centerOffset = (tabWidth - slidingLineWidth) / 2; // 슬라이딩 바를 탭 중앙에 맞추기 위한 오프셋 값
 
 const activeIconColor = '#000000'; // 활성화된 아이콘 색상
-const inactiveIconColor = '#A3A3AC'; // 비활성화된 아이콘 색상
+const inactiveIconColor = '#73A8BA'; // 비활성화된 아이콘 색상
 
 // 스타일 상수
 const styles = {
