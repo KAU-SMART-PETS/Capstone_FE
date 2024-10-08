@@ -34,7 +34,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName="Home" 
+        // initialRouteName="Home" 
         screenOptions={{
           headerShown: false, // 모든 화면에서 헤더를 숨깁니다
         }}
@@ -44,7 +44,6 @@ const App = () => {
         component={MainTab}
         options={{headerShown: false}}
       />
-        {/* <Stack.Screen name="Home" component={HomeScreen} />  */}
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Camera" component={CameraScreen} />
         <Stack.Screen name="DiseaseDetail" component={DiseaseDetailScreen}/>
