@@ -84,7 +84,8 @@ function MainTab() {
           initialRouteName={tabScreens[0]['name']}
           barStyle={{
             paddingHorizontal: (totalWidth - totalContentWidth) / 2, // 양쪽에서 중앙으로 패딩
-            paddingVertical: 6,
+            paddingVertical: 8,
+            marginHorizontal : 5,
             backgroundColor: styles.bottomBarColor,
             borderTopLeftRadius: styles.barRadius,
             borderTopRightRadius: styles.barRadius,
@@ -136,3 +137,159 @@ function MainTab() {
 }
 
 export default MainTab;
+
+// 하단은 기존의 탭 전환 애니메이션 (아이콘에 배경을 masking, 배경 쪽 요소를 슬라이딩하여 연출)
+
+// import React, { useState, useEffect, useCallback } from 'react';
+// import { View, Dimensions, Animated, Easing } from 'react-native';
+// import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+// import MaskedView from '@react-native-masked-view/masked-view';
+// import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import FAIcon from 'react-native-vector-icons/FontAwesome';
+// import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+
+// import MyPageScreen from './MyPageScreen';
+// import AnalysisScreen from './analysisScreen';
+// import PetInfo from './PetInfoScreen';
+// import RegisterHealthInformation from './registerHealthInformation';
+
+// const Tab = createMaterialBottomTabNavigator();
+
+// const totalWidth = Dimensions.get('window').width;
+// const tabCount = 4;
+// const tabWidth = totalWidth / tabCount; // 탭 개수에 따른 탭의 너비 동적 계산
+
+// // 스타일 상수
+// const styles = {
+//   tabHeight: 70,
+//   activeIconColor: '#ffffff',
+//   iconSize: 27,
+//   bottomBarColor: '#D7E8EE',
+//   slidingBoxColor: '#ffffff',
+//   barRadius: 30,
+// };
+
+// const bottomNavTheme = {
+//   ...DefaultTheme,
+//   colors: {
+//     ...DefaultTheme.colors,
+//     secondaryContainer: 'transparent',
+//   },
+// };
+
+// // 아이콘 렌더링 컴포넌트
+// const TabIcon = ({ name, type, focused, size }) => {
+//   const color = focused ? styles.activeIconColor : 'black';
+
+//   return type === 'fa' ? (
+//     <FAIcon name={name} size={size} color={color} />
+//   ) : (
+//     <MCIcon name={name} size={size} color={color} />
+//   );
+// };
+
+// // 탭 아이콘 및 화면 정보를 딕셔너리로 정의
+// const tabScreens = [
+//   { name: '산책', iconName: 'paw', iconType: 'mc', component: AnalysisScreen },
+//   { name: '기록', iconName: 'calendar', iconType: 'mc', component: PetInfo },
+//   { name: '건강', iconName: 'heartbeat', iconType: 'fa', component: RegisterHealthInformation },
+//   { name: '마이페이지', iconName: 'user-circle-o', iconType: 'fa', component: MyPageScreen }
+// ];
+
+// function MainTab() {
+//   const [translateX] = useState(new Animated.Value(0)); // 애니메이션 값
+
+//   // 애니메이션 함수 useCallback으로 최적화
+//   const animateBackground = useCallback((index) => {
+//     Animated.timing(translateX, {
+//       toValue: index * tabWidth - 20,
+//       duration: 300, // 애니메이션 지속시간
+//       easing: Easing.inOut(Easing.ease),
+//       useNativeDriver: true,
+//     }).start();
+//   }, []);
+
+//   useEffect(() => {
+//     animateBackground(0); // 첫 탭 위치로 설정
+//   }, [animateBackground]);
+
+//   return (
+//     <PaperProvider theme={bottomNavTheme}>
+//       <View style={{ flex: 1 }} className="bg-cyan-400">
+//         {/* 마스크 처리된 슬라이딩 배경 */}
+//         <MaskedView
+        
+//           style={{ position: 'absolute', bottom: 0, width: totalWidth, height: styles.tabHeight }}
+//           maskElement={
+//             <View className="flex-row justify-evenly px-12" >
+//               {tabScreens.map((tab, index) => (
+//                 <TabIcon
+//                   key={index}
+//                   name={tab.iconName}
+//                   type={tab.iconType}
+//                   focused={true}
+//                   size={styles.iconSize}
+//                 />
+//               ))}
+//             </View>
+//           }
+//         >
+//           {/* 하단 바 배경 */}
+//             <View
+//             style={{
+//                 position: 'absolute',
+//                 bottom: 0,
+//                 width: totalWidth,
+//                 height: styles.tabHeight,
+//                 backgroundColor: styles.bottomBarColor,
+//                 borderTopLeftRadius: styles.barRadius,
+//                 borderTopRightRadius: styles.barRadius,
+//             }}
+//             />
+//             <View className="bg-gray-400" style={{ height: styles.tabHeight }} />
+//           {/* 하얀색 슬라이딩 박스 */}
+//           <Animated.View
+//             style={{
+//               position: 'absolute',
+//               bottom: 0,
+//               left: 0,
+//               backgroundColor: styles.slidingBoxColor,
+//               width: tabWidth,
+//               height: styles.tabHeight,
+//               transform: [{ translateX }],
+//             }}
+//           />
+//         </MaskedView>
+
+//         <Tab.Navigator
+//           initialRouteName="산책"
+//           barStyle={{
+//             backgroundColor: 'transparent',
+//             // backgroundColor : styles.bottomBarColor,
+//             // borderTopLeftRadius: styles.barRadius,
+//             // borderTopRightRadius: styles.barRadius,
+//             // marginHorizontal: 5,
+//             paddingHorizontal: 60,
+//             // paddingVertical: 10,
+//           }}
+//           shifting={false}
+//           activeColor={styles.activeIconColor}
+//           inactiveColor={styles.inactiveIconColor}
+//           labeled={true}
+//           screenListeners={({ route }) => ({
+//             tabPress: () => {
+//               const tabIndex = tabScreens.findIndex(tab => tab.name === route.name);
+//               animateBackground(tabIndex);
+//             },
+//           })}
+//         >
+//           {tabScreens.map((tab, index) => (
+//             <Tab.Screen key={index} name={tab.name} component={tab.component} />
+//           ))}
+//         </Tab.Navigator>
+//       </View>
+//     </PaperProvider>
+//   );
+// }
+
+// export default MainTab;
