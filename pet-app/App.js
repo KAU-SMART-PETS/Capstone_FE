@@ -8,6 +8,7 @@ import WalkScreen from "./components/screen/WalkScreen";
 import WalkTimerScreen from "./components/screen/WalkTimerScreen";
 import TodayWalkRecordScreen from "./components/screen/TodayWalkRecordScreen"; // 추가된 부분
 import PetCalenderScreen from "./components/screen/PetCalenderScreen";
+import WeeklySummaryScreen from "./components/screen/WeeklySummaryScreen";
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,10 @@ const App = () => {
         <Stack.Screen
           name="바둑이의 하루" // 추가된 부분
           component={PetCalenderScreen} // 추가된 부분
+        />
+        <Stack.Screen
+          name="WeeklySummary" // 추가된 부분
+          component={WeeklySummaryScreen} // 추가된 부분
         />
       </Stack.Navigator>
     </NavigationContainer>
