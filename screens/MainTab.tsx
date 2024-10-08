@@ -3,28 +3,23 @@ import { View, Dimensions, Animated, Easing } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 import MyPageScreen from './MyPageScreen';
 import AnalysisScreen from './analysisScreen';
 import PetInfo from './PetInfoScreen';
 import RegisterHealthInformation from './registerHealthInformation';
+import HomeScreen from './HomeScreen';
 
 const Tab = createMaterialBottomTabNavigator();
-const bottomNavTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      secondaryContainer: 'transparent',
-    },
-};
+
+const tabCount = 5;
+const initTabIdx = 2;
 
 const totalWidth = Dimensions.get('window').width;
-const tabCount = 4;
-const totalContentWidth = totalWidth * 0.7; // 전체 넓이의 70%에 탭바 아이콘을 배치
+const totalContentWidth = totalWidth * 0.75; // 전체 넓이의 70%에 탭바 아이콘을 배치
 const tabWidth = totalContentWidth / tabCount; // 아이콘들이 중앙에 모이도록 탭 너비를 조정
-const slidingLineWidth = tabWidth * 0.8; // 슬라이딩 바 너비를 탭 너비의 60%로 설정
-const centerOffset = (tabWidth - slidingLineWidth) / 2; // 슬라이딩 바를 탭 중앙에 맞추기 위한 오프셋 값
+const slidingLineWidth = tabWidth * 0.9; // 슬라이딩 바 너비를 탭 너비의 60%로 설정
+const centerOffset = (tabWidth - slidingLineWidth) / 5; // 슬라이딩 바를 탭 중앙에 맞추기 위한 오프셋 값
 
 const activeIconColor = '#000000'; // 활성화된 아이콘 색상
 const inactiveIconColor = '#73A8BA'; // 비활성화된 아이콘 색상
@@ -38,6 +33,18 @@ const styles = {
   slidingLineHeight: 4, // 슬라이딩 라인의 높이
   barRadius: 24,
 };
+
+// 탭 바 스타일
+const tabBarStyle = {
+  paddingHorizontal: (totalWidth - totalContentWidth) / 2, // 양쪽에서 중앙으로 패딩
+  paddingVertical: 5,
+  marginHorizontal : 3,
+  backgroundColor: styles.bottomBarColor,
+  borderTopLeftRadius: styles.barRadius,
+  borderTopRightRadius: styles.barRadius,
+  borderWidth: 3,
+  borderColor: 'rgba(115, 168, 186, .4)'
+}
 
 // 아이콘 렌더링 컴포넌트
 const TabIcon = ({ name, type, focused, size }) => {
@@ -54,6 +61,7 @@ const TabIcon = ({ name, type, focused, size }) => {
 const tabScreens = [
   { name: '산책', iconName: 'paw', iconType: 'mc', component: AnalysisScreen },
   { name: '기록', iconName: 'calendar', iconType: 'mc', component: PetInfo },
+  { name: '홈', iconName: 'home', iconType: 'fa', component: HomeScreen },
   { name: '건강', iconName: 'heartbeat', iconType: 'fa', component: RegisterHealthInformation },
   { name: '마이페이지', iconName: 'user-circle-o', iconType: 'fa', component: MyPageScreen }
 ];
@@ -73,23 +81,15 @@ function MainTab() {
   }, [tabWidth]);
 
   useEffect(() => {
-    animateBackground(0); // 첫 번째 탭 위치로 설정
+    animateBackground(initTabIdx); // 첫 번째 탭 위치로 설정
   }, [animateBackground]);
 
   return (
-    <PaperProvider theme={bottomNavTheme}>
       <View style={{ flex: 1}}>
         {/* 탭 네비게이터 */}
         <Tab.Navigator
-          initialRouteName={tabScreens[0]['name']}
-          barStyle={{
-            paddingHorizontal: (totalWidth - totalContentWidth) / 2, // 양쪽에서 중앙으로 패딩
-            paddingVertical: 8,
-            marginHorizontal : 5,
-            backgroundColor: styles.bottomBarColor,
-            borderTopLeftRadius: styles.barRadius,
-            borderTopRightRadius: styles.barRadius,
-          }}
+          initialRouteName={tabScreens[initTabIdx]['name']}
+          barStyle={tabBarStyle}
           shifting={false}
           activeColor={activeIconColor}
           inactiveColor={inactiveIconColor}
@@ -126,13 +126,12 @@ function MainTab() {
             width: slidingLineWidth, // 슬라이딩 바 너비 계산 적용
             height: styles.slidingLineHeight, // 슬라이딩 바 높이
             position: 'absolute',
-            bottom: 0,
+            bottom: 10,
             left: 0,
             transform: [{ translateX }],
           }}
         />
       </View>
-    </PaperProvider>
   );
 }
 
