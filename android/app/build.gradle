@@ -114,6 +114,9 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation project(':react-native-vision-camera')
+    
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
+    implementation("androidx.core:core-splashscreen:1.0.0") // Add this line
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
