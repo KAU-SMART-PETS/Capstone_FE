@@ -1,0 +1,79 @@
+[
+  {
+    "date": "2024-10-07",
+    "metrics": {
+      "walk": 60,
+      "rest": 40,
+      "steps": 80,
+      "sunlight": 70,
+      "uvExposure": 30,
+      "vitaminD": 50
+    }
+  },
+  {
+    "date": "2024-10-08",
+    "metrics": {
+      "walk": 20,
+      "rest": 50,
+      "steps": 30,
+      "sunlight": 70,
+      "uvExposure": 40,
+      "vitaminD": 80
+    }
+  },
+  {
+    "date": "2024-10-09",
+    "metrics": {
+      "walk": 70,
+      "rest": 30,
+      "steps": 60,
+      "sunlight": 50,
+      "uvExposure": 20,
+      "vitaminD": 90
+    }
+  },
+  {
+    "date": "2024-10-10",
+    "metrics": {
+      "walk": 50,
+      "rest": 40,
+      "steps": 70,
+      "sunlight": 30,
+      "uvExposure": 60,
+      "vitaminD": 40
+    }
+  },
+  {
+    "date": "2024-10-11",
+    "metrics": {
+      "walk": 80,
+      "rest": 20,
+      "steps": 40,
+      "sunlight": 60,
+      "uvExposure": 50,
+      "vitaminD": 70
+    }
+  },
+  {
+    "date": "2024-10-12",
+    "metrics": {
+      "walk": 90,
+      "rest": 10,
+      "steps": 100,
+      "sunlight": 40,
+      "uvExposure": 50,
+      "vitaminD": 60
+    }
+  },
+  {
+    "date": "2024-10-13",
+    "metrics": {
+      "walk": 30,
+      "rest": 50,
+      "steps": 20,
+      "sunlight": 80,
+      "uvExposure": 70,
+      "vitaminD": 90
+    }
+  }
+]

@@ -1,0 +1,19 @@
+[
+    {
+      "id": 1,
+      "title": "New Pet Owner Reward",
+      "content": "Earn points for registering your first pet.",
+      "earnPoint": 100,
+      "isAchieved": false,
+      "isObtain": true
+    },
+    {
+      "id": 2,
+      "title": "Veterinary Visit Reward",
+      "content": "Get points for every vet visit.",
+      "earnPoint": 50,
+      "isAchieved": true,
+      "isObtain": false
+    }
+  ]
+  
