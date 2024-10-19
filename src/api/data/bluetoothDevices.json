@@ -1,0 +1,13 @@
+[
+    {
+      "id": 1,
+      "name": "Pet Tracker",
+      "macAddress": "00:1A:7D:DA:71:11"
+    },
+    {
+      "id": 2,
+      "name": "Smart Collar",
+      "macAddress": "00:1A:7D:DA:71:12"
+    }
+  ]
+  
