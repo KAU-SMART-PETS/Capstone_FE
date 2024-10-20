@@ -5092,6 +5092,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"colord@npm:2.9.2":
+  version: 2.9.2
+  resolution: "colord@npm:2.9.2"
+  checksum: 2aa6a9b3abbce74ba3c563886cfeb433ea0d7df5ad6f4a560005eddab1ddf7c0fc98f39b09b599767a19c86dd3837b77f66f036e479515d4b17347006dbd6d9f
+  languageName: node
+  linkType: hard
+
 "colorette@npm:^1.0.7":
   version: 1.4.0
   resolution: "colorette@npm:1.4.0"
@@ -11359,6 +11366,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-location@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "react-native-location@npm:2.5.0"
+  peerDependencies:
+    react: "*"
+    react-native: ">= 0.46"
+  checksum: 0458149212a291e14c314a9e13e9fd964b060bc1c4b409d86a10f3f6dbc61e59c4872d31696d86e5533453e42ad24a9ef615dd1f4873f04ac71c005c274db150
+  languageName: node
+  linkType: hard
+
 "react-native-maps@npm:^1.18.2":
   version: 1.18.2
   resolution: "react-native-maps@npm:1.18.2"
@@ -11469,6 +11486,18 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 28c1f6e556c318ffcbd79d153b9612cc8a0b8d8b70f909d3cde2fd6d0586a7c151a449e57400d8996f4ee6c3b5140c5c4f643a427e974f6dc573b2bcd8eb7356
+  languageName: node
+  linkType: hard
+
+"react-native-shadow-2@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "react-native-shadow-2@npm:7.1.0"
+  dependencies:
+    colord: 2.9.2
+  peerDependencies:
+    react-native: "*"
+    react-native-svg: ">=12.1.0"
+  checksum: 30db47c2d2a0f2995bb4e371fa5853fc41ff753c5cf2dc3c43bd0e5ac0975f3e4eb449b1a01e7125b4c21d20db00358f4ad545a114d815958df550f6c04e98f5
   languageName: node
   linkType: hard
 
@@ -11699,6 +11728,7 @@ __metadata:
     react-native-elements: ^3.4.3
     react-native-gesture-handler: ^2.20.0
     react-native-image-picker: ^7.1.2
+    react-native-location: ^2.5.0
     react-native-maps: ^1.18.2
     react-native-masked-view: ^0.2.0
     react-native-paper: ^5.12.5
@@ -11706,6 +11736,7 @@ __metadata:
     react-native-reanimated: ^3.15.4
     react-native-safe-area-context: ^4.11.0
     react-native-screens: ^3.34.0
+    react-native-shadow-2: ^7.1.0
     react-native-smooth-bootsplash: ^4.5.2
     react-native-svg: ^15.7.1
     react-native-toast-message: ^2.2.1

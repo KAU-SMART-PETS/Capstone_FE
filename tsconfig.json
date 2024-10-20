@@ -21,6 +21,7 @@
       "@types": ["utils/constants/types"], 
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/utils/constants/declaration.d.ts", "src/utils/constants/image.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", 
+    "src/utils/constants/declaration.d.ts", "src/utils/constants/image.d.ts"],
   "exclude": ["node_modules"]
 }

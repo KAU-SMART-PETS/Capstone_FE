@@ -1,71 +1,182 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import StylizedText from './StylizedText';
+import ShadowBox from './ShadowBox';
+import { DesignPreset, RoundedFrameProps, RoundedBoxProps,
+        TagBadgeProps, RoundedTextButtonProps, RoundedCircleButtonProps} from '@types';
 
-type RoundedBoxProps = {
-  title: string;
-  description?: string; // Optional description
-  icon?: React.ReactNode; // Optional icon
-  percentage: number;
-  badgeText?: string; // Optional badge text
-  badgeColor?: string; // Optional badge color
-  backgroundColor?: string; // Custom background color
-  borderColor?: string; // Custom border color
-  shadow?: boolean; // Option for shadow
-  onPress: () => void; // Function to call on press
+export const RoundedFrame: React.FC<RoundedFrameProps> = ({
+  children,
+  preset = 'A',
+  shadow = true,
+}) => {
+  const styles = getStyles(preset);
+
+  return (
+    <View>
+      {shadow ? (
+        <ShadowBox className="rounded-3xl w-full">
+          <View className={`${styles.padding} ${styles.backgroundColor} ${styles.borderColor} rounded-3xl`}>
+            {children}
+          </View>
+        </ShadowBox>
+      ) : (
+        <View className={`${styles.padding} ${styles.backgroundColor} ${styles.borderColor} rounded-3xl`}>
+          {children}
+        </View>
+      )}
+    </View>
+  );
 };
 
-const RoundedBox: React.FC<RoundedBoxProps> = ({
-  title,
-  description,
-  icon,
-  percentage,
-  badgeText,
-  badgeColor = 'bg-red-500', // Default badge color
-  backgroundColor = 'bg-gray-[#f7f7f7]',
-  borderColor = 'border border-gray-200',
-  shadow = true,
+export const TagBadge : React.FC<TagBadgeProps> = ({color = 'bg-red', content = '위험'}) => {
+  return (
+    <View className={`absolute top-[4px] right-[-8px] px-2 py-1 rounded-full ${color} z-10`}>
+      <Text className="text-white text-[9px] font-semibold">{content}</Text>
+    </View>
+  );
+};
+
+export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
+  color = 'bg-primary',
+  textColor = 'text-white',
+  textType = 'body1',
+  content = "텍스트 버튼",
+  borderRadius = 'rounded-3xl', // rounded-xl, rounded-2xl, rounded-3xl ... 
+  shadow = false,
+  widthOption = 'full',
+  onPress,
+}) => {
+  const widthMap = {
+    full: 'w-full',
+    sm: 'w-24',  // Example: small width
+    md: 'w-36',  // Example: medium width
+    lg: 'w-58',  // Example: large width
+  };
+  const widthClass = widthMap[widthOption] || widthMap.full;
+  const Content = (
+    <View className={`${color} ${borderRadius} p-3 px-5 ${widthClass} flex items-center justify-center`}>
+        <StylizedText type={textType} className={textColor}>
+          {content}
+        </StylizedText>
+    </View>
+  );
+  return (
+    <TouchableOpacity onPress={onPress} className='p-2'>
+      {shadow ? (
+        <ShadowBox className={borderRadius}>
+        {Content}
+        </ShadowBox>
+      ) : (
+        Content
+      )}
+    </TouchableOpacity>
+  );
+};
+
+export const RoundedCircleButton: React.FC<RoundedCircleButtonProps> = ({
+  color = 'bg-primary',
+  shadow = false,
+  children,
+  size = 20,
   onPress,
 }) => {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      className={`relative w-max-[70%] rounded-[25px] border ${borderColor} ${backgroundColor} p-6 mb-4 ${shadow ? 'shadow-md' : ''}`}
-    >
-      {/* Badge */}
-      {badgeText && (
-        <View className={`absolute top-[4px] right-[-8px] px-4 py-1 rounded-full ${badgeColor}`}>
-          <Text className="text-white text-[9px] font-semibold">{badgeText}</Text>
+    <TouchableOpacity onPress={onPress}>
+      <View className='flex items-center justify-center'>
+      {shadow ? (
+        <ShadowBox className={`rounded-full`}>
+          <View className={`rounded-full ${color} w-[${size}px] h-[${size}px] p-2`}>
+            {children}
+          </View>
+        </ShadowBox>
+      ) : (
+        <View className={`rounded-full ${color} w-[${size}px] h-[${size}px] p-2`}>
+          {children}
         </View>
       )}
-      
-      {/* Title */}
-      <StylizedText type="header1">{title}</StylizedText>
-      <View>
-        {/* Icon */}
-        {/* {icon && (
-            <View className="flex-row items-center mb-1">
-            {icon}
-            </View>
-        )} */}
-        {/* Optional Description */}
-        {description && (
-            <Text className="text-gray-500 mt-1 text-xs">{description}</Text>
-        )}
-        {/* Percentage */}
-        {/* <View className="flex-row justify-between items-center">
-            <View className="flex w-20 flex-col items-end justify-start">
-            <Text className="font-normal text-[8px]">Percentage</Text>
-            <View className="flex flex-row items-end ml-2">
-                <Text className="text-3xl font-bold text-gray-800">{percentage}</Text>
-                <Text className="text-sm mb-1 ml-1">%</Text>
-            </View>
-            </View>
-        </View> */}
       </View>
-      
     </TouchableOpacity>
   );
+};
+
+export const RoundedBox: React.FC<RoundedBoxProps> = ({
+  children,
+  preset = 'A',
+  badgeText,
+  badgeColor,
+  shadow = true,
+  onPress,
+  isButton = false,
+  onSelect,
+  borderActivate = false, // Default is false
+}) => {
+  const [isActive, setIsActive] = useState(false);
+
+  const handlePress = () => {
+    const newState = !isActive;
+    setIsActive(newState);
+    if (onSelect) {
+      onSelect(newState);
+    }
+    if (onPress) {
+      onPress();
+    }
+  };
+
+  // Border 색상 및 스타일 설정
+  const borderColor = borderActivate ? (isActive ? 'border-primary' : 'border-gray-400') : '';
+  const borderStyle = borderActivate ? (isActive ? 'border-solid' : 'border-dashed') : '';
+
+  const Content = (
+    <RoundedFrame
+      preset={preset}
+      shadow={shadow}
+      className={`transition-all duration-300 ${borderColor} ${borderStyle}`} // Transition 설정
+    >
+      {badgeText && <TagBadge content={badgeText} color={badgeColor} />}
+      {children}
+    </RoundedFrame>
+  );
+
+  return isButton ? (
+    <TouchableOpacity onPress={handlePress}>
+      {Content}
+    </TouchableOpacity>
+  ) : (
+    <View>{Content}</View>
+  );
+};
+
+
+
+const getStyles = (preset: DesignPreset) => {
+  switch (preset) {
+    case 'A': // 둥근박스1 - 하얗고 둥근박스 + 그림자
+      return {
+        backgroundColor: 'bg-white',
+        borderColor: 'border border-gray-200',
+        padding: 'py-6 px-2',
+      };
+    case 'B':  // 둥근박스2 - 옅은 회색, 그림자+테두리 없음
+      return {
+        backgroundColor: 'bg-grey',
+        borderColor: '',
+        padding: 'p-4',
+      };
+    case 'C': // 둥근박스3 - 테두리 있음. 정사각형, 가운데 정렬
+      return {
+        backgroundColor: 'bg-white',
+        borderColor: 'border border-3',
+        padding: 'py-4 px-3 flex items-center justify-center',
+      };
+    default:
+      return {
+        backgroundColor: 'bg-white',
+        borderColor: 'border border-gray-200',
+        padding: 'py-6 px-2',
+      };
+  }
 };
 
 export default RoundedBox;

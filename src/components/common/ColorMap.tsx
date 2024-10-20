@@ -1,3 +1,5 @@
+import { Metrics } from '@types';
+
 // Define the mapping of custom Tailwind colors to hex values
 export const ColorMap: { [key: string]: string } = {
     primary: '#73A8BA',
@@ -15,4 +17,14 @@ export const ColorMap: { [key: string]: string } = {
     whitegrey: '#F4F4F4',
     white: '#FFFFFF',
     black: '#000000',
+};
+
+// Color map definition
+export const BarGroupColor: { [key in keyof Metrics]: string } = {
+    walk: 'green', // Green
+    rest: 'red', // Red
+    steps: 'yellow', // Yellow
+    sunlight: 'purple', // Purple
+    uvExposure: 'blue', // Blue
+    vitaminD: '#FFB74D', // Orange
 };

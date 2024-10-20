@@ -1,23 +1,49 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Disease, DiseaseDetails, PetData } from '@types';
+import RoundedBox from '@components/common/RoundedBox'; // RoundedBox 컴포넌트 import
+import AvatarPlaceholder from '@image/placeholder/dog.jpg';
 
+
+// {/* Title (First Row) */}
+// <View className="mb-2"> {/* Margin Bottom for Spacing */}
+// <StylizedText type="header2">{title}</StylizedText>
+// </View>
+
+// {/* Body (Second Row) */}
+// <View>
+// {/* Description */}
+// {description && (
+//   <Text className="text-gray-500 mt-1 text-xs">{description}</Text>
+// )}
+
+// {/* Percentage (if applicable) */}
+// {percentage !== undefined && (
+//   <View className="flex-row justify-between items-center mt-1">
+//     <Text className="font-normal text-[8px]">Percentage</Text>
+//     <View className="flex flex-row items-end ml-2">
+//       <Text className="text-3xl font-bold text-gray-800">{percentage}</Text>
+//       <Text className="text-sm mb-1 ml-1">%</Text>
+//     </View>
+//   </View>
+// )}
+// </View>
 const petData: PetData = {
   name: "하루",
   type: "믹스",
   age: "4 살",
   sex: "암컷",
   diseases: [
-    { name: "피부염", probability: 83 },
+    { name: "습진", probability: 83 },
     { name: "진드기", probability: 60 },
-    { name: "관절염", probability: 10 }
+    { name: "알레르기", probability: 10 }
   ]
 };
 
 const diseaseDetails: Record<string, DiseaseDetails> = {
-  "피부염": {
-    about: "피부염은 피부가 염증에 의해 붉고 가려운 상태입니다.",
+  "습진": {
+    about: "습진은 피부가 염증에 의해 붉고 가려운 상태입니다.",
     note: "주의 깊게 관찰하고 악화시 병원에 방문하세요.",
     goodFood: "생선, 오메가-3",
     badFood: "짠 음식"
@@ -28,11 +54,11 @@ const diseaseDetails: Record<string, DiseaseDetails> = {
     goodFood: "고단백 사료",
     badFood: "단 음식"
   },
-  "관절염": {
-    about: "관절염은 관절의 염증으로 인해 통증을 유발합니다.",
-    note: "관절 건강을 위한 운동을 시키세요.",
-    goodFood: "글루코사민 포함 사료",
-    badFood: "고칼로리 음식"
+  "알레르기": {
+    about: "알레르기는 다양한 원인으로 피부가 가려울 수 있습니다.",
+    note: "원인을 파악하고 피하는 것이 중요합니다.",
+    goodFood: "알레르기 저항성 사료",
+    badFood: "인공 첨가물 포함 음식"
   }
 };
 
@@ -59,189 +85,58 @@ const Analysis: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.petName}><Text style={{ color: 'skyblue' }}>{petData.name}</Text> 의 분석 리포트</Text>
-        <Image source={{ uri: 'https://via.placeholder.com/80' }} style={styles.petImage} />
-        <View style={styles.pillContainer}>
-          <View style={styles.pill}>
-            <Text style={styles.pillText}>{petData.type}</Text>
+    <View className="flex-1 bg-[#F7F7F7] pt-30">
+      <ScrollView contentContainerStyle={{ alignItems: 'center', paddingBottom: 100 }}>
+        <Text className="text-2xl font-bold">
+          <Text className="text-sky-500">{petData.name}</Text> 의 분석 리포트
+        </Text>
+        <View className="w-20 h-20 rounded-full overflow-hidden">
+          <Image source={AvatarPlaceholder} className="w-20 h-20"/>
+        </View>
+        <View className="flex-row mb-4 justify-center flex-wrap">
+          <View className="bg-[#D9D9D9] rounded-20 py-2 px-4 mx-2 mb-2">
+            <Text className="font-bold text-lg text-[#A3A3AC]">{petData.type}</Text>
           </View>
-          <View style={styles.pill}>
-            <Text style={styles.pillText}>{petData.age}</Text>
+          <View className="bg-[#D9D9D9] rounded-20 py-2 px-4 mx-2 mb-2">
+            <Text className="font-bold text-lg text-[#A3A3AC]">{petData.age}</Text>
           </View>
-          <View style={styles.pill}>
-            <Text style={styles.pillText}>{petData.sex}</Text>
+          <View className="bg-[#D9D9D9] rounded-20 py-2 px-4 mx-2 mb-2">
+            <Text className="font-bold text-lg text-[#A3A3AC]">{petData.sex}</Text>
           </View>
         </View>
 
-        <View style={styles.divider} />
-        <Text style={{ textAlign: 'left' ,fontWeight: 'bold', fontSize: 26, color: 'black', paddingTop: 10, paddingRight: 240, paddingBottom: 10 }}>의심질환</Text>
-        <View style={styles.diseaseContainer}>
-          
+        <View className="w-full h-0.5 bg-[#D1D1D6] my-4" />
+        <Text className="text-xl font-bold text-black py-2">의심질환</Text>
+
+        <View className="w-full flex-row flex-wrap justify-around">
           {petData.diseases.map((disease, index) => (
-            <TouchableOpacity key={index} style={styles.diseaseCard} onPress={() => handleCardPress(disease)}>
-              <Text style={styles.diseaseName}>{disease.name}</Text>
-              <View style={styles.percentageContainer}>
-                <Text style={styles.percentageLabel}>Percentage</Text>
-                <Text style={[styles.diseaseProbability, { color: getProbabilityColor(disease.probability) }]}>
-                  {disease.probability}
-                  <Text style={styles.percentSign}>%</Text>
-                </Text>
-              </View>
-            </TouchableOpacity>
+            <RoundedBox
+              key={index}
+              title={disease.name}
+              percentage={disease.probability}
+              badgeText={`${disease.probability}%`}
+              onPress={() => handleCardPress(disease)}
+              shadow={true}
+              preset="B" // Optional preset for styling
+            />
           ))}
         </View>
 
-        <Text style={styles.noticeTitle}>주의사항</Text>
-        <Text style={styles.noticeText}>
+        <Text className="text-lg font-bold text-[#A3A3AC] mt-6">주의사항</Text>
+        <Text className="text-base text-[#A3A3AC] text-left">
           해당 리포트는 참고용 자료이며 정확한 진단은 인근 동물병원에서 해주세요.
         </Text>
 
-        <View style={styles.paddingBottomSpace} />
+        <View className="h-20" />
       </ScrollView>
 
-      <View style={styles.stickyButtonContainer}>
-        <TouchableOpacity onPress={handleFindHospital} style={styles.findHospitalButton}>
-          <Text  style={styles.findHospitalButtonText}>병원 찾기</Text>
+      <View className="absolute bottom-5 left-0 right-0 px-5">
+        <TouchableOpacity onPress={handleFindHospital} className="bg-skyblue rounded-full py-4">
+          <Text className="font-bold text-white text-lg text-center">병원 찾기</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
-
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 30,
-    flex: 1,
-    backgroundColor: '#F7F7F7',
-  },
-  scrollContainer: {
-    alignItems: 'center',
-    padding: 20,
-    paddingBottom: 100, 
-  },
-  petImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    marginTop: 30,
-    marginBottom: 10,
-  },
-  petName: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: 'black',
-  },
-  diseaseContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    padding: 10,
-  },
-  diseaseCard: {
-    width: '48%',
-    aspectRatio: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    padding: 10,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#EEE',
-    borderRadius: 8,
-    backgroundColor: '#F7F7F7', 
-  },
-  
-  diseaseName: {
-    paddingTop: 10,
-    paddingLeft: 10,
-    fontSize: 26,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  percentageContainer: {
-    alignSelf: 'flex-end',
-    alignItems: 'flex-end',
-  },
-  percentageLabel: {
-    fontSize: 12,
-    color: '#888',
-  },
-  diseaseProbability: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  percentSign: {
-    fontSize: 16,
-  },
-  pill: {
-    backgroundColor: '#D9D9D9',
-    borderRadius: 20,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    marginHorizontal: 5,
-    marginBottom: 10,
-  },
-  pillText: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#A3A3AC',
-  },
-  pillContainer: {
-    flexDirection: 'row',
-    marginVertical: 20,
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-  },
-  divider: {
-    height: 2,
-    backgroundColor: '#D1D1D6',
-    marginVertical: 15,
-    width: '100%',
-  },
-
-  noticeTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#A3A3AC',
-    marginTop: 20,
-    marginBottom: 10,
-    textAlign: 'left',
-    width: '100%',
-  },
-  noticeText: {
-    fontSize: 16,
-    color: '#A3A3AC',
-    textAlign: 'left',
-    width: '100%',
-  },
-
-  stickyButtonContainer: {
-    position: 'absolute',
-    bottom: 20,
-    left: 0,
-    right: 0,
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
-  findHospitalButton: {
-    backgroundColor: 'skyblue',
-    borderRadius: 50,
-    paddingVertical: 15,
-    width: '100%',
-    alignItems: 'center',
-  },
-  findHospitalButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-
-  paddingBottomSpace: {
-    height: 100,
-  },
-});
 
 export default Analysis;

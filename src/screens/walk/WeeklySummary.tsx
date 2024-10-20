@@ -2,17 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { fetchWeeklyData } from '@api/weeklyDataApi'; // 주간 데이터 가져오기
 import { fetchPetInfo } from '@api/petApi'; // 반려동물 정보 가져오기
-import BarChart from '@components/common/BarChart';
+import { VBarChart } from '@components/common/BarChart';
 import Loading from '@components/common/Loading';
 import { HeaderText } from '@components/common/StylizedText';
-
-// Props 인터페이스 정의
-interface WeeklySummaryProps {
-  petId: number; // petId를 prop으로 받아옴
-}
+import { WeeklySummaryProps, WeeklyDataType, Metrics } from '@types';
+import { BarGroupColor } from '@components/common/ColorMap';
+import { RoundedFrame } from '@components/common/RoundedBox';
 
 const WeeklySummary: React.FC<WeeklySummaryProps> = ({ petId = 1 }) => {
-  const [weeklyData, setWeeklyData] = useState<WeeklyData[] | null>(null);
+  const [weeklyData, setWeeklyData] = useState<WeeklyDataType[] | null>(null);
   const [petName, setPetName] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -49,67 +47,41 @@ const WeeklySummary: React.FC<WeeklySummaryProps> = ({ petId = 1 }) => {
       uvExposure: '자외선 노출량',
       vitaminD: '비타민 D 합성량',
     };
-
     return (
-      <View className="w-full my-3">
-        <View className="py-6 bg-white border border-gray-200 rounded-3xl shadow-lg">
-          <Text className="px-8 mb-4 text-md font-black text-black">{displayNameMap[dataKey]}</Text>
-          <View className="flex-row justify-between px-8">
-            {weeklyData &&
-              weeklyData.map((entry, index) => {
-                const value = entry.metrics[dataKey];
-                const color = colorMap[dataKey];
-                return (
-                  <BarChart
-                    key={index}
-                    date={entry.date}
-                    percentage={value}
-                    color={color}
-                  />
-                );
-              })}
+      <RoundedFrame preset="A" className="my-3 w-full px-2" shadow={true}>
+        <Text className="px-6 mb-4 text-md font-black text-black">{displayNameMap[dataKey]}</Text>
+        <View className="flex-row justify-between px-6">
+          {weeklyData &&
+            weeklyData.map((entry, index) => {
+              const value = entry.metrics[dataKey];
+              const color = BarGroupColor[dataKey];
+              return (
+                <VBarChart
+                  key={index}
+                  date={entry.date}
+                  percentage={value}
+                  color={color}
+                />
+              );
+            })}
           </View>
-        </View>
-      </View>
+      </RoundedFrame>
     );
   };
 
   return (
     <ScrollView className="flex-1 bg-white p-5">
-      <HeaderText
-        text={`${petName}의 일주일은 어땠을까요?`}  // petName 사용
-        highlight={petName}                // 강조할 부분
-      />
-      {(['walk', 'rest', 'steps', 'sunlight', 'uvExposure', 'vitaminD'] as Array<keyof Metrics>).map((dataKey) => (
-        <View key={dataKey}>{renderWeeklyBarChart(dataKey)}</View>
-      ))}
+      <View className="px-4">
+        <HeaderText
+          text={`${petName}의 일주일은 어땠을까요?`}  // petName 사용
+          highlight={petName || ''}                // 강조할 부분
+        />
+        {(['walk', 'rest', 'steps', 'sunlight', 'uvExposure', 'vitaminD'] as Array<keyof Metrics>).map((dataKey) => (
+          <View key={dataKey} className="mb-4">{renderWeeklyBarChart(dataKey)}</View>
+        ))}
+      </View>
     </ScrollView>
   );
-};
-
-// Metric interface definition
-interface Metrics {
-  walk: number;
-  rest: number;
-  steps: number;
-  sunlight: number;
-  uvExposure: number;
-  vitaminD: number;
-}
-
-interface WeeklyData {
-  date: string;
-  metrics: Metrics;
-}
-
-// Color map definition
-const colorMap: { [key in keyof Metrics]: string } = {
-  walk: 'green', // Green
-  rest: 'red', // Red
-  steps: 'yellow', // Yellow
-  sunlight: 'purple', // Purple
-  uvExposure: 'blue', // Blue
-  vitaminD: '#FFB74D', // Orange
 };
 
 export default WeeklySummary;

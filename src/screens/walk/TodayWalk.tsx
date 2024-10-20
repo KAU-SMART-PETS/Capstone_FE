@@ -1,56 +1,46 @@
-//회원가입 되어 있는 사람
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import * as Location from "expo-location";
-import styles from "../pageStyle/TodayWalkRecordScreenStyle";
+import RNLocation from 'react-native-location'; // Use react-native-location
 import Toast from "react-native-toast-message";
+import { WeeklySummaryProps } from '@types';
 
-const TodayWalk = ({ navigation }) => {
-  const [location, setLocation] = useState(null);
-  const [initialRegion, setInitialRegion] = useState(null);
+const TodayWalk: React.FC<WeeklySummaryProps> = ({ petId = 1 }) => {
+  const [location, setLocation] = useState<any>(null);
+  const [initialRegion, setInitialRegion] = useState<any>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Mock data
-  const walkData = {
-    petPhoto: "https://via.placeholder.com/150", // Replace with actual pet photo URL
-    walkDate: "2024-06-03",
-    walkTime: "01:15:30",
-    distance: "3.5 km",
-    calories: "250 kcal",
-    steps: "5000 걸음",
-  };
-
-  // 위치 가져오기 함수
+  // Location fetching function
   const getLocation = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync({
-      android: {
-        title: "위치 정보 사용 동의",
-        message:
-          "앱에서 위치 정보를 사용하려면 위치 정보에 대한 권한이 필요합니다.",
-        buttonPositive: "동의",
-        buttonNegative: "거부",
-      },
-      ios: {
-        title: "위치 정보 사용 동의",
-        message:
-          "앱에서 위치 정보를 사용하려면 위치 정보에 대한 권한이 필요합니다.",
-        buttonPositive: "동의",
-        buttonNegative: "거부",
-      },
-    });
-    if (status !== "granted") {
-      console.error("Permission to access location was denied");
-      return;
-    }
+    try {
+      // Request permission to access location
+      const granted = await RNLocation.requestPermission({
+        ios: "whenInUse", // For iOS
+        android: {
+          detail: "fine", // or "coarse"
+        },
+      });
 
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation(location);
-    setInitialRegion({
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-      latitudeDelta: 0.005, // Zoom level for latitude
-      longitudeDelta: 0.005, // Zoom level for longitude
-    });
+      if (granted) {
+        // Fetch the latest location
+        const location = await RNLocation.getLatestLocation({
+          timeout: 10000, // 10 seconds timeout
+        });
+
+        setLocation(location);
+        setInitialRegion({
+          latitude: location.latitude,
+          longitude: location.longitude,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        });
+      } else {
+        setErrorMessage("Location permission denied");
+      }
+    } catch (error) {
+      console.error("Error fetching location:", error);
+      setErrorMessage("An error occurred while fetching location.");
+    }
   };
 
   useEffect(() => {
@@ -58,25 +48,23 @@ const TodayWalk = ({ navigation }) => {
   }, []);
 
   const endWalk = () => {
-    // Show toast message
     Toast.show({
       type: "success",
       text1: "오늘도 함께 산책해줘서 고마워요!",
       autoHide: true,
       position: "top",
-      // onHide: () => navigation.navigate("Home"), // Navigate to Home screen when toast is hidden
     });
   };
 
   return (
-    <View style={styles.container}>
-      <View style={{ flex: 1 }}>
-        <MapView style={styles.map} initialRegion={initialRegion}>
+    <View className="flex-1 bg-white">
+      <View className="flex-1">
+        <MapView className="absolute inset-0" initialRegion={initialRegion}>
           {location && (
             <Marker
               coordinate={{
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
+                latitude: location.latitude,
+                longitude: location.longitude,
               }}
               title={"Current Location"}
               description={"I am here"}
@@ -84,31 +72,20 @@ const TodayWalk = ({ navigation }) => {
           )}
         </MapView>
       </View>
-      <View style={styles.recordContainer}>
-        <View style={styles.header}>
-          <Text style={styles.title}>오늘의 산책 기록</Text>
-          <Image source={{ uri: walkData.petPhoto }} style={styles.petPhoto} />
+      <View className="p-5">
+        <View className="flex-row justify-between items-center mb-5">
+          <Text className="text-2xl font-bold">오늘의 산책 기록</Text>
+          <Image source={{ uri: "https://via.placeholder.com/150" }} className="w-12 h-12 rounded-full" />
         </View>
 
-        <View style={styles.detailPart}>
-          <View style={styles.detailLeft}>
-            <Text style={styles.detailLabel}>산책 일시</Text>
-            <Text style={styles.detailLabel}>산책 시간</Text>
-            <Text style={styles.detailLabel}>이동 거리</Text>
-            <Text style={styles.detailLabel}>소모 칼로리</Text>
-            <Text style={styles.detailLabel}>걸음 수</Text>
-          </View>
-          <View style={styles.detailRight}>
-            <Text style={styles.detailValue}>{walkData.walkDate}</Text>
-            <Text style={styles.detailValue}>{walkData.walkTime}</Text>
-            <Text style={styles.detailValue}>{walkData.distance}</Text>
-            <Text style={styles.detailValue}>{walkData.calories}</Text>
-            <Text style={styles.detailValue}>{walkData.steps}</Text>
-          </View>
-        </View>
+        {errorMessage && (
+          <Text className="text-red-500 text-center mb-4">{errorMessage}</Text>
+        )}
 
-        <TouchableOpacity style={styles.endWalkButton} onPress={endWalk}>
-          <Text style={styles.buttonText}>산책 종료</Text>
+        <TouchableOpacity 
+          className="bg-[#73A8BA] p-4 rounded-lg items-center mt-5"
+          onPress={endWalk}>
+          <Text className="text-white text-lg font-bold">산책 종료</Text>
         </TouchableOpacity>
       </View>
 

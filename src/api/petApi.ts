@@ -1,6 +1,7 @@
 import axios from 'axios';
 import config from '@constants/config';
 import { PetRegistRequest } from '@types';
+import Pet1 from '@data/pets1.json';
 
 // 반려동물 정보 등록
 export const registerPet = async (data: { loginInfo: { memberId: number }; petRegistRequest: PetRegistRequest }) => {
@@ -14,18 +15,16 @@ export const registerPet = async (data: { loginInfo: { memberId: number }; petRe
 };
 
 // 반려동물 정보 조회
-const response = await axios.get(`${config.API_BASE_URL}/pets2`, {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  timeout: 5000, // 5초 타임아웃
-}).catch((error) => {
-  console.error('Error:', error.message);
-});
-
-if (response) {
-  console.log('Response:', response.data);
-}
+export const fetchPetInfo = async (petId: number) => {
+  // try {
+  //   const response = await axios.get(`${config.API_BASE_URL}/api/v1/pets/${petId}`);
+  //   return response.data; // { name: "string", petType: "CAT", gender: "MALE", weight: 0, imageUrl: "string", age: 0 }
+  // } catch (error) {
+  //   console.error('Error fetching pet info:', error);
+  //   throw error;
+  // }
+  return Pet1;
+};
 
 // 반려동물 정보 수정
 export const updatePetInfo = async (petId: number, data: PetRegistRequest) => {

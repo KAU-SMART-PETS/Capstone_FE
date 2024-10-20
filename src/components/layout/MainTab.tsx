@@ -4,22 +4,22 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 
-import MyPageScreen from '@screens/profile/MyPage';
-import AnalysisScreen from '@screens/health/Analysis';
-import PetInfo from '@screens/profile/PetProfile';
-import RegisterHealthInformation from '@screens/health/RegisterHealthInfo';
-import HomeScreen from '@screens/home/Home';
+import MyPage from '@screens/profile/MyPage';
+import Analysis from '@screens/health/Analysis';
+import PetProfile from '@screens/profile/PetProfile';
+import RegisterHealthInfo from '@screens/health/RegisterHealthInfo';
+import Home from '@screens/home/Home';
 
 // Create Tab Navigator
 const Tab = createMaterialBottomTabNavigator();
 
 // Tab screens configuration
 const tabScreens: TabScreen[] = [
-  { id: 'walkTab', name: '산책', iconName: 'paw', iconType: 'mc', component: AnalysisScreen },
-  { id: 'infoTab', name: '기록', iconName: 'calendar', iconType: 'mc', component: PetInfo },
-  { id: 'homeTab', name: '홈', iconName: 'home', iconType: 'fa', component: HomeScreen },
-  { id: 'healthTab', name: '건강', iconName: 'heartbeat', iconType: 'fa', component: RegisterHealthInformation },
-  { id: 'profileTab', name: '마이페이지', iconName: 'user-circle-o', iconType: 'fa', component: MyPageScreen },
+  { id: 'walkTab', name: '산책', iconName: 'paw', iconType: 'mc', component: Analysis },
+  { id: 'infoTab', name: '기록', iconName: 'calendar', iconType: 'mc', component: PetProfile },
+  { id: 'homeTab', name: '홈', iconName: 'home', iconType: 'fa', component: Home },
+  { id: 'healthTab', name: '건강', iconName: 'heartbeat', iconType: 'fa', component: RegisterHealthInfo },
+  { id: 'profileTab', name: '마이페이지', iconName: 'user-circle-o', iconType: 'fa', component: MyPage },
 ];
 
 const MainTab: React.FC = () => {

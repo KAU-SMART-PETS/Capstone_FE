@@ -65,7 +65,6 @@ const PetProfile = () => {
           <TouchableOpacity onPress={handleBackButton} style={styles.backButton}>
             <Text style={styles.backButtonText}>{'<'}</Text>
           </TouchableOpacity>
-          
           <View style={styles.profileSection}>
             <Image
               source={registerPhoto}
