@@ -1,56 +1,78 @@
-import React from 'react';
-import { View, ScrollView, Text, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import RoundedBox from '@components/common/RoundedBox';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import React, {useState} from 'react';
+import { View, Image } from 'react-native';
+import RoundedBox, {RoundedCircleButton, RoundedTextButton} from '@components/common/RoundedBox';
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AvatarPlaceholder from '@image/placeholder/dog.jpg';
+import StylizedText from '@components/common/StylizedText';
 
-const petData = {
-  name: "하루",
-  type: "믹스",
-  age: "4 살",
-  sex: "암컷",
-  diseases: [
-    { name: "습진", probability: 83 },
-    { name: "진드기", probability: 60 },
-    { name: "알레르기", probability: 10 },
-  ],
+const ButtonSquare1 :React.FC = () => {
+    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const Avatar = (
+      <View className="w-20 h-20 rounded-full overflow-hidden z-0">
+          <Image source={AvatarPlaceholder} className="w-20 h-20"/>
+        </View>
+    );
+    const handleSelect = (newState: boolean) => {
+      // 선택 상태에 따라 처리
+      console.log('Selected:', newState);
+      // 예를 들어, 특정 옵션이 선택되었다면 해당 상태를 관리할 수 있습니다.
+      setSelectedOption(newState ? 'Selected' : 'Not Selected');
+    };
+  
+    return (
+      <View className='flex-row align-center justify-between px-16'>
+        <RoundedBox
+          preset="B"
+          onPress={() => console.log('Option 1 pressed')}
+          onSelect={handleSelect}
+          borderActivate={true} // Activate border styling
+          isButton={true} // Indicate this is a button
+          shadow={false}
+          badgeColor='bg-rose-700'
+          badgeText='공습경보!!!'
+        >
+        {Avatar}
+        <StylizedText type="body1" color='text-orange'>Option1</StylizedText>
+        </RoundedBox>
+        <RoundedBox
+          preset="A"
+          onPress={() => console.log('Option 2 pressed')}
+          onSelect={handleSelect}
+          borderActivate={true}
+          isButton={true}
+          shadow={false}
+        >
+        {Avatar}
+        <StylizedText type="body1" color='text-orange'>Option1</StylizedText>
+        </RoundedBox>
+      </View>
+    );
 };
 
 const Example = () => {
-  const navigation = useNavigation(); 
-
-  const handleCardPress = (disease) => {
-    navigation.navigate('DiseaseDetail', { disease });
-  };
 
   return (
     <View className="flex-1 bg-[#F7F7F7] pt-10 px-5">
-      <ScrollView className="pb-20">
-        <Text className="text-3xl font-bold text-center text-black mb-4">
-          <Text className="text-sky-500">{petData.name}</Text> 의 분석 리포트
-        </Text>
-        <Image source={{ uri: 'https://via.placeholder.com/80' }} className="w-30 h-30 rounded-full mx-auto mb-4" />
-        
-        <Text className="text-left font-bold text-xl mb-4">의심질환</Text>
-        <View className="flex flex-wrap flex-row justify-between">
-          {petData.diseases.map((disease, index) => (
-            <RoundedBox
-              key={index}
-              title={disease.name}
-              description="치료가 필요해요."
-              icon={<MaterialCommunityIcons name="plus" size={20} color="red" />}
-              percentage={disease.probability}
-              badgeText={disease.probability > 80 ? "위험" : disease.probability > 59 ? "보통" : "안전"}
-              onPress={() => handleCardPress(disease)}
-            />
-          ))}
-        </View>
+      <ButtonSquare1 />
+      <RoundedCircleButton onPress={() => console.log("button pressed!!!")} size={30}>
+        <MCIcon name="paw" size={30}/>
+      </RoundedCircleButton>
 
-        <Text className="font-bold text-lg text-gray-600 mt-5">주의사항</Text>
-        <Text className="text-gray-600">
-          해당 리포트는 참고용 자료이며 정확한 진단은 인근 동물병원에서 해주세요.
-        </Text>
-      </ScrollView>
+      <RoundedTextButton onPress={() => console.log("button pressed!!!")}
+          color="bg-white" shadow={false} textColor="text-white"
+          content={'예시 텍스트'}
+        />
+      
+      <View className="flex-row bg-[#F7F7F7] pt-10 px-5">
+        <RoundedTextButton onPress={() => console.log("button pressed!!!")} color="bg-grey" widthOption="md"
+          content={'취소'}
+        />
+        <RoundedTextButton onPress={() => console.log("button pressed!!!")} widthOption="md"
+          content={'확인'}
+        />
+      </View>
+
+      
     </View>
   );
 };

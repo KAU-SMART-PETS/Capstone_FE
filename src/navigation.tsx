@@ -25,6 +25,7 @@ import SelectPart from '@screens/health/SelectPart';
 
 // Walk
 import WeeklySummary from '@screens/walk/WeeklySummary';
+import TodayWalk from '@screens/walk/TodayWalk';
 
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
@@ -63,6 +64,7 @@ const AppNavigator = () => {
         <Stack.Screen name="BTView" component={BTView} />
         {/* walk */}
         <Stack.Screen name="WeeklySummary" component={WeeklySummary} />
+        <Stack.Screen name="TodayWalk" component={TodayWalk} />
         {/* example */}
         <Stack.Screen name="Example" component={Example} />
       </Stack.Navigator>

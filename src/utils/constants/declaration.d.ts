@@ -1,7 +1,12 @@
 import 'react-native';
 
+// <reference types="nativewind/types" />
+
 // 모든 주요 React Native 컴포넌트에 className prop 추가
 declare module 'react-native' {
+  interface component {
+    className?: string;
+  }
   interface ViewProps {
     className?: string;
   }
