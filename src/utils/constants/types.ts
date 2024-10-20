@@ -101,7 +101,7 @@ export interface HeaderTextProps {
   highlight: string;
 }
 
-type DesignPreset = 'A' | 'B' | 'C'; // Define preset options
+export type DesignPreset = 'A' | 'B' | 'C'; // Define preset options
 
 export type RoundedFrameProps = {
   children: React.ReactNode; // Accepts any children components
