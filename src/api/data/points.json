@@ -1,0 +1,17 @@
+[
+    {
+      "id": 1,
+      "totalPoint": 150,
+      "changePoint": 20,
+      "name": "Points Earned from Purchase",
+      "date": "2024-10-01"
+    },
+    {
+      "id": 2,
+      "totalPoint": 130,
+      "changePoint": -20,
+      "name": "Points Spent on Food",
+      "date": "2024-10-05"
+    }
+  ]
+  
