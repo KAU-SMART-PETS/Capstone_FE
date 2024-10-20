@@ -1,0 +1,23 @@
+[
+    {
+      "memberId": 1,
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phoneNumber": "123-456-7890",
+      "point": 150,
+      "socialSite": "kakao",
+      "smsOptIn": true,
+      "emailOptIn": false
+    },
+    {
+      "memberId": 2,
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "phoneNumber": "098-765-4321",
+      "point": 300,
+      "socialSite": "naver",
+      "smsOptIn": false,
+      "emailOptIn": true
+    }
+  ]
+  
