@@ -11,10 +11,10 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ visible, hideModal }) => {
   const screenHeight = Dimensions.get('window').height; // Get screen height
-  const offset = 200;  // Set an offset value for how far down the modal should start
+  const offset = 20;  // Set an offset value for how far down the modal should start
 
   // Shared values for animation: opacity and translateY
-  const translateY = useSharedValue(screenHeight + offset);  // Start further down, below center
+  const translateY = useSharedValue(screenHeight / 2 + offset);  // Start further down, below center
   const opacity = useSharedValue(0);  // Start fully transparent
 
   React.useEffect(() => {
@@ -29,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({ visible, hideModal }) => {
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-    //   transform: [{ translateY: translateY.value }],
+      transform: [{ translateY: translateY.value }],
       opacity: opacity.value,
     };
   });
@@ -44,9 +44,9 @@ const Modal: React.FC<ModalProps> = ({ visible, hideModal }) => {
       >
         <Animated.View
           style={animatedStyle}
-          className="w-80 p-5 bg-white rounded-xl"
+          className="mx-5 p-5 rounded-xl"
         >
-          <RoundedFrame>
+          <RoundedFrame shadow={false}>
             <Text className="text-lg">Example Modal with Animation</Text>
             <Button onPress={hideModal} className="mt-4">
               Close
