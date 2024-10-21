@@ -15,6 +15,7 @@
       "@api/*": ["api/*"],         
       "@data/*": ["api/data/*"],   
       "@components/*": ["components/*"],
+      "@common/*" : ["components/common/*"],
       "@screens/*": ["screens/*"],
       "@image/*": ["assets/image/*"], 
       "@constants/*": ["utils/constants/*"],  

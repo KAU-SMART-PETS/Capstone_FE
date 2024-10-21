@@ -11,6 +11,7 @@ module.exports = function (api) {
             '@api': './src/api',
             '@data': './src/api/data',
             '@components': './src/components',
+            '@common': './src/components/common',
             '@screens': './src/screens',
             '@constants': './src/utils/constants',
             '@types': './src/utils/contsants/types',

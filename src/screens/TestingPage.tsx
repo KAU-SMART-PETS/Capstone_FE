@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@types';
 
-type TestingPageNavigationProp = StackNavigationProp<RootStackParamList>;
+type TestingPageNavigationProp = StackNavigationProp<RootStackParamList, 'TestingPage'>;
 
 const TestingPage : React.FC<RootStackParamList> = () => {
   const navigation = useNavigation<TestingPageNavigationProp>();
@@ -14,24 +14,30 @@ const TestingPage : React.FC<RootStackParamList> = () => {
   
   return (
     <View className="flex-1 justify-center items-center bg-black">
-      <Text className="text-2xl text-center mb-4">Main Screen</Text>
-      <Text className="text-lg font-bold mb-4">메인 페이지</Text>
-
+      <Text className="text-2xl text-center mb-4 text-orange">Main Screen</Text>
+      <Text className="text-lg font-bold mb-4 text-blue">메인 페이지</Text>
       {/* Button to navigate to Example screen */}
       <TouchableOpacity
-        className="w-40 h-12 bg-blue-500 rounded-md justify-center items-center mb-4"
-        onPress={() => navigation.navigate('Example')}
+        className="w-40 h-12 bg-blue rounded-md justify-center items-center mb-4"
+        onPress={() => console.log('Button Pressed')}
+        // onPress={() => navigation.navigate('Example')}
       >
         <Text className="text-white">Go to Example</Text>
       </TouchableOpacity>
-
       {/* Button to navigate to Example2 screen */}
       <TouchableOpacity
-        className="w-40 h-12 bg-green-500 rounded-md justify-center items-center"
+        className="w-40 h-12 bg-green rounded-md justify-center items-center"
         onPress={() => navigation.navigate('Example2')}
       >
         <Text className="text-white">Go to Example2</Text>
       </TouchableOpacity>
+      {/* Button to navigate to ModalExample screen */}
+      <TouchableOpacity
+        className="w-40 h-12 bg-pink rounded-md justify-center items-center"
+        onPress={() => navigation.navigate('ModalExample')}
+      >
+        <Text className="text-white">Go to Modal Example</Text>
+        </TouchableOpacity>
     </View>
   );
 };
