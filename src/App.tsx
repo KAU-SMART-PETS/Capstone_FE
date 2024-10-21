@@ -1,6 +1,5 @@
 // App.tsx
-import React, { useEffect } from 'react';
-import { Camera } from 'react-native-vision-camera';
+import React from 'react';
 import { DefaultTheme, PaperProvider } from 'react-native-paper';
 import AppNavigator from './navigation'; // 네비게이션을 분리한 파일에서 import
 import { LogBox } from 'react-native';
@@ -17,13 +16,6 @@ const bottomNavTheme = {
 };
 
 const App = () => {
-  useEffect(() => {
-    (async () => {
-      const cameraPermission = await Camera.requestCameraPermission();
-      console.log('Camera Permission:', cameraPermission);
-    })();
-  }, []);
-
   return (
     <PaperProvider theme={bottomNavTheme}>
       <AppNavigator />
