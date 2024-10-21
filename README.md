@@ -4,22 +4,22 @@
 
 ### `src` 디렉토리 아래 주요 파일 및 폴더:
 
-- `**App**`: 메인 엔트리 파일
+- **`Ap**p`**: 메인 **엔트리 파일
 
-- `**navigation**`: 내비게이션 관련 설정 파일
+- **`navigation`**: 내비게이션 관련 설정 파일
 
 
 ### `src` 아래 주요 폴더:
 
-1. `**Api**`: API 및 더미 데이터
+1. **`Api`**: API 및 더미 데이터
 
-2. `**Assets**`: 폰트, 이미지, SVG 파일 저장소
+2. **`Assets`**: 폰트, 이미지, SVG 파일 저장소
 
-3. `**Components**`: 재사용 가능한 UI 컴포넌트
+3. **`Components`**: 재사용 가능한 UI 컴포넌트
 
-4. `**Screens**`: 화면 컴포넌트
+4. **`Screens`**: 화면 컴포넌트
 
-5. `**Utils**`: 상수, 타입, 보조 함수
+5. **`Utils`**: 상수, 타입, 보조 함수
 
 ---
 
@@ -125,6 +125,7 @@
          <Text>Button Text</Text> // 그 이외 다른 컴포넌트 넣을 수도 있음
          </RoundedBox>
       ```
+  
    - 해당 컴포넌트 파일에 `RoundedFrame`, `RoundedTextButton`, `RoundedCircleButton` 등 컴포넌트 존재
       
       - shadow 옵션은 대부분의 컴포넌트에 존재
@@ -136,11 +137,11 @@
 
 - `StylizedText` : 텍스트 스타일링 담당. `Tailwind` 스타일 형식으로 색상옵션 입력 (예: `text-blue-300`).
 
-      ```tsx
-      <StylizedText color="text-blue-300" type="header1">
-         안녕하세요
-      </StylizedText>
-      ```
+    ```tsx
+    <StylizedText color="text-blue-300" type="header1">
+       안녕하세요
+    </StylizedText>
+    ```
 
    - StylizedText 코드 하단에 `header1, header2 ... ` 등 여러 속성이 정의되어있으며 세부 디자인 수정가능.
 
@@ -254,7 +255,7 @@
 
    - 화면과 데이터가 분리된 구조를 위해, 1차적으로 json파일 자체를 리턴하도록 하여 사용 가능.
 
-      ```
+      ```ts
       import Pet1 from '@data/pets1.json';
 
       // 반려동물 정보 조회
@@ -270,10 +271,11 @@
       1. **`@api`**: `./src/api`
       2. **`@data`**: `./src/api/data`
       3. **`@components`**: `./src/components`
-      4. **`@screens`**: `./src/screens`
-      5. **`@constants`**: `./src/utils/constants`
-      6. **`@types`**: `./src/utils/constants/types`
-      7. **`@image`**: `./src/assets/image`
+      4. **`@commons`** : `./src/components/commons`
+      5. **`@screens`**: `./src/screens`
+      6. **`@constants`**: `./src/utils/constants`
+      7. **`@types`**: `./src/utils/constants/types.ts`
+      8. **`@image`**: `./src/assets/image`
 
       *추가가 필요한 경우 위 형식에 맞게 alias를 계속 확장 가능.*
    
