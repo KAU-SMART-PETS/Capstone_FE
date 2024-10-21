@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { RootStackParamList } from '@types';
+import RNBootSplash from 'react-native-smooth-bootsplash';
 
 // Home & Layout
 import MainTab from '@components/layout/MainTab';
@@ -41,8 +42,8 @@ const AppNavigator = () => {
     setSplashVisible(false); // Hide the splash screen
   };
   return (
-    <NavigationContainer>
-      {isSplashVisible && <Splash duration={320} onFinish={handleSplashFinish} />}
+    <NavigationContainer onReady={() => RNBootSplash.hide({fade : true, duration : 350})}>
+      {isSplashVisible && <Splash duration={220} onFinish={handleSplashFinish} />}
       {!isSplashVisible && (
       <Stack.Navigator
         initialRouteName="MainTab"
