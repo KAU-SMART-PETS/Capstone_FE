@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Text, PaperProvider, Portal } from 'react-native-paper';
-import RoundedFrame from '@common/RoundedBox'; // Adjust the path to your component
+import RoundedFrame from '@components/common/RoundedBox'; // Adjust the path to your component
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import { View, Pressable, Dimensions } from 'react-native';
 
