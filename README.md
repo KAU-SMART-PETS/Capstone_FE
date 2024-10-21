@@ -1,7 +1,5 @@
 # 코드 통합 관련 주요 변경사항 (+ 리팩토링)
 
-> 작성자(담당자) : 남서아 Wendy-Nam
-
 ## 디렉토리 구조
 
 ### `src` 디렉토리 아래 주요 파일 및 폴더:
@@ -137,11 +135,12 @@
       - 커스텀 옵션에 대해서 인자 외에도, `src/utils/constants`에 위치하는 `types.ts` 파일의 하단도 참고할 수 있음.
 
 - `StylizedText` : 텍스트 스타일링 담당. `Tailwind` 스타일 형식으로 색상옵션 입력 (예: `text-blue-300`).
-    ```tsx
-    <StylizedText color="text-blue-300" type="header1">
-       안녕하세요
-    </StylizedText>
-    ```
+
+      ```tsx
+      <StylizedText color="text-blue-300" type="header1">
+         안녕하세요
+      </StylizedText>
+      ```
 
    - StylizedText 코드 하단에 `header1, header2 ... ` 등 여러 속성이 정의되어있으며 세부 디자인 수정가능.
 
