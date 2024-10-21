@@ -2,10 +2,24 @@ import React from 'react';
 import { Text } from 'react-native';
 import { TextProps, HeaderTextProps } from '@types';
 
-const StylizedText: React.FC<TextProps> = ({ type, children, color = 'text-black' }) => {
+export type TextStyleType = 'header1' | 'header2' | 'body1' | 'body2' | 'caption';
+
+type TextProps = {
+  type?: TextStyleType;
+  color?: string,
+  children?: React.ReactNode;
+  className?: string; // 스타일라이즈 텍스트에서도 tailwind 적용 가능
+};
+
+interface HeaderTextProps {
+  text: string;
+  highlight?: string;
+}
+
+const StylizedText: React.FC<TextProps> = ({ type = 'body1', children, color, className }) => {
   const styles = getStyles(type);
   return (
-    <Text className={color} style={styles}>{children}</Text>
+    <Text className={`${color} ${className}`} style={styles}>{children}</Text>
   );
 };
 
@@ -29,6 +43,7 @@ export const HeaderText: React.FC<HeaderTextProps> = ({
   );
 };
 
+
 // Function to return the styles based on the type
 const getStyles = (type: string) => {
   switch (type) {
@@ -45,27 +60,27 @@ const getStyles = (type: string) => {
     case 'body1':
       return {
         fontFamily: 'Pretendard-Light',
-        textColor: '#000',
         fontSize: 14,
-        lineHeight: 20,
       };
     case 'body2':
       return {
         fontFamily: 'Pretendard-Medium',
         fontSize: 12,
-        lineHeight: 18,
       };
     case 'caption':
       return {
         fontFamily: 'Pretendard-Thin',
         fontSize: 10,
-        lineHeight: 14,
+      };
+    case 'label':
+        return {
+        fontFamily: 'Pretendard-Regular',
+        fontSize: 9,
       };
     default:
       return {
         fontFamily: 'Pretendard-Regular',
         fontSize: 14,
-        lineHeight: 20,
       };
   }
 };

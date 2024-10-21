@@ -1,17 +1,33 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 import { RootStackParamList } from '@types';
+import randomImg1 from '@image/placeholder/dog.jpg'
+import { RoundedFrame } from '@components/common/RoundedBox';
+import { TagBadge, PillBadge, Badge } from '@components/common/Badge';
 
-// import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import StylizedText from '@components/common/StylizedText';
-import Badge from '@components/common/Badge';
+const myAvatar = (
+  <Image source={randomImg1} className='w-20 h-20 rounded-full'/>
+)
+
 
 const Example2 : React.FC<RootStackParamList> = () => {
   return (
-    <View className="flex-1 bg-whitegrey pt-10 px-5">
-        <StylizedText type="header1">진짜 비상이다...</StylizedText>
-      <Badge text="공습경보" color="bg-yellow" customStyle="px-4" />
+    <>
+    <View className='flex-row p-4'>
+    <RoundedFrame className="w-20">
+      {myAvatar}
+      <Badge text="심심하군" />
+      <TagBadge text="공습경보" color="bg-blue" />
+      <PillBadge text="인생한방"/>
+    </RoundedFrame>
+    <RoundedFrame className="w-20">
+      {myAvatar}
+      <Badge text="졸리는군" />
+      <TagBadge text="공습경보" color="bg-red" />
+      <PillBadge text="인생한방"/>
+    </RoundedFrame>
     </View>
+    </>
   );
 };
 

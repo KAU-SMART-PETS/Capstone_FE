@@ -5,7 +5,8 @@ import { RootStackParamList } from '@types';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AvatarPlaceholder from '@image/placeholder/dog.jpg';
 import StylizedText from '@components/common/StylizedText';
-import RoundedBox, {RoundedCircleButton, RoundedTextButton} from '@components/common/RoundedBox';
+import RoundedBox from '@common/RoundedBox';
+import {RoundedCircleButton, RoundedTextButton} from '@common/RoundedButton';
 
 const ButtonSquare1 :React.FC = () => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -54,7 +55,7 @@ const ButtonSquare1 :React.FC = () => {
 const Example1 : React.FC<RootStackParamList> = () => {
 
   return (
-    <View className="flex-1 bg-[#F7F7F7] pt-10 px-5">
+    <View className="flex-1 bg-white pt-10 px-5">
       <ButtonSquare1 />
       <RoundedCircleButton onPress={() => console.log("button pressed!!!")} size={30}>
         <MCIcon name="paw" size={30}/>

@@ -1,76 +1,114 @@
 import React from 'react';
-import { Button, Text, PaperProvider, Portal } from 'react-native-paper';
-import RoundedFrame from '@components/common/RoundedBox'; // Adjust the path to your component
-import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
-import { View, Pressable, Dimensions } from 'react-native';
+import { View } from 'react-native';
+import { RoundedTextButton, ButtonColor } from '@common/RoundedButton'; // 필요한 컴포넌트 import
+import Modal from '@common/Modal';
+import { Button, PaperProvider, Portal } from 'react-native-paper';
+import StylizedText from '@common/StylizedText';
 
-interface ModalProps {
+type ModalWindowProps = {
   visible: boolean;
-  hideModal: () => void;
-}
+  setVisible: (visible: boolean) => void; // boolean 값을 인자로 받도록 수정
+};
 
-const Modal: React.FC<ModalProps> = ({ visible, hideModal }) => {
-  const screenHeight = Dimensions.get('window').height; // Get screen height
-  const offset = 20;  // Set an offset value for how far down the modal should start
+const ModalType1: React.FC<ModalWindowProps> = ({visible, setVisible}) => {
+  // 위아래로 버튼 2줄 있는 버전
 
-  // Shared values for animation: opacity and translateY
-  const translateY = useSharedValue(screenHeight / 2 + offset);  // Start further down, below center
-  const opacity = useSharedValue(0);  // Start fully transparent
-
-  React.useEffect(() => {
-    if (visible) {
-      translateY.value = withTiming(0, { duration: 300 }); // Move to center
-      opacity.value = withTiming(1, { duration: 300 }); // Fade in
-    } else {
-      translateY.value = withTiming(screenHeight + offset, { duration: 300 });  // Move back down
-      opacity.value = withTiming(0, { duration: 300 });  // Fade out
-    }
-  }, [visible, translateY, opacity, screenHeight]);
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateY: translateY.value }],
-      opacity: opacity.value,
-    };
-  });
-
-  if (!visible) return null; // Do not render the modal if not visible
+  const buttons = [
+    { content: '갤러리에서 가져오기' },
+    { content: '촬영하기' },
+  ];
 
   return (
-    <View className="absolute inset-0 z-10 w-full h-full flex-1">
-      <Pressable 
-        onPress={hideModal} 
-        className="flex-1 w-full h-full absolute inset-0 bg-black/50 justify-center items-center"
-      >
-        <Animated.View
-          style={animatedStyle}
-          className="mx-5 p-5 rounded-xl"
-        >
-          <RoundedFrame shadow={false}>
-            <Text className="text-lg">Example Modal with Animation</Text>
-            <Button onPress={hideModal} className="mt-4">
-              Close
-            </Button>
-          </RoundedFrame>
-        </Animated.View>
-      </Pressable>
-    </View>
+    <Portal>
+        <Modal visible={visible} hideModal={() => setVisible(false)}>
+          {buttons.map(({ content }, index) => (
+            <RoundedTextButton 
+              key={index} 
+              onPress={() => setVisible(false)} 
+              content={content} 
+              widthOption='lg' 
+              textType='body2'
+              textColor='text-white' 
+            />
+          ))}
+        </Modal>
+      </Portal>
   );
-};
+}
+
+
+const ModalType2: React.FC<ModalWindowProps> = ({visible, setVisible}) => {
+  // 1행 - 제목, 2행 - 버튼 두개 (나란히)
+
+  const title = "산책을 종료하시겠어요?"
+  const buttons = [
+    { content: '취소', color : 'bg-grey' as ButtonColor},
+    { content: '종료', color : 'bg-primary' as ButtonColor},
+  ];
+
+  return (
+    <Portal>
+        <Modal visible={visible} hideModal={() => setVisible(false)}>
+          <StylizedText type="header2" color='text-black' className="my-5">
+            {title}
+          </StylizedText>
+          <View className="flex-row mt-4">
+          {buttons.map(({ content, color }, index) => (
+            <RoundedTextButton 
+              key={index} 
+              onPress={() => setVisible(false)} 
+              content={content} 
+              widthOption='sm'
+              color={color}
+              textType='body2'
+              textColor='text-white' 
+            />
+          ))}
+          </View>
+        </Modal>
+      </Portal>
+  );
+}
+
+const ModalType3: React.FC<ModalWindowProps> = ({visible, setVisible}) => {
+  // 1행 - 제목, 2행 - 버튼 한 개
+
+  const title = "오늘도 함께 산책해줘서 고마워요!"
+  const button = { content: '취소', color : 'bg-primary' as ButtonColor}
+
+  return (
+    <Portal>
+        <Modal visible={visible} hideModal={() => setVisible(false)}>
+          <StylizedText type="header2" color='text-black' className="my-5">
+            {title}
+          </StylizedText>
+          <View className="flex-row mt-4">
+            <RoundedTextButton 
+              key={button.content} 
+              onPress={() => setVisible(false)} 
+              content={button.content} 
+              widthOption='sm'
+              color={button.color}
+              textType='body2'
+              textColor='text-white' 
+            />
+          </View>
+        </Modal>
+      </Portal>
+  );
+}
+
 
 const ModalExample: React.FC = () => {
   const [visible, setVisible] = React.useState<boolean>(false);
 
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
-
   return (
     <PaperProvider>
-        <Portal>
-          {/* Pass the visible state and hideModal function to the Modal */}
-          <Modal visible={visible} hideModal={hideModal} />
-        </Portal>
-        <Button onPress={showModal} className="mt-10">
+      {/* <ModalType1 visible={visible} setVisible={setVisible} /> */}
+      <ModalType3 visible={visible} setVisible={setVisible} />
+
+      {/* 어쨋건 이 어딘가에는 모달을 여는 코드나, 아니면 모달이 띄워질 바탕코드가 있어야함 */}
+      <Button onPress={() => setVisible(true)} className="mt-10">
           Show Modal
         </Button>
     </PaperProvider>
