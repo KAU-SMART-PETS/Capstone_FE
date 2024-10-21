@@ -49,7 +49,7 @@ const Splash: React.FC<SplashScreenProps> = ({ duration = 450, onFinish }) => {
   // Interpolated background color
   const interpolatedBackgroundColor = backgroundColor.interpolate({
     inputRange: [0, 1],
-    outputRange: [ColorMap["primary"], ColorMap["white"]],
+    outputRange: [ColorMap["skyblue"], ColorMap["primary"]],
   });
 
   return (
