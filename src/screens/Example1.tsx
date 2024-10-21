@@ -51,7 +51,7 @@ const ButtonSquare1 :React.FC = () => {
     );
 };
 
-const Example : React.FC<RootStackParamList> = () => {
+const Example1 : React.FC<RootStackParamList> = () => {
 
   return (
     <View className="flex-1 bg-[#F7F7F7] pt-10 px-5">
@@ -79,4 +79,4 @@ const Example : React.FC<RootStackParamList> = () => {
   );
 };
 
-export default Example;
+export default Example1;
