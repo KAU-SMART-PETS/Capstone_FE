@@ -1,5 +1,5 @@
 // src/navigation.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { RootStackParamList } from '@types';
@@ -35,16 +35,22 @@ import Example from '@screens/example';
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator = () => {
+  const [isSplashVisible, setSplashVisible] = useState<Boolean>(true);
+
+  const handleSplashFinish = () => {
+    setSplashVisible(false); // Hide the splash screen
+  };
   return (
     <NavigationContainer>
+      {isSplashVisible && <Splash duration={320} onFinish={handleSplashFinish} />}
+      {!isSplashVisible && (
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="MainTab"
         screenOptions={{
           headerShown: false,
         }}
       >
         {/* home & layout */}
-        <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="MainTab" component={MainTab} />
         <Stack.Screen name="Home" component={Home} />
         {/* profile */}
@@ -68,6 +74,7 @@ const AppNavigator = () => {
         {/* example */}
         <Stack.Screen name="Example" component={Example} />
       </Stack.Navigator>
+    )}
     </NavigationContainer>
   );
 };
