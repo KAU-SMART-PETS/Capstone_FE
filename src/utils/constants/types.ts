@@ -4,12 +4,14 @@
 export type RootStackParamList = {
     Example: undefined;
     Example2: undefined;
+    ModalExample: undefined;
     TestingPage: undefined;
 };
 
 // 
 // COMPONENTS
 //
+
 export type TextProps = {
   type: 'header1' | 'header2' | 'body1' | 'body2' | 'caption';
   color?: string,
@@ -19,7 +21,7 @@ export type TextProps = {
 // Define the props for the HeaderText component
 export interface HeaderTextProps {
   text: string;
-  highlight: string;
+  highlight?: string;
 }
 
 export type DesignPreset = 'A' | 'B' | 'C'; // Define preset options

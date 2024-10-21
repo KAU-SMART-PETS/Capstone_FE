@@ -11,15 +11,14 @@ const StylizedText: React.FC<TextProps> = ({ type, children, color = 'text-black
 
 export const HeaderText: React.FC<HeaderTextProps> = ({
   text,
-  highlight,
+  highlight = '',
 }) => {
   // 강조할 부분을 찾아서 분리
   const parts = text.split(highlight);
-
   return (
     <Text className="my-2 mb-4 ml-2 text-xl" style={getStyles('header1')}>
       {parts.map((part, index) => (
-        <Text key={index} className="text-black">
+        <Text key={index} className="text-black" style={getStyles('header1')}>
           {part}
           {index < parts.length - 1 && (
             <Text className="text-primary">{highlight}</Text> // primary 컬러
@@ -36,25 +35,23 @@ const getStyles = (type: string) => {
     case 'header1':
       return {
         fontFamily: 'Pretendard-Bold',
-        fontSize: 20,
-        lineHeight: 30,
+        fontSize: 24,
       };
     case 'header2':
       return {
-        fontFamily: 'Pretendard-SemiBold',
+        fontFamily: 'Pretendard-Bold',
         fontSize: 16,
-        lineHeight: 22,
       };
     case 'body1':
       return {
-        fontFamily: 'Pretendard-Regular',
+        fontFamily: 'Pretendard-Light',
         textColor: '#000',
         fontSize: 14,
         lineHeight: 20,
       };
     case 'body2':
       return {
-        fontFamily: 'Pretendard-ExtraLight',
+        fontFamily: 'Pretendard-Medium',
         fontSize: 12,
         lineHeight: 18,
       };
