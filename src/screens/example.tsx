@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import { View, Image } from 'react-native';
-import RoundedBox, {RoundedCircleButton, RoundedTextButton} from '@components/common/RoundedBox';
+import { RootStackParamList } from '@types';
+
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AvatarPlaceholder from '@image/placeholder/dog.jpg';
 import StylizedText from '@components/common/StylizedText';
+import RoundedBox, {RoundedCircleButton, RoundedTextButton} from '@components/common/RoundedBox';
 
 const ButtonSquare1 :React.FC = () => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -49,7 +51,7 @@ const ButtonSquare1 :React.FC = () => {
     );
 };
 
-const Example = () => {
+const Example : React.FC<RootStackParamList> = () => {
 
   return (
     <View className="flex-1 bg-[#F7F7F7] pt-10 px-5">
