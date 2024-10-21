@@ -19,8 +19,7 @@ const TestingPage : React.FC<RootStackParamList> = () => {
       {/* Button to navigate to Example screen */}
       <TouchableOpacity
         className="w-40 h-12 bg-blue rounded-md justify-center items-center mb-4"
-        onPress={() => console.log('Button Pressed')}
-        // onPress={() => navigation.navigate('Example')}
+        onPress={() => navigation.navigate('Example1')}
       >
         <Text className="text-white">Go to Example</Text>
       </TouchableOpacity>

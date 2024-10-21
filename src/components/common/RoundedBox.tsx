@@ -1,9 +1,35 @@
 import React, {useState} from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import StylizedText from './StylizedText';
+import { DesignPreset, RoundedFrameProps, RoundedBoxProps, TagBadgeProps } from '@types';
 import ShadowBox from './ShadowBox';
-import { DesignPreset, RoundedFrameProps, RoundedBoxProps,
-        TagBadgeProps, RoundedTextButtonProps, RoundedCircleButtonProps} from '@types';
+import { TagBadge } from './Badge';
+
+export type TagBadgeProps = {
+  color?: string;
+  content?: string;
+};
+
+
+export type DesignPreset = 'A' | 'B' | 'C' | 'D'; 
+// 파일 하단에 각 옵션에 따른 스타일 설명
+
+export type RoundedFrameProps = {
+  children: React.ReactNode; // Accepts any children components
+  preset?: DesignPreset; // Optional design preset
+  shadow?: boolean; // Option for shadow
+};
+
+export type RoundedBoxProps = {
+  children: React.ReactNode;
+  preset?: DesignPreset; // Preset options
+  badgeText?: string;
+  badgeColor?: string;
+  shadow?: boolean; // Option for shadow
+  onPress?: () => void; // Function to call on press
+  isButton?: boolean; // Default is not a button
+  onSelect?: (isSelected: boolean) => void; // Callback to return selection state
+  borderActivate?: boolean; // Option to activate border styling
+};
 
 export const RoundedFrame: React.FC<RoundedFrameProps> = ({
   children,
@@ -15,13 +41,13 @@ export const RoundedFrame: React.FC<RoundedFrameProps> = ({
   return (
     <View>
       {shadow ? (
-        <ShadowBox className="rounded-3xl w-full">
-          <View className={`${styles.padding} ${styles.backgroundColor} ${styles.borderColor} rounded-3xl`}>
+        <ShadowBox className={`${styles.borderStyle} w-full`}>
+          <View className={`${styles.containerLayout} ${styles.backgroundColor} ${styles.borderStyle}`}>
             {children}
           </View>
         </ShadowBox>
       ) : (
-        <View className={`${styles.padding} ${styles.backgroundColor} ${styles.borderColor} rounded-3xl`}>
+        <View className={`${styles.containerLayout} ${styles.backgroundColor} ${styles.borderStyle}`}>
           {children}
         </View>
       )}
@@ -29,76 +55,7 @@ export const RoundedFrame: React.FC<RoundedFrameProps> = ({
   );
 };
 
-export const TagBadge : React.FC<TagBadgeProps> = ({color = 'bg-red', content = '위험'}) => {
-  return (
-    <View className={`absolute top-[4px] right-[-8px] px-2 py-1 rounded-full ${color} z-10`}>
-      <Text className="text-white text-[9px] font-semibold">{content}</Text>
-    </View>
-  );
-};
 
-export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
-  color = 'bg-primary',
-  textColor = 'text-white',
-  textType = 'body1',
-  content = "텍스트 버튼",
-  borderRadius = 'rounded-3xl', // rounded-xl, rounded-2xl, rounded-3xl ... 
-  shadow = false,
-  widthOption = 'full',
-  onPress,
-}) => {
-  const widthMap = {
-    full: 'w-full',
-    sm: 'w-24',  // Example: small width
-    md: 'w-36',  // Example: medium width
-    lg: 'w-58',  // Example: large width
-  };
-  const widthClass = widthMap[widthOption] || widthMap.full;
-  const Content = (
-    <View className={`${color} ${borderRadius} p-3 px-5 ${widthClass} flex items-center justify-center`}>
-        <StylizedText type={textType} className={textColor}>
-          {content}
-        </StylizedText>
-    </View>
-  );
-  return (
-    <TouchableOpacity onPress={onPress} className='p-2'>
-      {shadow ? (
-        <ShadowBox className={borderRadius}>
-        {Content}
-        </ShadowBox>
-      ) : (
-        Content
-      )}
-    </TouchableOpacity>
-  );
-};
-
-export const RoundedCircleButton: React.FC<RoundedCircleButtonProps> = ({
-  color = 'bg-primary',
-  shadow = false,
-  children,
-  size = 20,
-  onPress,
-}) => {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <View className='flex items-center justify-center'>
-      {shadow ? (
-        <ShadowBox className={`rounded-full`}>
-          <View className={`rounded-full ${color} w-[${size}px] h-[${size}px] p-2`}>
-            {children}
-          </View>
-        </ShadowBox>
-      ) : (
-        <View className={`rounded-full ${color} w-[${size}px] h-[${size}px] p-2`}>
-          {children}
-        </View>
-      )}
-      </View>
-    </TouchableOpacity>
-  );
-};
 
 export const RoundedBox: React.FC<RoundedBoxProps> = ({
   children,
@@ -126,13 +83,13 @@ export const RoundedBox: React.FC<RoundedBoxProps> = ({
 
   // Border 색상 및 스타일 설정
   const borderColor = borderActivate ? (isActive ? 'border-primary' : 'border-gray-400') : '';
-  const borderStyle = borderActivate ? (isActive ? 'border-solid' : 'border-dashed') : '';
+  const borderLines = borderActivate ? (isActive ? 'border-solid' : 'border-dashed') : '';
 
   const Content = (
     <RoundedFrame
       preset={preset}
       shadow={shadow}
-      className={`transition-all duration-300 ${borderColor} ${borderStyle}`} // Transition 설정
+      className={`transition-all duration-300 ${borderColor} ${borderLines}`} // Transition 설정
     >
       {badgeText && <TagBadge content={badgeText} color={badgeColor} />}
       {children}
@@ -155,26 +112,32 @@ const getStyles = (preset: DesignPreset) => {
     case 'A': // 둥근박스1 - 하얗고 둥근박스 + 그림자
       return {
         backgroundColor: 'bg-white',
-        borderColor: 'border border-gray-200',
-        padding: 'py-6 px-2',
+        borderStyle: 'border border-gray-200 rounded-3xl',
+        containerLayout: 'py-6 px-2',
       };
     case 'B':  // 둥근박스2 - 옅은 회색, 그림자+테두리 없음
       return {
-        backgroundColor: 'bg-grey',
-        borderColor: '',
-        padding: 'p-4',
+        backgroundColor: 'bg-whitegrey',
+        borderStyle: 'rounded-3xl',
+        containerLayout: 'p-4',
       };
     case 'C': // 둥근박스3 - 테두리 있음. 정사각형, 가운데 정렬
       return {
         backgroundColor: 'bg-white',
-        borderColor: 'border border-3',
-        padding: 'py-4 px-3 flex items-center justify-center',
+        borderStyle: 'border border-3',
+        containerLayout: 'py-4 px-3 flex items-center justify-center',
       };
+    case 'D': // 둥근박스4 (모달창) - 하얀박스, 가운데 정렬, 
+      return {
+      backgroundColor: 'bg-white',
+      borderStyle: 'rounded-2xl',
+      containerLayout: 'w-80 mx-auto px-12 py-12 flex items-center justify-center',
+    };
     default:
       return {
         backgroundColor: 'bg-white',
-        borderColor: 'border border-gray-200',
-        padding: 'py-6 px-2',
+        borderStyle: 'border border-gray-200',
+        containerLayout: 'py-6 px-2',
       };
   }
 };

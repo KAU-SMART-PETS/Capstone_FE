@@ -12,64 +12,8 @@ export type RootStackParamList = {
 // COMPONENTS
 //
 
-export type TextProps = {
-  type: 'header1' | 'header2' | 'body1' | 'body2' | 'caption';
-  color?: string,
-  children: React.ReactNode;
-};
 
-// Define the props for the HeaderText component
-export interface HeaderTextProps {
-  text: string;
-  highlight?: string;
-}
 
-export type DesignPreset = 'A' | 'B' | 'C'; // Define preset options
-
-export type RoundedFrameProps = {
-  children: React.ReactNode; // Accepts any children components
-  preset?: DesignPreset; // Optional design preset
-  shadow?: boolean; // Option for shadow
-};
-
-export type RoundedBoxProps = {
-  children: React.ReactNode;
-  preset?: DesignPreset; // Preset options
-  badgeText?: string;
-  badgeColor?: string;
-  shadow?: boolean; // Option for shadow
-  onPress?: () => void; // Function to call on press
-  isButton?: boolean; // Default is not a button
-  onSelect?: (isSelected: boolean) => void; // Callback to return selection state
-  borderActivate?: boolean; // Option to activate border styling
-};
-
-export type TagBadgeProps = {
-  color?: string;
-  content?: string;
-};
-
-export type ButtonColor = 'bg-grey' | 'bg-primary' | 'bg-white' | 'bg-black'; // Define preset options
-
-export type RoundedTextButtonProps = {
-  color?: ButtonColor;
-  textColor?: string;
-  textType?: string;
-  content: string; // Content is a string for text button
-  borderRadius?: string;
-  shadow?: boolean;
-  widthOption?: 'full' | 'sm' | 'md' | 'lg';
-  onPress: () => void; // Function to handle press
-};
-
-export type RoundedCircleButtonProps = {
-  color?: string;
-  borderRadius?: string;
-  shadow?: boolean;
-  size?: number;
-  children: React.ReactNode; // Accepts any React component as children
-  onPress: () => void; // Function to handle press
-};
 
 // 
 // 

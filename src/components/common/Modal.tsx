@@ -1,56 +1,32 @@
 import React from 'react';
-import { Modal as ModalWindow, Portal, Text, Button, PaperProvider } from 'react-native-paper';
-import RoundedFrame from './RoundedBox';
-import { View, StyleSheet } from 'react-native';
+import { View, TouchableWithoutFeedback, Button } from 'react-native';
+import Animated from 'react-native-reanimated';
+import { FadeInDown } from 'react-native-reanimated';
+import { RoundedFrame } from './RoundedBox';
 
-const Modal = () => {
-  const [visible, setVisible] = React.useState(false);
+interface ModalProps {
+  visible?: boolean;
+  hideModal?: () => void;
+  children: React.ReactNode;
+  tapOutsideToClose?: boolean; // 외부 터치 시 닫기 옵션
+}
 
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
+const Modal: React.FC<ModalProps> = ({ visible = false, hideModal, children, tapOutsideToClose = false }) => {
+  if (!visible) return null; // 모달이 보이지 않을 때는 렌더링하지 않음
 
   return (
-    <PaperProvider>
-        <Portal>
-          <ModalWindow 
-            visible={visible} 
-            onDismiss={hideModal} 
-            contentContainerStyle={styles.modalContent} 
-          >
-            {/* <RoundedFrame> */}
-            <View style={styles.modalInnerContent}>
-              <Text>Example Modal. Click outside this area to dismiss.</Text>
-            </View>
-            {/* </RoundedFrame> */}
-          </ModalWindow>
-        </Portal>
-        <Button style={styles.button} onPress={showModal}>
-          Show
-        </Button>
-    </PaperProvider>
+    <View className="absolute inset-0 z-10 w-full h-full flex-1">
+      <TouchableWithoutFeedback onPress={tapOutsideToClose ? hideModal : undefined}>
+        <View className="flex-1 w-full h-full absolute inset-0 bg-black/60 justify-center items-center">
+          <Animated.View entering={FadeInDown.duration(500)}>
+            <RoundedFrame shadow={false} preset="D">
+              {children}
+            </RoundedFrame>
+          </Animated.View>
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  modalContent: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
-  },
-  modalInnerContent: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-    zIndex: 10, // Ensures content is on top
-  },
-  button: {
-    marginTop: 30,
-  }
-});
 
 export default Modal;
