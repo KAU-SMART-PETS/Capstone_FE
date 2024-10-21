@@ -2,9 +2,9 @@
 
 // 각 페이지 관련 매개변수타입
 export type RootStackParamList = {
-    Example: undefined | React.FC;
-    Example2: undefined | React.FC;
-    TestingPage: undefined | React.FC;
+    Example: undefined;
+    Example2: undefined;
+    TestingPage: undefined;
 };
 
 // 

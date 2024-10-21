@@ -19,13 +19,13 @@
  * 스크린 추가 시 RootStackParams 업데이트 안내
  *
  * - 스크린 추가할 때마다, ./utils/constants/types.ts에 있는 RootStackParams 리스트에 내용을 추가하면 됨.
- * - 페이지는 'undefined | React.FC' 타입으로 추가할 것.
+ * - 페이지는 'undefined' 타입으로 추가할 것.
  *
  * 예시)
  * export type RootStackParamList = {
- *    Example: undefined | React.FC;
- *    Example2: undefined | React.FC;
- *    MainPage: undefined | React.FC;
+ *    Example: undefined;
+ *    Example2: undefined;
+ *    MainPage: undefined;
  * };
  ****************************************************************************************/
 
