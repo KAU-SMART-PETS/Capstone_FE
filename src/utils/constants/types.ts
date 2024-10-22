@@ -75,6 +75,7 @@ export type RootStackParamList = {
         petName: string;
         diseaseDetail: DiseaseDetails;
     };
+    HospitalDetail: undefined;
     RegisterHealthInfo: undefined;
     CameraView: undefined;
     HospitalList: undefined;

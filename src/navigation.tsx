@@ -23,6 +23,7 @@ import CameraView from '@screens/health/CameraView';
 import RegisterHealthInfo from '@screens/health/RegisterHealthInfo';
 import DiseaseDetail from '@screens/health/DiseaseDetail';
 import SelectPart from '@screens/health/SelectPart';
+import HospitalInfo from '@screens/health/HospitalInfo';
 
 // Walk
 import WeeklySummary from '@screens/walk/WeeklySummary';
@@ -67,6 +68,8 @@ const AppNavigator = () => {
         <Stack.Screen name="CameraView" component={CameraView} />
         <Stack.Screen name="HospitalList" component={HospitalList} />
         <Stack.Screen name="SelectPart" component={SelectPart} />
+        <Stack.Screen name="HospitalDetail" component={HospitalInfo} />
+
         {/* bluetooth */}
         <Stack.Screen name="BTView" component={BTView} />
         {/* walk */}

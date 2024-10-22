@@ -38,6 +38,8 @@ import com.swmansion.rnscreens.RNScreensPackage;
 import com.horcrux.svg.SvgPackage;
 // react-native-vision-camera
 import com.mrousavy.camera.react.CameraPackage;
+// react-native-webview
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 // @react-native-community/datetimepicker
 import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 // react-native-maps
@@ -103,6 +105,7 @@ public class PackageList {
       new RNScreensPackage(),
       new SvgPackage(),
       new CameraPackage(),
+      new RNCWebViewPackage(),
       new RNDateTimePickerPackage(),
       new MapsPackage(),
       new RNBootSplashPackage()
