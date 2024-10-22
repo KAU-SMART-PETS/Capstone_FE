@@ -57,6 +57,11 @@ const getStyles = (type: string) => {
         fontFamily: 'Pretendard-Bold',
         fontSize: 16,
       };
+    case 'header3':
+      return {
+        fontFamily: 'Pretendard-Medium',
+        fontSize: 12,
+      };
     case 'body1':
       return {
         fontFamily: 'Pretendard-Light',

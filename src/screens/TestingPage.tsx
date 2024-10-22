@@ -19,16 +19,16 @@ const TestingPage : React.FC<RootStackParamList> = () => {
       {/* Button to navigate to Example screen */}
       <TouchableOpacity
         className="w-40 h-12 bg-blue rounded-md justify-center items-center mb-4"
-        onPress={() => navigation.navigate('Example1')}
+        onPress={() => navigation.navigate('BoxExample')}
       >
-        <Text className="text-white">Go to Example</Text>
+        <Text className="text-white">Go to BoxExample</Text>
       </TouchableOpacity>
       {/* Button to navigate to Example2 screen */}
       <TouchableOpacity
         className="w-40 h-12 bg-green rounded-md justify-center items-center"
-        onPress={() => navigation.navigate('Example2')}
+        onPress={() => navigation.navigate('BadgeExample')}
       >
-        <Text className="text-white">Go to Example2</Text>
+        <Text className="text-white">Go to BadgeExample</Text>
       </TouchableOpacity>
       {/* Button to navigate to ModalExample screen */}
       <TouchableOpacity
@@ -36,6 +36,13 @@ const TestingPage : React.FC<RootStackParamList> = () => {
         onPress={() => navigation.navigate('ModalExample')}
       >
         <Text className="text-white">Go to Modal Example</Text>
+        </TouchableOpacity>
+      {/* Button to navigate to TextInputExample screen */}
+      <TouchableOpacity
+        className="w-40 h-12 bg-pink rounded-md justify-center items-center"
+        onPress={() => navigation.navigate('TextInputExample')}
+      >
+        <Text className="text-white">Go to TextInputExample Example</Text>
         </TouchableOpacity>
     </View>
   );

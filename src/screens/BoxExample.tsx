@@ -8,7 +8,7 @@ import StylizedText from '@components/common/StylizedText';
 import RoundedBox from '@common/RoundedBox';
 import {RoundedCircleButton, RoundedTextButton} from '@common/RoundedButton';
 
-const ButtonSquare1 :React.FC = () => {
+export const ButtonSquare1 = () => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const Avatar = (
       <View className="w-20 h-20 rounded-full overflow-hidden z-0">
@@ -52,7 +52,7 @@ const ButtonSquare1 :React.FC = () => {
     );
 };
 
-const Example1 : React.FC<RootStackParamList> = () => {
+const BoxExample : React.FC<RootStackParamList> = () => {
 
   return (
     <View className="flex-1 bg-white pt-10 px-5">
@@ -80,4 +80,4 @@ const Example1 : React.FC<RootStackParamList> = () => {
   );
 };
 
-export default Example1;
+export default BoxExample;
