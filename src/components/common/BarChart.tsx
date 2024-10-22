@@ -74,16 +74,15 @@ export const HBarChart: React.FC<BarChartProps> = ({ date, percentage, color }) 
         />
         <Rect
           x="0"
-          y="0"
+          y="2.5"
           width={percentage * 1.5} // Scale the width based on percentage
-          height="15"
+          height="10"
           fill={fillColor}
-          rx="6"
-          ry="6"
+          rx="4"
+          ry="4"
         />
       </Svg>
       <Text className="text-xs mt-2">{date.slice(5)}</Text>
     </View>
   );
 };
-
