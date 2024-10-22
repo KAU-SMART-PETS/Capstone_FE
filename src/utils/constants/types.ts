@@ -2,8 +2,9 @@
 
 // 각 페이지 관련 매개변수타입
 export type RootStackParamList = {
-    Example1: undefined;
-    Example2: undefined;
+    BoxExample: undefined;
+    BadgeExample: undefined;
+    TextInputExample: undefined;
     ModalExample: undefined;
     TestingPage: undefined;
 };

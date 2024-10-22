@@ -8,9 +8,10 @@ import { RootStackParamList } from '@types';
 import RNBootSplash from 'react-native-smooth-bootsplash';
 import Splash from '@screens/home/Splash';
 
-import Example1 from '@screens/Example1';
-import Example2 from '@screens/Example2';
+import BoxExample from '@screens/BoxExample';
+import BadgeExample from '@screens/BadgeExample';
 import ModalExample from '@screens/ModalExample';
+import TextInputExample from '@screens/TextInputExample';
 import TestingPage from '@screens/TestingPage';
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -32,9 +33,10 @@ const AppNavigator = () => {
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="TestingPage" component={TestingPage} />
-        <Stack.Screen name="Example1" component={Example1} />
-        <Stack.Screen name="Example2" component={Example2} />
+        <Stack.Screen name="BoxExample" component={BoxExample} />
+        <Stack.Screen name="BadgeExample" component={BadgeExample} />
         <Stack.Screen name="ModalExample" component={ModalExample} />
+        <Stack.Screen name="TextInputExample" component={TextInputExample} />
       </Stack.Navigator>
     )}
     </NavigationContainer>
