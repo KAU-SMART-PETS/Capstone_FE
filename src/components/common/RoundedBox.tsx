@@ -9,7 +9,6 @@ export type TagBadgeProps = {
   content?: string;
 };
 
-
 export type DesignPreset = 'A' | 'B' | 'C' | 'D'; 
 // 파일 하단에 각 옵션에 따른 스타일 설명
 
@@ -25,8 +24,8 @@ export type RoundedBoxProps = {
   badgeText?: string;
   badgeColor?: string;
   shadow?: boolean; // Option for shadow
-  onPress?: () => void; // Function to call on press
   isButton?: boolean; // Default is not a button
+  onPress?: () => void; // Function to call on press
   onSelect?: (isSelected: boolean) => void; // Callback to return selection state
   borderActivate?: boolean; // Option to activate border styling
 };
