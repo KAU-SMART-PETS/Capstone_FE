@@ -4,14 +4,15 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@types';
+import { fetchWeeklyData } from '@api/weeklyDataApi';
 
 type TestingPageNavigationProp = StackNavigationProp<RootStackParamList, 'TestingPage'>;
 
 const TestingPage : React.FC<RootStackParamList> = () => {
   const navigation = useNavigation<TestingPageNavigationProp>();
 
-  console.log("테스트 페이지가 실행되었음.")
-  
+  // console.log("테스트 페이지가 실행되었음.")
+  console.log('fetchWeeklyData')
   return (
     <View className="flex-1 justify-center items-center bg-black">
       <Text className="text-2xl text-center mb-4 text-orange">Main Screen</Text>

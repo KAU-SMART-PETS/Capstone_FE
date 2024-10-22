@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import { RootStackParamList } from '@types';
 
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -7,6 +7,7 @@ import AvatarPlaceholder from '@image/placeholder/dog.jpg';
 import StylizedText from '@components/common/StylizedText';
 import RoundedBox from '@common/RoundedBox';
 import {RoundedCircleButton, RoundedTextButton} from '@common/RoundedButton';
+import ShadowBox from '@common/ShadowBox';
 
 export const ButtonSquare1 = () => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -25,12 +26,12 @@ export const ButtonSquare1 = () => {
     return (
       <View className='flex-row align-center justify-between px-16'>
         <RoundedBox
-          preset="B"
+          preset="D"
           onPress={() => console.log('Option 1 pressed')}
           onSelect={handleSelect}
           borderActivate={true} // Activate border styling
           isButton={true} // Indicate this is a button
-          shadow={false}
+          shadow={true}
           badgeColor='bg-rose-700'
           badgeText='공습경보!!!'
         >
@@ -57,7 +58,7 @@ const BoxExample : React.FC<RootStackParamList> = () => {
   return (
     <View className="flex-1 bg-white pt-10 px-5">
       <ButtonSquare1 />
-      <RoundedCircleButton onPress={() => console.log("button pressed!!!")} size={30}>
+      <RoundedCircleButton onPress={() => console.log("button pressed!!!")} size={10}>
         <MCIcon name="paw" size={30}/>
       </RoundedCircleButton>
 
