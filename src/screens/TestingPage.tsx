@@ -12,7 +12,8 @@ const TestingPage : React.FC<RootStackParamList> = () => {
   const navigation = useNavigation<TestingPageNavigationProp>();
 
   // console.log("테스트 페이지가 실행되었음.")
-  console.log('fetchWeeklyData')
+  
+  console.log()
   return (
     <View className="flex-1 justify-center items-center bg-black">
       <Text className="text-2xl text-center mb-4 text-orange">Main Screen</Text>
