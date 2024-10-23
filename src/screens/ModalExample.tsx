@@ -115,7 +115,7 @@ const ModalType4: React.FC<ModalWindowProps> = ({visible, setVisible}) => {
               key={button.content} 
               onPress={() => setVisible(false)} 
               content={button.content} 
-              widthOption='sm'
+              widthOption='full'
               color={button.color}
               textType='body2'
               textColor='text-white' 
