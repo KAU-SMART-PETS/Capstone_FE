@@ -7,6 +7,7 @@ export type RootStackParamList = {
     TextInputExample: undefined;
     ModalExample: undefined;
     TestingPage: undefined;
+    AchievementCardExample: undefined;
 };
 
 // 

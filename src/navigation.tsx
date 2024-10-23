@@ -13,6 +13,7 @@ import BadgeExample from '@screens/BadgeExample';
 import ModalExample from '@screens/ModalExample';
 import TextInputExample from '@screens/TextInputExample';
 import TestingPage from '@screens/TestingPage';
+import AchievementCardExample from '@screens/AchievementCardExample';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -37,6 +38,7 @@ const AppNavigator = () => {
         <Stack.Screen name="BadgeExample" component={BadgeExample} />
         <Stack.Screen name="ModalExample" component={ModalExample} />
         <Stack.Screen name="TextInputExample" component={TextInputExample} />
+        <Stack.Screen name="AchievementCardExample" component={AchievementCardExample}/>
       </Stack.Navigator>
     )}
     </NavigationContainer>
