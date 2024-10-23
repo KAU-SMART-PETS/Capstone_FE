@@ -105,7 +105,7 @@ const ModalExample: React.FC = () => {
   return (
     <PaperProvider>
       {/* <ModalType1 visible={visible} setVisible={setVisible} /> */}
-      <ModalType3 visible={visible} setVisible={setVisible} />
+      <ModalType2 visible={visible} setVisible={setVisible} />
 
       {/* 어쨋건 이 어딘가에는 모달을 여는 코드나, 아니면 모달이 띄워질 바탕코드가 있어야함 */}
       <Button onPress={() => setVisible(true)} className="mt-10">

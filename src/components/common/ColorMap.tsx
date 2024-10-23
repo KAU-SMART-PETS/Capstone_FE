@@ -4,7 +4,8 @@ import { Metrics } from '@types';
 export const ColorMap: { [key: string]: string } = {
     primary: '#73A8BA',
     skyblue: '#D7E8EE',
-    grey: '#A3A3AC',
+    grey : '#D9D9D9',
+    darkgrey: '#A3A3AC',
     red: '#FF8A80',
     pink: '#FFAFA3',
     yellow: '#FFD966',
