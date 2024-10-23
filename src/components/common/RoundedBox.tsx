@@ -135,8 +135,8 @@ const getStyles = (preset: DesignPreset) => {
     case 'E': // 둥근박스5 (모달창-하단) - 하얀박스, 아래쪽 고정, 위쪽만 둥글게
       return {
       backgroundColor: 'bg-white',
-      borderStyle: 'rounded-2xl rounded-b-none',
-      containerLayout: 'w-100 mx-auto px-12 py-12 flex items-center justify-center',
+      borderStyle: 'rounded-[30px] rounded-b-none',
+      containerLayout: 'w-full h-80 mx-auto px-6 py-12 flex items-center justify-center',
     };
     default:
       return {

@@ -14,7 +14,7 @@ type RoundedTextButtonProps = {
   content: string; // Content is a string for text button
   borderRadius?: string;
   shadow?: boolean;
-  widthOption?: 'full' | 'sm' | 'md' | 'lg';
+  widthOption?: 'full' | 'sm' | 'md' | 'lg' | 'xl';
   onPress: () => void; // Function to handle press
 };
 
@@ -34,18 +34,19 @@ export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
     content = "텍스트 버튼",
     borderRadius = 'rounded-3xl', // rounded-xl, rounded-2xl, rounded-3xl ... 
     shadow = false,
-    widthOption = 'full',
+    widthOption = 'md',
     onPress,
   }) => {
     const widthMap = {
-      full: 'w-96',
+      full: 'w-[370]',
       sm: 'w-24',  // Example: small width
       md: 'w-36',  // Example: medium width
       lg: 'w-56',  // Example: large width
+      xl: 'w-80',
     };
     const widthClass = widthMap[widthOption] || widthMap.full;
     const Content = (
-      <View className={`${color} ${borderRadius} p-3 px-5 ${widthClass} flex items-center justify-center`}>
+      <View className={`${color} ${borderRadius} mx-auto p-3 ${widthClass} flex items-center justify-center`}>
           <StylizedText type={textType} color={textColor}>
             {content}
           </StylizedText>
