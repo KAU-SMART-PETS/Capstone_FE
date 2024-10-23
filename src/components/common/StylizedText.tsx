@@ -16,10 +16,10 @@ interface HeaderTextProps {
   highlight?: string;
 }
 
-const StylizedText: React.FC<TextProps> = ({ type = 'body1', children, color, className }) => {
+const StylizedText: React.FC<TextProps> = ({ type = 'body1', children, color }) => {
   const styles = getStyles(type);
   return (
-    <Text className={`${color} ${className}`} style={styles}>{children}</Text>
+    <Text className={`${color}`} style={styles}>{children}</Text>
   );
 };
 
@@ -43,9 +43,13 @@ export const HeaderText: React.FC<HeaderTextProps> = ({
   );
 };
 
+interface StyledTextStyle {
+  fontFamily: string;
+  fontSize: number;
+}
 
 // Function to return the styles based on the type
-const getStyles = (type: string) => {
+export const getStyles = (type: string) : StyledTextStyle => {
   switch (type) {
     case 'header1':
       return {
@@ -82,6 +86,11 @@ const getStyles = (type: string) => {
         fontFamily: 'Pretendard-Regular',
         fontSize: 9,
       };
+    case 'label2':
+      return {
+      fontFamily: 'Pretendard-Medium',
+      fontSize: 11,
+    };
     default:
       return {
         fontFamily: 'Pretendard-Regular',
