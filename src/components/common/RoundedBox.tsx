@@ -126,11 +126,17 @@ const getStyles = (preset: DesignPreset) => {
         borderStyle: 'border border-3',
         containerLayout: 'py-4 px-3 flex items-center justify-center',
       };
-    case 'D': // 둥근박스4 (모달창) - 하얀박스, 가운데 정렬, 
+    case 'D': // 둥근박스4 (모달창-중앙) - 하얀박스, 가운데 정렬, 
       return {
       backgroundColor: 'bg-white',
       borderStyle: 'rounded-2xl',
       containerLayout: 'w-80 mx-auto px-12 py-12 flex items-center justify-center',
+    };
+    case 'E': // 둥근박스5 (모달창-하단) - 하얀박스, 아래쪽 고정, 위쪽만 둥글게
+      return {
+      backgroundColor: 'bg-white',
+      borderStyle: 'rounded-2xl rounded-b-none',
+      containerLayout: 'w-100 mx-auto px-12 py-12 flex items-center justify-center',
     };
     default:
       return {

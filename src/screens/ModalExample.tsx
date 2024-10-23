@@ -98,6 +98,33 @@ const ModalType3: React.FC<ModalWindowProps> = ({visible, setVisible}) => {
   );
 }
 
+const ModalType4: React.FC<ModalWindowProps> = ({visible, setVisible}) => {
+  // 하단모달 /
+
+  const title = "오늘도 함께 산책해줘서 고마워요!"
+  const button = { content: '취소', color : 'bg-primary' as ButtonColor}
+
+  return (
+    <Portal>
+        <Modal visible={visible} hideModal={() => setVisible(false)} position='bottom'>
+          <StylizedText type="header2" color='text-black' className="my-5">
+            {title}
+          </StylizedText>
+          <View className="flex-row mt-4">
+            <RoundedTextButton 
+              key={button.content} 
+              onPress={() => setVisible(false)} 
+              content={button.content} 
+              widthOption='sm'
+              color={button.color}
+              textType='body2'
+              textColor='text-white' 
+            />
+          </View>
+        </Modal>
+      </Portal>
+  );
+}
 
 const ModalExample: React.FC = () => {
   const [visible, setVisible] = React.useState<boolean>(false);
@@ -105,7 +132,7 @@ const ModalExample: React.FC = () => {
   return (
     <PaperProvider>
       {/* <ModalType1 visible={visible} setVisible={setVisible} /> */}
-      <ModalType2 visible={visible} setVisible={setVisible} />
+      <ModalType4 visible={visible} setVisible={setVisible} /> 
 
       {/* 어쨋건 이 어딘가에는 모달을 여는 코드나, 아니면 모달이 띄워질 바탕코드가 있어야함 */}
       <Button onPress={() => setVisible(true)} className="mt-10">

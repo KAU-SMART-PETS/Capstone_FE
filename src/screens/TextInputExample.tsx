@@ -33,10 +33,11 @@ const TextInputExample: React.FC<RootStackParamList> = () => {
         <CustomTextInput //  휴대폰 번호 필드 (읽기 전용, 변경 버튼 있음)
           label="휴대폰 번호"
           value={phoneNumber}
-          onChangeText={setPhoneNumber} // "변경" 버튼을 눌렀을 때 수정 가능
+          placeholder={'010-1234-5678'}
+          onChangeText={setPhoneNumber}
           isEditableInitially={false} // 처음엔 읽기 전용
           type="editableWithButton" // 변경 버튼이 있는 수정 가능한 필드
-          keyboardType="phone-pad"      // 전화번호 입력 키보드
+          keyboardType="phone-pad" 
         />
 
         <CustomTextInput // 이름 필드 (완전히 읽기 전용)
