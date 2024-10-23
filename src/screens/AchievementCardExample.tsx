@@ -27,7 +27,7 @@ const AchievementCardExample: React.FC<RootStackParamList> = () => {
           <View className="flex-row justify-between items-center mb-2">
             <StylizedText 
               type="header2"
-              color="text-gray-900"
+              color="text-black"
             >
               7일 연속 산책하기
             </StylizedText>
@@ -39,7 +39,7 @@ const AchievementCardExample: React.FC<RootStackParamList> = () => {
           </View>
           <StylizedText 
             type="body2"
-            color="text-gray-500"
+            color="text-grey"
           >
             7일 연속 30분 이상 산책에 성공해보세요!
           </StylizedText>
