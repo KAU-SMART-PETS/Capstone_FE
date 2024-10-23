@@ -28,7 +28,6 @@ const TextInputExample: React.FC<RootStackParamList> = () => {
           value={email}
           onChangeText={setEmail} 
           keyboardType="email-address"  // 이메일 입력 키보드
-          validationType="email"  // 이메일 형식 유효성 검사
         />
 
         <CustomTextInput //  휴대폰 번호 필드 (읽기 전용, 변경 버튼 있음)
@@ -38,7 +37,6 @@ const TextInputExample: React.FC<RootStackParamList> = () => {
           isEditableInitially={false} // 처음엔 읽기 전용
           type="editableWithButton" // 변경 버튼이 있는 수정 가능한 필드
           keyboardType="phone-pad"      // 전화번호 입력 키보드
-          type="editableWithButton"
         />
 
         <CustomTextInput // 이름 필드 (완전히 읽기 전용)
