@@ -132,6 +132,11 @@ const getStyles = (preset: DesignPreset) => {
       borderStyle: 'rounded-2xl',
       containerLayout: 'w-80 mx-auto px-12 py-12 flex items-center justify-center',
     };
+    case 'F':  // 둥근박스5 - 테두리 없음, 패딩 없음, 내용물에 딱맞게 감싸도록
+      return {
+        borderStyle: 'rounded-3xl',
+        containerLayout: 'p-0',
+    };
     default:
       return {
         backgroundColor: 'bg-white',
