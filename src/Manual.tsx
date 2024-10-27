@@ -37,7 +37,7 @@
  *    import AvatarPlaceholder from '@image/placeholder/dog.jpg';
  * 
  * - 사용 예시:
- *    <StylizedText type="body1" color="text-orange">Option1</StylizedText>
+ *    <StylizedText type="body1" styleClass="text-orange">Option1</StylizedText>
  *    <Image source={AvatarPlaceholder}/>
  *
  * - 추가적인 커스텀 옵션은 component 파일 내 인자를 확인하면 됨.

@@ -1,16 +1,15 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import StylizedText from './StylizedText';
-import ShadowBox from './ShadowBox';
+import StylizedText from '@common/StylizedText';
+import ShadowBox from '@common/ShadowBox';
 
 
-export type ButtonColor = 'bg-grey' | 'bg-primary' | 'bg-white' | 'bg-black'; // Define preset options
-export type TextStyleType = 'header1' | 'header2' | 'body1' | 'body2' | 'caption';
+export type ButtonColor = 'bg-secondary' | 'bg-primary' | 'bg-white' | 'bg-black'; // Define preset options
 
 type RoundedTextButtonProps = {
   color?: ButtonColor;
   textColor?: string;
-  textType?: TextStyleType;
+  textType?: string;
   content: string; // Content is a string for text button
   borderRadius?: string;
   shadow?: boolean;
@@ -38,7 +37,7 @@ export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
     onPress,
   }) => {
     const widthMap = {
-      full: 'w-[370]',
+      full: 'w-96',
       sm: 'w-24',  // Example: small width
       md: 'w-36',  // Example: medium width
       lg: 'w-56',  // Example: large width
@@ -47,7 +46,7 @@ export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
     const widthClass = widthMap[widthOption] || widthMap.full;
     const Content = (
       <View className={`${color} ${borderRadius} mx-auto p-3 ${widthClass} flex items-center justify-center`}>
-          <StylizedText type={textType} color={textColor}>
+          <StylizedText type={textType} styleClass={textColor}>
             {content}
           </StylizedText>
       </View>

@@ -1,14 +1,12 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { TextProps, HeaderTextProps } from '@types';
-
-export type TextStyleType = 'header1' | 'header2' | 'body1' | 'body2' | 'caption';
+// import { TextProps, HeaderTextProps } from '@types';
 
 type TextProps = {
-  type?: TextStyleType;
+  type?: string;
   color?: string,
   children?: React.ReactNode;
-  className?: string; // 스타일라이즈 텍스트에서도 tailwind 적용 가능
+  styleClass?: string;  
 };
 
 interface HeaderTextProps {
@@ -16,10 +14,10 @@ interface HeaderTextProps {
   highlight?: string;
 }
 
-const StylizedText: React.FC<TextProps> = ({ type = 'body1', children, color }) => {
+const StylizedText: React.FC<TextProps> = ({ type = 'body1', children, color, styleClass }) => {
   const styles = getStyles(type);
   return (
-    <Text className={`${color}`} style={styles}>{children}</Text>
+    <Text className={styleClass} style={styles}>{children}</Text>
   );
 };
 
@@ -66,9 +64,19 @@ export const getStyles = (type: string) : StyledTextStyle => {
         fontFamily: 'Pretendard-Medium',
         fontSize: 12,
       };
+    case 'header4': // 질병정보카드의 제목
+      return {
+        fontFamily: 'Pretendard-Black',
+        fontSize: 18,
+      };
+    case 'header5': // 질병정보카드의 두꺼운 퍼센트숫자
+      return {
+        fontFamily: 'Pretendard-SemiBold',
+        fontSize: 18,
+      };
     case 'body1':
       return {
-        fontFamily: 'Pretendard-Light',
+        fontFamily: 'Pretendard-Medium',
         fontSize: 14,
       };
     case 'body2':
@@ -76,6 +84,11 @@ export const getStyles = (type: string) : StyledTextStyle => {
         fontFamily: 'Pretendard-Medium',
         fontSize: 12,
       };
+    case 'body3':
+      return {
+        fontFamily: 'Pretendard-Medium',
+        fontSize: 10,
+    };
     case 'caption':
       return {
         fontFamily: 'Pretendard-Thin',
@@ -86,10 +99,25 @@ export const getStyles = (type: string) : StyledTextStyle => {
         fontFamily: 'Pretendard-Regular',
         fontSize: 9,
       };
+    case 'label1':
+      return {
+      fontFamily: 'Pretendard-Bold',
+      fontSize: 9,
+    };
     case 'label2':
       return {
       fontFamily: 'Pretendard-Medium',
       fontSize: 11,
+    };
+    case 'label3': // 질병정보카드 - 퍼센트
+      return {
+      fontFamily: 'Pretendard-Bold',
+      fontSize: 11,
+    };
+    case 'label4': // 질병정보카드 - 퍼센트라는 텍스트라벨
+      return {
+      fontFamily: 'Pretendard-Bold',
+      fontSize: 6,
     };
     default:
       return {

@@ -1,7 +1,7 @@
 import React, { useState, ReactNode } from 'react';
 import { View, TextInput, Pressable, Keyboard } from 'react-native';
 import StylizedText, { getStyles } from './StylizedText';
-import { ColorMap } from './ColorMap';
+import { ColorMap, OpacityMap } from './ColorMap';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -34,7 +34,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
   keyboardType = 'default',
   returnKeyType = 'done',
 }) => {
-  const IconColor = ColorMap['darkgrey'] + 'A6'; // Semi-transparent icon color
+  const IconColor = ColorMap['secondary'] + OpacityMap[60]; // Semi-transparent icon color
   const [isEditable, setIsEditable] = useState(
     type === 'editableWithButton' && !!onChangeText && isEditableInitially
   );
@@ -154,25 +154,25 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
   return (
     <View className="w-[90%] my-2">
       {errorMessage && (
-        <StylizedText type='label' color='text-red ml-2 mb-1'>{errorMessage}</StylizedText>
+        <StylizedText type='label' styleClass='text-red ml-2 mb-1'>{errorMessage}</StylizedText>
       )}
       <View
         className={`
           h-[54px] border-[1.5px] rounded-[16px] px-3 flex-row items-center justify-between
-          ${hasError ? 'border-red' : isFocused ? 'border-primary border-opacity-30' : 'border-grey'} 
+          ${hasError ? 'border-red' : isFocused ? 'border-primary border-opacity-30' : 'border-secondary'} 
         `}
       >
         <View className="flex-1">
           {label && (
             <View className="pl-1 absolute top-[9px]">
-              <StylizedText type="label2" className="text-grey">
+              <StylizedText type="label2" styleClass="text-secondary">
                 {label}
               </StylizedText>
             </View>
           )}
 
           <TextInput
-            className="px-1 mt-[14px] text-darkgrey"
+            className="px-1 mt-[14px] text-secondary"
             value={value}
             onChangeText={(text) => {
               if (keyboardType === 'phone-pad') {
@@ -193,7 +193,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
           />
         </View>
         {errorMessage && (
-          <Feather name='alert-circle' size={18} color={ColorMap['red'] + 'B3'} className="mr-4" />
+          <Feather name='alert-circle' size={18} color={ColorMap['red'] + OpacityMap[70]} className="mr-4" />
         )}
 
         {type === 'passwordField' ? (
@@ -211,7 +211,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
         ) : (
           type === 'editableWithButton' && !isEditable && onChangeText && (
             <Pressable
-              className={`bg-lightgrey px-3 py-1 rounded-full ml-2`}
+              className="bg-gray-200 px-3 py-1 rounded-full ml-2"
               onPress={handleEditToggle}
             >
               <StylizedText type="header3">변경</StylizedText>

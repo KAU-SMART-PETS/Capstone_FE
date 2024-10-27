@@ -14,13 +14,13 @@ const Example2 : React.FC<RootStackParamList> = () => {
   return (
     <>
     <View className='flex-row p-4'>
-    <RoundedFrame className="w-20">
+    <RoundedFrame>
       {myAvatar}
       <Badge text="심심하군" />
       <TagBadge text="공습경보" color="bg-blue" />
       <PillBadge text="인생한방"/>
     </RoundedFrame>
-    <RoundedFrame className="w-20">
+    <RoundedFrame>
       {myAvatar}
       <Badge text="졸리는군" />
       <TagBadge text="공습경보" color="bg-red" />
