@@ -137,7 +137,7 @@
 - `StylizedText` : 텍스트 스타일링 담당. `Tailwind` 스타일 형식으로 색상옵션 입력 (예: `text-blue-300`).
 
       ```tsx
-      <StylizedText color="text-blue-300" type="header1">
+      <StylizedText styleClass="text-blue-300" type="header1">
          안녕하세요
       </StylizedText>
       ```

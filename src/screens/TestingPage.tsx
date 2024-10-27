@@ -4,7 +4,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@types';
-import { fetchWeeklyData } from '@api/weeklyDataApi';
+// import { fetchWeeklyData } from '@api/weeklyDataApi';
+// import {AsyncStorage} from 'react-native';
 
 type TestingPageNavigationProp = StackNavigationProp<RootStackParamList, 'TestingPage'>;
 
@@ -20,21 +21,21 @@ const TestingPage : React.FC<RootStackParamList> = () => {
       <Text className="text-lg font-bold mb-4 text-blue">메인 페이지</Text>
       {/* Button to navigate to Example screen */}
       <TouchableOpacity
-        className="w-40 h-12 bg-blue rounded-md justify-center items-center mb-4"
+        className="w-40 h-12 bg-lightgrey rounded-md justify-center items-center mb-4"
         onPress={() => navigation.navigate('BoxExample')}
       >
-        <Text className="text-white">Go to BoxExample</Text>
+        <Text className="text-black">Go to BoxExample</Text>
       </TouchableOpacity>
       {/* Button to navigate to Example2 screen */}
       <TouchableOpacity
-        className="w-40 h-12 bg-green rounded-md justify-center items-center"
+        className="w-40 h-12 bg-secondary rounded-md justify-center items-center"
         onPress={() => navigation.navigate('BadgeExample')}
       >
-        <Text className="text-white">Go to BadgeExample</Text>
+        <Text className="text-black">Go to BadgeExample</Text>
       </TouchableOpacity>
       {/* Button to navigate to ModalExample screen */}
       <TouchableOpacity
-        className="w-40 h-12 bg-pink rounded-md justify-center items-center"
+        className="w-40 h-12 bg-darkgrey rounded-md justify-center items-center"
         onPress={() => navigation.navigate('ModalExample')}
       >
         <Text className="text-white">Go to Modal Example</Text>

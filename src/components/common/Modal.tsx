@@ -2,7 +2,8 @@ import React from 'react';
 import { View, TouchableWithoutFeedback } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { FadeInDown } from 'react-native-reanimated';
-import { RoundedFrame } from './RoundedBox';
+import { RoundedFrame, DesignPreset } from './RoundedBox';
+import { Portal } from 'react-native-paper';
 
 interface ModalProps {
   visible?: boolean;
@@ -20,7 +21,7 @@ interface ModalBackgroundProps {
 
 interface ModalContentProps {
   children?: React.ReactNode;
-  preset?: string; // RoundedFrame에 적용할 preset prop
+  preset?: DesignPreset; // RoundedFrame에 적용할 preset prop
 }
 
 // 배경 컴포넌트
@@ -53,16 +54,18 @@ export const Modal: React.FC<ModalProps> = ({ visible = false, hideModal, childr
   if (!visible) return null; // 모달이 보이지 않을 때는 렌더링하지 않음
 
   // position에 따라 preset 설정
-  const preset = position === 'bottom' ? 'E' : 'D';
+  const preset = position === 'bottom' ? 'modalB' : 'modalC';
 
   return (
-    <View className="absolute inset-0 z-10 w-full h-full flex-1">
-      <ModalBackground onPress={tapOutsideToClose ? hideModal : undefined} position={position}>
-        <ModalContent preset={preset}>
-          {children}
-        </ModalContent>
-      </ModalBackground>
-    </View>
+    <Portal>
+      <View className="absolute inset-0 z-10 w-full h-full flex-1">
+        <ModalBackground onPress={tapOutsideToClose ? hideModal : undefined} position={position}>
+          <ModalContent preset={preset}>
+            {children}
+          </ModalContent>
+        </ModalBackground>
+      </View>
+    </Portal>
   );
 };
 

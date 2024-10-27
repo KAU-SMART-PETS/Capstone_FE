@@ -1,143 +1,160 @@
 import React from 'react';
 import { View } from 'react-native';
-import { RoundedTextButton, ButtonColor } from '@common/RoundedButton'; // 필요한 컴포넌트 import
-import Modal from '@common/Modal';
-import { Button, PaperProvider, Portal } from 'react-native-paper';
-import StylizedText from '@common/StylizedText';
+import { PaperProvider, Button } from 'react-native-paper';
+import ModalLayout from '@components/ModalLayout';
+import StylizedText from '@components/common/StylizedText';
+import { RoundedTextButton } from '@components/common/RoundedButton';
+import Avatar from '@components/common/Avatar';
 
 type ModalWindowProps = {
   visible: boolean;
-  setVisible: (visible: boolean) => void; // boolean 값을 인자로 받도록 수정
+  setVisible: (visible: boolean) => void;
 };
 
-const ModalType1: React.FC<ModalWindowProps> = ({visible, setVisible}) => {
-  // 위아래로 버튼 2줄 있는 버전
+// 버튼을 눌렀을 때 실행되는 핸들러 함수
+const handleButtonPress = (action: () => void, setVisible: (visible: boolean) => void) => {
+  return () => {
+    action();
+    setVisible(false);
+  };
+};
 
-  const buttons = [
-    { content: '갤러리에서 가져오기' },
-    { content: '촬영하기' },
-  ];
+// ModalType1: 두 줄로 버튼 배치
+const ModalType1: React.FC<ModalWindowProps> = ({ visible, setVisible }) => {
+  const GalleryButton = (
+    <RoundedTextButton
+      content="갤러리에서 가져오기"
+      widthOption="lg"
+      color="bg-primary"
+      onPress={handleButtonPress(() => console.log('갤러리에서 가져오기'), setVisible)}
+    />
+  );
+
+  const CameraButton = (
+    <RoundedTextButton
+      content="촬영하기"
+      widthOption="lg"
+      color="bg-primary"
+      onPress={handleButtonPress(() => console.log('촬영하기'), setVisible)}
+    />
+  );
 
   return (
-    <Portal>
-        <Modal visible={visible} hideModal={() => setVisible(false)}>
-          {buttons.map(({ content }, index) => (
-            <RoundedTextButton 
-              key={index} 
-              onPress={() => setVisible(false)} 
-              content={content} 
-              widthOption='lg' 
-              textType='body2'
-              textColor='text-white' 
-            />
-          ))}
-        </Modal>
-      </Portal>
+    <ModalLayout
+      visible={visible}
+      setVisible={setVisible}
+      rows={[{ content: [GalleryButton, CameraButton], layout: 'col' }]}
+    />
   );
-}
+};
 
+// ModalType2: 제목과 나란히 있는 두 개의 버튼
+const ModalType2: React.FC<ModalWindowProps> = ({ visible, setVisible }) => {
+  const CancelButton = (
+    <RoundedTextButton
+      content="취소"
+      color="bg-secondary"
+      widthOption="sm"
+      onPress={handleButtonPress(() => console.log('취소'), setVisible)}
+    />
+  );
 
-const ModalType2: React.FC<ModalWindowProps> = ({visible, setVisible}) => {
-  // 1행 - 제목, 2행 - 버튼 두개 (나란히)
-
-  const title = "산책을 종료하시겠어요?"
-  const buttons = [
-    { content: '취소', color : 'bg-grey' as ButtonColor},
-    { content: '종료', color : 'bg-primary' as ButtonColor},
-  ];
+  const FinishButton = (
+    <RoundedTextButton
+      content="종료"
+      color="bg-primary"
+      widthOption="sm"
+      onPress={handleButtonPress(() => console.log('종료'), setVisible)}
+    />
+  );
 
   return (
-    <Portal>
-        <Modal visible={visible} hideModal={() => setVisible(false)}>
-          <StylizedText type="header2" color='text-black' className="my-5">
-            {title}
-          </StylizedText>
-          <View className="flex-row mt-4">
-          {buttons.map(({ content, color }, index) => (
-            <RoundedTextButton 
-              key={index} 
-              onPress={() => setVisible(false)} 
-              content={content} 
-              widthOption='sm'
-              color={color}
-              textType='body2'
-              textColor='text-white' 
-            />
-          ))}
-          </View>
-        </Modal>
-      </Portal>
+    <ModalLayout
+      visible={visible}
+      setVisible={setVisible}
+      title="산책을 종료하시겠어요?"
+      rows={[{ content: [CancelButton, FinishButton], layout: 'row' }]}
+    />
   );
-}
+};
 
-const ModalType3: React.FC<ModalWindowProps> = ({visible, setVisible}) => {
-  // 1행 - 제목, 2행 - 버튼 한 개
-
-  const title = "오늘도 함께 산책해줘서 고마워요!"
-  const button = { content: '취소', color : 'bg-primary' as ButtonColor}
+// ModalType3: 제목과 단일 버튼
+const ModalType3: React.FC<ModalWindowProps> = ({ visible, setVisible }) => {
+  const CancelButton = (
+    <RoundedTextButton
+      content="취소"
+      color="bg-primary"
+      widthOption="sm"
+      onPress={handleButtonPress(() => console.log('취소'), setVisible)}
+    />
+  );
 
   return (
-    <Portal>
-        <Modal visible={visible} hideModal={() => setVisible(false)}>
-          <StylizedText type="header2" color='text-black' className="my-5">
-            {title}
-          </StylizedText>
-          <View className="flex-row mt-4">
-            <RoundedTextButton 
-              key={button.content} 
-              onPress={() => setVisible(false)} 
-              content={button.content} 
-              widthOption='sm'
-              color={button.color}
-              textType='body2'
-              textColor='text-white' 
-            />
-          </View>
-        </Modal>
-      </Portal>
+    <ModalLayout
+      visible={visible}
+      setVisible={setVisible}
+      title="오늘도 함께 산책해줘서 고마워요!"
+      rows={[{ content: [CancelButton], layout: 'col' }]}
+    />
   );
-}
+};
 
-const ModalType4: React.FC<ModalWindowProps> = ({visible, setVisible}) => {
-  // 하단모달 /
+// ModalType4: 설명 텍스트와 버튼 그룹 포함
+const ModalType4: React.FC<ModalWindowProps> = ({ visible, setVisible }) => {
+  const CancelButton = (
+    <RoundedTextButton
+      content="취소"
+      color="bg-secondary"
+      widthOption="sm"
+      onPress={handleButtonPress(() => console.log('취소'), setVisible)}
+    />
+  );
 
-  const title = "오늘도 함께 산책해줘서 고마워요!"
-  const button = { content: '취소', color : 'bg-primary' as ButtonColor}
+  const ConfirmButton = (
+    <RoundedTextButton
+      content="확인"
+      color="bg-primary"
+      widthOption="sm"
+      onPress={handleButtonPress(() => console.log('확인 클릭됨'), setVisible)}
+    />
+  );
+
+  const DescriptionText = (
+    <StylizedText key="description" type="body2" styleClass="text-black">
+      여기에 설명 텍스트가 표시됩니다.
+    </StylizedText>
+  );
 
   return (
-    <Portal>
-        <Modal visible={visible} hideModal={() => setVisible(false)} position='bottom'>
-          <StylizedText type="header2" color='text-black' className="my-5">
-            {title}
-          </StylizedText>
-          <View className="flex-row mt-4">
-            <RoundedTextButton 
-              key={button.content} 
-              onPress={() => setVisible(false)} 
-              content={button.content} 
-              widthOption='full'
-              color={button.color}
-              textType='body2'
-              textColor='text-white' 
-            />
-          </View>
-        </Modal>
-      </Portal>
+    <ModalLayout
+      visible={visible}
+      setVisible={setVisible}
+      position='bottom'
+      title="여기에 설명 텍스트가 표시됩니다."
+      titleAlign='left'
+      rows={[
+        {
+          content: [DescriptionText, <Avatar/>]
+        },
+        {
+          content: [CancelButton, ConfirmButton], layout: 'row',
+        },
+      ]}
+    />
   );
-}
+};
 
+// ModalExample: 예시 컴포넌트
 const ModalExample: React.FC = () => {
   const [visible, setVisible] = React.useState<boolean>(false);
 
   return (
     <PaperProvider>
-      {/* <ModalType1 visible={visible} setVisible={setVisible} /> */}
-      <ModalType4 visible={visible} setVisible={setVisible} /> 
-
-      {/* 어쨋건 이 어딘가에는 모달을 여는 코드나, 아니면 모달이 띄워질 바탕코드가 있어야함 */}
-      <Button onPress={() => setVisible(true)} className="mt-10">
-          Show Modal
-        </Button>
+      <Button onPress={() => setVisible(true)} className="mt-12">
+        Show Modal
+      </Button>
+      <ModalType2 visible={visible} setVisible={setVisible} />
+      {/* 필요에 따라 다른 ModalType을 선택해 표시할 수 있음 */}
     </PaperProvider>
   );
 };

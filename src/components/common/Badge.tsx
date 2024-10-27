@@ -16,7 +16,7 @@ export const PillBadge: React.FC<BadgeProps> = ({
 }) => {
   return (
     <View className={`self-start px-4 py-1 rounded-full ${color}`}>
-      <StylizedText type="label" color={textColor}>{text}</StylizedText>
+      <StylizedText type="label" styleClass={textColor}>{text}</StylizedText>
     </View>
   );
 };
@@ -24,8 +24,8 @@ export const PillBadge: React.FC<BadgeProps> = ({
 export const TagBadge : React.FC<BadgeProps> = ({ text = 'TagBadge', color = 'bg-red', textColor = 'text-white'}) => {
   // 박스 한쪽 끝에 걸쳐서 붙여놓는 뱃지
   return (
-    <View className={`rounded-full absolute top-[4px] right-[-8px] px-2 py-1 ${color} z-10`}>
-      <StylizedText type="label" color={textColor}>{text}</StylizedText>
+    <View className={`rounded-full absolute top-[8px] right-[-8px] px-3 py-1 ${color} z-10`}>
+      <StylizedText type="label1" styleClass={textColor}>{text}</StylizedText>
     </View>
   );
 };
@@ -37,7 +37,7 @@ export const Badge: React.FC<BadgeProps> = ({
 }) => {
   return (
     <View className={`self-start px-4 py-1 rounded-sm ${color} m-2`}>
-      <StylizedText type="label" color={textColor}>{text}</StylizedText>
+      <StylizedText type="label" styleClass={textColor}>{text}</StylizedText>
     </View>
   );
 };
