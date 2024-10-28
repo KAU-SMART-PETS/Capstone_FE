@@ -94,14 +94,13 @@ const Login = () => {
         </View>
       </View>
 
-      {/* WebView Modal */}
+      
       <Modal visible={showWebView} animationType="slide">
         <View style={{ flex: 1 }}>
           {loading && (
             <ActivityIndicator
               color="blue"
               size="large"
-              style={styles.loadingIndicator}
             />
           )}
           <WebView

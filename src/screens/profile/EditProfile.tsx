@@ -45,9 +45,52 @@ const EditProfile: React.FC = () => {
     try {
       if (userInfo) {
 
-        await AsyncStorage.setItem('USER_DATA', JSON.stringify(userInfo));
-        setEditingField(null);
-        Alert.alert('알림', '정보가 성공적으로 업데이트되었습니다.');
+        const jsessionid = await AsyncStorage.getItem('JSESSIONID');
+        if (!jsessionid) {
+          Alert.alert('오류', '로그인이 필요합니다.');
+          return;
+        }
+  
+        const updateData = {
+          email: userInfo.email,
+          phoneNumber: userInfo.phoneNumber,
+          smsOptIn: userInfo.smsOptIn,
+          emailOptIn: userInfo.emailOptIn,
+        };
+
+        const response = await fetch('http://52.79.140.133:8080/api/v1/users', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': `JSESSIONID=${jsessionid}`,
+          },
+          body: JSON.stringify(updateData),
+        });
+  
+
+
+        const responseText = await response.text();
+        console.log('Response text:', responseText);
+  
+        if (response.ok) {
+          let updatedUserData: UserInfo | null = null;
+  
+          if (responseText) {
+
+            updatedUserData = JSON.parse(responseText);
+          } else {
+
+            updatedUserData = userInfo;
+          }
+          await AsyncStorage.setItem('USER_DATA', JSON.stringify(updatedUserData));
+          setUserInfo(updatedUserData);
+  
+          setEditingField(null);
+          Alert.alert('알림', '정보가 성공적으로 업데이트되었습니다.');
+        } else {
+          console.error('Failed to update user data:', responseText);
+          Alert.alert('오류', '정보를 업데이트하는 중 오류가 발생했습니다.');
+        }
       }
     } catch (error) {
       console.error('Error saving user data:', error);
