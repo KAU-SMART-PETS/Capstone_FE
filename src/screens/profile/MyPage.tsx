@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, FlatList, Modal } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '@types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
 
@@ -17,8 +18,6 @@ interface Pet {
   sex: string;
   weight: number;
 }
-
-const username = '똑똑';
 
 const deviceData: Device[] = [
   { id: '1', name: 'WATCH (1)' },
@@ -121,6 +120,9 @@ const AddDeviceButton: React.FC = () => (
 const MyPage: React.FC = () => {
   const navigation = useNavigation<MyPageNavigationProp>();
 
+  const [username, setUsername] = useState('');
+  const [userData, setUserData] = useState(null);
+
   const petData: Pet[] = [
     { 
       id: '2', 
@@ -145,6 +147,44 @@ const MyPage: React.FC = () => {
     },
   ];
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+
+        const jsessionid = await AsyncStorage.getItem('JSESSIONID');
+        if (!jsessionid) {
+          console.log('JSESSIONID not found');
+
+          return;
+        }
+
+        const response = await fetch('http://52.79.140.133:8080/api/v1/users', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': `JSESSIONID=${jsessionid}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+
+          await AsyncStorage.setItem('USER_DATA', JSON.stringify(data));
+
+          setUsername(data.name);
+          setUserData(data);
+        } else {
+          console.log('Failed to fetch user data:', response.status);
+          
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   const renderPetItem = ({ item }: { item: Pet }) => <PetCard pet={item} devices={deviceData} />;
   const renderDeviceItem = ({ item }: { item: Device }) => <DeviceCard device={item} />;
 
@@ -153,7 +193,7 @@ const MyPage: React.FC = () => {
       <View style={styles.profileSection}>
         <Image source={{ uri: 'https://via.placeholder.com/80' }} style={styles.profileImage} />
         <Text style={styles.greeting}>안녕하세요 <Text style={{ color: 'skyblue' }}>{username}!</Text></Text>
-        <TouchableOpacity style={styles.editProfileButton} onPress={() => navigation.navigate('EditMyInfo')}>
+        <TouchableOpacity style={styles.editProfileButton} onPress={() => navigation.navigate('EditProfile')}>
           <Text style={styles.editProfileText}>내 정보 관리하기</Text>
         </TouchableOpacity>
       </View>
@@ -199,7 +239,6 @@ const MyPage: React.FC = () => {
     </ScrollView>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
