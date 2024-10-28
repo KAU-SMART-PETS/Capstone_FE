@@ -9,14 +9,14 @@ export type TagBadgeProps = {
 };
 
 export type DesignPreset = 'A' | 'B' | 'C' | 'D' | 'modalC' | 'modalB' |
-                            'greycard' | 'dashedcard' | 'G'; 
+                            'greycard' | 'dashedcard' | 'G' | 'squarecard'; 
 // 파일 하단에 각 옵션에 따른 스타일 설명
 
 export type RoundedFrameProps = {
   children: React.ReactNode; // Accepts any children components
   preset?: DesignPreset; // Optional design preset
   shadow?: boolean; // Option for shadow
-  outline?: 'solid' | 'dashed' | 'dotted'
+  outline?: 'solid' | 'dashed' | 'dotted' | 'active-solid' | 'inactive-dashed'
 };
 
 export type RoundedBoxProps = {
@@ -25,7 +25,7 @@ export type RoundedBoxProps = {
   shadow?: boolean; // Option for shadow
   isButton?: boolean; // Default is not a button
   onPress?: () => void; // Function to call on press
-  outline?: 'solid' | 'dashed' | 'dotted'
+  outline?: 'solid' | 'dashed' | 'dotted' | 'active-solid' | 'inactive-dashed'
 };
 
 export const RoundedFrame: React.FC<RoundedFrameProps> = ({
@@ -36,7 +36,6 @@ export const RoundedFrame: React.FC<RoundedFrameProps> = ({
 }) => {
   const styles = getStyles(preset);
   const outlines = getOutlnes(outline);
-  console.log(outlines);
   return (
     <View className='my-1'>
       {shadow ? (
@@ -111,7 +110,19 @@ const getOutlnes = (outline: string) => {
         borderWidth : 1.2,
         borderColor: ColorMap['secondary'],
     };
-    }
+    case 'active-solid':
+      return {
+        borderStyle : 'solid', 
+        borderWidth : 1.8,
+        borderColor: ColorMap['primary'],
+    };
+    case 'inactive-dashed':
+      return {
+        borderStyle : 'dashed', 
+        borderWidth : 1.8,
+        borderColor: ColorMap['secondary'],
+    };
+  }
 }
 
 const getStyles = (preset: DesignPreset) => {
@@ -157,6 +168,12 @@ const getStyles = (preset: DesignPreset) => {
         backgroundColor: 'bg-silver/10',
         borderStyle: 'rounded-xl',
         containerLayout: 'flex flex-col justify-center items-center text-center my-1 p-4',
+    };
+    case 'squarecard': 
+      return {
+        backgroundColor: 'bg-silver/10',
+        borderStyle: 'rounded-xl',
+        containerLayout: 'w-36 h-36 flex flex-col justify-center items-center text-center my-1 p-4',
     };
     case 'G': 
       return {

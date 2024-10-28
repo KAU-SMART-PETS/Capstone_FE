@@ -12,7 +12,6 @@ import location from '@image/icon/location.png';
 import StylizedText from '@common/StylizedText';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome5'
-import ShadowBox from './common/ShadowBox';
 
 // DiseaseCard, VaccinationCard, OrderInfoCard, HospitalInfoCard
 

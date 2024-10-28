@@ -1,20 +1,18 @@
 // types.ts
 
-// 각 페이지 관련 매개변수타입
 export type RootStackParamList = {
     BoxExample: undefined;
+    RadioButtonExample: undefined; // 새로운 스크린 추가
     BadgeExample: undefined;
     TextInputExample: undefined;
     ModalExample: undefined;
     TestingPage: undefined;
+    BlueToothScanner: undefined;
 };
 
 // 
 // COMPONENTS
 //
-
-
-
 
 // 
 // 
