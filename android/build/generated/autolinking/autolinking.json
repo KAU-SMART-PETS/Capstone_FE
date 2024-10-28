@@ -23,23 +23,24 @@
         }
       }
     },
-    "@react-native-community/async-storage": {
-      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-community\\async-storage",
-      "name": "@react-native-community/async-storage",
+    "@react-native-async-storage/async-storage": {
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-async-storage\\async-storage",
+      "name": "@react-native-async-storage/async-storage",
       "platforms": {
         "ios": {
-          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-community\\async-storage\\RNCAsyncStorage.podspec",
-          "version": "1.12.1",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-async-storage\\async-storage\\RNCAsyncStorage.podspec",
+          "version": "2.0.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-community\\async-storage\\android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-async-storage\\async-storage\\android",
           "packageImportPath": "import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;",
           "packageInstance": "new AsyncStoragePackage()",
           "buildTypes": [],
+          "libraryName": "rnasyncstorage",
           "componentDescriptors": [],
-          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/@react-native-community/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,

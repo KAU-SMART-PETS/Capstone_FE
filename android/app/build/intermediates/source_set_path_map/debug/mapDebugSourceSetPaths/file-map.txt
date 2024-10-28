@@ -47,7 +47,7 @@ com.reactcapsone.app-packageDebugResources-45 C:\Users\User\Desktop\capRefractor
 com.reactcapsone.app-debug-46 C:\Users\User\Desktop\capRefractored\Capstone_FE\android\app\build\intermediates\merged_res\debug\mergeDebugResources
 com.reactcapsone.app-debug-47 C:\Users\User\Desktop\capRefractored\Capstone_FE\android\app\src\debug\res
 com.reactcapsone.app-main-48 C:\Users\User\Desktop\capRefractored\Capstone_FE\android\app\src\main\res
-com.reactcapsone.app-debug-49 C:\Users\User\Desktop\capRefractored\Capstone_FE\node_modules\@react-native-community\async-storage\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.reactcapsone.app-debug-49 C:\Users\User\Desktop\capRefractored\Capstone_FE\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\packaged_res\debug\packageDebugResources
 com.reactcapsone.app-debug-50 C:\Users\User\Desktop\capRefractored\Capstone_FE\node_modules\@react-native-community\datetimepicker\android\build\intermediates\packaged_res\debug\packageDebugResources
 com.reactcapsone.app-debug-51 C:\Users\User\Desktop\capRefractored\Capstone_FE\node_modules\@react-native-cookies\cookies\android\build\intermediates\packaged_res\debug\packageDebugResources
 com.reactcapsone.app-debug-52 C:\Users\User\Desktop\capRefractored\Capstone_FE\node_modules\@react-native-masked-view\masked-view\android\build\intermediates\packaged_res\debug\packageDebugResources

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, FlatList, Modal } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, FlatList, Modal, Alert } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '@types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -76,7 +76,10 @@ const PetCard: React.FC<{ pet: Pet, devices: Device[] }> = ({ pet, devices }) =>
   return (
     <View style={styles.petCardContainer}>
       <View style={styles.petCard}>
-        <Image source={{ uri: 'https://via.placeholder.com/80' }} style={styles.petImage} />
+      <Image 
+          source={{ uri: pet.imageUrl ? pet.imageUrl : 'https://via.placeholder.com/80' }} 
+          style={styles.petImage} 
+      />
         <View style={styles.petInfo}>
           <Text style={styles.petName}>{pet.name}</Text>
           <Text style={styles.petDetails}>{`${pet.species} ${pet.sex}, ${pet.weight}kg`}</Text>
@@ -117,48 +120,61 @@ const AddDeviceButton: React.FC = () => (
   </TouchableOpacity>
 );
 
+
+
+
 const MyPage: React.FC = () => {
   const navigation = useNavigation<MyPageNavigationProp>();
 
   const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
+  const [petData, setPetData] = useState<Pet[]>([]); // 반려동물 데이터를 저장할 상태 추가
 
-  const petData: Pet[] = [
-    { 
-      id: '2', 
-      name: '멍멍이', 
-      species: '비글', 
-      sex: '암컷', 
-      weight: 15
-    },
-    { 
-      id: '3', 
-      name: '냥냥이', 
-      species: '페르시안', 
-      sex: '수컷', 
-      weight: 4
-    },
-    { 
-      id: '4', 
-      name: '토토', 
-      species: '믹스', 
-      sex: '암컷', 
-      weight: 8
-    },
-  ];
+  const handleLogout = async () => {
+    try {
+      const jsessionid = await AsyncStorage.getItem('JSESSIONID');
+      if (!jsessionid) {
+        console.log('JSESSIONID not found');
+        return;
+      }
+
+      const response = await fetch('http://52.79.140.133:8080/api/v1/oauth2/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Cookie': `JSESSIONID=${jsessionid}`,
+        },
+      });
+
+      if (response.ok) {
+        await AsyncStorage.removeItem('JSESSIONID');
+        await AsyncStorage.removeItem('USER_DATA');
+
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Login' }],
+        });
+      } else {
+        console.log('Failed to logout:', response.status);
+        Alert.alert('오류', '로그아웃에 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('Error logging out:', error);
+      Alert.alert('오류', '로그아웃 중 오류가 발생했습니다.');
+    }
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
+      console.log("AAA");
       try {
-
         const jsessionid = await AsyncStorage.getItem('JSESSIONID');
         if (!jsessionid) {
           console.log('JSESSIONID not found');
-
           return;
         }
 
-        const response = await fetch('http://52.79.140.133:8080/api/v1/users', {
+        const userResponse = await fetch('http://52.79.140.133:8080/api/v1/users', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -166,19 +182,33 @@ const MyPage: React.FC = () => {
           },
         });
 
-        if (response.ok) {
-          const data = await response.json();
-
-          await AsyncStorage.setItem('USER_DATA', JSON.stringify(data));
-
-          setUsername(data.name);
-          setUserData(data);
+        if (userResponse.ok) {
+          const userData = await userResponse.json();
+          await AsyncStorage.setItem('USER_DATA', JSON.stringify(userData));
+          setUsername(userData.name);
+          setUserData(userData);
         } else {
-          console.log('Failed to fetch user data:', response.status);
-          
+          console.log('Failed to fetch user data:', userResponse.status);
         }
+
+        // 반려동물 데이터 가져오기
+        const petResponse = await fetch('http://52.79.140.133:8080/api/v1/users/pets', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': `JSESSIONID=${jsessionid}`,
+          },
+        });
+
+        if (petResponse.ok) {
+          const { pets } = await petResponse.json();
+          console.log('Fetched Pets:', pets); // pets 배열 확인
+          setPetData(pets); // 가져온 반려동물 데이터를 petData에 설정
+      } else {
+          console.log('Failed to fetch pet data:', petResponse.status);
+      }
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error('Error fetching user or pet data:', error);
       }
     };
 
@@ -233,9 +263,14 @@ const MyPage: React.FC = () => {
         />
       </View>
 
-      <TouchableOpacity style={styles.customerServiceButton}>
-        <Text style={styles.customerServiceText}>고객센터</Text>
-      </TouchableOpacity>
+      <View style={styles.footerButtons}>
+        <TouchableOpacity style={styles.customerServiceButton}>
+          <Text style={styles.customerServiceText}>고객센터</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Text style={styles.logoutText}>로그아웃</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
@@ -440,6 +475,21 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: '80%',
     maxHeight: '80%',
+  },
+  footerButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    padding: 15,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+  logoutButton: {
+    // 필요에 따라 스타일 추가
+  },
+  logoutText: {
+    color: '#007AFF',
   },
 
 });

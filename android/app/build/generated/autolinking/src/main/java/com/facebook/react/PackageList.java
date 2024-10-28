@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
-// @react-native-community/async-storage
+// @react-native-async-storage/async-storage
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 // @react-native-cookies/cookies
 import com.reactnativecommunity.cookies.CookieManagerPackage;
