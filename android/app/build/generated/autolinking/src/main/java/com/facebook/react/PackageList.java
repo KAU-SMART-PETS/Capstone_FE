@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import com.oblador.vectoricons.VectorIconsPackage;
 // @react-native-community/async-storage
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+// @react-native-cookies/cookies
+import com.reactnativecommunity.cookies.CookieManagerPackage;
 // @react-native-masked-view/masked-view
 import org.reactnative.maskedview.RNCMaskedViewPackage;
 // react-native-bars
@@ -38,6 +40,8 @@ import com.swmansion.rnscreens.RNScreensPackage;
 import com.horcrux.svg.SvgPackage;
 // react-native-vision-camera
 import com.mrousavy.camera.react.CameraPackage;
+// react-native-webview
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 // @react-native-community/datetimepicker
 import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 // react-native-maps
@@ -91,6 +95,7 @@ public class PackageList {
       new MainReactPackage(mConfig),
       new VectorIconsPackage(),
       new AsyncStoragePackage(),
+      new CookieManagerPackage(),
       new RNCMaskedViewPackage(),
       new RNBarsPackage(),
       new BlePlxPackage(),
@@ -103,6 +108,7 @@ public class PackageList {
       new RNScreensPackage(),
       new SvgPackage(),
       new CameraPackage(),
+      new RNCWebViewPackage(),
       new RNDateTimePickerPackage(),
       new MapsPackage(),
       new RNBootSplashPackage()
