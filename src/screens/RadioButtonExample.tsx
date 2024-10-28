@@ -18,7 +18,7 @@ const RadioButtonExample: React.FC = () => {
   };
 
   return (
-    <View>
+    <View className='px-12 mt-6'>
       <RadioButtonGroup
         ref={radioButtonGroupRef}
         maxChoice={2}

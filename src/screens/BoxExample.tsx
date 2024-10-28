@@ -1,18 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import { View, Image, Text } from 'react-native';
+import { View } from 'react-native';
 import { RootStackParamList } from '@types';
 import fetchHospitalData from '@data/vets.json'; // JSON 파일 경로에 맞게 설정
 
 
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import AvatarPlaceholder from '@image/placeholder/dog.jpg';
-import StylizedText from '@components/common/StylizedText';
-import RoundedBox from '@common/RoundedBox';
 import {RoundedCircleButton, RoundedTextButton} from '@common/RoundedButton';
-import ShadowBox from '@common/ShadowBox';
-import { DiseaseCard, VaccinationCard, OrderInfoCard, HospitalInfoCard, HospitalCard } from '@components/InfoCards';
+import { DiseaseCard, VaccinationCard, OrderInfoCard } from '@components/InfoCards';
+import { HospitalInfoCard, HospitalCard } from '@components/InfoListCards';
+import { ScrollView } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export const ButtonSquare1 = () => {
+const HealthCards = () => {
     return (
       <>
       <View className='flex-row flex-wrap align-center justify-around w-[95%]'>
@@ -54,11 +53,6 @@ export const ButtonSquare1 = () => {
           body badge
         />
         <DiseaseCard
-          title="습진"
-          percentage={83}
-          body badge
-        />
-        <DiseaseCard
           title="진드기"
           percentage={60}
           body badge
@@ -77,6 +71,7 @@ export const ButtonSquare1 = () => {
       </View>
     </>);
 };
+
 
 const HospitalCardExmaple: React.FC = () => {
   const [hospitalData, setHospitalData] = useState([]);
@@ -134,14 +129,18 @@ const HospitalListCardExample: React.FC = () => {
 const BoxExample : React.FC<RootStackParamList> = () => {
 
   return (
-    <View className="flex-1 bg-white pt-10 px-5">
-      {/* <ButtonSquare1 />
-      <RoundedCircleButton onPress={() => console.log("button pressed!!!")} size={10}>
-        <MCIcon name="paw" size={30}/>
-      </RoundedCircleButton> */}
-      <HospitalCardExmaple/>
-      <HospitalListCardExample/>
-    </View>
+    <SafeAreaView>
+      <ScrollView className="" persistentScrollbar>
+        <View className="flex-1 bg-white pt-10 px-5">
+          <HealthCards />
+          <RoundedCircleButton onPress={() => console.log("button pressed!!!")} size={10}>
+            <MCIcon name="paw" size={30}/>
+          </RoundedCircleButton>
+          <HospitalCardExmaple/>
+          <HospitalListCardExample/>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

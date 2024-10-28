@@ -9,7 +9,7 @@ export type TagBadgeProps = {
 };
 
 export type DesignPreset = 'A' | 'B' | 'C' | 'D' | 'modalC' | 'modalB' |
-                            'greycard' | 'dashedcard' | 'G' | 'squarecard'; 
+                            'greycard' | 'dashedcard' | 'G' | 'squarecard' | 'opaque-panel'; 
 // 파일 하단에 각 옵션에 따른 스타일 설명
 
 export type RoundedFrameProps = {
@@ -173,11 +173,17 @@ const getStyles = (preset: DesignPreset) => {
       return {
         backgroundColor: 'bg-silver/10',
         borderStyle: 'rounded-xl',
-        containerLayout: 'w-36 h-36 flex flex-col justify-center items-center text-center my-1 p-4',
+        containerLayout: 'w-32 h-32 flex flex-col justify-center items-center text-center my-1 p-4',
     };
     case 'G': 
       return {
         backgroundColor: 'bg-white',
+        borderStyle: 'rounded-[16px]',
+        containerLayout: 'p-6',
+    };
+    case 'opaque-panel': 
+      return {
+        backgroundColor: 'bg-white opacity-50',
         borderStyle: 'rounded-[16px]',
         containerLayout: 'p-6',
     };

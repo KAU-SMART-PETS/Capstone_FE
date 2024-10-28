@@ -33,11 +33,14 @@ const TestingPage: React.FC = () => {
       <Text className="text-2xl text-center mb-4 text-orange">Main Screen</Text>
       <Text className="text-lg font-bold mb-4 text-blue">메인 페이지</Text>
       {/* Navigation Buttons */}
+      <NavigationButton title="CardExample" destination="CardExample" bgColor="bg-safe" textColor="text-black" />
+      <NavigationButton title="ListCardExample" destination="ListCardExample" bgColor="bg-safe" textColor="text-black" />
+      <NavigationButton title="SummaryExample" destination="SummaryExample" bgColor="bg-safe" textColor="text-black" />
       <NavigationButton title="RadioButtonExample" destination="RadioButtonExample" bgColor="bg-warning" textColor="text-black" />
-      <NavigationButton title="Go to BoxExample" destination="BoxExample" bgColor="bg-lightgrey" textColor="text-black" />
-      <NavigationButton title="Go to BadgeExample" destination="BadgeExample" bgColor="bg-secondary" textColor="text-black" />
-      <NavigationButton title="Go to Modal Example" destination="ModalExample" bgColor="bg-silver" textColor="text-white" />
-      <NavigationButton title="Go to TextInputExample" destination="TextInputExample" bgColor="bg-pink" textColor="text-white" />
+      <NavigationButton title="BoxExample" destination="BoxExample" bgColor="bg-lightgrey" textColor="text-black" />
+      <NavigationButton title="BadgeExample" destination="BadgeExample" bgColor="bg-secondary" textColor="text-black" />
+      <NavigationButton title="Modal Example" destination="ModalExample" bgColor="bg-silver" textColor="text-white" />
+      <NavigationButton title="TextInputExample" destination="TextInputExample" bgColor="bg-pink" textColor="text-white" />
     </View>
   );
 };
