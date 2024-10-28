@@ -1,19 +1,5 @@
 // types.ts
 
-export type RootStackParamList = {
-    BoxExample: undefined;
-    RadioButtonExample: undefined; // 새로운 스크린 추가
-    BadgeExample: undefined;
-    TextInputExample: undefined;
-    ModalExample: undefined;
-    TestingPage: undefined;
-    BlueToothScanner: undefined;
-};
-
-// 
-// COMPONENTS
-//
-
 // 
 // 
 // API와 그 형식 관련
