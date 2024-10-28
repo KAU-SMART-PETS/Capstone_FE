@@ -35,7 +35,7 @@ const TestingPage : React.FC<RootStackParamList> = () => {
       </TouchableOpacity>
       {/* Button to navigate to ModalExample screen */}
       <TouchableOpacity
-        className="w-40 h-12 bg-darkgrey rounded-md justify-center items-center"
+        className="w-40 h-12 bg-silver rounded-md justify-center items-center"
         onPress={() => navigation.navigate('ModalExample')}
       >
         <Text className="text-white">Go to Modal Example</Text>
