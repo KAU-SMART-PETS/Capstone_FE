@@ -13,6 +13,7 @@ import BadgeExample from '@screens/BadgeExample';
 import ModalExample from '@screens/ModalExample';
 import TextInputExample from '@screens/TextInputExample';
 import TestingPage from '@screens/TestingPage';
+import RadioButtonExample from '@screens/RadioButtonExample';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -32,6 +33,7 @@ const AppNavigator = () => {
         initialRouteName="TestingPage"
         screenOptions={{ headerShown: false }}
       >
+        <Stack.Screen name="RadioButtonExample" component={RadioButtonExample} />
         <Stack.Screen name="TestingPage" component={TestingPage} />
         <Stack.Screen name="BoxExample" component={BoxExample} />
         <Stack.Screen name="BadgeExample" component={BadgeExample} />
