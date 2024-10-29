@@ -1,14 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-export interface PetDetails {
-  id: string;
-  name: string;
-  petType: 'CAT' | 'DOG';
-  gender: 'MALE' | 'FEMALE';
-  weight: number;
-  imageUrl: string | null;
-  age: number;
-}
+import { PetDetails } from "@constants/types";
 
 const getPetDetails = async (petId: string): Promise<PetDetails | null> => {
   try {
