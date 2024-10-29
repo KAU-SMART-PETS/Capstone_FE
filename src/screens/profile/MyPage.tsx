@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, FlatList, Modal, Alert } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '@types';
+import getPetDetails from './FetchPetInfo';
+import { PetDetails } from './FetchPetInfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
@@ -11,13 +13,6 @@ interface Device {
   name: string;
 }
 
-interface Pet {
-  id: string;
-  name: string;
-  species: string;
-  sex: string;
-  weight: number;
-}
 
 const deviceData: Device[] = [
   { id: '1', name: 'WATCH (1)' },
@@ -58,9 +53,20 @@ const DropdownModal: React.FC<{
   );
 };
 
-const PetCard: React.FC<{ pet: Pet, devices: Device[] }> = ({ pet, devices }) => {
+const PetCard: React.FC<{ petId: string; devices: Device[] }> = ({ petId, devices }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedDeviceId, setSelectedDeviceId] = useState('');
+  const [petDetails, setPetDetails] = useState<PetDetails | null>(null);
+
+  useEffect(() => {
+    const fetchDetails = async () => {
+      const details = await getPetDetails(petId);
+      if (details) {
+        setPetDetails(details);
+      }
+    };
+    fetchDetails();
+  }, [petId]);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -71,18 +77,40 @@ const PetCard: React.FC<{ pet: Pet, devices: Device[] }> = ({ pet, devices }) =>
     setIsDropdownOpen(false);
   };
 
+  const tempShowPetDetails = async () => {
+    try {
+      const petData = await AsyncStorage.getItem(`PET_${petId}`);
+      if (petData) {
+        const pet: PetDetails = JSON.parse(petData);
+        Alert.alert('반려동물 정보', 
+          `이름: ${pet.name}\n종류: ${pet.petType}\n성별: ${pet.gender}\n체중: ${pet.weight}kg\n나이: ${pet.age}세`
+        );
+      } else {
+        Alert.alert('알림', '반려동물 정보가 없습니다.');
+      }
+    } catch (error) {
+      console.error('Error retrieving pet data:', error);
+      Alert.alert('오류', '반려동물 정보를 불러오는 중 오류가 발생했습니다.');
+    }
+  };
+
   const selectedDevice = devices.find(device => device.id === selectedDeviceId);
 
   return (
+    <TouchableOpacity onPress={tempShowPetDetails}>
     <View style={styles.petCardContainer}>
       <View style={styles.petCard}>
-      <Image 
-          source={{ uri: pet.imageUrl ? pet.imageUrl : 'https://via.placeholder.com/80' }} 
-          style={styles.petImage} 
-      />
+        <Image
+          source={{ uri: petDetails?.imageUrl ? petDetails.imageUrl : 'https://via.placeholder.com/80' }}
+          style={styles.petImage}
+        />
         <View style={styles.petInfo}>
-          <Text style={styles.petName}>{pet.name}</Text>
-          <Text style={styles.petDetails}>{`${pet.species} ${pet.sex}, ${pet.weight}kg`}</Text>
+          <Text style={styles.petName}>{petDetails?.name || 'Loading...'}</Text>
+          {petDetails && (
+            <Text style={styles.petDetails}>
+              {`${petDetails.petType} ${petDetails.gender}, ${petDetails.weight}kg, ${petDetails.age}세`}
+            </Text>
+          )}
         </View>
         <TouchableOpacity style={styles.deviceStatus} onPress={toggleDropdown}>
           <Image source={{ uri: 'https://via.placeholder.com/80' }} style={styles.watchIcon} />
@@ -96,8 +124,10 @@ const PetCard: React.FC<{ pet: Pet, devices: Device[] }> = ({ pet, devices }) =>
         onSelect={selectDevice}
       />
     </View>
+    </TouchableOpacity>
   );
 };
+
 
 const AddPetButton: React.FC = () => (
   <TouchableOpacity style={styles.addPetButton}>
@@ -128,7 +158,7 @@ const MyPage: React.FC = () => {
 
   const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
-  const [petData, setPetData] = useState<Pet[]>([]); // 반려동물 데이터를 저장할 상태 추가
+  const [petIds, setPetIds] = useState<string[]>([]);
 
   const handleLogout = async () => {
     try {
@@ -166,7 +196,6 @@ const MyPage: React.FC = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      console.log("AAA");
       try {
         const jsessionid = await AsyncStorage.getItem('JSESSIONID');
         if (!jsessionid) {
@@ -191,7 +220,6 @@ const MyPage: React.FC = () => {
           console.log('Failed to fetch user data:', userResponse.status);
         }
 
-        // 반려동물 데이터 가져오기
         const petResponse = await fetch('http://52.79.140.133:8080/api/v1/users/pets', {
           method: 'GET',
           headers: {
@@ -202,8 +230,8 @@ const MyPage: React.FC = () => {
 
         if (petResponse.ok) {
           const { pets } = await petResponse.json();
-          console.log('Fetched Pets:', pets); // pets 배열 확인
-          setPetData(pets); // 가져온 반려동물 데이터를 petData에 설정
+          const ids = pets.map((pet: any) => pet.id);
+          setPetIds(ids); 
       } else {
           console.log('Failed to fetch pet data:', petResponse.status);
       }
@@ -215,7 +243,7 @@ const MyPage: React.FC = () => {
     fetchUserData();
   }, []);
 
-  const renderPetItem = ({ item }: { item: Pet }) => <PetCard pet={item} devices={deviceData} />;
+  const renderPetItem = ({ item }: { item: string }) => <PetCard petId={item} devices={deviceData} />;
   const renderDeviceItem = ({ item }: { item: Device }) => <DeviceCard device={item} />;
 
   return (
@@ -235,10 +263,11 @@ const MyPage: React.FC = () => {
             <Text style={styles.seeAllText}>전체보기</Text>
           </TouchableOpacity>
         </View>
+
         <FlatList
-          data={petData}
+          data={petIds}
           renderItem={renderPetItem}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           ListFooterComponent={AddPetButton}
