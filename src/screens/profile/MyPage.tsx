@@ -57,6 +57,7 @@ const PetCard: React.FC<{ petId: string; devices: Device[] }> = ({ petId, device
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedDeviceId, setSelectedDeviceId] = useState('');
   const [petDetails, setPetDetails] = useState<PetDetails | null>(null);
+  const navigation = useNavigation<MyPageNavigationProp>();
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -82,9 +83,7 @@ const PetCard: React.FC<{ petId: string; devices: Device[] }> = ({ petId, device
       const petData = await AsyncStorage.getItem(`PET_${petId}`);
       if (petData) {
         const pet: PetDetails = JSON.parse(petData);
-        Alert.alert('반려동물 정보', 
-          `이름: ${pet.name}\n종류: ${pet.petType}\n성별: ${pet.gender}\n체중: ${pet.weight}kg\n나이: ${pet.age}세`
-        );
+        navigation.navigate('PetProfile', pet);
       } else {
         Alert.alert('알림', '반려동물 정보가 없습니다.');
       }

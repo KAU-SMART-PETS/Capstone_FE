@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, RouteProp } from '@react-navigation/native';
+import { RootStackParamList } from '@types';
 import registerPhoto from '@image/frame/registerPhoto.png';
 
-// Mock data
+// 초기 데이터(임시)
 const mockData = {
   steps: {
     current: 1900,
@@ -16,16 +17,15 @@ const mockData = {
   petDetails: {
     name: "하늘이",
     type: "강아지",
-    breed: "골든 리트리버",
     weight: "25",
     age: "3",
     gender: "암",
-    bluetoothDevice: "PetTracker-A1B2C3"
   },
   estimatedCalories: 330
 };
 
-const PetProfile = () => {
+const PetProfile: React.FC<RouteProp<RootStackParamList, 'PetProfile'>> = ({ route }) => {
+  const { name, petType, gender, weight, imageUrl, age } = route.params;
   const navigation = useNavigation();
   const [showDetail, setShowDetail] = useState(false);
 
@@ -33,7 +33,7 @@ const PetProfile = () => {
     navigation.goBack();
   };
 
-  const calculatePercentage = (current, goal) => {
+  const calculatePercentage = (current: number, goal: number) => {
     return Math.min((current / goal) * 100, 100);
   };
 
@@ -44,15 +44,13 @@ const PetProfile = () => {
     setShowDetail(prevState => !prevState);
   };
 
-  const getLabel = (key) => {
-    const labels = {
+  const getLabel = (key: string) => {
+    const labels: { [key: string]: string } = {
       name: '이름',
-      type: '종류',
-      breed: '품종',
+      petType: '종류',
       weight: '체중',
       age: '나이',
       gender: '성별',
-      bluetoothDevice: '연결된 기기'
     };
 
     return labels[key] || key;
@@ -67,10 +65,10 @@ const PetProfile = () => {
           </TouchableOpacity>
           <View style={styles.profileSection}>
             <Image
-              source={registerPhoto}
+              source={imageUrl ? { uri: imageUrl } : registerPhoto}
               style={styles.profileImage}
             />
-            <Text style={styles.name}>{mockData.petDetails.name}</Text>
+            <Text style={styles.name}>{name}</Text>
             <View style={styles.calorieInfo}>
               <Text style={styles.breed}>예상 칼로리 소모량</Text>
               <Text style={styles.calories}>{mockData.estimatedCalories} kcal</Text>
@@ -102,12 +100,22 @@ const PetProfile = () => {
           
           {showDetail && (
             <>
-              {Object.entries(mockData.petDetails).map(([key, value]) => (
-                <View key={key} style={styles.detailCard}>
-                  <Text style={styles.detailLabel}>{getLabel(key)}</Text>
-                  <Text style={styles.detailValue}>{value}</Text>
-                </View>
-              ))}
+              <View style={styles.detailCard}>
+                <Text style={styles.detailLabel}>{getLabel('petType')}</Text>
+                <Text style={styles.detailValue}>{petType}</Text>
+              </View>
+              <View style={styles.detailCard}>
+                <Text style={styles.detailLabel}>{getLabel('gender')}</Text>
+                <Text style={styles.detailValue}>{gender}</Text>
+              </View>
+              <View style={styles.detailCard}>
+                <Text style={styles.detailLabel}>{getLabel('weight')}</Text>
+                <Text style={styles.detailValue}>{weight} kg</Text>
+              </View>
+              <View style={styles.detailCard}>
+                <Text style={styles.detailLabel}>{getLabel('age')}</Text>
+                <Text style={styles.detailValue}>{age} 세</Text>
+              </View>
             </>
           )}
           
