@@ -144,6 +144,21 @@ const ModalType4: React.FC<ModalWindowProps> = ({ visible, setVisible }) => {
   );
 };
 
+// const ModalType5: React.FC<ModalWindowProps> = ({ visible, setVisible, content }) => {
+//   //배경이 투명한 모달
+  
+//   return (
+//     <Portal>
+//         <Modal visible={visible} hideModal={() => setVisible(false)} position='bottom' backgroundColor='clear'>
+//           <View>
+//             {content}
+//           </View>
+//         </Modal>
+//       </Portal>
+//   );
+// };
+
+
 // ModalExample: 예시 컴포넌트
 const ModalExample: React.FC = () => {
   const [visible, setVisible] = React.useState<boolean>(false);
@@ -153,7 +168,20 @@ const ModalExample: React.FC = () => {
       <Button onPress={() => setVisible(true)} className="mt-12">
         Show Modal
       </Button>
-      <ModalType2 visible={visible} setVisible={setVisible} />
+      {/* <ModalType2 visible={visible} setVisible={setVisible} /> */}
+      {/* <ModalType5
+        visible={visible}
+        setVisible={setVisible}
+        content=
+        {<WalkingRecord
+          walkDate="2024.05.20 18:01 - 2024.05.20 19:01"
+          walkTime="00:14:23"
+          distance="0.5km"
+          calories="-"
+          steps="-"
+          />}
+      /> */}
+
       {/* 필요에 따라 다른 ModalType을 선택해 표시할 수 있음 */}
     </PaperProvider>
   );

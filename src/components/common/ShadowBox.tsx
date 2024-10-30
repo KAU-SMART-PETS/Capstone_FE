@@ -1,16 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
-// import { Shadow } from 'react-native-shadow-2';
 
 type ShadowBoxProps = {
-  children: React.ReactNode; // Accepts any children components
-  distance?: number; // Distance for the shadow
-  startColor?: string; // Starting color for the shadow
-  endColor?: string; // Ending color for the shadow
-  offset?: [number, number]; // Offset for the shadow
-  style?: any; // Additional styles for the shadow
-};
-
+  children: React.ReactNode; 
+  style?: any;
+}
 const defaultShadow = {
   shadowColor: '#000',
   shadowOffset: { width: 0, height: 4 },
@@ -24,19 +18,28 @@ const ShadowBox: React.FC<ShadowBoxProps> = ({
   style,
 }) => {
   return (
-    <View style={[style, defaultShadow]}
-    >
-      {children}
-    </View>
+      <View style={[style, defaultShadow]}>
+        {children}
+      </View>
   );
 };
 
+export default ShadowBox;
+
+// type ShadowBoxProps = {
+//   children: React.ReactNode; // Accepts any children components
+//   distance?: number; // Distance for the shadow
+//   startColor?: string; // Starting color for the shadow
+//   endColor?: string; // Ending color for the shadow
+//   offset?: [number, number]; // Offset for the shadow
+//   style?: any; // Additional styles for the shadow
+// };
 // const ShadowBox: React.FC<ShadowBoxProps> = ({
 //   children,
-//   distance = 4.5,
-//   startColor = 'rgba(0, 0, 0, 0.06)',
+//   distance = 6,
+//   startColor = 'rgba(0, 0, 0, 0.03)',
 //   endColor = 'rgba(0, 0, 0, 0)',
-//   offset = [0, 3],
+//   offset = [0, 4],
 //   style,
 // }) => {
 //   return (
@@ -51,5 +54,3 @@ const ShadowBox: React.FC<ShadowBoxProps> = ({
 //     </Shadow>
 //   );
 // };
-
-export default ShadowBox;

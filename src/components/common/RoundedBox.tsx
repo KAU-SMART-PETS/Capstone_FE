@@ -9,14 +9,16 @@ export type TagBadgeProps = {
 };
 
 export type DesignPreset = 'A' | 'B' | 'C' | 'D' | 'modalC' | 'modalB' |
-                            'greycard' | 'dashedcard' | 'G' | 'squarecard' | 'opaque-panel'; 
+                            'greycard' | 'dashedcard' | 'G' | 'squarecard' | 'opaque-panel' | 'F'; 
 // 파일 하단에 각 옵션에 따른 스타일 설명
+
+export type OutlinePreset = 'solid' | 'dashed' | 'dotted' | 'active-solid' | 'inactive-dashed' | undefined;
 
 export type RoundedFrameProps = {
   children: React.ReactNode; // Accepts any children components
   preset?: DesignPreset; // Optional design preset
   shadow?: boolean; // Option for shadow
-  outline?: 'solid' | 'dashed' | 'dotted' | 'active-solid' | 'inactive-dashed'
+  outline?: OutlinePreset;
 };
 
 export type RoundedBoxProps = {
@@ -25,7 +27,7 @@ export type RoundedBoxProps = {
   shadow?: boolean; // Option for shadow
   isButton?: boolean; // Default is not a button
   onPress?: () => void; // Function to call on press
-  outline?: 'solid' | 'dashed' | 'dotted' | 'active-solid' | 'inactive-dashed'
+  outline?: OutlinePreset;
 };
 
 export const RoundedFrame: React.FC<RoundedFrameProps> = ({
@@ -39,11 +41,11 @@ export const RoundedFrame: React.FC<RoundedFrameProps> = ({
   return (
     <View className='my-1'>
       {shadow ? (
-        <ShadowBox className={`${styles.borderStyle}`}>
-          <View style={outlines} className={`${styles.containerLayout} ${styles.backgroundColor} ${styles.borderStyle}`}>
+        // <ShadowBox className={`${styles.borderStyle}`}>
+          <ShadowBox style={outlines} className={`${styles.containerLayout} ${styles.backgroundColor} ${styles.borderStyle}`}>
             {children}
-          </View>
-        </ShadowBox>
+          </ShadowBox>
+        // </ShadowBox>
       ) : (
         <View style={outlines} className={`${styles.containerLayout} ${styles.backgroundColor} ${styles.borderStyle}`}>
           {children}
@@ -59,21 +61,21 @@ export const RoundedBox: React.FC<RoundedBoxProps> = ({
   shadow = true,
   onPress,
   isButton = false,
-  onSelect,
+  // onSelect,
   outline='solid'
 }) => {
-  const [isActive, setIsActive] = useState(false);
+  // const [isActive, setIsActive] = useState(false);
 
-  const handlePress = () => {
-    const newState = !isActive;
-    setIsActive(newState);
-    if (onSelect) {
-      onSelect(newState);
-    }
-    if (onPress) {
-      onPress();
-    }
-  };
+  // const handlePress = () => {
+  //   const newState = !isActive;
+  //   setIsActive(newState);
+  //   if (onSelect) {
+  //     onSelect(newState);
+  //   }
+  //   if (onPress) {
+  //     onPress();
+  //   }
+  // };
   const Content = (
     <RoundedFrame
       preset={preset}
@@ -85,7 +87,7 @@ export const RoundedBox: React.FC<RoundedBoxProps> = ({
   );
 
   return isButton ? (
-    <TouchableOpacity onPress={handlePress}>
+    <TouchableOpacity onPress={onPress}>
       {Content}
     </TouchableOpacity>
   ) : (
@@ -93,11 +95,10 @@ export const RoundedBox: React.FC<RoundedBoxProps> = ({
   );
 };
 
-const getOutlnes = (outline: string) => {
+const getOutlnes = (outline: OutlinePreset) => {
   switch (outline) {
     case 'solid':
-      return {
-      };
+      return {};
     case 'dashed':
       return {
         borderStyle : 'dashed', 
@@ -122,6 +123,8 @@ const getOutlnes = (outline: string) => {
         borderWidth : 1.8,
         borderColor: ColorMap['secondary'],
     };
+    default:
+        return {};
   }
 }
 
@@ -145,6 +148,11 @@ const getStyles = (preset: DesignPreset) => {
         borderStyle: 'border border-3',
         containerLayout: 'py-4 px-3 flex items-center justify-center',
       };
+    case 'F':  // 둥근박스5 - 테두리 없음, 패딩 없음, 내용물에 딱맞게 감싸도록
+      return {
+        borderStyle: 'rounded-3xl',
+        containerLayout: 'p-0',
+    };
     case 'modalC': // 센터모달 (중앙 모달) - 하얀박스, 내부요소 중앙정렬
       return {
       backgroundColor: 'bg-white',

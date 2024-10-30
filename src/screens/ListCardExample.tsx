@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+// import { HospitalInfoCard, ReviewCard } from '@components/InfoListCards';
 
 const ListCardExample : React.FC<RootStackParamList> = () => {
     return (
-      <View className="flex-1 bg-white pt-10 px-5 scroll">
-        <Text>123</Text>
+      <View className="flex-wrap bg-white pt-10 px-5">
+
       </View>
     );
   };
