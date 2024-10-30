@@ -7,7 +7,7 @@ import fetchHospitalData from '@data/vets.json'; // JSON 파일 경로에 맞게
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {RoundedCircleButton, RoundedTextButton} from '@common/RoundedButton';
 import { DiseaseCard, VaccinationCard, OrderInfoCard } from '@components/InfoCards';
-import { HospitalInfoCard, HospitalCard } from '@components/InfoListCards';
+// import { HospitalInfoCard, HospitalCard } from '@components/InfoListCards';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -73,57 +73,57 @@ const HealthCards = () => {
 };
 
 
-const HospitalCardExmaple: React.FC = () => {
-  const [hospitalData, setHospitalData] = useState([]);
+// const HospitalCardExmaple: React.FC = () => {
+//   const [hospitalData, setHospitalData] = useState([]);
   
-  useEffect(() => {
-    const loadHospitalData = async () => {
-      const data:any = await fetchHospitalData; // JSON 파일에서 병원 데이터를 불러옴
-      setHospitalData(data);
-    };
+//   useEffect(() => {
+//     const loadHospitalData = async () => {
+//       const data:any = await fetchHospitalData; // JSON 파일에서 병원 데이터를 불러옴
+//       setHospitalData(data);
+//     };
 
-    loadHospitalData();
-  }, []);
+//     loadHospitalData();
+//   }, []);
 
-  return (
-    <View>
-      {hospitalData.map((hospital) => (
-        <HospitalInfoCard
-          key={hospital.id}
-          name={hospital.name}
-          address={hospital.address}
-          telephone={hospital.telephone}
-        />
-      ))}
-    </View>
-  );
-};
+//   return (
+//     <View>
+//       {hospitalData.map((hospital) => (
+//         <HospitalInfoCard
+//           key={hospital.id}
+//           name={hospital.name}
+//           address={hospital.address}
+//           telephone={hospital.telephone}
+//         />
+//       ))}
+//     </View>
+//   );
+// };
 
-const HospitalListCardExample: React.FC = () => {
-  const [hospitalData, setHospitalData] = useState([]);
+// const HospitalListCardExample: React.FC = () => {
+//   const [hospitalData, setHospitalData] = useState([]);
 
-  useEffect(() => {
-    const loadHospitalData = async () => {
-      const data:any = await fetchHospitalData; // JSON 파일에서 병원 데이터를 불러옴
-      setHospitalData(data);
-    };
+//   useEffect(() => {
+//     const loadHospitalData = async () => {
+//       const data:any = await fetchHospitalData; // JSON 파일에서 병원 데이터를 불러옴
+//       setHospitalData(data);
+//     };
 
-    loadHospitalData();
-  }, []);
+//     loadHospitalData();
+//   }, []);
 
-  return (
-    <View>
-      {hospitalData.map((hospital) => (
-        <HospitalCard
-          key={hospital.id}
-          name={hospital.name}
-          address={hospital.address}
-          telephone={hospital.telephone}
-        />
-      ))}
-    </View>
-  );
-};
+//   return (
+//     <View>
+//       {hospitalData.map((hospital) => (
+//         <HospitalCard
+//           key={hospital.id}
+//           name={hospital.name}
+//           address={hospital.address}
+//           telephone={hospital.telephone}
+//         />
+//       ))}
+//     </View>
+//   );
+// };
 
 
 const BoxExample : React.FC<RootStackParamList> = () => {
@@ -136,8 +136,8 @@ const BoxExample : React.FC<RootStackParamList> = () => {
           <RoundedCircleButton onPress={() => console.log("button pressed!!!")} size={10}>
             <MCIcon name="paw" size={30}/>
           </RoundedCircleButton>
-          <HospitalCardExmaple/>
-          <HospitalListCardExample/>
+          {/* <HospitalCardExmaple/>
+          <HospitalListCardExample/> */}
         </View>
       </ScrollView>
     </SafeAreaView>

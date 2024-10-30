@@ -9,6 +9,10 @@ import TextInputExample from '@screens/TextInputExample';
 import TestingPage from '@screens/TestingPage';
 import RadioButtonExample from '@screens/RadioButtonExample';
 import ListCardExample from '@screens/ListCardExample';
+import AchievementCardExample from '@screens/AchievementCardExample';
+import ICWExample from '@screens/ICWExample';
+import BalloonBoxExample from '@screens/BallonBoxExample';
+
 // import SummaryExample from '@screens/SummaryExample';
 // import BlueToothScanner from '@screens/BlueToothScanner';
 
@@ -28,6 +32,9 @@ export const routesConfig: {
   TestingPage: { component: TestingPage, params: undefined },
   RadioButtonExample: { component: RadioButtonExample, params: undefined },
   ListCardExample: { component: ListCardExample, params: undefined },
+  AchievementCardExample :  { component: AchievementCardExample, params: undefined },
+  ICWExample :  { component: ICWExample, params: undefined },
+  BalloonBoxExample :  { component: BalloonBoxExample, params: undefined },
 };
 
 

@@ -40,6 +40,8 @@ import com.horcrux.svg.SvgPackage;
 import com.mrousavy.camera.react.CameraPackage;
 // @react-native-community/datetimepicker
 import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
+// react-native-linear-gradient
+import com.BV.LinearGradient.LinearGradientPackage;
 // react-native-maps
 import com.rnmaps.maps.MapsPackage;
 // react-native-smooth-bootsplash
@@ -104,6 +106,7 @@ public class PackageList {
       new SvgPackage(),
       new CameraPackage(),
       new RNDateTimePickerPackage(),
+      new LinearGradientPackage(),
       new MapsPackage(),
       new RNBootSplashPackage()
     ));

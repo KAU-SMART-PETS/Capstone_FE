@@ -3,6 +3,8 @@ import React from 'react';
 import { DefaultTheme, PaperProvider } from 'react-native-paper';
 import AppNavigator from './navigation'; // 네비게이션을 분리한 파일에서 import
 import { LogBox } from 'react-native';
+import 'react-native-gesture-handler';
+import 'react-native-reanimated'; 
 
 // 앱의 최상단에서 경고 무시
 LogBox.ignoreLogs(['Warning: A props object containing a "key" prop is being spread into JSX']);
