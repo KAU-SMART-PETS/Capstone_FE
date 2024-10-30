@@ -1,37 +1,20 @@
-import React, {useState} from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { DesignPreset, RoundedFrameProps, RoundedBoxProps, TagBadgeProps } from '@types';
-import ShadowBox from './ShadowBox';
-import { TagBadge } from './Badge';
-
+import React from 'react';
+import { View } from 'react-native';
 // BalloonBox.tsx
 
 type BalloonBoxProps = {
   children: React.ReactNode;
   shadow?: boolean;
-  isButton?: boolean;
-  onPress?: () => void;
-  borderActivate?: boolean;
-  onSelect?: (isSelected: boolean) => void;
 };
 
 const BalloonBox: React.FC<BalloonBoxProps> = ({
   children,
   shadow = false,
-  isButton = false,
-  onPress,
-  borderActivate = false,
-  onSelect,
   }) => {
-  const [isActive, setIsActive] = useState(false);
 
-
-  const borderColor = borderActivate ? (isActive ? 'border-primary' : 'border-gray-400') : '';
-  const borderLines = borderActivate ? (isActive ? 'border-solid' : 'border-dashed') : '';
-
-  const Content = (
-    <View
-      className={`bg-skyblue mt-4 mb-5 px-10 py-10 rounded-2xl relative transition-all duration-300 ${borderColor} ${borderLines}`}
+  return (
+  <View
+      className={`bg-skyblue mt-4 mb-5 px-10 py-10 rounded-2xl relative`}
     >
       {/* 말풍선 삼각형 (테일윈드문으로 생성 불가)*/}
       <View
@@ -52,15 +35,9 @@ const BalloonBox: React.FC<BalloonBoxProps> = ({
       {/* 내용. 내용간 간격 조절 */}
       <View className="flex space-y-10">{children}</View>
     </View>
+
   );
 
-  return isButton ? (
-    <TouchableOpacity onPress={handlePress}>
-      {Content}
-    </TouchableOpacity>
-  ) : (
-    <View>{Content}</View>
-  );
 };
 
 export default BalloonBox;

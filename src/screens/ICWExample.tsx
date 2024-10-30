@@ -40,7 +40,7 @@ const ICWExample: React.FC = () => {
           >
             {/* 첫 번째 행: 이름 및 별점 */}
             <View className="flex-row justify-between items-center px-4 py-2">
-              <StylizedText type="header2" color="text-primary">
+              <StylizedText type="header2" styleClass="text-primary">
                 김똑똑
               </StylizedText>
               <View className="flex-row items-center">

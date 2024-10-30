@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import ShadowBox from './ShadowBox';
 import ColorMap from './ColorMap';
@@ -9,7 +9,7 @@ export type TagBadgeProps = {
 };
 
 export type DesignPreset = 'A' | 'B' | 'C' | 'D' | 'modalC' | 'modalB' |
-                            'greycard' | 'dashedcard' | 'G' | 'squarecard' | 'opaque-panel' | 'F'; 
+                            'greycard' | 'dashedcard' | 'G' | 'squarecard' | 'opaque-panel' | 'F' | 'flatcard'; 
 // 파일 하단에 각 옵션에 따른 스타일 설명
 
 export type OutlinePreset = 'solid' | 'dashed' | 'dotted' | 'active-solid' | 'inactive-dashed' | undefined;
@@ -41,11 +41,9 @@ export const RoundedFrame: React.FC<RoundedFrameProps> = ({
   return (
     <View className='my-1'>
       {shadow ? (
-        // <ShadowBox className={`${styles.borderStyle}`}>
           <ShadowBox style={outlines} className={`${styles.containerLayout} ${styles.backgroundColor} ${styles.borderStyle}`}>
             {children}
           </ShadowBox>
-        // </ShadowBox>
       ) : (
         <View style={outlines} className={`${styles.containerLayout} ${styles.backgroundColor} ${styles.borderStyle}`}>
           {children}
@@ -183,6 +181,12 @@ const getStyles = (preset: DesignPreset) => {
         borderStyle: 'rounded-xl',
         containerLayout: 'w-32 h-32 flex flex-col justify-center items-center text-center my-1 p-4',
     };
+    case 'flatcard': 
+      return {
+        backgroundColor: 'bg-white',
+        borderStyle: 'rounded-3xl',
+        containerLayout: 'my-1 p-6 max-h-28 max-w-full',
+      };
     case 'G': 
       return {
         backgroundColor: 'bg-white',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import Svg, { Rect } from 'react-native-svg';
-import { ColorMap } from './ColorMap';
+import Svg, { Rect, Path } from 'react-native-svg';
+import { ColorMap } from '@common/ColorMap';
 
 // Metric 인터페이스 정의
 interface BarChartProps {

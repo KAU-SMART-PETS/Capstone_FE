@@ -15,7 +15,7 @@ export const PillBadge: React.FC<BadgeProps> = ({
   textColor = 'text-gray-800',
 }) => {
   return (
-    <View className={`self-start px-4 py-1 rounded-full ${color}`}>
+    <View className={`self-start px-2.5 py-1 rounded-full ${color}`}>
       <StylizedText type="label" styleClass={textColor}>{text}</StylizedText>
     </View>
   );

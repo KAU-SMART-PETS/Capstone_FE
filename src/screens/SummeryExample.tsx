@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { RootStackParamList } from '@types';
 
 const SummeryExample : React.FC<RootStackParamList> = () => {
     return (

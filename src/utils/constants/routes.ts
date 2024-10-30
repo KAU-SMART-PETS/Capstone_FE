@@ -12,6 +12,7 @@ import ListCardExample from '@screens/ListCardExample';
 import AchievementCardExample from '@screens/AchievementCardExample';
 import ICWExample from '@screens/ICWExample';
 import BalloonBoxExample from '@screens/BallonBoxExample';
+import RecordExample from '@screens/RecordExample';
 
 // import SummaryExample from '@screens/SummaryExample';
 // import BlueToothScanner from '@screens/BlueToothScanner';
@@ -35,6 +36,7 @@ export const routesConfig: {
   AchievementCardExample :  { component: AchievementCardExample, params: undefined },
   ICWExample :  { component: ICWExample, params: undefined },
   BalloonBoxExample :  { component: BalloonBoxExample, params: undefined },
+  RecordExample  :  { component: RecordExample, params: undefined },
 };
 
 
