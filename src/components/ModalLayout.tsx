@@ -16,6 +16,7 @@ type ModalLayoutProps = {
   titleAlign?: 'center' | 'left'; // 타이틀 정렬 옵션 추가
   rows: ModalRow[];
   position?: 'center' | 'bottom';
+  transparent?: boolean;
 };
 
 const ModalLayout: React.FC<ModalLayoutProps> = ({
@@ -26,9 +27,10 @@ const ModalLayout: React.FC<ModalLayoutProps> = ({
   titleAlign = "center",
   rows,
   position = 'center',
+  transparent = false
 }) => {
   return (
-    <Modal visible={visible} hideModal={() => setVisible(false)} position={position}>
+    <Modal visible={visible} hideModal={() => setVisible(false)} position={position} transparent={transparent}>
       {title && (
         <View style={{
           width: '100%',

@@ -144,19 +144,33 @@ const ModalType4: React.FC<ModalWindowProps> = ({ visible, setVisible }) => {
   );
 };
 
-// const ModalType5: React.FC<ModalWindowProps> = ({ visible, setVisible, content }) => {
-//   //배경이 투명한 모달
-  
-//   return (
-//     <Portal>
-//         <Modal visible={visible} hideModal={() => setVisible(false)} position='bottom' backgroundColor='clear'>
-//           <View>
-//             {content}
-//           </View>
-//         </Modal>
-//       </Portal>
-//   );
-// };
+const ModalType5: React.FC<ModalWindowProps> = ({ visible, setVisible }) => {
+  //배경이 투명한 모달
+  const ExampleButton = (
+    <RoundedTextButton
+      content="취소"
+      color="bg-secondary"
+      widthOption="lg"
+      onPress={handleButtonPress(() => console.log('투명모달 버튼눌림'), setVisible)}
+    />
+  );
+
+  return (
+    <ModalLayout
+      visible={visible}
+      setVisible={setVisible}
+      position='bottom'
+      transparent
+      title="여기에 설명 텍스트가 표시됩니다."
+      titleAlign='left'
+      rows={[
+        {
+          content: [ExampleButton, <Avatar/>]
+        },
+      ]}
+    />
+  );
+};
 
 
 // ModalExample: 예시 컴포넌트
@@ -168,20 +182,7 @@ const ModalExample: React.FC = () => {
       <Button onPress={() => setVisible(true)} className="mt-12">
         Show Modal
       </Button>
-      {/* <ModalType2 visible={visible} setVisible={setVisible} /> */}
-      {/* <ModalType5
-        visible={visible}
-        setVisible={setVisible}
-        content=
-        {<WalkingRecord
-          walkDate="2024.05.20 18:01 - 2024.05.20 19:01"
-          walkTime="00:14:23"
-          distance="0.5km"
-          calories="-"
-          steps="-"
-          />}
-      /> */}
-
+      <ModalType5 visible={visible} setVisible={setVisible} />
       {/* 필요에 따라 다른 ModalType을 선택해 표시할 수 있음 */}
     </PaperProvider>
   );
