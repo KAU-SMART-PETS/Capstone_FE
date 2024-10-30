@@ -6,6 +6,8 @@ import { BannerSection } from '@components/common/Sections';
 import Avatar from '@components/common/Avatar';
 import StylizedText from '@components/common/StylizedText';
 import dog1 from '@image/placeholder/dog2.jpg';
+import FlatListCards from '@components/FlatListCards';
+
 
 import registerPhotoImg from '@image/frame/registerPhoto.png';
 import addDeviceImg from '@image/frame/addDevice.png'
@@ -13,105 +15,92 @@ import addPetImg from '@image/frame/addPet.png'
 import WalkingdogIcon from '@image/icon/walkingDogIcon.png'
 import ShadowBox from '@common/ShadowBox';
 import { Shadow } from 'react-native-shadow-2';
+import { Badge, Card, List } from 'react-native-paper';
+import ListCard from '@components/common/ListCard';
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { RoundedCircleButton } from '@components/common/RoundedButton';
 
-export const AchievementExample = () => {
+export const Card1 = () => {
   return (
-    <View className="flex-1 bg-[#F7F7F7] p-5">
-      {/* Example of using RoundedBox with a badge */}
-      <RoundedBox
-        preset="A"
-        shadow={true}
-        // borderActivate={true}
-        isButton={true}
-      >
-        <View className="p-4">
-          
+    <RoundedBox
+      isButton
+      onPress={() => console.log('버튼테스트 1')}
+      preset="flatcard"
+      className="w-full"
+    >
+      <View className="flex-row w-full items-center">
+        {/* 좌측 원형 이미지 영역 (20%) */}
+        <View className="basis-1/5 flex justify-center items-center">
+          <Avatar size={50} />
         </View>
-      </RoundedBox>
-    </View>
-  );
+
+        {/* 텍스트 영역 (80%) */}
+        <View className="basis-4/5 flex flex-col justify-center items-start px-4 flex-shrink">
+          {/* 제목 및 뱃지 영역 */}
+          <View className="flex-row w-full justify-between items-center mb-1">
+            {/* 제목 텍스트 */}
+            <View className="flex-1">
+              <StylizedText 
+                type="header2"
+                styleClass="text-black truncate"
+              >
+                7일 연속 산책하기
+              </StylizedText>
+            </View>
+            {/* PillBadge */}
+            <View className="ml-4 flex-shrink-0">
+              <PillBadge
+                text="달성"
+                color="bg-primary"
+                textColor="text-white"
+              />
+            </View>
+          </View>
+          {/* 설명 텍스트 */}
+          <StylizedText 
+            type="body2"
+            styleClass="text-secondary truncate"
+          >
+            7일 연속 30분 이상 산책에 성공해보세요!
+          </StylizedText>
+        </View>
+      </View>
+    </RoundedBox>
+  );  
 };
+
 
 const BannerExample: React.FC = () => {
     return (
-    <View className="flex-1 justify-center items-center bg-white">
+    <View className="flex-col bg-white">
         {/* 단색 배경 배너 */}
-        {/* <BannerSection
+        <BannerSection
         row1="오늘도 즐겁게"
         row2="산책을 시작해볼까요?"
-        img={WalkingdogIcon}
-        type="solid"
-        background='darkgreen'
+        sideImg={WalkingdogIcon}
         onPress={() => console.log("Solid Banner Clicked")}
-        /> */}
+        />
         
         {/* 오버레이 배경 배너 */}
         <BannerSection
-        row1="환상적인 여정"
-        row2="지금 바로 떠나보세요"
-        background={dog1}
-        type="overlay"
-        onPress={() => console.log("Overlay Banner Clicked")}
+          row1="환상적인 여정"
+          row2="지금 바로 떠나보세요"
+          background={dog1}
+          type="overlay"
+          onPress={() => console.log("Overlay Banner Clicked")}
         />
-        <View className='bg-white w-20 h-20' style={{shadowColor: "#000",
-shadowOffset: {
-	width: 0,
-	height: 1,
-},
-shadowOpacity: 0.22,
-shadowRadius: 2.22,
-
-elevation: 3}}>
-
-<Text>123</Text>
-        </View>
-        <ShadowBox className='w-36 h-36 bg-white'><Text>안녕하세요</Text></ShadowBox>
-    </View>
+      </View>
     );
-    };
-
+};
 const AchievementCardExample: React.FC<RootStackParamList> = () => {
     
   return (
     <View className="self-start"> 
       <View className='self-start'>
-        <RoundedBox
-          preset="A"
-          isButton={false}
-          shadow={true}
-        //   borderActivate={false}
-        >
-          <View className="flex-row items-center pl-4 pr-4">
-            <View>
-              <Avatar 
-                size={40}
-              />
-            </View>
-
-            <View className="flex ml-5">
-              <View className="flex-row justify-between items-center mb-2">
-                <StylizedText 
-                  type="header2"
-                  color="text-black"
-                >
-                  7일 연속 산책하기
-                </StylizedText>
-                <PillBadge
-                  text="달성"
-                  color="bg-primary"
-                  textColor="text-white"
-                />
-              </View>
-              <StylizedText 
-                type="body2"
-                color="text-darkgrey"
-              >
-                7일 연속 30분 이상 산책에 성공해보세요!
-              </StylizedText>
-            </View>
-          </View>
-        </RoundedBox>
+        <Card1 />
       </View>
+      <FlatListCards />
+
 
       <View className='self-start'>
         <RoundedBox>
@@ -119,7 +108,7 @@ const AchievementCardExample: React.FC<RootStackParamList> = () => {
             <View className='flex ml-5'>
               <StylizedText 
                 type="header2"
-                color='text-black'
+                styleClass='text-black'
                 className="mb-2"
               >
                 제품 구매하기
@@ -127,7 +116,7 @@ const AchievementCardExample: React.FC<RootStackParamList> = () => {
 
               <StylizedText
                 type='body2'
-                color='text-black'
+                styleClass='text-black'
               >
                 누적된 포인트로 제품을 구매해보세요!
               </StylizedText>

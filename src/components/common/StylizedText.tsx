@@ -74,6 +74,16 @@ export const getStyles = (type: string) : StyledTextStyle => {
         fontFamily: 'Pretendard-SemiBold',
         fontSize: 18,
       };
+      case 'header6': 
+      return {
+        fontFamily: 'Pretendard-Bold',
+        fontSize: 18,
+      };
+      case 'header7':
+      return {
+        fontFamily: 'Pretendard-ExtraBold',
+        fontSize: 18,
+      };
     case 'body1':
       return {
         fontFamily: 'Pretendard-Medium',

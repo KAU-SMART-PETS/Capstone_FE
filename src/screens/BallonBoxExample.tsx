@@ -11,20 +11,20 @@ const BalloonBoxExample: React.FC = () => {
       <View className="justify-center">
           <BalloonBox>
             <View>
-              <StylizedText type="header2" color="text-black">습진이란?</StylizedText>
-              <StylizedText type="body1" color="text-black">sample text. sample text. sample text.</StylizedText>
+              <StylizedText type="header2" styleClass="text-black">습진이란?</StylizedText>
+              <StylizedText type="body1" styleClass="text-black">sample text. sample text. sample text.</StylizedText>
             </View>
             <View>
-              <StylizedText type="header2" color="text-black">유의 사항</StylizedText>
-              <StylizedText type="body1" color="text-black">sample text. sample text. sample text.</StylizedText>
+              <StylizedText type="header2" styleClass="text-black">유의 사항</StylizedText>
+              <StylizedText type="body1" styleClass="text-black">sample text. sample text. sample text.</StylizedText>
             </View>
             <View>
-              <StylizedText type="header2" color="text-black">좋은 음식</StylizedText>
-              <StylizedText type="body1" color="text-black">sample text. sample text. sample text.</StylizedText>
+              <StylizedText type="header2" styleClass="text-black">좋은 음식</StylizedText>
+              <StylizedText type="body1" styleClass="text-black">sample text. sample text. sample text.</StylizedText>
             </View>
             <View>
-              <StylizedText type="header2" color="text-black">나쁜 음식</StylizedText>
-              <StylizedText type="body1" color="text-black">sample text. sample text. sample text.</StylizedText>
+              <StylizedText type="header2" styleClass="text-black">나쁜 음식</StylizedText>
+              <StylizedText type="body1" styleClass="text-black">sample text. sample text. sample text.</StylizedText>
             </View>
           </BalloonBox>
       </View>

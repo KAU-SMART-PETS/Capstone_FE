@@ -10,7 +10,7 @@ const defaultShadow = {
   shadowOffset: { width: 0, height: 4 },
   shadowOpacity: 0.15,
   shadowRadius: 8,
-  elevation: 4,
+  elevation: 4.5,
 }
 
 const ShadowBox: React.FC<ShadowBoxProps> = ({
