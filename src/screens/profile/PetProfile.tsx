@@ -25,7 +25,7 @@ const mockData = {
 };
 
 const PetProfile: React.FC<RouteProp<RootStackParamList, 'PetProfile'>> = ({ route }) => {
-  const { name, petType, gender, weight, imageUrl, age } = route.params;
+  const { id, name, petType, gender, weight, imageUrl, age } = route.params;
   const navigation = useNavigation();
   const [showDetail, setShowDetail] = useState(false);
 
@@ -56,9 +56,16 @@ const PetProfile: React.FC<RouteProp<RootStackParamList, 'PetProfile'>> = ({ rou
     return labels[key] || key;
   };
 
+  const handleHealthInfo = () => {
+    navigation.navigate('RegisterHealthInfo', id); 
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
+          <TouchableOpacity onPress={handleHealthInfo} style={styles.healthInfoButton}>
+                <Text style={styles.healthInfoButtonText}>보건정보 조회하기</Text>
+          </TouchableOpacity>
         <View style={styles.container}>
           <TouchableOpacity onPress={handleBackButton} style={styles.backButton}>
             <Text style={styles.backButtonText}>{'<'}</Text>
@@ -69,9 +76,12 @@ const PetProfile: React.FC<RouteProp<RootStackParamList, 'PetProfile'>> = ({ rou
               style={styles.profileImage}
             />
             <Text style={styles.name}>{name}</Text>
-            <View style={styles.calorieInfo}>
-              <Text style={styles.breed}>예상 칼로리 소모량</Text>
-              <Text style={styles.calories}>{mockData.estimatedCalories} kcal</Text>
+
+            <View style={styles.calorieInfoContainer}>
+              <View style={styles.calorieInfo}>
+                <Text style={styles.breed}>예상 칼로리 소모량</Text>
+                <Text style={styles.calories}>{mockData.estimatedCalories} kcal</Text>
+              </View>
             </View>
           </View>
           
@@ -289,6 +299,22 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10,
     alignSelf: 'flex-start',
+  },
+  calorieInfoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  healthInfoButton: {
+    backgroundColor: '#4CAF50',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+  },
+  healthInfoButtonText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });
 
