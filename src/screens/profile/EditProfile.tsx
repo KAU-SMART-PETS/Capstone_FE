@@ -1,61 +1,128 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import {
+  View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface UserInfo {
   name: string;
   email: string;
-  username: string;
-  phone: string;
-  password: string;
-  newPassword: string;
-  confirmPassword: string;
-  smsConsent: 'agree' | 'disagree';
-  emailConsent: 'agree' | 'disagree';
+  phoneNumber: string | null;
+  point: number;
+  socialSite: string;
+  smsOptIn: boolean;
+  emailOptIn: boolean;
 }
 
 type EditableField = keyof UserInfo | 'consent' | null;
 
 const EditProfile: React.FC = () => {
   const [editingField, setEditingField] = useState<EditableField>(null);
-  const [userInfo, setUserInfo] = useState<UserInfo>({
-    name: '김똑똑',
-    email: 'smartpets@smart.com',
-    username: 'kimdokkdokk',
-    phone: '010-1234-5678',
-    password: '123456789',
-    newPassword: '',
-    confirmPassword: '',
-    smsConsent: 'agree',
-    emailConsent: 'agree',
-  });
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
-    
+    const loadUserData = async () => {
+      try {
+        const userDataString = await AsyncStorage.getItem('USER_DATA');
+        if (userDataString) {
+          const userData: UserInfo = JSON.parse(userDataString);
+          setUserInfo(userData);
+        } else {
+          console.log('No user data found in AsyncStorage');
+        }
+      } catch (error) {
+        console.error('Error loading user data from AsyncStorage:', error);
+      }
+    };
+
+    loadUserData();
   }, []);
 
-  const handleSave = () => {
-    
-    setEditingField(null);
-    Alert.alert('알림', '정보가 성공적으로 업데이트되었습니다.');
+  const handleSave = async () => {
+    try {
+      if (userInfo) {
+
+        const jsessionid = await AsyncStorage.getItem('JSESSIONID');
+        if (!jsessionid) {
+          Alert.alert('오류', '로그인이 필요합니다.');
+          return;
+        }
+  
+        const updateData = {
+          email: userInfo.email,
+          phoneNumber: userInfo.phoneNumber,
+          smsOptIn: userInfo.smsOptIn,
+          emailOptIn: userInfo.emailOptIn,
+        };
+
+        const response = await fetch('http://52.79.140.133:8080/api/v1/users', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': `JSESSIONID=${jsessionid}`,
+          },
+          body: JSON.stringify(updateData),
+        });
+  
+
+
+        const responseText = await response.text();
+        console.log('Response text:', responseText);
+  
+        if (response.ok) {
+          let updatedUserData: UserInfo | null = null;
+  
+          if (responseText) {
+
+            updatedUserData = JSON.parse(responseText);
+          } else {
+
+            updatedUserData = userInfo;
+          }
+          await AsyncStorage.setItem('USER_DATA', JSON.stringify(updatedUserData));
+          setUserInfo(updatedUserData);
+  
+          setEditingField(null);
+          Alert.alert('알림', '정보가 성공적으로 업데이트되었습니다.');
+        } else {
+          console.error('Failed to update user data:', responseText);
+          Alert.alert('오류', '정보를 업데이트하는 중 오류가 발생했습니다.');
+        }
+      }
+    } catch (error) {
+      console.error('Error saving user data:', error);
+      Alert.alert('오류', '정보를 저장하는 중 오류가 발생했습니다.');
+    }
   };
 
-  const handleChange = (key: keyof UserInfo, value: string) => {
-    setUserInfo(prevInfo => ({
-      ...prevInfo,
-      [key]: value,
-    }));
+  const handleChange = (key: keyof UserInfo, value: string | boolean) => {
+    setUserInfo(prevInfo => {
+      if (prevInfo) {
+        return {
+          ...prevInfo,
+          [key]: value,
+        };
+      }
+      return prevInfo;
+    });
   };
 
   const handleFieldEdit = (field: EditableField) => {
     setEditingField(field);
   };
-  const navigation = useNavigation();
+
   const handleBackButton = () => {
     navigation.goBack();
   };
 
-  const renderInput = (label: string, key: keyof UserInfo, keyboardType: 'default' | 'email-address' | 'phone-pad' = 'default', secureTextEntry: boolean = false) => (
+  const renderInput = (
+    label: string,
+    key: keyof UserInfo,
+    keyboardType: 'default' | 'email-address' | 'phone-pad' = 'default',
+  ) => (
     <View style={styles.inputContainer}>
       <Text style={styles.label}>{label}</Text>
       <View style={styles.inputWrapper}>
@@ -63,17 +130,16 @@ const EditProfile: React.FC = () => {
           style={[
             styles.input,
             editingField === key && styles.editingInput,
-            (key === 'email' || key === 'phone' || key === 'password') && styles.inputWithButton
+            (key === 'email' || key === 'phoneNumber') && styles.inputWithButton,
           ]}
-          value={userInfo[key]}
+          value={userInfo ? String(userInfo[key] || '') : ''}
           onChangeText={(text) => handleChange(key, text)}
           keyboardType={keyboardType}
-          editable={editingField === key || key === 'newPassword' || key === 'confirmPassword'}
-          secureTextEntry={secureTextEntry}
+          editable={editingField === key}
         />
-        {(key === 'email' || key === 'phone' || key === 'password') && editingField !== key && (
-          <TouchableOpacity 
-            style={styles.changeButton} 
+        {(key === 'email' || key === 'phoneNumber') && editingField !== key && (
+          <TouchableOpacity
+            style={styles.changeButton}
             onPress={() => handleFieldEdit(key)}
           >
             <Text style={styles.changeButtonText}>변경</Text>
@@ -83,82 +149,93 @@ const EditProfile: React.FC = () => {
     </View>
   );
 
-  const handleConsentChange = (key: 'smsConsent' | 'emailConsent', value: 'agree' | 'disagree') => {
-    setUserInfo(prevInfo => ({
-      ...prevInfo,
-      [key]: value,
-    }));
+  const handleConsentChange = (key: 'smsOptIn' | 'emailOptIn', value: boolean) => {
+    setUserInfo(prevInfo => {
+      if (prevInfo) {
+        return {
+          ...prevInfo,
+          [key]: value,
+        };
+      }
+      return prevInfo;
+    });
     setEditingField('consent');
   };
 
-  const renderConsentButtons = (type: 'smsConsent' | 'emailConsent') => (
+  const renderConsentButtons = (type: 'smsOptIn' | 'emailOptIn') => (
     <View style={styles.consentButtonContainer}>
       <TouchableOpacity
         style={[
           styles.consentButton,
-          userInfo[type] === 'agree' && styles.activeConsentButton
+          userInfo && userInfo[type] && styles.activeConsentButton,
         ]}
-        onPress={() => handleConsentChange(type, 'agree')}
+        onPress={() => handleConsentChange(type, true)}
       >
         <Text style={[
           styles.consentButtonText,
-          userInfo[type] === 'agree' && styles.activeConsentButtonText
-        ]}>동의</Text>
+          userInfo && userInfo[type] && styles.activeConsentButtonText,
+        ]}
+        >
+          동의
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[
           styles.consentButton,
-          userInfo[type] === 'disagree' && styles.activeConsentButton
+          userInfo && !userInfo[type] && styles.activeConsentButton,
         ]}
-        onPress={() => handleConsentChange(type, 'disagree')}
+        onPress={() => handleConsentChange(type, false)}
       >
         <Text style={[
           styles.consentButtonText,
-          userInfo[type] === 'disagree' && styles.activeConsentButtonText
-        ]}>비동의</Text>
+          userInfo && !userInfo[type] && styles.activeConsentButtonText,
+        ]}
+        >
+          비동의
+        </Text>
       </TouchableOpacity>
     </View>
   );
 
+  if (!userInfo) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>로딩 중...</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView style={styles.container}>
       <TouchableOpacity onPress={handleBackButton} style={styles.backButton}>
-          <Text style={styles.backButtonText}>{'<'}</Text>
-        </TouchableOpacity>
+        <Text style={styles.backButtonText}>{'<'}</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>회원 기본 정보</Text>
-      
+
       {renderInput('이름', 'name')}
       {renderInput('이메일', 'email', 'email-address')}
-      
+
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>아이디</Text>
+        <Text style={styles.label}>소셜 사이트</Text>
         <TextInput
-          style={styles.input}
-          value={userInfo.username}
+          style={[styles.input, { backgroundColor: '#f0f0f0' }]}
+          value={userInfo.socialSite}
           editable={false}
         />
       </View>
-      
-      {renderInput('휴대폰 번호', 'phone', 'phone-pad')}
-      {renderInput('비밀번호', 'password', 'default', true)}
 
-      {editingField === 'password' && (
-        <>
-          {renderInput('새 비밀번호', 'newPassword', 'default', true)}
-          {renderInput('새 비밀번호 확인', 'confirmPassword', 'default', true)}
-        </>
-      )}
+      {renderInput('휴대폰 번호', 'phoneNumber', 'phone-pad')}
 
       <Text style={styles.consentTitle}>광고성 정보 수신</Text>
-      
+
       <View style={styles.consentContainer}>
-        <Text style ={{color : 'black'}}>SMS 수신</Text>
-        {renderConsentButtons('smsConsent')}
+        <Text style={{ color: 'black' }}>SMS 수신</Text>
+        {renderConsentButtons('smsOptIn')}
       </View>
-      
+
       <View style={styles.consentContainer}>
-        <Text style ={{color : 'black'}}>이메일 수신</Text>
-        {renderConsentButtons('emailConsent')}
+        <Text style={{ color: 'black' }}>이메일 수신</Text>
+        {renderConsentButtons('emailOptIn')}
       </View>
 
       {(editingField || editingField === 'consent') && (
@@ -170,12 +247,16 @@ const EditProfile: React.FC = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
     backgroundColor: '#fff',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     color: 'black',
@@ -203,7 +284,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9f9f9',
   },
   inputWithButton: {
-    paddingRight: 50, 
+    paddingRight: 50,
   },
   editingInput: {
     backgroundColor: '#fff',
@@ -213,11 +294,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 5,
     top: '50%',
-    transform: [{ translateY: -12 }], 
+    transform: [{ translateY: -12 }],
     paddingHorizontal: 10,
     paddingVertical: 4,
-    backgroundColor: '#87CEEB', 
-    borderRadius: 15, 
+    backgroundColor: '#87CEEB',
+    borderRadius: 15,
   },
   changeButtonText: {
     color: '#fff',
@@ -237,32 +318,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
-  checkbox: {
-    width: 20,
-    height: 20,
-    borderWidth: 1,
-    borderColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  checked: {
-    backgroundColor: '#007AFF',
-  },
-  checkmark: {
-    color: '#fff',
-  },
-  button: {
-    backgroundColor: '#87CEEB',
-    padding: 15,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
   consentButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -276,13 +331,25 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   activeConsentButton: {
-    backgroundColor: '#87CEEB', 
+    backgroundColor: '#87CEEB',
   },
   consentButtonText: {
     color: '#87CEEB',
   },
   activeConsentButtonText: {
     color: '#fff',
+  },
+  button: {
+    backgroundColor: '#87CEEB',
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   backButton: {
     padding: 0,

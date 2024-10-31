@@ -90,6 +90,15 @@
         </activity>
 
         <provider
+            android:name="com.reactnativecommunity.webview.RNCWebViewFileProvider"
+            android:authorities="com.reactcapsone.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
+        <provider
             android:name="com.imagepicker.ImagePickerProvider"
             android:authorities="com.reactcapsone.imagepickerprovider"
             android:exported="false"

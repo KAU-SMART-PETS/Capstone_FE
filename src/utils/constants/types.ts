@@ -41,6 +41,16 @@ export interface PetInfoResponse {
   age: number;
 }
 
+export interface PetDetails {
+  id: string;
+  name: string;
+  petType: 'CAT' | 'DOG';
+  gender: 'MALE' | 'FEMALE';
+  weight: number;
+  imageUrl: string | null;
+  age: number;
+}
+
 // WeeklyData
 export interface Metrics {
   walk: number;
@@ -68,14 +78,14 @@ export type RootStackParamList = {
     EditProfile: undefined;
     MyPage: undefined;
     PetRegister: undefined;
-    PetProfile: undefined;
+    PetProfile: PetDetails;
     Analysis: undefined;
     DiseaseDetail: {        // Params for DiseaseDetail
         disease: Disease;
         petName: string;
         diseaseDetail: DiseaseDetails;
     };
-    RegisterHealthInfo: undefined;
+    RegisterHealthInfo: string;
     CameraView: undefined;
     HospitalList: undefined;
     SelectPart: undefined;

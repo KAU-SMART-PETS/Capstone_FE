@@ -1,21 +1,21 @@
 {
-  "root": "/Users/namseoa/Documents/GitHub/Capstone_FE",
-  "reactNativePath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native",
+  "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE",
+  "reactNativePath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native",
   "reactNativeVersion": "0.75",
   "dependencies": {
     "react-native-vector-icons": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-vector-icons",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-vector-icons",
       "name": "react-native-vector-icons",
       "platforms": {
         "ios": null,
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-vector-icons/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-vector-icons\\android",
           "packageImportPath": "import com.oblador.vectoricons.VectorIconsPackage;",
           "packageInstance": "new VectorIconsPackage()",
           "buildTypes": [],
           "libraryName": "RNVectorIconsSpec",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -23,23 +23,48 @@
         }
       }
     },
-    "@react-native-community/async-storage": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/@react-native-community/async-storage",
-      "name": "@react-native-community/async-storage",
+    "@react-native-async-storage/async-storage": {
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-async-storage\\async-storage",
+      "name": "@react-native-async-storage/async-storage",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/@react-native-community/async-storage/RNCAsyncStorage.podspec",
-          "version": "1.12.1",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-async-storage\\async-storage\\RNCAsyncStorage.podspec",
+          "version": "2.0.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/@react-native-community/async-storage/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-async-storage\\async-storage\\android",
           "packageImportPath": "import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;",
           "packageInstance": "new AsyncStoragePackage()",
           "buildTypes": [],
+          "libraryName": "rnasyncstorage",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/@react-native-community/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cxxModuleCMakeListsModuleName": null,
+          "cxxModuleCMakeListsPath": null,
+          "cxxModuleHeaderName": null,
+          "isPureCxxDependency": false
+        }
+      }
+    },
+    "@react-native-cookies/cookies": {
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-cookies\\cookies",
+      "name": "@react-native-cookies/cookies",
+      "platforms": {
+        "ios": {
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-cookies\\cookies\\react-native-cookies.podspec",
+          "version": "6.2.1",
+          "configurations": [],
+          "scriptPhases": []
+        },
+        "android": {
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-cookies\\cookies\\android",
+          "packageImportPath": "import com.reactnativecommunity.cookies.CookieManagerPackage;",
+          "packageInstance": "new CookieManagerPackage()",
+          "buildTypes": [],
+          "componentDescriptors": [],
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/@react-native-cookies/cookies/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -48,22 +73,22 @@
       }
     },
     "@react-native-masked-view/masked-view": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/@react-native-masked-view/masked-view",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-masked-view\\masked-view",
       "name": "@react-native-masked-view/masked-view",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/@react-native-masked-view/masked-view/RNCMaskedView.podspec",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-masked-view\\masked-view\\RNCMaskedView.podspec",
           "version": "0.3.1",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/@react-native-masked-view/masked-view/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-masked-view\\masked-view\\android",
           "packageImportPath": "import org.reactnative.maskedview.RNCMaskedViewPackage;",
           "packageInstance": "new RNCMaskedViewPackage()",
           "buildTypes": [],
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/@react-native-masked-view/masked-view/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/@react-native-masked-view/masked-view/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -72,18 +97,18 @@
       }
     },
     "react-native-bars": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-bars",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-bars",
       "name": "react-native-bars",
       "platforms": {
         "ios": null,
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-bars/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-bars\\android",
           "packageImportPath": "import com.zoontek.rnbars.RNBarsPackage;",
           "packageInstance": "new RNBarsPackage()",
           "buildTypes": [],
           "libraryName": "RNBarsSpec",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-bars/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-bars/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -92,23 +117,23 @@
       }
     },
     "react-native-ble-plx": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-ble-plx",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-ble-plx",
       "name": "react-native-ble-plx",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-ble-plx/react-native-ble-plx.podspec",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-ble-plx\\react-native-ble-plx.podspec",
           "version": "3.2.1",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-ble-plx/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-ble-plx\\android",
           "packageImportPath": "import com.bleplx.BlePlxPackage;",
           "packageInstance": "new BlePlxPackage()",
           "buildTypes": [],
           "libraryName": "BlePlx",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-ble-plx/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-ble-plx/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -117,17 +142,17 @@
       }
     },
     "react-native-gesture-handler": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-gesture-handler",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-gesture-handler",
       "name": "react-native-gesture-handler",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-gesture-handler/RNGestureHandler.podspec",
-          "version": "2.20.0",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-gesture-handler\\RNGestureHandler.podspec",
+          "version": "2.20.2",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-gesture-handler/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-gesture-handler\\android",
           "packageImportPath": "import com.swmansion.gesturehandler.RNGestureHandlerPackage;",
           "packageInstance": "new RNGestureHandlerPackage()",
           "buildTypes": [],
@@ -136,7 +161,7 @@
             "RNGestureHandlerButtonComponentDescriptor",
             "RNGestureHandlerRootViewComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-gesture-handler/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-gesture-handler/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -145,23 +170,23 @@
       }
     },
     "react-native-image-picker": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-image-picker",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-image-picker",
       "name": "react-native-image-picker",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-image-picker/react-native-image-picker.podspec",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-image-picker\\react-native-image-picker.podspec",
           "version": "7.1.2",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-image-picker/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-image-picker\\android",
           "packageImportPath": "import com.imagepicker.ImagePickerPackage;",
           "packageInstance": "new ImagePickerPackage()",
           "buildTypes": [],
           "libraryName": "RNImagePickerSpec",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-image-picker/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-image-picker/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -170,22 +195,22 @@
       }
     },
     "react-native-location": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-location",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-location",
       "name": "react-native-location",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-location/react-native-location.podspec",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-location\\react-native-location.podspec",
           "version": "2.5.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-location/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-location\\android",
           "packageImportPath": "import com.github.reactnativecommunity.location.RNLocationPackage;",
           "packageInstance": "new RNLocationPackage()",
           "buildTypes": [],
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-location/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-location/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -194,23 +219,23 @@
       }
     },
     "react-native-permissions": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-permissions",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-permissions",
       "name": "react-native-permissions",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-permissions/RNPermissions.podspec",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-permissions\\RNPermissions.podspec",
           "version": "4.1.5",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-permissions/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-permissions\\android",
           "packageImportPath": "import com.zoontek.rnpermissions.RNPermissionsPackage;",
           "packageInstance": "new RNPermissionsPackage()",
           "buildTypes": [],
           "libraryName": "RNPermissionsSpec",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-permissions/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-permissions/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -219,23 +244,23 @@
       }
     },
     "react-native-reanimated": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-reanimated",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-reanimated",
       "name": "react-native-reanimated",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-reanimated/RNReanimated.podspec",
-          "version": "3.15.4",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-reanimated\\RNReanimated.podspec",
+          "version": "3.16.1",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-reanimated/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-reanimated\\android",
           "packageImportPath": "import com.swmansion.reanimated.ReanimatedPackage;",
           "packageInstance": "new ReanimatedPackage()",
           "buildTypes": [],
           "libraryName": "rnreanimated",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-reanimated/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-reanimated/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -244,17 +269,17 @@
       }
     },
     "react-native-safe-area-context": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-safe-area-context",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-safe-area-context",
       "name": "react-native-safe-area-context",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-safe-area-context/react-native-safe-area-context.podspec",
-          "version": "4.11.0",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-safe-area-context\\react-native-safe-area-context.podspec",
+          "version": "4.12.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-safe-area-context/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-safe-area-context\\android",
           "packageImportPath": "import com.th3rdwave.safeareacontext.SafeAreaContextPackage;",
           "packageInstance": "new SafeAreaContextPackage()",
           "buildTypes": [],
@@ -263,7 +288,7 @@
             "RNCSafeAreaProviderComponentDescriptor",
             "RNCSafeAreaViewComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -272,17 +297,17 @@
       }
     },
     "react-native-screens": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-screens",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-screens",
       "name": "react-native-screens",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-screens/RNScreens.podspec",
-          "version": "3.34.0",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-screens\\RNScreens.podspec",
+          "version": "3.35.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-screens/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-screens\\android",
           "packageImportPath": "import com.swmansion.rnscreens.RNScreensPackage;",
           "packageInstance": "new RNScreensPackage()",
           "buildTypes": [],
@@ -298,7 +323,7 @@
             "RNSScreenComponentDescriptor",
             "RNSModalScreenComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -307,17 +332,17 @@
       }
     },
     "react-native-svg": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-svg",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-svg",
       "name": "react-native-svg",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-svg/RNSVG.podspec",
-          "version": "15.7.1",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-svg\\RNSVG.podspec",
+          "version": "15.8.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-svg/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-svg\\android",
           "packageImportPath": "import com.horcrux.svg.SvgPackage;",
           "packageInstance": "new SvgPackage()",
           "buildTypes": [],
@@ -326,7 +351,9 @@
             "RNSVGCircleComponentDescriptor",
             "RNSVGClipPathComponentDescriptor",
             "RNSVGDefsComponentDescriptor",
+            "RNSVGFeBlendComponentDescriptor",
             "RNSVGFeColorMatrixComponentDescriptor",
+            "RNSVGFeFloodComponentDescriptor",
             "RNSVGFeGaussianBlurComponentDescriptor",
             "RNSVGFeMergeComponentDescriptor",
             "RNSVGFeOffsetComponentDescriptor",
@@ -350,7 +377,7 @@
             "RNSVGTSpanComponentDescriptor",
             "RNSVGUseComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-svg/android/src/main/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-svg/android/src/main/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -359,22 +386,49 @@
       }
     },
     "react-native-vision-camera": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-vision-camera",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-vision-camera",
       "name": "react-native-vision-camera",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-vision-camera/VisionCamera.podspec",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-vision-camera\\VisionCamera.podspec",
           "version": "4.5.3",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-vision-camera/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-vision-camera\\android",
           "packageImportPath": "import com.mrousavy.camera.react.CameraPackage;",
           "packageInstance": "new CameraPackage()",
           "buildTypes": [],
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-vision-camera/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-vision-camera/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cxxModuleCMakeListsModuleName": null,
+          "cxxModuleCMakeListsPath": null,
+          "cxxModuleHeaderName": null,
+          "isPureCxxDependency": false
+        }
+      }
+    },
+    "react-native-webview": {
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-webview",
+      "name": "react-native-webview",
+      "platforms": {
+        "ios": {
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-webview\\react-native-webview.podspec",
+          "version": "13.12.3",
+          "configurations": [],
+          "scriptPhases": []
+        },
+        "android": {
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-webview\\android",
+          "packageImportPath": "import com.reactnativecommunity.webview.RNCWebViewPackage;",
+          "packageInstance": "new RNCWebViewPackage()",
+          "buildTypes": [],
+          "libraryName": "RNCWebViewSpec",
+          "componentDescriptors": [
+            "RNCWebViewComponentDescriptor"
+          ],
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-webview/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -383,23 +437,23 @@
       }
     },
     "@react-native-community/datetimepicker": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/@react-native-community/datetimepicker",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-community\\datetimepicker",
       "name": "@react-native-community/datetimepicker",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-community\\datetimepicker\\RNDateTimePicker.podspec",
           "version": "8.2.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/@react-native-community/datetimepicker/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\@react-native-community\\datetimepicker\\android",
           "packageImportPath": "import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;",
           "packageInstance": "new RNDateTimePickerPackage()",
           "buildTypes": [],
           "libraryName": "RNDateTimePickerCGen",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -408,22 +462,22 @@
       }
     },
     "react-native-maps": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-maps",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-maps",
       "name": "react-native-maps",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-maps/react-native-maps.podspec",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-maps\\react-native-maps.podspec",
           "version": "1.18.2",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-maps/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-maps\\android",
           "packageImportPath": "import com.rnmaps.maps.MapsPackage;",
           "packageInstance": "new MapsPackage()",
           "buildTypes": [],
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-maps/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-maps/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -432,22 +486,22 @@
       }
     },
     "react-native-smooth-bootsplash": {
-      "root": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-smooth-bootsplash",
+      "root": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-smooth-bootsplash",
       "name": "react-native-smooth-bootsplash",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-smooth-bootsplash/RNBootSplash.podspec",
+          "podspecPath": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-smooth-bootsplash\\RNBootSplash.podspec",
           "version": "4.5.2",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-smooth-bootsplash/android",
+          "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\node_modules\\react-native-smooth-bootsplash\\android",
           "packageImportPath": "import com.zoontek.rnbootsplash.RNBootSplashPackage;",
           "packageInstance": "new RNBootSplashPackage()",
           "buildTypes": [],
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-smooth-bootsplash/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "C:/Users/User/Desktop/capRefractored/Capstone_FE/node_modules/react-native-smooth-bootsplash/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -652,7 +706,7 @@
         {
           "name": "--path <path>",
           "description": "Path to the React Native project root.",
-          "default": "/Users/namseoa/Documents/GitHub/Capstone_FE"
+          "default": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE"
         },
         {
           "name": "--platform <string>",
@@ -704,7 +758,7 @@
         {
           "name": "--terminal <string>",
           "description": "Launches the Metro Bundler in a new window using the specified terminal path.",
-          "default": "vscode"
+          "default": "cmd.exe"
         },
         {
           "name": "--binary-path <string>",
@@ -864,7 +918,7 @@
         {
           "name": "--terminal <string>",
           "description": "Launches the Metro Bundler in a new window using the specified terminal path.",
-          "default": "vscode"
+          "default": "cmd.exe"
         },
         {
           "name": "--appId <string>",
@@ -941,7 +995,7 @@
   ],
   "project": {
     "ios": {
-      "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/ios",
+      "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\ios",
       "xcodeProject": {
         "name": "reactCapsone.xcodeproj",
         "path": ".",
@@ -950,7 +1004,7 @@
       "assets": []
     },
     "android": {
-      "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/android",
+      "sourceDir": "C:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\android",
       "appName": "app",
       "packageName": "com.reactcapsone",
       "applicationId": "com.reactcapsone",
