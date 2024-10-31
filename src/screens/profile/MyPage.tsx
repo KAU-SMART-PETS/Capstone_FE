@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, FlatList, 
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '@types';
 import getPetDetails from './FetchPetInfo';
-import { PetDetails } from './FetchPetInfo';
+import { PetDetails } from '@types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
@@ -81,8 +81,11 @@ const PetCard: React.FC<{ petId: string; devices: Device[] }> = ({ petId, device
   const tempShowPetDetails = async () => {
     try {
       const petData = await AsyncStorage.getItem(`PET_${petId}`);
+
       if (petData) {
         const pet: PetDetails = JSON.parse(petData);
+        pet.id = petId;
+
         navigation.navigate('PetProfile', pet);
       } else {
         Alert.alert('알림', '반려동물 정보가 없습니다.');
