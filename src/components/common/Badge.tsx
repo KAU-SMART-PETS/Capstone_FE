@@ -1,18 +1,43 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import StylizedText from './StylizedText';
 
 type BadgeProps = {
   text?: string;
   color?: string;
+  textColor?: string;
   customStyle?: string;
 };
 
-const Badge: React.FC<BadgeProps> = ({ text = 'Badge', color = 'bg-red', customStyle = '' }) => {
+export const PillBadge: React.FC<BadgeProps> = ({
+  text = 'PillBadge',
+  color = 'bg-gray-200',
+  textColor = 'text-gray-800',
+}) => {
   return (
-    <View className={`absolute top-2 right-2 px-2 py-1 rounded-lg ${color} ${customStyle}`}>
-      <Text className="text-white font-bold text-sm">{text}</Text>
+    <View className={`self-start px-2.5 py-1 rounded-full ${color}`}>
+      <StylizedText type="label" styleClass={textColor}>{text}</StylizedText>
     </View>
   );
 };
 
-export default Badge;
+export const TagBadge : React.FC<BadgeProps> = ({ text = 'TagBadge', color = 'bg-red', textColor = 'text-white'}) => {
+  // 박스 한쪽 끝에 걸쳐서 붙여놓는 뱃지
+  return (
+    <View className={`rounded-full absolute top-[8px] right-[-8px] px-3 py-1 ${color} z-10`}>
+      <StylizedText type="label1" styleClass={textColor}>{text}</StylizedText>
+    </View>
+  );
+};
+
+export const Badge: React.FC<BadgeProps> = ({
+  text = 'Badge',
+  color = 'bg-green',
+  textColor = 'text-black',
+}) => {
+  return (
+    <View className={`self-start px-4 py-1 rounded-sm ${color} m-2`}>
+      <StylizedText type="label" styleClass={textColor}>{text}</StylizedText>
+    </View>
+  );
+};
