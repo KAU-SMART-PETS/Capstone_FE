@@ -13,6 +13,8 @@ import AchievementCardExample from '@screens/AchievementCardExample';
 import ICWExample from '@screens/ICWExample';
 import BalloonBoxExample from '@screens/BallonBoxExample';
 import RecordExample from '@screens/RecordExample';
+import WalkStartPage from '@screens/walk/WalkStartPage';
+import MapPage from '@screens/walk/MapPage';
 
 // import SummaryExample from '@screens/SummaryExample';
 // import BlueToothScanner from '@screens/BlueToothScanner';
@@ -37,6 +39,8 @@ export const routesConfig: {
   ICWExample :  { component: ICWExample, params: undefined },
   BalloonBoxExample :  { component: BalloonBoxExample, params: undefined },
   RecordExample  :  { component: RecordExample, params: undefined },
+  WalkStartPage :  { component: WalkStartPage, params: undefined },
+  MapPage :  { component: MapPage, params: undefined },
 };
 
 

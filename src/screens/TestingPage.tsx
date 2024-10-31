@@ -39,6 +39,8 @@ const buttons = [
   { title: "BadgeExample", destination: "BadgeExample"},
   { title: "Modal Example", destination: "ModalExample"},
   { title: "TextInputExample", destination: "TextInputExample"},
+  { title: "WalkStartPage", destination: "WalkStartPage"},
+  { title: "MapPage", destination: "MapPage"},
 ];
 
 const TestingPage: React.FC = () => {

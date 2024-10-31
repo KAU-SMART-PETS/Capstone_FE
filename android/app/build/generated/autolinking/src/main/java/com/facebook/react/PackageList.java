@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import com.oblador.vectoricons.VectorIconsPackage;
 // @react-native-community/async-storage
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+// @react-native-community/geolocation
+import com.reactnativecommunity.geolocation.GeolocationPackage;
 // @react-native-masked-view/masked-view
 import org.reactnative.maskedview.RNCMaskedViewPackage;
 // react-native-bars
@@ -93,6 +95,7 @@ public class PackageList {
       new MainReactPackage(mConfig),
       new VectorIconsPackage(),
       new AsyncStoragePackage(),
+      new GeolocationPackage(),
       new RNCMaskedViewPackage(),
       new RNBarsPackage(),
       new BlePlxPackage(),

@@ -1,12 +1,15 @@
 module.exports = function (api) {
   api.cache(true);
   return {
-    presets: ['module:@react-native/babel-preset'],
+    presets: [
+      'module:metro-react-native-babel-preset', // 추가: Jest에서 사용하기 위해 metro preset 적용
+      'module:@react-native/babel-preset'
+    ],
     plugins: [
       [
         'module-resolver',
         {
-          root: ['./src'],  // src 디렉토리를 루트로 설정
+          root: ['./src'],
           alias: {
             "@root": "./",   
             '@api': './src/api',
@@ -17,7 +20,6 @@ module.exports = function (api) {
             '@constants': './src/utils/constants',
             '@types': './src/utils/contsants/types',
             '@image': './src/assets/image',
-            // 필요한 alias를 더 추가할 수 있음
           },
         },
       ],

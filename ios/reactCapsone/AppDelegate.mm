@@ -1,19 +1,7 @@
 #import "AppDelegate.h"
-#import "RNBootSplash.h" 
-
+#import "RNBootSplash.h"
 #import <React/RCTBundleURLProvider.h>
-
-// @implementation AppDelegate
-
-// - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-// {
-//   self.moduleName = @"reactCapsone";
-//   // You can add your custom initial props in the dictionary below.
-//   // They will be passed down to the ViewController used by React Native.
-//   self.initialProps = @{};
-
-//   return [super application:application didFinishLaunchingWithOptions:launchOptions];
-// }
+#import <GoogleMaps/GoogleMaps.h> // Google Maps 헤더 추가
 
 @implementation AppDelegate
 
@@ -21,6 +9,8 @@
 {
   self.moduleName = @"reactCapsone";
   self.initialProps = @{};
+
+  [GMSServices provideAPIKey:@"AIzaSyCXHz0mvS9eXujvaV7-rTauA1Pli_19sjY"]; // Google Maps API 키 설정
   [super application:application didFinishLaunchingWithOptions:launchOptions];
 
   [RNBootSplash initWithStoryboard:@"BootSplash" rootView:self.window.rootViewController.view]; // <- initialization using the storyboard file name
@@ -46,4 +36,5 @@
 - (void)customizeRootView:(RCTRootView *)rootView {
   [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView]; // ⬅️ initialize the splash screen
 }
+
 @end
