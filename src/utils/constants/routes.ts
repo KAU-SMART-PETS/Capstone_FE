@@ -6,7 +6,7 @@ import Home from '@screens/home/Home';
 import Splash from '@screens/home/Splash';
 
 // Profile
-import Login from '@screens/profile/Login';
+import Login from '@screens/profile/Login/Login';
 import EditProfile from '@screens/profile/EditProfile';
 import MyPage from '@screens/profile/MyPage';
 import PetRegister from '@screens/profile/PetRegister';
