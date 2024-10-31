@@ -1,26 +1,72 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-//import { StatusBar } from 'expo-status-bar';
-import { useNavigation, CommonActions, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '@types';
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import KakaoLogo from '@image/icon/logo-kakao.png';
 import NaverLogo from '@image/icon/logo-naver.png';
+import { WebView } from 'react-native-webview';
+import CookieManager from '@react-native-cookies/cookies';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-type LoginScreenNavigationProp = NavigationProp<RootStackParamList, 'Login'>;
-
-const Login: React.FC = () => {
-  const navigation = useNavigation<LoginScreenNavigationProp>();
+const Login = () => {
+  const navigation = useNavigation();
+  const [showWebView, setShowWebView] = useState(false);
+  const [loginUrl, setLoginUrl] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const goToMyPage = () => {
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [
-          { name: 'MyPage' },
-        ],
+        routes: [{ name: 'MyPage' }],
       })
     );
   };
+
+  const handleLoginPress = (provider) => {
+    if (provider === 'kakao') {
+      setLoginUrl('http://52.79.140.133:8080/api/v1/oauth2/kakao');
+    } else if (provider === 'naver') {
+      setLoginUrl('http://52.79.140.133:8080/api/v1/oauth2/naver');
+    }
+    setShowWebView(true);
+  };
+
+  const handleWebViewNavigationStateChange = async (navState) => {
+    const { url } = navState;
+    console.log('Navigated to URL:', url); 
+
+    if (url.includes('http://52.79.140.133:8080/')) {
+      console.log('Login successful, extracting JSESSIONID...');
+
+      try {
+        const cookies = await CookieManager.get('http://52.79.140.133:8080');
+        console.log('Retrieved cookies:', cookies); 
+
+
+        const jsessionid = cookies.JSESSIONID?.value || cookies.JSESSIONID;
+        console.log('Extracted JSESSIONID:', jsessionid);
+
+        if (jsessionid) {
+
+          await AsyncStorage.setItem('JSESSIONID', jsessionid);
+          console.log('JSESSIONID stored in AsyncStorage');
+
+
+          setShowWebView(false);
+
+          const storedSessionId = await AsyncStorage.getItem('JSESSIONID');
+          console.log('Stored JSESSIONID:', storedSessionId);
+
+          goToMyPage();
+        } else {
+          console.log('JSESSIONID not found in cookies');
+        }
+      } catch (error) {
+        console.error('Error retrieving cookies:', error);
+      }
+    }
+  };
+
 
   return (
     <View style={styles.container}>
@@ -29,7 +75,6 @@ const Login: React.FC = () => {
           <Text style={styles.subtitle}>현명하게</Text>
           <Text style={styles.subtitle}>우리 아이</Text>
           <Text style={styles.subtitle}>건강 관리</Text>
-          {/* <Text></Text> */}
           <Text style={styles.description}>우리 아이의</Text>
           <Text style={styles.description}>마음상태 몸상태를 알 수 있는</Text>
           <Text style={styles.description}>가장 정확하고 간편한 방법</Text>
@@ -40,18 +85,44 @@ const Login: React.FC = () => {
           <Text style={styles.buttonText}>10초만에 회원가입</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={goToMyPage}>
+          <TouchableOpacity onPress={() => handleLoginPress('kakao')}>
             <Image source={KakaoLogo} style={styles.buttonImage} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => handleLoginPress('naver')}>
             <Image source={NaverLogo} style={styles.buttonImage} />
           </TouchableOpacity>
         </View>
       </View>
+
+      
+      <Modal visible={showWebView} animationType="slide">
+        <View style={{ flex: 1 }}>
+          {loading && (
+            <ActivityIndicator
+              color="blue"
+              size="large"
+            />
+          )}
+          <WebView
+            source={{ uri: loginUrl }}
+            onNavigationStateChange={handleWebViewNavigationStateChange}
+            onLoadStart={() => setLoading(true)}
+            onLoadEnd={() => setLoading(false)}
+            sharedCookiesEnabled={true}
+            thirdPartyCookiesEnabled={true}
+            javaScriptEnabled={true}
+          />
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => setShowWebView(false)}
+          >
+            <Text style={styles.closeButtonText}>닫기</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
