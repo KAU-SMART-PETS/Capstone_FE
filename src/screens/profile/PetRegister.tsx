@@ -41,7 +41,6 @@ const PetRegister = () => {
     }
 
     try {
-      // JSESSIONID 가져오기
       const jsessionid = await AsyncStorage.getItem('JSESSIONID');
       if (!jsessionid) {
         Alert.alert('오류', '로그인이 필요합니다.');
@@ -73,7 +72,6 @@ const PetRegister = () => {
         method: 'POST',
         headers: {
           'Cookie': `JSESSIONID=${jsessionid}`,
-          // 'Content-Type': 'multipart/form-data' 헤더는 생략 (자동으로 설정됨)
         },
         body: formData,
       });

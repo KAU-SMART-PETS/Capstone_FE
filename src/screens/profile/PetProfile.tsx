@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation, RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '@types';
 import registerPhoto from '@image/frame/registerPhoto.png';
 
 // 초기 데이터(임시)
