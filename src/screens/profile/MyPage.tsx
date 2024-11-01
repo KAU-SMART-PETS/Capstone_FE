@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, FlatList, Modal, Alert } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '@types';
-import getPetDetails from './FetchPetInfo';
 import { PetDetails } from '@types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { fetchUserProfile } from '@screens/API/userApi';
+import { fetchUserPets, getPetDetails } from '@screens/API/petApi';
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
 
@@ -80,9 +81,11 @@ const PetCard: React.FC<{ petId: string; devices: Device[] }> = ({ petId, device
 
   const tempShowPetDetails = async () => {
     try {
+
       const petData = await AsyncStorage.getItem(`PET_${petId}`);
 
       if (petData) {
+
         const pet: PetDetails = JSON.parse(petData);
         pet.id = petId;
 
@@ -131,12 +134,20 @@ const PetCard: React.FC<{ petId: string; devices: Device[] }> = ({ petId, device
 };
 
 
-const AddPetButton: React.FC = () => (
-  <TouchableOpacity style={styles.addPetButton}>
-    <Image source={{ uri: 'https://via.placeholder.com/80' }} style={styles.addPetIcon} />
-    <Text style={styles.addPetText}>반려동물 추가</Text>
-  </TouchableOpacity>
-);
+const AddPetButton: React.FC = () => {
+  const navigation = useNavigation<MyPageNavigationProp>();
+
+  const handleAddPetPress = () => {
+    navigation.navigate('PetRegister');
+  };
+
+  return (
+    <TouchableOpacity style={styles.addPetButton} onPress={handleAddPetPress}>
+      <Image source={{ uri: 'https://via.placeholder.com/80' }} style={styles.addPetIcon} />
+      <Text style={styles.addPetText}>반려동물 추가</Text>
+    </TouchableOpacity>
+  );
+};
 
 const DeviceCard: React.FC<{ device: Device }> = ({ device }) => (
   <View style={styles.deviceCard}>
@@ -197,52 +208,18 @@ const MyPage: React.FC = () => {
   };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const jsessionid = await AsyncStorage.getItem('JSESSIONID');
-        if (!jsessionid) {
-          console.log('JSESSIONID not found');
-          return;
-        }
-
-        const userResponse = await fetch('http://52.79.140.133:8080/api/v1/users', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Cookie': `JSESSIONID=${jsessionid}`,
-          },
-        });
-
-        if (userResponse.ok) {
-          const userData = await userResponse.json();
-          await AsyncStorage.setItem('USER_DATA', JSON.stringify(userData));
-          setUsername(userData.name);
-          setUserData(userData);
-        } else {
-          console.log('Failed to fetch user data:', userResponse.status);
-        }
-
-        const petResponse = await fetch('http://52.79.140.133:8080/api/v1/users/pets', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Cookie': `JSESSIONID=${jsessionid}`,
-          },
-        });
-
-        if (petResponse.ok) {
-          const { pets } = await petResponse.json();
-          const ids = pets.map((pet: any) => pet.id);
-          setPetIds(ids); 
-      } else {
-          console.log('Failed to fetch pet data:', petResponse.status);
+    const fetchData = async () => {
+      const userData = await fetchUserProfile();
+      if (userData) {
+        setUsername(userData.name);
+        setUserData(userData);
       }
-      } catch (error) {
-        console.error('Error fetching user or pet data:', error);
-      }
+  
+      const petIds = await fetchUserPets();
+      setPetIds(petIds);
     };
-
-    fetchUserData();
+  
+    fetchData();
   }, []);
 
   const renderPetItem = ({ item }: { item: string }) => <PetCard petId={item} devices={deviceData} />;
