@@ -29,7 +29,7 @@ const PetRegister = () => {
       } else if (response.errorCode) {
         console.log('ImagePicker Error: ', response.errorMessage);
       } else if (response.assets && response.assets[0]) {
-        setPetImage(response.assets[0]); // 이미지 정보 전체를 저장
+        setPetImage(response.assets[0]); 
       }
     });
   };
@@ -47,9 +47,8 @@ const PetRegister = () => {
         return;
       }
 
-      const petTypeValue = petType === '강아지' ? 0 : 1; 
-      const genderValue = gender === '암' ? 0 : 1; 
-
+      const petTypeValue = petType === '강아지' ? 1 : 2; 
+      const genderValue = gender === '암' ? 1 : 2; 
       const formData = new FormData();
 
       // formData에 각 필드 추가
