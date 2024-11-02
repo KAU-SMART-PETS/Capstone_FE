@@ -1,13 +1,16 @@
 # APK 파일 무시
+# Android 빌드 시 생성되는 APK 파일을 무시합니다.
 *.apk
 android/app/build/outputs/apk/debug/app-debug.apk
 
 # OSX 관련 파일 무시
+# macOS에서 자동 생성되는 파일들을 무시합니다.
 .DS_Store
 ./src/**/.DS_Store
 ./src/.DS_Store
 
 # Xcode 관련 파일 무시
+# Xcode 프로젝트의 사용자별 파일과 빌드 관련 임시 파일을 무시합니다.
 build/
 *.pbxuser
 !default.pbxuser
@@ -27,6 +30,7 @@ DerivedData
 **/.xcode.env.local
 
 # Android/IntelliJ 관련 파일 무시
+# Android Studio와 IntelliJ에서 생성되는 파일들을 무시합니다.
 build/
 .idea
 .gradle
@@ -38,22 +42,24 @@ local.properties
 !debug.keystore
 
 # Node.js 관련 파일 무시
+# npm 또는 Yarn에서 생성되는 로그와 모듈 파일을 무시합니다.
 node_modules/
 npm-debug.log
 yarn-error.log
 
 # fastlane 관련 파일 무시
-# 스크린샷은 Git 저장소에 저장하지 않고 필요할 때마다 fastlane으로 재생성하는 것이 좋습니다.
-# 자세한 내용은 https://docs.fastlane.tools/best-practices/source-control/ 참고
+# fastlane에서 생성되는 파일 중 Git에 저장할 필요가 없는 파일들을 무시합니다.
 **/fastlane/report.xml
 **/fastlane/Preview.html
 **/fastlane/screenshots
 **/fastlane/test_output
 
 # 번들 아티팩트 무시
+# React Native에서 생성되는 JavaScript 번들 파일을 무시합니다.
 *.jsbundle
 
 # Ruby / CocoaPods 관련 파일 무시
+# CocoaPods 의존성 폴더와 Ruby 번들 폴더를 무시합니다.
 **/Pods/
 /vendor/bundle/
 
@@ -61,9 +67,11 @@ yarn-error.log
 .metro-health-check*
 
 # 테스트 관련 파일 무시
+# 코드 커버리지 등 테스트 관련 파일을 무시합니다.
 /coverage
 
 # Yarn 관련 파일 무시
+# Yarn에서 관리하는 특정 폴더를 무시합니다.
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -72,7 +80,7 @@ yarn-error.log
 !.yarn/versions
 
 # React Native 관련 파일 무시
-# 빌드 아티팩트 및 캐시 파일
+# React Native 빌드와 캐시에 관련된 파일을 무시합니다.
 ios/Pods/
 ios/build/
 android/.gradle/
@@ -82,6 +90,7 @@ android/.cxx/
 android/local.properties
 
 # 특정 파일 확장자 무시
+# 백업 및 로그 파일 등을 무시합니다.
 *.keystore
 *.orig
 *.patch
@@ -98,9 +107,11 @@ android/local.properties
 *.temp
 
 # TypeScript 관련 파일 무시
+# TypeScript 빌드 정보 파일을 무시합니다.
 *.tsbuildinfo
 
 # 빌드 아티팩트 무시
+# 프로젝트의 빌드 결과물과 임시 폴더들을 무시합니다.
 build/
 dist/
 tmp/
@@ -108,10 +119,12 @@ temp/
 out/
 
 # Expo 관련 파일 무시
+# Expo에서 생성되는 파일을 무시합니다.
 .expo/
 .expo-shared/
 
 # 환경 설정 파일 무시
+# .env 파일과 환경설정 관련 파일을 무시합니다.
 .env
 .env.local
 .env.*.local
