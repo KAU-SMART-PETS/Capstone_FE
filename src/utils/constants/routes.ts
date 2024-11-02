@@ -1,7 +1,9 @@
 // routes.ts
 
 import React from 'react';
+import {PetDetails} from '@constants/types';
 import MainTab from '@components/layout/MainTab';
+
 import Home from '@screens/home/Home';
 import Splash from '@screens/home/Splash';
 
@@ -25,31 +27,34 @@ import TodayWalk from '@screens/walk/TodayWalk';
 
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
-import Example from '@screens/example';
-
 
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
-  params: ComponentProps;
+  params?: ComponentProps;
 };
 
 export const routesConfig: {
   [key: string]: RouteEntry<any>;
+} & {
+  RegisterHealthInfo: RouteEntry<{ id: number }>;
+  PetProfile: RouteEntry<{pet?: PetDetails}>;
 } = {
-  MainTab: {component: MainTab, params: undefined},
+  MainTab: { component: MainTab, params: undefined },
   Login: { component: Login, params: undefined },
   EditProfile: { component: EditProfile, params: undefined },
   MyPage: { component: MyPage, params: undefined },
   PetRegister: { component: PetRegister, params: undefined },
-  PetProfile: { component: PetProfile, params: undefined },
+  PetProfile: { 
+    component: PetProfile, 
+    params: undefined ,
+  }, // PetProfile에 필요한 params 설정
   Analysis: { component: Analysis, params: undefined },
   HospitalList: { component: HospitalList, params: undefined },
-  CameraView :  { component: CameraView, params: undefined },
-  RegisterHealthInfo :  { component: RegisterHealthInfo, params: undefined },
-  DiseaseDetail :  { component: DiseaseDetail, params: undefined },
-  SelectPart  :  { component: SelectPart, params: undefined },
+  CameraView: { component: CameraView, params: undefined },
+  RegisterHealthInfo: { component: RegisterHealthInfo, params: { id: 0 } }, // id를 number로 설정
+  DiseaseDetail: { component: DiseaseDetail, params: undefined },
+  SelectPart: { component: SelectPart, params: undefined },
 };
-
 
 export const typedObjectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => {
   return Object.entries(obj) as [keyof T, T[keyof T]][];

@@ -3168,6 +3168,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native/gradle-plugin@npm:^0.76.1":
+  version: 0.76.1
+  resolution: "@react-native/gradle-plugin@npm:0.76.1"
+  checksum: 9301329bed2a1cceffdaae9cf40744bdc5a525f96c931ce7517ce853a62ca6d5bcbe7b98bdf4d08b097904411aa4264534b24896b6053b2667a8573efbcf2995
+  languageName: node
+  linkType: hard
+
 "@react-native/js-polyfills@npm:0.75.3":
   version: 0.75.3
   resolution: "@react-native/js-polyfills@npm:0.75.3"
@@ -11348,6 +11355,7 @@ react-native-gesture-handler@latest:
     "@react-native-masked-view/masked-view": ^0.3.1
     "@react-native/babel-preset": 0.75.3
     "@react-native/eslint-config": 0.75.3
+    "@react-native/gradle-plugin": ^0.76.1
     "@react-native/metro-config": 0.75.3
     "@react-native/typescript-config": 0.75.3
     "@react-navigation/bottom-tabs": ^6.6.1

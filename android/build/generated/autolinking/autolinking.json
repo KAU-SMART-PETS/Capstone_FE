@@ -997,9 +997,9 @@
     "ios": {
       "sourceDir": "/Users/namseoa/Documents/GitHub/Capstone_FE/ios",
       "xcodeProject": {
-        "name": "reactCapsone.xcodeproj",
+        "name": "reactCapsone.xcworkspace",
         "path": ".",
-        "isWorkspace": false
+        "isWorkspace": true
       },
       "assets": []
     },
