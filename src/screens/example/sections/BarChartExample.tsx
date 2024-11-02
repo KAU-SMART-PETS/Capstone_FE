@@ -6,6 +6,7 @@ import {SBar} from '@common/BarChart';
 import {WalkingRecord, Warning} from '@common/Records';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+// TODO : 이거 다른 예제랑 분리안됨, 추가로 예제(가로막대, 세로막대) 예전거 찾아서 넣기
 const BarChartExample: React.FC = () => {
   return (
     <ScrollView className="flex-1 bg-white pt-10 px-5">
