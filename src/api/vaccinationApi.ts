@@ -1,5 +1,4 @@
 import axios from 'axios';
-import config from '@constants/config';
 
 // 타입 정의
 export interface LoginInfo {
@@ -33,7 +32,7 @@ export const updateVaccination = async (
 ) => {
   try {
     const response = await axios.put(
-      `${config.API_BASE_URL}/api/v1/pets/${petId}/vaccination/${vaccinationId}`,
+      `${config.API_LOCAL_URL}/api/v1/pets/${petId}/vaccination/${vaccinationId}`,
       data
     );
     return response.status === 204; // No Content
@@ -47,7 +46,7 @@ export const updateVaccination = async (
 export const deleteVaccination = async (petId: number, vaccinationId: number) => {
   try {
     const response = await axios.delete(
-      `${config.API_BASE_URL}/api/v1/pets/${petId}/vaccination/${vaccinationId}`
+      `${config.API_LOCAL_URL}/api/v1/pets/${petId}/vaccination/${vaccinationId}`
     );
     return response.status === 204; // No Content
   } catch (error) {
@@ -60,7 +59,7 @@ export const deleteVaccination = async (petId: number, vaccinationId: number) =>
 export const fetchVaccinations = async (petId: number) => {
   try {
     const response = await axios.get(
-      `${config.API_BASE_URL}/api/v1/pets/${petId}/vaccination`
+      `${config.API_LOCAL_URL}/api/v1/pets/${petId}/vaccination`
     );
     return response.data as VaccinationResponse;
   } catch (error) {
@@ -76,7 +75,7 @@ export const registerVaccination = async (
 ) => {
   try {
     const response = await axios.post(
-      `${config.API_BASE_URL}/api/v1/pets/${petId}/vaccination`,
+      `${config.API_LOCAL_URL}/api/v1/pets/${petId}/vaccination`,
       data
     );
     return response.status === 201; // Created

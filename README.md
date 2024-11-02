@@ -53,9 +53,7 @@
 - API 기본 URL은 `utils/constants/config.ts` 파일에서 설정.
 
    ```ts
-   import config from '@constants/config';
-
-   axios.get(`${config.API_BASE_URL}/api/v1/points`);
+   axios.get(`${config.API_SERVER_URL}/api/v1/points`);
    ```
 
 ### 3. API 테스트 방법

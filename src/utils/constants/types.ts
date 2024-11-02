@@ -70,6 +70,15 @@ export interface WeeklySummaryProps {
   petId: number;
 }
 
+export interface UserData{
+  name: string;
+  email: string;
+  phoneNumber: string;
+  point: number;
+  socialSite: string;
+  smsOptIn: boolean;
+  emailOptIn: boolean;
+}
 // // 각 페이지 관련 매개변수타입
 // export type RootStackParamList = {
 //     MainTab: undefined;

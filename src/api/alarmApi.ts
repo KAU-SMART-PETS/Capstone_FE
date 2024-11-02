@@ -1,5 +1,4 @@
 import axios from 'axios';
-import config from '@constants/config';
 
 // 타입 정의
 export interface Alarm {
@@ -14,7 +13,7 @@ export interface AlarmResponse {
 // 알람 목록 조회
 export const fetchAlarms = async (memberId: number): Promise<AlarmResponse> => {
   try {
-    const response = await axios.get(`${config.API_BASE_URL}/api/v1/alarm`, {
+    const response = await axios.get(`${config.API_LOCAL_URL}/api/v1/alarm`, {
       params: { loginInfo: { memberId } },
     });
     return response.data as AlarmResponse; // AlarmResponse 타입으로 반환

@@ -29,7 +29,7 @@ const PetRegister = () => {
       } else if (response.errorCode) {
         console.log('ImagePicker Error: ', response.errorMessage);
       } else if (response.assets && response.assets[0]) {
-        setPetImage(response.assets[0]); // 이미지 정보 전체를 저장
+        setPetImage(response.assets[0]); 
       }
     });
   };
@@ -41,16 +41,14 @@ const PetRegister = () => {
     }
 
     try {
-      // JSESSIONID 가져오기
       const jsessionid = await AsyncStorage.getItem('JSESSIONID');
       if (!jsessionid) {
         Alert.alert('오류', '로그인이 필요합니다.');
         return;
       }
 
-      const petTypeValue = petType === '강아지' ? 0 : 1; 
-      const genderValue = gender === '암' ? 0 : 1; 
-
+      const petTypeValue = petType === '강아지' ? 1 : 2; 
+      const genderValue = gender === '암' ? 1 : 2; 
       const formData = new FormData();
 
       // formData에 각 필드 추가
@@ -73,7 +71,6 @@ const PetRegister = () => {
         method: 'POST',
         headers: {
           'Cookie': `JSESSIONID=${jsessionid}`,
-          // 'Content-Type': 'multipart/form-data' 헤더는 생략 (자동으로 설정됨)
         },
         body: formData,
       });

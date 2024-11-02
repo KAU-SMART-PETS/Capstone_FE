@@ -1,49 +1,72 @@
-import axios from 'axios';
-import config from '@constants/config';
-import { PetRegistRequest } from '@types';
-import Pet1 from '@data/pets1.json';
+import { PetDetails } from "@constants/types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// 반려동물 정보 등록
-export const registerPet = async (data: { loginInfo: { memberId: number }; petRegistRequest: PetRegistRequest }) => {
+export const fetchUserPets = async (): Promise<string[]> => {
   try {
-    const response = await axios.post(`${config.API_BASE_URL}/api/v1/pets`, data);
-    return response.status === 201; // Created
+    const jsessionid = await AsyncStorage.getItem('JSESSIONID');
+    if (!jsessionid) {
+      console.log('JSESSIONID not found');
+      return [];
+    }
+
+    const response = await fetch(`${config.API_SERVER_URL}/api/v1/users/pets`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': `JSESSIONID=${jsessionid}`,
+      },
+    });
+
+    if (response.ok) {
+      const { pets } = await response.json();
+
+      return pets.map((pet: any) => pet.id);
+    } else {
+      console.log('Failed to fetch pet data:', response.status);
+      return [];
+    }
   } catch (error) {
-    console.error('Error registering pet:', error);
-    throw error;
+    console.error('Error fetching pet data:', error);
+    return [];
   }
 };
 
-// 반려동물 정보 조회
-export const fetchPetInfo = async (petId: number) => {
-  // try {
-  //   const response = await axios.get(`${config.API_BASE_URL}/api/v1/pets/${petId}`);
-  //   return response.data; // { name: "string", petType: "CAT", gender: "MALE", weight: 0, imageUrl: "string", age: 0 }
-  // } catch (error) {
-  //   console.error('Error fetching pet info:', error);
-  //   throw error;
-  // }
-  return Pet1;
-};
-
-// 반려동물 정보 수정
-export const updatePetInfo = async (petId: number, data: PetRegistRequest) => {
+export const getPetDetails = async (petId: string): Promise<PetDetails | null> => {
   try {
-    await axios.patch(`${config.API_BASE_URL}/api/v1/pets/${petId}`, data);
-    return { success: true }; // 200 OK
+    const cachedPetData = await AsyncStorage.getItem(`PET_${petId}`);
+    
+    if (cachedPetData) {
+      console.log(`Returning cached data for pet ${petId} : ${cachedPetData}`);
+      return JSON.parse(cachedPetData) as PetDetails;
+    }
+
+    const response = await fetch(`${config.API_SERVER_URL}/api/v1/pets/${petId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      const petDetails: PetDetails = await response.json();
+      await saveSinglePetDetail(petId, petDetails);
+      return petDetails;
+    } else {
+      console.log(`Failed to fetch pet details: ${response.status}`);
+      return null;
+    }
   } catch (error) {
-    console.error('Error updating pet info:', error);
-    throw error;
+    console.error('Error fetching pet details:', error);
+    return null;
   }
 };
 
-// 반려동물 정보 삭제
-export const deletePetInfo = async (petId: number) => {
+const saveSinglePetDetail = async (petId : string, pet : PetDetails) => {
   try {
-    await axios.delete(`${config.API_BASE_URL}/api/v1/pets/${petId}`);
-    return { success: true }; // 200 OK
+    console.log(petId);
+    await AsyncStorage.setItem(`PET_${petId}`, JSON.stringify(pet));
+    console.log(`Pet ${petId} details saved successfully.`);
   } catch (error) {
-    console.error('Error deleting pet info:', error);
-    throw error;
+    console.error(`Error saving details for pet ${petId}:`, error);
   }
 };
