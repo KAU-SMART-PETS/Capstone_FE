@@ -1,46 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import config from '@constants/config';
 import { TouchableOpacity, View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-// 임시 동물병원 데이터
-const hospitalData = [
-  ['멍멍 동물병원', '031-1234-5678', '09:00-18:00', '경기도 고양시 일산동구'],
-  ['아옹 동물병원', '031-2345-6789', '09:00-18:00', '경기도 고양시 일산서구'],
-  ['멍멍 동물병원', '031-3456-7890', '09:00-20:00', '경기도 파주시 금촌동'],
-  ['야옹 동물병원', '031-4567-8901', '10:00-19:00', '경기도 김포시 구래동'],
-  ['야옹 동물병원', '031-4567-8901', '10:00-19:00', '경기도 김포시 구래동'],
-  ['야옹 동물병원', '031-4567-8901', '10:00-19:00', '경기도 김포시 구래동'],
-  ['야옹 동물병원', '031-4567-8901', '10:00-19:00', '경기도 김포시 구래동'],
-  ['야옹 동물병원', '031-4567-8901', '10:00-19:00', '경기도 김포시 구래동'],
-];
+import axios from 'axios';
 
-const HospitalCard = ({ item }) => (
-  <View style={styles.card}>
+// 임시 동물병원 데이터 제거
+// const hospitalData = require('@api/data/hospitalList.json').vets;
+
+const HospitalCard = ({ item, onPress }) => (
+  <TouchableOpacity style={styles.card} onPress={onPress}>
     <View style={styles.imageContainer} />
     <View style={styles.infoContainer}>
-      <Text style={styles.name}>{item[0]}</Text>
-      <Text style={styles.info}>{item[2]}</Text>
-      <Text style={styles.info}>{item[1]}</Text>
-      <Text style={styles.info}>{item[3]}</Text>
+      <Text style={styles.name}>{item.name}</Text>
+      <Text style={styles.info}>{item.telephone}</Text>
+      <Text style={styles.info}>{item.address}</Text>
     </View>
-  </View>
+  </TouchableOpacity>
 );
 
-
-const HospitalList = () => {
+const FindHospital = () => {
   const navigation = useNavigation();
+  const [hospitalData, setHospitalData] = useState([]);
+
+  useEffect(() => {
+    // 위치 정보 (예: 사용자의 현재 위치)
+    const latitude = 35.2031699;
+    const longitude = 126.8971756;
+
+    // API 호출
+    const fetchHospitals = async () => {
+      try {
+        const response = await axios.post(`${config.API_SERVER_URL}/api/v1/vets`, {
+          latitude,
+          longitude,
+        });
+        setHospitalData(response.data.vets);
+      } catch (error) {
+        console.error('Error fetching hospital data:', error);
+      }
+    };
+
+    fetchHospitals();
+  }, []);
+
   const handleBackButton = () => {
     navigation.goBack();
+  };
+  
+  const handleHospitalPress = (item) => {
+    navigation.navigate('HospitalInfo',  { vetId: item.id });
   };
   
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity onPress={handleBackButton} style={styles.backButton}>
-          <Text style={styles.backButtonText}>{'<'}</Text>
-        </TouchableOpacity>
+        <Text style={styles.backButtonText}>{'<'}</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>내 주변 동물병원 검색 결과입니다.</Text>
       <FlatList
         data={hospitalData}
-        renderItem={({ item }) => <HospitalCard item={item} />}
+        renderItem={({ item }) => (
+          <HospitalCard item={item} onPress={() => handleHospitalPress(item)} />
+        )}
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle={styles.listContainer}
       />
@@ -112,4 +133,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HospitalList;
+export default FindHospital;
