@@ -1,9 +1,7 @@
 import React from 'react';
-import { View, Text, Image, ImageBackground, ImageSourcePropType, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Image, ImageBackground, ImageSourcePropType, TouchableOpacity } from 'react-native';
 import StylizedText from '@common/StylizedText';
 import LinearGradient from 'react-native-linear-gradient';
-
-// const { width: screenWidth } = Dimensions.get('window');
 
 const BANNER_TYPES = {
   SOLID: 'solid',
@@ -52,7 +50,7 @@ export const BannerSection: React.FC<BannerProps> = ({
   );
 
   return (
-    <TouchableOpacity onPress={onPress} className='flex-1 w-screen'>
+    <TouchableOpacity onPress={onPress} className='w-full'>
       {type === BANNER_TYPES.OVERLAY && background ? renderOverlayBanner() : renderSolidBanner()}
     </TouchableOpacity>
   );

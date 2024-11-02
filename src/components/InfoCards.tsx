@@ -9,7 +9,7 @@ import StylizedText from '@common/StylizedText';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome5'
 
-// DiseaseCard, VaccinationCard, OrderInfoCard, HospitalInfoCard
+// TODO : 된거 같긴한데, 한번 더 보고 빠진 부분 없는 지 처리
 
 interface DiseaseCardProps {
   title: string;

@@ -1,16 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { View } from 'react-native';
-import { RootStackParamList } from '@types';
-import fetchHospitalData from '@data/vets.json'; // JSON 파일 경로에 맞게 설정
-
-
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {RoundedCircleButton, RoundedTextButton} from '@common/RoundedButton';
+import {RoundedCircleButton} from '@common/RoundedButton';
 import { DiseaseCard, VaccinationCard, OrderInfoCard } from '@components/InfoCards';
 // import { HospitalInfoCard, HospitalCard } from '@components/InfoListCards';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+// TODO : 빠진 거 없는 지 한번 더 봐야함
 const HealthCards = () => {
     return (
       <>

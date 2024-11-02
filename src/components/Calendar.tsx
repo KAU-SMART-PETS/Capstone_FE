@@ -7,6 +7,8 @@ import rightArrow from '@image/icon/arrow_front.png';
 import fetchWeeklyData from '@data/weeklyData1.json';
 import dayjs from 'dayjs';
 
+// TODO : 캘린더 컴포넌트 내부 수정 작업 할 수 있음 (정렬 + 일자에 대한 paw아이콘 버튼)
+
 // Arrow 컴포넌트
 interface ArrowProps {
   direction: 'left' | 'right';

@@ -144,8 +144,8 @@ const ModalType4: React.FC<ModalWindowProps> = ({ visible, setVisible }) => {
   );
 };
 
+// 하단 모달
 const ModalType5: React.FC<ModalWindowProps> = ({ visible, setVisible }) => {
-  //배경이 투명한 모달
   const ExampleButton = (
     <RoundedTextButton
       content="취소"
@@ -160,7 +160,7 @@ const ModalType5: React.FC<ModalWindowProps> = ({ visible, setVisible }) => {
       visible={visible}
       setVisible={setVisible}
       position='bottom'
-      transparent
+      transparent // 배경 투명화 옵션
       title="여기에 설명 텍스트가 표시됩니다."
       titleAlign='left'
       rows={[
@@ -174,6 +174,8 @@ const ModalType5: React.FC<ModalWindowProps> = ({ visible, setVisible }) => {
 
 
 // ModalExample: 예시 컴포넌트
+// CAUTION : ModalType은 하나의 예시이지, 컴포넌트가 아님! (ModalLayout을 어떻게 쓰는 지 보여준 것)
+// ModalType을 참고해서 저렇게 만들라는 뜻임.
 const ModalExample: React.FC = () => {
   const [visible, setVisible] = React.useState<boolean>(false);
 

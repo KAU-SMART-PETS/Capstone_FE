@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ImageSourcePropType, Image } from 'react-native';
-import RoundedBox from '@common/RoundedBox';
+import RoundedBox, {DesignPreset} from '@common/RoundedBox';
 import StylizedText from '@common/StylizedText';
 
 interface AvatarProps {
@@ -22,9 +22,7 @@ const AvatarSection: React.FC<AvatarProps> = ({
 }) => {
   const isImage = (source: any): source is ImageSourcePropType =>
     typeof source === 'number' || (typeof source === 'object' && source.uri);
-
   const isText = typeof source === 'string';
-
   return (
     <View className={`justify-center items-center ${label ? 'mt-1' : ''}`}>
       <View 
@@ -53,30 +51,21 @@ interface ContentProps {
   title?: React.ReactNode;
   content?: React.ReactNode;
   badge?: React.ReactNode;
-  extra?: React.ReactNode;
-  extraPosition?: 'title-start' | 'title-end' | 'content-start' | 'content-end';
 }
 
 const ContentSection: React.FC<ContentProps> = ({ 
   title, 
   content, 
   badge, 
-  extra, 
-  extraPosition = 'title-end' 
 }) => {
   return (
     <View className="flex-1 pl-4">
       <View className="flex-row items-center justify-between">
-        {extra && extraPosition === 'title-start' && extra}
         {title && <View className="flex-1">{title}</View>}
         {badge && <View>{badge}</View>}
-        {extra && extraPosition === 'title-end' && extra}
       </View>
-      
       <View className="flex-row items-center mt-1">
-        {extra && extraPosition === 'content-start' && extra}
         {content && <View className="flex-1">{content}</View>}
-        {extra && extraPosition === 'content-end' && extra}
       </View>
     </View>
   );
@@ -91,9 +80,8 @@ interface CardProps {
   title?: React.ReactNode;
   content?: React.ReactNode;
   badge?: React.ReactNode;
-  extra?: React.ReactNode;
-  extraPosition?: 'title-start' | 'title-end' | 'content-start' | 'content-end';
   reverse?: boolean;
+  preset?: DesignPreset;
 }
 
 const ListCard: React.FC<CardProps> = ({ 
@@ -103,13 +91,12 @@ const ListCard: React.FC<CardProps> = ({
   title, 
   content, 
   badge,
-  extra,
-  extraPosition = 'title-end',
-  reverse = false
+  reverse = false,
+  preset = 'flatcard',
 }) => {
   return (
     <View className="mx-2">
-      <RoundedBox preset="flatcard">
+      <RoundedBox preset={preset}>
         <View className={`${reverse ? 'flex-row-reverse' : 'flex-row'}`}>
           {layout !== 'contentOnly' && (
             <AvatarSection 
@@ -126,8 +113,6 @@ const ListCard: React.FC<CardProps> = ({
             title={title} 
             content={content} 
             badge={badge} 
-            extra={extra} 
-            extraPosition={extraPosition}
           />
         </View>
       </RoundedBox>

@@ -7,6 +7,8 @@ import StylizedText from '@common/StylizedText';
 import Avatar from '@common/Avatar';
 import { RoundedTextButton } from '@components/common/RoundedButton';
 
+// TODO : 안눌린(비활성화 된) 버튼에 대해, 회색의 대쉬선 말고 실선으로도 되도록 추가해야함
+
 const RadioButtonExample: React.FC = () => {
   const radioButtonGroupRef = useRef<any>(null);
 

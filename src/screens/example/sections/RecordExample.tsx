@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, ScrollView, Text } from 'react-native';
 import StylizedText, {HeaderText} from '@components/common/StylizedText';
-import RoundedBox from '@common/RoundedBox';
 import {SBar} from '@common/BarChart';
 import {WalkingRecord, Warning} from '@common/Records';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const ICWExample: React.FC = () => {
+// TODO : 이거에 예전 혜인님이 작업하신 부분 더 넣어야함 (이전 커밋에 있음)
+
+const RecordExample: React.FC = () => {
   return (
     <ScrollView className="flex-1 bg-white pt-10 px-5">
       {/* Header 부분 */}
@@ -30,34 +31,6 @@ const ICWExample: React.FC = () => {
         <SBar percentage={90} color="#FFD966" label="걸음 수" />
       </View>
 
-        {/* 동물 병원 후기 */}
-      <View className="w-full mb-5">
-          <RoundedBox
-            preset="A"
-            isButton={false}
-            shadow={true}
-            // borderActivate={false}
-          >
-            {/* 첫 번째 행: 이름 및 별점 */}
-            <View className="flex-row justify-between items-center px-4 py-2">
-              <StylizedText type="header2" styleClass="text-primary">
-                김똑똑
-              </StylizedText>
-              <View className="flex-row items-center">
-                <MCIcon name="star" size={18} color="#FFD700" />
-                <Text className="ml-1 text-base">5.0</Text>
-              </View>
-            </View>
-
-            {/* 두 번째 행: 후기 */}
-            <View className="px-4 pb-2">
-              <Text className="text-sm text-black">
-                수의사 선생님이 아주 친절하세요.
-              </Text>
-            </View>
-          </RoundedBox>
-        </View>
-
       {/* 주의 사항 */}
       <Warning />
       <Warning />
@@ -65,4 +38,4 @@ const ICWExample: React.FC = () => {
   );
 };
 
-export default ICWExample;
+export default RecordExample;

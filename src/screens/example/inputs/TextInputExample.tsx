@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { View, Pressable, SafeAreaView, ScrollView } from 'react-native';
-import { RootStackParamList } from '@types';
+import { View, SafeAreaView } from 'react-native';
 import CustomTextInput from '@common/CustomTextInput';
-import Calendar from '@common/Calendar';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const TextInputExample: React.FC<RootStackParamList> = () => {
   const [email, setEmail] = useState('');
@@ -64,10 +61,6 @@ const TextInputExample: React.FC<RootStackParamList> = () => {
           type="passwordField"  // 비밀번호 필드로 지정
         />
       </View>
-      {/* <View className="flex items-center justify-center bg-white mb-10">
-        <Calendar />
-      </View> */}
-      {/* </ScrollView> */}
       </SafeAreaView>
 
     </>
