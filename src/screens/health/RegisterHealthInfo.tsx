@@ -4,8 +4,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const RegisterHealthInfo = ({ route }) => {
-  const petId = route.params;
+const RegisterHealthInfo = (id : number = 0) => {
+  const petId = id;
 
   const [healthInfo, setHealthInfo] = useState([]);
   const [petName, setPetName] = useState('');
@@ -18,7 +18,7 @@ const RegisterHealthInfo = ({ route }) => {
     const fetchHealthInfo = async () => {
       try {
         const jsessionId = await AsyncStorage.getItem('JSESSIONID');
-        const response = await axios.get(`http://52.79.140.133:8080/api/v1/pets/${petId}/vaccination`, {
+        const response = await axios.get(`${config.API_SERVIER_URL}/api/v1/pets/${petId}/vaccination`, {
           headers: {
             Cookie: `JSESSIONID=${jsessionId}`,
           },
@@ -59,7 +59,7 @@ const RegisterHealthInfo = ({ route }) => {
           console.log(selectedVaccination);
 
           await axios.put(
-            `http://52.79.140.133:8080/api/v1/pets/${petId}/vaccination/${selectedVaccination.id}`,
+            `${config.API_SERVIER_URL}/api/v1/pets/${petId}/vaccination/${selectedVaccination.id}`,
             {
               name: newInfo.name,
               year: year,
@@ -85,7 +85,7 @@ const RegisterHealthInfo = ({ route }) => {
         } else {
           // 추가 (POST 요청)
           const response = await axios.post(
-            `http://52.79.140.133:8080/api/v1/pets/${petId}/vaccination`,
+            `${CONFIG.API_SERVIER_URL}/api/v1/pets/${petId}/vaccination`,
             {
               name: newInfo.name,
               year: year,
@@ -122,7 +122,7 @@ const RegisterHealthInfo = ({ route }) => {
   const handleDelete = async () => {
     try {
       const jsessionId = await AsyncStorage.getItem('JSESSIONID');
-      await axios.delete(`http://52.79.140.133:8080/api/v1/pets/${petId}/vaccination/${selectedVaccination.id}`, {
+      await axios.delete(`${CONFIG.API_SERVIER_URL}/api/v1/pets/${petId}/vaccination/${selectedVaccination.id}`, {
         headers: {
           Cookie: `JSESSIONID=${jsessionId}`,
         },

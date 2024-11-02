@@ -14,7 +14,6 @@ interface Device {
   name: string;
 }
 
-
 const deviceData: Device[] = [
   { id: '1', name: 'WATCH (1)' },
   { id: '2', name: 'WATCH (2)' },
@@ -83,13 +82,10 @@ const PetCard: React.FC<{ petId: string; devices: Device[] }> = ({ petId, device
     try {
 
       const petData = await AsyncStorage.getItem(`PET_${petId}`);
-
       if (petData) {
-
         const pet: PetDetails = JSON.parse(petData);
         pet.id = petId;
-
-        navigation.navigate('PetProfile', pet);
+        navigation.navigate('PetProfile', { pet });
       } else {
         Alert.alert('알림', '반려동물 정보가 없습니다.');
       }

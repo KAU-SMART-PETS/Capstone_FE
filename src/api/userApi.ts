@@ -8,13 +8,11 @@ export const fetchUserProfile = async (): Promise<UserData | null> => {
       console.log('JSESSIONID not found');
       return null;
     }
-
-    const response = await fetch(`${config.API_SERVER_URL}/users`, {
+    const response = await fetch(`${config.API_SERVER_URL}/api/v1/users`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Cookie': `JSES
-        SIONID=${jsessionid}`,
+        'Cookie': `JSESSIONID=${jsessionid}`,
       },
     });
 
@@ -43,7 +41,7 @@ export const handleLogout = async (): Promise<boolean> => {
       return false;
     }
 
-    const response = await fetch(`${config.API_SERVER_URL}/oauth2/logout`, {
+    const response = await fetch(`${config.API_SERVER_URL}/api/v1/oaauth2/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

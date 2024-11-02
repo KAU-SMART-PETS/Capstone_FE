@@ -9,7 +9,7 @@ export const fetchUserPets = async (): Promise<string[]> => {
       return [];
     }
 
-    const response = await fetch(`${config.API_SERVER_URL}/users/pets`, {
+    const response = await fetch(`${config.API_SERVER_URL}/api/v1/users/pets`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export const getPetDetails = async (petId: string): Promise<PetDetails | null> =
       return JSON.parse(cachedPetData) as PetDetails;
     }
 
-    const response = await fetch(`${config.API_SERVER_URL}/pets/${petId}`, {
+    const response = await fetch(`${config.API_SERVER_URL}/api/v1/pets/${petId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
