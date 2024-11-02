@@ -38,8 +38,6 @@ local.properties
 *.iml
 *.hprof
 .cxx/
-*.keystore
-!debug.keystore
 
 # Node.js 관련 파일 무시
 # npm 또는 Yarn에서 생성되는 로그와 모듈 파일을 무시합니다.
