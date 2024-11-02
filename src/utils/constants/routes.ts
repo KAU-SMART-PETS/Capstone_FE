@@ -25,12 +25,7 @@ import TodayWalk from '@screens/walk/TodayWalk';
 
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
-
 import Example from '@screens/example';
-
-
-// import SummaryExample from '@screens/SummaryExample';
-// import BlueToothScanner from '@screens/BlueToothScanner';
 
 
 export type RouteEntry<ComponentProps = undefined> = {

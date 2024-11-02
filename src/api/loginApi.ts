@@ -8,13 +8,11 @@ export const handleLoginPress = (
   setLoginUrl: React.Dispatch<React.SetStateAction<string>>,
   setShowWebView: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  const loginUrl = provider === 'kakao'
-    ? 'http://52.79.140.133:8080/api/v1/oauth2/kakao'
-    : 'http://52.79.140.133:8080/api/v1/oauth2/naver';
-  
+  const loginUrl = `${config.API_SERVER_URL}/api/v1/oauth2/${provider}`
   setLoginUrl(loginUrl);
   setShowWebView(true);
 };
+
 export const handleWebViewNavigationStateChange = async (
   navState: any,
   setShowWebView: React.Dispatch<React.SetStateAction<boolean>>,
@@ -23,11 +21,11 @@ export const handleWebViewNavigationStateChange = async (
   const { url } = navState;
   console.log('Navigated to URL:', url);
 
-  if (url.includes('http://52.79.140.133:8080/')) {
+  if (url.includes(`${config.API_SERVER_URL}`)) {
     console.log('Login successful, extracting JSESSIONID...');
 
     try {
-      const cookies = await CookieManager.get('http://52.79.140.133:8080');
+      const cookies = await CookieManager.get(`${config.API_SERVER_URL}`);
       console.log('Retrieved cookies:', cookies);
 
       const jsessionid = cookies.JSESSIONID?.value || cookies.JSESSIONID;
