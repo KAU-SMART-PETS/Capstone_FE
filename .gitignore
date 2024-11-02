@@ -1,15 +1,13 @@
-# Ignore APK files
+# APK 파일 무시
 *.apk
 android/app/build/outputs/apk/debug/app-debug.apk
 
-# OSX
-#
+# OSX 관련 파일 무시
 .DS_Store
 ./src/**/.DS_Store
 ./src/.DS_Store
 
-# Xcode
-#
+# Xcode 관련 파일 무시
 build/
 *.pbxuser
 !default.pbxuser
@@ -28,8 +26,7 @@ DerivedData
 *.xcuserstate
 **/.xcode.env.local
 
-# Android/IntelliJ
-#
+# Android/IntelliJ 관련 파일 무시
 build/
 .idea
 .gradle
@@ -40,41 +37,81 @@ local.properties
 *.keystore
 !debug.keystore
 
-# node.js
-#
+# Node.js 관련 파일 무시
 node_modules/
 npm-debug.log
 yarn-error.log
 
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/
-
+# fastlane 관련 파일 무시
+# 스크린샷은 Git 저장소에 저장하지 않고 필요할 때마다 fastlane으로 재생성하는 것이 좋습니다.
+# 자세한 내용은 https://docs.fastlane.tools/best-practices/source-control/ 참고
 **/fastlane/report.xml
 **/fastlane/Preview.html
 **/fastlane/screenshots
 **/fastlane/test_output
 
-# Bundle artifact
+# 번들 아티팩트 무시
 *.jsbundle
 
-# Ruby / CocoaPods
+# Ruby / CocoaPods 관련 파일 무시
 **/Pods/
 /vendor/bundle/
 
-# Temporary files created by Metro to check the health of the file watcher
+# Metro에서 파일 상태를 확인하기 위해 생성하는 임시 파일 무시
 .metro-health-check*
 
-# testing
+# 테스트 관련 파일 무시
 /coverage
 
-# Yarn
+# Yarn 관련 파일 무시
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# React Native 관련 파일 무시
+# 빌드 아티팩트 및 캐시 파일
+ios/Pods/
+ios/build/
+android/.gradle/
+android/app/build/
+android/build/
+android/.cxx/
+android/local.properties
+
+# 특정 파일 확장자 무시
+*.keystore
+*.orig
+*.patch
+*.bak
+*.old
+*.pid
+*.seed
+*.seed.old
+*.coveragerc
+*.coverage
+*.lock
+*.log
+*.tmp
+*.temp
+
+# TypeScript 관련 파일 무시
+*.tsbuildinfo
+
+# 빌드 아티팩트 무시
+build/
+dist/
+tmp/
+temp/
+out/
+
+# Expo 관련 파일 무시
+.expo/
+.expo-shared/
+
+# 환경 설정 파일 무시
+.env
+.env.local
+.env.*.local
