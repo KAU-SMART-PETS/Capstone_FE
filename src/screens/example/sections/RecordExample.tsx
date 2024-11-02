@@ -5,6 +5,7 @@ import {SBar} from '@common/BarChart';
 import {WalkingRecord, Warning} from '@common/Records';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+// IMPORTANT
 // TODO : 이거에 예전 혜인님이 작업하신 부분 더 넣어야함 (이전 커밋에 있음)
 
 const RecordExample: React.FC = () => {
