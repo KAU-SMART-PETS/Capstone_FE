@@ -4,15 +4,11 @@ import { PillBadge } from './common/Badge';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import StylizedText from '@components/common/StylizedText';
-import dog1 from '@image/placeholder/dog2.jpg';
 import ListCard from '@components/common/ListCard';
 import ColorMap from '@common/ColorMap';
 import bagImg from '@image/icon/bag.png';
 
-// TODO : 내일은 해당 항목과 버튼이 연결되도록 작업수행 예정
-
-// NOTE : FlatList 쪽 코드를 패키징 더 개선할 지 고민 (사용 시 짧고 간단한 코드를 쓸 수 있도록)
-
+// TODO : 해당 항목과 버튼이 연결되도록 작업수행해야함!!!!
 
 // 리워드 관련
 interface RewardCardProps {
@@ -23,7 +19,6 @@ interface RewardCardProps {
 }
 
 export const RewardCard: React.FC<RewardCardProps> = ({ avatarSource, title, content, completed }) => {
-  // const iconItem = <MCIcon name="cart-outline" size={28} color="black" />;
   return (
     <ListCard 
       avatar={avatarSource}
@@ -86,15 +81,20 @@ interface RegistrationCardProps {
   iconName: string;
 }
 
-const RegistrationCard: React.FC<RegistrationCardProps> = ({ title, content, iconName }) => (
+export const RegistrationCard: React.FC<RegistrationCardProps> = ({ title, content, iconName }) => {
+  const titleRow = (
+    <View className='flex-row flex items-center'>
+      <MCIcon name={iconName} size={42} color="black" />
+      <StylizedText type="header1" styleClass="text-black mt-1.5 ml-1">{title}</StylizedText>
+    </View>
+  );
+  return(
   <ListCard 
     layout='contentOnly'
-    title={<StylizedText type="header1" styleClass="text-black mt-1 ml-1">{title}</StylizedText>}
+    title={titleRow}
     content={<StylizedText type="body2" styleClass="text-black">{content}</StylizedText>}
-    extra={<MCIcon name={iconName} size={42} color="black" />}
-    extraPosition="title-start"
-  />
-);
+  />);
+};
 
 // 아이콘 우측에 띄우고 메시지보여주는 버튼
 interface ProductPurchaseCardProps {
@@ -103,11 +103,11 @@ interface ProductPurchaseCardProps {
   reverse?: boolean;
 }
 
-const ProductPurchaseCard: React.FC<ProductPurchaseCardProps> = ({ title, content, reverse }) => (
+export const ProductPurchaseCard: React.FC<ProductPurchaseCardProps> = ({ title, content, reverse }) => (
   <ListCard 
     avatar={bagImg}
     reverse={reverse}
-    title={<StylizedText type="header7" styleClass="text-black mt-1 ml-1">{title}</StylizedText>}
+    title={<StylizedText type="header7" styleClass="text-black mt-1 ml-0.5">{title}</StylizedText>}
     content={<StylizedText type="body2" styleClass="text-black">{content}</StylizedText>}
   />
 );
@@ -119,44 +119,22 @@ interface ReviewCardProps {
   comment: string;
 }
 
-const ReviewCard: React.FC<ReviewCardProps> = ({ reviewer, rating, comment }) => {
+export const ReviewCard: React.FC<ReviewCardProps> = ({ reviewer, rating, comment }) => {
+  const ratingBadge = (
+    <View className="flex-row flex items-center mr-3">
+      <AntIcon name='staro' size={16} color={ColorMap['warning']} />
+      <StylizedText type="body1" styleClass="ml-2 text-black">{rating.toFixed(1)}</StylizedText>
+    </View>
+  );
   return (
     <ListCard 
+      preset='flatcard-fit'
+      layout='contentOnly'
       title={
-        <View className="flex-row justify-between items-start">
-          <StylizedText type="header5" styleClass="text-primary mb-1">{reviewer}</StylizedText>
-          <View className="flex-row">
-            <AntIcon name="staro" size={18} color={ColorMap['yellow']} />
-            <StylizedText type="body1" styleClass="ml-2 text-black">{rating.toFixed(1)}</StylizedText>
-          </View>
-        </View>
+        <StylizedText type="header5" styleClass="text-primary">{reviewer}</StylizedText>
       }
+      badge={ratingBadge}
       content={<StylizedText type="body2" styleClass="text-black -mt-1 mb-2">{comment}</StylizedText>}
     />
   );
 };
-
-const FlatListCards: React.FC = () => {
-  return (
-    <View className="bg-white pt-10 px-5 scroll">
-      <RewardCard title="7일 연속 산책하기" content="7일 연속 30분 이상 산책에 성공해보세요!" 
-          completed={true} avatarSource='100'/>
-      <RewardCard title="7일 연속 산책하기" content="7일 연속 30분 이상 산책에 성공해보세요!" 
-          completed={false} avatarSource={dog1}/>
-      <WalkDetailsCard 
-        title="하늘이"
-        details={[
-          { label: "산책일시", value: "2024.05.18" },
-          { label: "산책 시간", value: "00:10:00" },
-          { label: "이동 거리", value: "2.00km" }
-        ]}
-      />
-      <VeterinaryCard title="멍멍 동물병원" contact="010-1234-5678" address="경기도 고양시 일산서구" />
-      <RegistrationCard title="비문 등록" content="우리 아이 안전을 위한 비문을 등록해주세요." iconName="dog-service" />
-      <ProductPurchaseCard title="제품 구매하기" content="누적된 포인트로 제품을 구매해보세요!" reverse={true} />
-      <ReviewCard reviewer="김똑똑" rating={5.0} comment="수의사 선생님이 아주 친절하세요." />
-    </View>
-  );
-};
-
-export default FlatListCards;

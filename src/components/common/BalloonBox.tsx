@@ -4,14 +4,11 @@ import { View } from 'react-native';
 
 type BalloonBoxProps = {
   children: React.ReactNode;
-  shadow?: boolean;
 };
 
 const BalloonBox: React.FC<BalloonBoxProps> = ({
   children,
-  shadow = false,
   }) => {
-
   return (
   <View
       className={`bg-skyblue mt-4 mb-5 px-10 py-10 rounded-2xl relative`}
