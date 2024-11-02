@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { fetchWeeklyData } from '@api/weeklyDataApi'; // 주간 데이터 가져오기
-import { fetchPetInfo } from '@api/petApi'; // 반려동물 정보 가져오기
+// import { fetchPetInfo } from '@api/petApi'; // 반려동물 정보 가져오기
 import { VBarChart } from '@components/common/BarChart';
 import Loading from '@components/common/Loading';
 import { HeaderText } from '@components/common/StylizedText';
@@ -19,9 +19,8 @@ const WeeklySummary: React.FC<WeeklySummaryProps> = ({ petId = 1 }) => {
     const getData = async () => {
       setLoading(true); // 로딩 상태 시작
       try {
-        const petData = await fetchPetInfo(petId); // petId로 반려동물 정보 가져오기
-        setPetName(petData.name); // 반려동물 이름 저장
-
+        // const petData = await fetchPetInfo(petId); // petId로 반려동물 정보 가져오기
+        // setPetName(petData.name); // 반려동물 이름 저장
         const data = await fetchWeeklyData(petId); // petId로 주간 데이터 가져오기
         setWeeklyData(data);
       } catch (error) {

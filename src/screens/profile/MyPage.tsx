@@ -4,8 +4,8 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { PetDetails } from '@types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { fetchUserProfile } from '@screens/API/userApi';
-import { fetchUserPets, getPetDetails } from '@screens/API/petApi';
+import { fetchUserProfile } from '@api/userApi';
+import { fetchUserPets, getPetDetails } from '@api/petApi';
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
 

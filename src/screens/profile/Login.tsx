@@ -4,7 +4,7 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import KakaoLogo from '@image/icon/logo-kakao.png';
 import NaverLogo from '@image/icon/logo-naver.png';
 import { WebView, WebViewNavigation } from 'react-native-webview';
-import { handleLoginPress, handleWebViewNavigationStateChange } from '@screens/API/LoginApi';
+import { handleLoginPress, handleWebViewNavigationStateChange } from '@api/loginApi';
 import StylizedText from '@components/common/StylizedText';
 
 const Login = () => {
@@ -20,7 +20,7 @@ const Login = () => {
         <StylizedText type="header1" styleClass="text-white">
           {'현명하게\n우리 아이\n건강 관리'}
         </StylizedText>
-          <StylizedText type="body1" color="white" styleClass="text-white">
+          <StylizedText type="body1" styleClass="text-white">
             {'우리 아이의 \n마음상태 몸상태를 알 수 있는 \n가장 정확하고 간편한 방법'}
           </StylizedText>
         </View>
