@@ -81,7 +81,7 @@ const Analysis: React.FC = () => {
   };
 
   const handleFindHospital = () => {
-    navigation.navigate('FindHospital');
+    navigation.navigate('HospitalList');
   };
 
   return (
