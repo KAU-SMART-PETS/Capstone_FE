@@ -6,7 +6,6 @@ android/app/build/outputs/apk/debug/app-debug.apk
 # OSX 관련 파일 무시
 # macOS에서 자동 생성되는 파일들을 무시합니다.
 .DS_Store
-./src/**/.DS_Store
 ./src/.DS_Store
 
 # Xcode 관련 파일 무시
