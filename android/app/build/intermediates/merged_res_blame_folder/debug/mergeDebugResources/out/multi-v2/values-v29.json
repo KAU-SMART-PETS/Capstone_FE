@@ -1,0 +1,39 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.reactcapsone.app-mergeDebugResources-44:/values-v29/values-v29.xml",
+            "map": [
+                {
+                    "source": "/Users/namseoa/Documents/GitHub/Capstone_FE/node_modules/react-native-bars/android/build/intermediates/packaged_res/debug/packageDebugResources/values-v29/values-v29.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "12",
+                        "endColumns": "12",
+                        "endOffsets": "675"
+                    },
+                    "to": {
+                        "startLines": "9",
+                        "startColumns": "4",
+                        "startOffsets": "469",
+                        "endLines": "19",
+                        "endColumns": "12",
+                        "endOffsets": "1089"
+                    }
+                },
+                {
+                    "source": "/Users/namseoa/.gradle/caches/8.8/transforms/1d0336f0668aa8a3cbabc0e350d56ae8/transformed/core-splashscreen-1.0.0/res/values-v29/values-v29.xml",
+                    "from": {
+                        "startLines": "2,7",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,374",
+                        "endLines": "6,8",
+                        "endColumns": "12,12",
+                        "endOffsets": "369,464"
+                    }
+                }
+            ]
+        }
+    ]
+}
