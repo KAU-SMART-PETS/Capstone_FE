@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation, RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '@types';
 import registerPhoto from '@image/frame/registerPhoto.png';
+import { PetDetails } from '@src/utils/constants/types';
 
 // 초기 데이터(임시)
 const mockData = {
@@ -24,8 +24,18 @@ const mockData = {
   estimatedCalories: 330
 };
 
-const PetProfile: React.FC<RouteProp<RootStackParamList, 'PetProfile'>> = ({ route }) => {
-  const { id, name, petType, gender, weight, imageUrl, age } = route.params;
+const PetProfile: React.FC<{ route: RouteProp<RootStackParamList, 'PetProfile'> }> = ({ route }) => {
+  const pet = route.params?.pet;
+  const {
+    id = 0,
+    name = '이름 없음',
+    petType = '종류 없음',
+    gender = '성별 없음',
+    weight = '무게 없음',
+    imageUrl = '',
+    age = '나이 없음',
+  } = pet || {}; // pet이 undefined일 경우 빈 객체로 대체
+  
   const navigation = useNavigation();
   const [showDetail, setShowDetail] = useState(false);
 
@@ -56,8 +66,8 @@ const PetProfile: React.FC<RouteProp<RootStackParamList, 'PetProfile'>> = ({ rou
     return labels[key] || key;
   };
 
-  const handleHealthInfo = () => {
-    navigation.navigate('RegisterHealthInfo', id); 
+  const handleHealthInfo = (navigation:any) => {
+    navigation.navigate("RegisterHealthInfo", id); 
   };
 
   return (

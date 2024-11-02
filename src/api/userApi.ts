@@ -1,53 +1,64 @@
-import axios from 'axios';
-import config from '@constants/config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { UserData } from '@constants/types';
 
-// 타입 정의
-export interface MemberInfoResponse {
-  name: string;
-  email: string;
-  phoneNumber: string;
-  point: number;
-  socialSite: string;
-  smsOptIn: boolean;
-  emailOptIn: boolean;
-}
-
-// 사용자 정보 조회
-export const fetchUserInfo = async (memberId: number) => {
+export const fetchUserProfile = async (): Promise<UserData | null> => {
   try {
-    const response = await axios.get(`${config.API_BASE_URL}/api/v1/users`, {
-      params: { loginInfo: { memberId } },
+    const jsessionid = await AsyncStorage.getItem('JSESSIONID');
+    if (!jsessionid) {
+      console.log('JSESSIONID not found');
+      return null;
+    }
+    const response = await fetch(`${config.API_SERVER_URL}/api/v1/users`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': `JSESSIONID=${jsessionid}`,
+      },
     });
-    return response.data as MemberInfoResponse;
+
+    if (response.ok) {
+      const userData = await response.json();
+      await AsyncStorage.setItem('USER_DATA', JSON.stringify(userData));
+
+      console.log(userData);
+      
+      return userData;
+    } else {
+      console.log('Failed to fetch user data:', response.status);
+      return null;
+    }
   } catch (error) {
-    console.error('Error fetching user info:', error);
-    throw error;
+    console.error('Error fetching user data:', error);
+    return null;
   }
 };
 
-// 사용자 정보 수정
-export const updateUserInfo = async (memberId: number, data: { email: string; phoneNumber: string; smsOptIn: boolean; emailOptIn: boolean; }) => {
+export const handleLogout = async (): Promise<boolean> => {
   try {
-    await axios.patch(`${config.API_BASE_URL}/api/v1/users`, {
-      loginInfo: { memberId },
-      request: data,
-    });
-    return { success: true }; // 204 No Content
-  } catch (error) {
-    console.error('Error updating user info:', error);
-    throw error;
-  }
-};
+    const jsessionid = await AsyncStorage.getItem('JSESSIONID');
+    if (!jsessionid) {
+      console.log('JSESSIONID not found');
+      return false;
+    }
 
-// 사용자가 등록한 반려동물 목록 조회
-export const fetchUserPets = async (memberId: number) => {
-  try {
-    const response = await axios.get(`${config.API_BASE_URL}/api/v1/users/pets`, {
-      params: { loginInfo: { memberId } },
+    const response = await fetch(`${config.API_SERVER_URL}/api/v1/oaauth2/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': `JSESSIONID=${jsessionid}`,
+      },
     });
-    return response.data; // { pets: [{ id: 0, name: "string", imageUrl: "string" }] }
+
+    if (response.ok) {
+      await AsyncStorage.removeItem('JSESSIONID');
+      await AsyncStorage.removeItem('USER_DATA');
+      return true;
+    } else {
+      console.log('Failed to logout:', response.status);
+      return false;
+    }
   } catch (error) {
-    console.error('Error fetching user pets:', error);
-    throw error;
+    console.error('Error logging out:', error);
+    return false;
   }
 };

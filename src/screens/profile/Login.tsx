@@ -1,128 +1,66 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
-import { useNavigation, CommonActions } from '@react-navigation/native';
+import { View, Image, StyleSheet, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import KakaoLogo from '@image/icon/logo-kakao.png';
 import NaverLogo from '@image/icon/logo-naver.png';
-import { WebView } from 'react-native-webview';
-import CookieManager from '@react-native-cookies/cookies';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { WebView, WebViewNavigation } from 'react-native-webview';
+import { handleLoginPress, handleWebViewNavigationStateChange } from '@api/loginApi';
+import StylizedText from '@components/common/StylizedText';
 
 const Login = () => {
-  const navigation = useNavigation();
-  const [showWebView, setShowWebView] = useState(false);
-  const [loginUrl, setLoginUrl] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const goToMyPage = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: 'MyPage' }],
-      })
-    );
-  };
-
-  const handleLoginPress = (provider) => {
-    if (provider === 'kakao') {
-      setLoginUrl('http://52.79.140.133:8080/api/v1/oauth2/kakao');
-    } else if (provider === 'naver') {
-      setLoginUrl('http://52.79.140.133:8080/api/v1/oauth2/naver');
-    }
-    setShowWebView(true);
-  };
-
-  const handleWebViewNavigationStateChange = async (navState) => {
-    const { url } = navState;
-    console.log('Navigated to URL:', url); 
-
-    if (url.includes('http://52.79.140.133:8080/')) {
-      console.log('Login successful, extracting JSESSIONID...');
-
-      try {
-        const cookies = await CookieManager.get('http://52.79.140.133:8080');
-        console.log('Retrieved cookies:', cookies); 
-
-
-        const jsessionid = cookies.JSESSIONID?.value || cookies.JSESSIONID;
-        console.log('Extracted JSESSIONID:', jsessionid);
-
-        if (jsessionid) {
-
-          await AsyncStorage.setItem('JSESSIONID', jsessionid);
-          console.log('JSESSIONID stored in AsyncStorage');
-
-
-          setShowWebView(false);
-
-          const storedSessionId = await AsyncStorage.getItem('JSESSIONID');
-          console.log('Stored JSESSIONID:', storedSessionId);
-
-          goToMyPage();
-        } else {
-          console.log('JSESSIONID not found in cookies');
-        }
-      } catch (error) {
-        console.error('Error retrieving cookies:', error);
-      }
-    }
-  };
-
+  const navigation = useNavigation<NavigationProp<any>>();
+  const [showWebView, setShowWebView] = useState<boolean>(false);
+  const [loginUrl, setLoginUrl] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   return (
     <View style={styles.container}>
       <View style={styles.topHalf}>
         <View style={styles.subtitleContainer}>
-          <Text style={styles.subtitle}>현명하게</Text>
-          <Text style={styles.subtitle}>우리 아이</Text>
-          <Text style={styles.subtitle}>건강 관리</Text>
-          <Text style={styles.description}>우리 아이의</Text>
-          <Text style={styles.description}>마음상태 몸상태를 알 수 있는</Text>
-          <Text style={styles.description}>가장 정확하고 간편한 방법</Text>
+        <StylizedText type="header1" styleClass="text-white">
+          {'현명하게\n우리 아이\n건강 관리'}
+        </StylizedText>
+          <StylizedText type="body1" styleClass="text-white">
+            {'우리 아이의 \n마음상태 몸상태를 알 수 있는 \n가장 정확하고 간편한 방법'}
+          </StylizedText>
         </View>
       </View>
       <View style={styles.bottomHalf}>
         <View style={styles.buttonTextContainer}>
-          <Text style={styles.buttonText}>10초만에 회원가입</Text>
+          <StylizedText type="body1" styleClass="text-black">
+            10초만에 회원가입
+          </StylizedText>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => handleLoginPress('kakao')}>
+          <TouchableOpacity onPress={() => handleLoginPress('kakao', setLoginUrl, setShowWebView)}>
             <Image source={KakaoLogo} style={styles.buttonImage} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleLoginPress('naver')}>
+          <TouchableOpacity onPress={() => handleLoginPress('naver', setLoginUrl, setShowWebView)}>
             <Image source={NaverLogo} style={styles.buttonImage} />
           </TouchableOpacity>
         </View>
       </View>
 
-      
       <Modal visible={showWebView} animationType="slide">
         <View style={{ flex: 1 }}>
-          {loading && (
-            <ActivityIndicator
-              color="blue"
-              size="large"
-            />
-          )}
+          {loading && <ActivityIndicator color="blue" size="large" />}
           <WebView
             source={{ uri: loginUrl }}
-            onNavigationStateChange={handleWebViewNavigationStateChange}
+            onNavigationStateChange={(navState: WebViewNavigation) =>
+              handleWebViewNavigationStateChange(navState, setShowWebView, navigation)
+            }
             onLoadStart={() => setLoading(true)}
             onLoadEnd={() => setLoading(false)}
             sharedCookiesEnabled={true}
             thirdPartyCookiesEnabled={true}
             javaScriptEnabled={true}
           />
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={() => setShowWebView(false)}
-          >
-            <Text style={styles.closeButtonText}>닫기</Text>
-          </TouchableOpacity>
         </View>
       </Modal>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -149,15 +87,6 @@ const styles = StyleSheet.create({
     width: '80%',
     marginBottom: 60,
   },
-  subtitle: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  description: {
-    fontSize: 15,
-    color: 'white',
-  },
   buttonTextContainer: {
     padding: 10,
     borderRadius: 20,
@@ -167,10 +96,6 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     alignItems: 'center',
   },
-  buttonText: {
-    fontSize: 12,
-    color: 'black',
-  },
   buttonContainer: {
     flexDirection: 'row',
   },
@@ -179,6 +104,10 @@ const styles = StyleSheet.create({
     height: 50,
     margin: 5,
   },
+  closeButton: {
+    padding: 10,
+    alignItems: 'center',
+  }
 });
 
 export default Login;

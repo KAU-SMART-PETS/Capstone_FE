@@ -1,9 +1,9 @@
-#Thu Oct 31 15:15:52 KST 2024
-base.0=C\:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\android\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\android\\app\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
-base.2=C\:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.3=C\:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
-base.4=C\:\\Users\\User\\Desktop\\capRefractored\\Capstone_FE\\android\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+#Sat Nov 02 18:18:01 KST 2024
+base.0=/Users/namseoa/Documents/GitHub/Capstone_FE/android/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+base.1=/Users/namseoa/Documents/GitHub/Capstone_FE/android/app/build/intermediates/dex/debug/mergeLibDexDebug/0/classes.dex
+base.2=/Users/namseoa/Documents/GitHub/Capstone_FE/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
+base.3=/Users/namseoa/Documents/GitHub/Capstone_FE/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/14/classes.dex
+base.4=/Users/namseoa/Documents/GitHub/Capstone_FE/android/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=0/classes.dex

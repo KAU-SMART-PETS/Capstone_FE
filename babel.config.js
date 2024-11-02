@@ -8,12 +8,14 @@ module.exports = function (api) {
         {
           root: ['./src'],  // src 디렉토리를 루트로 설정
           alias: {
-            "@root": "./",   
+            "@root": "./", 
+            "@src": "./src",  
             '@api': './src/api',
             '@data': './src/api/data',
             '@components': './src/components',
             '@common': './src/components/common',
             '@screens': './src/screens',
+            '@example': './src/screens/example',
             '@constants': './src/utils/constants',
             '@types': './src/utils/contsants/types',
             '@image': './src/assets/image',
