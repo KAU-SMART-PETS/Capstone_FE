@@ -4,6 +4,7 @@ import { View, ScrollView, Text } from 'react-native';
 import BalloonBox from '@common/BalloonBox';  // BalloonBox 컴포넌트를 가져옵니다.
 import StylizedText, {HeaderText} from '@components/common/StylizedText';
 
+// IMPORTANT
 // TODO : 좀더 반복되는 부분 묶는 식으로 한번 더 손봐야함
 const BalloonBoxExample: React.FC = () => {
   return (
