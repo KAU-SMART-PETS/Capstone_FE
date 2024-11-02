@@ -88,7 +88,6 @@ android/local.properties
 
 # 특정 파일 확장자 무시
 # 백업 및 로그 파일 등을 무시합니다.
-*.keystore
 *.orig
 *.patch
 *.bak
