@@ -79,7 +79,6 @@ const EditProfile: React.FC = () => {
 
             updatedUserData = JSON.parse(responseText);
           } else {
-
             updatedUserData = userInfo;
           }
           await AsyncStorage.setItem('USER_DATA', JSON.stringify(updatedUserData));
@@ -132,7 +131,7 @@ const EditProfile: React.FC = () => {
             editingField === key && styles.editingInput,
             (key === 'email' || key === 'phoneNumber') && styles.inputWithButton,
           ]}
-          value={userInfo ? String(userInfo[key] || '') : ''}
+          value={userInfo ? String(userInfo[key] ?? '') : ''}
           onChangeText={(text) => handleChange(key, text)}
           keyboardType={keyboardType}
           editable={editingField === key}
@@ -225,6 +224,7 @@ const EditProfile: React.FC = () => {
       </View>
 
       {renderInput('휴대폰 번호', 'phoneNumber', 'phone-pad')}
+      {renderInput('포인트', 'point')}
 
       <Text style={styles.consentTitle}>광고성 정보 수신</Text>
 
