@@ -66,8 +66,8 @@ const PetProfile: React.FC<{ route: RouteProp<RootStackParamList, 'PetProfile'> 
     return labels[key] || key;
   };
 
-  const handleHealthInfo = (navigation:any) => {
-    navigation.navigate("RegisterHealthInfo", id); 
+  const handleHealthInfo = () => {
+    navigation.navigate("RegisterHealthInfo", { id: pet.id });
   };
 
   return (
