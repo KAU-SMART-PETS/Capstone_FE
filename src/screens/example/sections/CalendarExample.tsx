@@ -10,4 +10,4 @@ const CalendarExample: React.FC<RootStackParamList> = () => {
     );
 };
 
-export default CalendarExample
+export default CalendarExample;

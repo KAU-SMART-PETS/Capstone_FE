@@ -16,6 +16,28 @@ const ButtonExamples = () => {
       <View className="space-y-4">
 
         {/* Primary Button with Shadow */}
+          <RoundedTextButton
+          color="bg-skyblue"
+          icon={<MCIcon name='chart-bar' color='black' size={20} />}
+          textColor="text-black"
+          textType='body1'
+          content="분석"
+          widthOption="md"
+          onPress={() => console.log('Primary Button Pressed')}
+        />
+          {/* Primary Button with Shadow */}
+          <RoundedTextButton
+          color="bg-skyblue"
+          icon={<MCIcon name='reload' color='black' size={20} />}
+          textColor="text-black"
+          textType='body1'
+          content="다시 찍기"
+          widthOption="md"
+          onPress={() => console.log('Primary Button Pressed')}
+        />
+      
+
+        {/* Primary Button with Shadow */}
         <RoundedTextButton
           color="bg-primary"
           textColor="text-white"
