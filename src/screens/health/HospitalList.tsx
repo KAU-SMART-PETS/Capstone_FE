@@ -27,7 +27,6 @@ const FindHospital = () => {
     const latitude = 35.2031699;
     const longitude = 126.8971756;
 
-    // API 호출
     const fetchHospitals = async () => {
       try {
         const response = await axios.post(`${config.API_SERVER_URL}/api/v1/vets`, {
