@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import {
-  View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView, SafeAreaView, Alert,
+  View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView, SafeAreaView
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import emptyCircleFrame from '@image/frame/addPetCircle.png';
+import { PetRegistRequest } from '@src/utils/constants/types';
+import { submitPetRegistration } from '@src/api/petApi';
 
 const PetRegister = () => {
   const navigation = useNavigation();
@@ -34,59 +35,16 @@ const PetRegister = () => {
     });
   };
 
-  const handleSubmit = async () => {
-    if (!name || !petType || !gender || !weight || !age) {
-      Alert.alert('오류', '모든 필수 정보를 입력해주세요.');
-      return;
-    }
-
-    try {
-      const jsessionid = await AsyncStorage.getItem('JSESSIONID');
-      if (!jsessionid) {
-        Alert.alert('오류', '로그인이 필요합니다.');
-        return;
-      }
-
-      const petTypeValue = petType === '강아지' ? 1 : 2; 
-      const genderValue = gender === '암' ? 1 : 2; 
-      const formData = new FormData();
-
-      // formData에 각 필드 추가
-      formData.append('name', name);
-      formData.append('petType', petTypeValue);
-      formData.append('gender', genderValue);
-      formData.append('weight', parseFloat(weight));
-      formData.append('age', parseInt(age));
-      formData.append('breed', breed);
-
-      if (petImage) {
-        formData.append('image', {
-          uri: petImage.uri,
-          type: petImage.type || 'image/jpeg',
-          name: petImage.fileName || 'pet_image.jpg',
-        });
-      }
-
-      const response = await fetch('http://52.79.140.133:8080/api/v1/pets', {
-        method: 'POST',
-        headers: {
-          'Cookie': `JSESSIONID=${jsessionid}`,
-        },
-        body: formData,
-      });
-
-      if (response.ok) {
-        Alert.alert('성공', '반려동물이 등록되었습니다.');
-        navigation.goBack();
-      } else {
-        const errorData = await response.text();
-        console.error('반려동물 등록 에러:', errorData);
-        Alert.alert('오류', '반려동물 등록 중 오류가 발생했습니다.');
-      }
-    } catch (error) {
-      console.error('반려동물 데이터 전송 에러:', error);
-      Alert.alert('오류', '반려동물 등록 중 오류가 발생했습니다.');
-    }
+  const handleSubmit = () => {
+    const petData: PetRegistRequest = {
+      name,
+      petType: petType === '강아지' ? 2 : 1,
+      gender: gender === '암' ? 2 : 1,
+      weight: parseFloat(weight),
+      age: parseInt(age),
+      image: petImage?.uri || '',
+    };
+    submitPetRegistration(petData, navigation);
   };
 
   return (

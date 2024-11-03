@@ -162,7 +162,6 @@ const AddDeviceButton: React.FC = () => (
 
 
 
-
 const MyPage: React.FC = () => {
   const navigation = useNavigation<MyPageNavigationProp>();
 
@@ -170,40 +169,6 @@ const MyPage: React.FC = () => {
   const [userData, setUserData] = useState(null);
   const [petIds, setPetIds] = useState<string[]>([]);
 
-  // const handleLogout = async () => {
-  //   try {
-  //     const jsessionid = await AsyncStorage.getItem('JSESSIONID');
-  //     if (!jsessionid) {
-  //       console.log('JSESSIONID not found');
-  //       return;
-  //     }
-
-  //     const response = await fetch(`${config.API_SERVER_URL}/api/v1/oauth2/logout`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Cookie': `JSESSIONID=${jsessionid}`,
-  //       },
-  //     });
-
-  //     if (response.ok) {
-  //       console.log(response);
-  //       await AsyncStorage.removeItem('JSESSIONID');
-  //       await AsyncStorage.removeItem('USER_DATA');
-
-  //       navigation.reset({
-  //         index: 0,
-  //         routes: [{ name: 'Login' }],
-  //       });
-  //     } else {
-  //       console.log('Failed to logout:', response.status);
-  //       Alert.alert('오류', '로그아웃에 실패했습니다.');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error logging out:', error);
-  //     Alert.alert('오류', '로그아웃 중 오류가 발생했습니다.');
-  //   }
-  // };
 
   useEffect(() => {
     const fetchData = async () => {
