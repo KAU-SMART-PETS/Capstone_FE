@@ -3,9 +3,10 @@ import { View, TouchableOpacity } from 'react-native';
 import StylizedText from '@common/StylizedText';
 import ShadowBox from '@common/ShadowBox';
 
-export type ButtonColor = 'bg-secondary' | 'bg-primary' | 'bg-white' | 'bg-black'; // Define preset options
+export type ButtonColor = 'bg-secondary' | 'bg-primary' | 'bg-white' | 'bg-black' | `bg-skyblue`; // Define preset options
 
 type RoundedTextButtonProps = {
+  icon?: React.ReactNode,
   color?: ButtonColor;
   textColor?: string;
   textType?: string;
@@ -26,6 +27,7 @@ type RoundedCircleButtonProps = {
 };
 
 export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
+    icon,
     color = 'bg-primary',
     textColor = 'text-white',
     textType = 'body1',
@@ -38,14 +40,15 @@ export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
     const widthMap = {
       full: 'w-96',
       sm: 'w-24',  // Example: small width
-      md: 'w-36',  // Example: medium width
+      md: 'w-32',  // Example: medium width
       lg: 'w-56',  // Example: large width
       xl: 'w-80',
     };
     const widthClass = widthMap[widthOption] || widthMap.full;
     const Content = (
-      <View className={`${color} ${borderRadius} mx-auto p-3 ${widthClass} flex items-center justify-center`}>
-          <StylizedText type={textType} styleClass={textColor}>
+      <View className={`${color} ${borderRadius} mx-auto py-2.5 px-3 ${widthClass} flex flex-row items-center justify-center`}>
+          {icon ? icon : null}
+          <StylizedText type={textType} styleClass={`${textColor} ${icon ? 'ml-1.5' : ''}`}>
             {content}
           </StylizedText>
       </View>

@@ -68,7 +68,7 @@ export const ProgressDots: React.FC = () => {
       }
 
       activeIndex.current = (activeIndex.current + 1) % DOT_COUNT;
-    }, ANIMATION_DURATION * 1.8);
+    }, ANIMATION_DURATION * 1.8); // NOTE : 도트스피너 속도 조절하려면 이 지연시간을 줄이면 됨! (곱하는 숫자를 작게)
 
     return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 클리어
   }, [animatedValues]);
