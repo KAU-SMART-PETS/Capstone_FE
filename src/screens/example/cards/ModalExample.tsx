@@ -161,7 +161,7 @@ const ModalType5: React.FC<ModalWindowProps> = ({ visible, setVisible }) => {
       setVisible={setVisible}
       position='bottom'
       transparent // 배경 투명화 옵션
-      title="여기에 설명 텍스트가 표시됩니다."
+      title="이건 배경이 투명한 모달임!"
       titleAlign='left'
       rows={[
         {
