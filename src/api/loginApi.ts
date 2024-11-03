@@ -1,7 +1,7 @@
 import CookieManager from '@react-native-cookies/cookies';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
-import { CommonActions, NavigationProp } from '@react-navigation/native';
+import { useNavigation ,CommonActions, NavigationProp } from '@react-navigation/native';
 
 export const handleLoginPress = (
   provider: 'kakao' | 'naver',
@@ -52,12 +52,14 @@ export const handleWebViewNavigationStateChange = async (
   }
 };
 
-export const handleLogout = async (navigation: NavigationProp<any>) => {
+export const handleLogout = async (): Promise<boolean> => {
+  console.log("logout pressed");
+
   try {
     const jsessionid = await AsyncStorage.getItem('JSESSIONID');
     if (!jsessionid) {
       console.log('JSESSIONID not found');
-      return;
+      return false;
     }
 
     const response = await fetch(`${config.API_SERVER_URL}/api/v1/oauth2/logout`, {
@@ -69,22 +71,17 @@ export const handleLogout = async (navigation: NavigationProp<any>) => {
     });
 
     if (response.ok) {
-      console.log(response);
       await AsyncStorage.removeItem('JSESSIONID');
       await AsyncStorage.removeItem('USER_DATA');
-
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: 'Login' }],
-        })
-      );
+      return true;
     } else {
       console.log('Failed to logout:', response.status);
       Alert.alert('오류', '로그아웃에 실패했습니다.');
+      return false;
     }
   } catch (error) {
     console.error('Error logging out:', error);
     Alert.alert('오류', '로그아웃 중 오류가 발생했습니다.');
+    return false;
   }
 };

@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView, SafeAreaView
+  View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView, SafeAreaView, Alert
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import emptyCircleFrame from '@image/frame/addPetCircle.png';
 import { PetRegistRequest } from '@src/utils/constants/types';
-import { submitPetRegistration } from '@src/api/petApi';
+import { updatePetRegistration } from '@src/api/petApi';
 
-const PetRegister = () => {
+const PetUpdate = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { petId } = route.params;
 
   const [petType, setPetType] = useState<'강아지' | '고양이' | ''>('');
   const [gender, setGender] = useState<'암' | '수' | ''>('');
@@ -18,6 +21,29 @@ const PetRegister = () => {
   const [breed, setBreed] = useState<string>(''); 
   const [weight, setWeight] = useState<string>(''); 
   const [age, setAge] = useState<string>(''); 
+
+  useEffect(() => {
+    const loadPetData = async () => {
+      try {
+        const petDataString = await AsyncStorage.getItem(`PET_${petId}`);
+        if (petDataString) {
+          const petData = JSON.parse(petDataString);
+          setName(petData.name || '');
+          setPetType(petData.petType === 'DOG' ? '강아지' : '고양이');
+          setGender(petData.gender === 'FEMALE' ? '암' : '수');
+          setWeight(petData.weight ? petData.weight.toString() : '');
+          setAge(petData.age ? petData.age.toString() : '');
+          setBreed(petData.breed || '');
+          setPetImage(petData.imageUrl ? { uri: petData.imageUrl } : null);
+        }
+      } catch (error) {
+        console.error('Error loading pet data:', error);
+        Alert.alert('오류', '반려동물 정보를 불러오는데 실패했습니다.');
+      }
+    };
+
+    loadPetData();
+  }, [petId]);
 
   const handleBackButton = () => {
     navigation.goBack();
@@ -35,7 +61,7 @@ const PetRegister = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const petData: PetRegistRequest = {
       name,
       petType: petType === '강아지' ? 2 : 1,
@@ -44,7 +70,27 @@ const PetRegister = () => {
       age: parseInt(age),
       image: petImage?.uri || '',
     };
-    submitPetRegistration(petData, navigation);
+    try {
+      await updatePetRegistration(petData, petId, navigation);
+  
+      // Update AsyncStorage with the latest pet data
+      const updatedPetData = {
+        name,
+        petType: petType === '강아지' ? 'DOG' : 'CAT',
+        gender: gender === '암' ? 'FEMALE' : 'MALE',
+        weight: parseFloat(weight),
+        age: parseInt(age),
+        imageUrl: petImage?.uri || null,
+        breed,
+      };
+      await AsyncStorage.setItem(`PET_${petId}`, JSON.stringify(updatedPetData));
+  
+      Alert.alert('성공', '반려동물 정보가 업데이트되었습니다.');
+      navigation.goBack();
+    } catch (error) {
+      console.error('반려동물 업데이트 에러:', error);
+      Alert.alert('오류', '반려동물 정보 업데이트 중 오류가 발생했습니다.');
+    }
   };
 
   return (
@@ -307,4 +353,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PetRegister;
+export default PetUpdate;
