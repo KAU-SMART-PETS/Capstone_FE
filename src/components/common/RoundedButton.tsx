@@ -3,7 +3,6 @@ import { View, TouchableOpacity } from 'react-native';
 import StylizedText from '@common/StylizedText';
 import ShadowBox from '@common/ShadowBox';
 
-
 export type ButtonColor = 'bg-secondary' | 'bg-primary' | 'bg-white' | 'bg-black'; // Define preset options
 
 type RoundedTextButtonProps = {
@@ -54,7 +53,7 @@ export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
     return (
       <TouchableOpacity onPress={onPress} className='p-2'>
         {shadow ? (
-          <ShadowBox className={borderRadius}>
+          <ShadowBox className={`${borderRadius} ${widthClass}`}>
           {Content}
           </ShadowBox>
         ) : (

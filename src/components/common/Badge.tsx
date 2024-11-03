@@ -1,6 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
-import StylizedText from './StylizedText';
+import StylizedText from '@common/StylizedText';
+import AntIcon from 'react-native-vector-icons/AntDesign';
+import ColorMap from '@common/ColorMap';
 
 type BadgeProps = {
   text?: string;
@@ -38,6 +40,27 @@ export const Badge: React.FC<BadgeProps> = ({
   return (
     <View className={`self-start px-4 py-1 rounded-sm ${color} m-2`}>
       <StylizedText type="label" styleClass={textColor}>{text}</StylizedText>
+    </View>
+  );
+};
+
+type RatingBadgeProps = {
+  rating: number;
+  starSize?: number; // Size of the star icon
+  textSize?: 'body1' | 'body2' | 'label' | 'header5'; // Size of the rating text
+};
+
+export const RatingBadge: React.FC<RatingBadgeProps> = ({
+  rating = 2.0,
+  starSize = 16,
+  textSize = 'body1',
+}) => {
+  return (
+    <View className="flex-row items-center px-3 py-1 bg-yellow-100 rounded-full">
+      <AntIcon name="staro" size={starSize} color={ColorMap['warning']} />
+      <StylizedText type={textSize} styleClass="ml-2 text-black">
+        {rating.toFixed(1)}
+      </StylizedText>
     </View>
   );
 };
