@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, Alert } from 'react-native';
 import { useNavigation, RouteProp } from '@react-navigation/native';
 import registerPhoto from '@image/frame/registerPhoto.png';
+import { deletePet } from '@src/api/petApi';
 import { PetDetails } from '@src/utils/constants/types';
 
 // 초기 데이터(임시)
@@ -70,11 +71,25 @@ const PetProfile: React.FC<{ route: RouteProp<RootStackParamList, 'PetProfile'> 
     navigation.navigate("RegisterHealthInfo", { id: pet.id });
   };
 
+  const handlePetDelete = async() => {
+    const isDeleted = await deletePet(pet.id);
+    if(isDeleted){
+      navigation.navigate("MyPage")
+    }else{
+      Alert.alert("삭제 실패")
+    }
+  }
+
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <TouchableOpacity onPress={handleHealthInfo} style={styles.healthInfoButton}>
                 <Text style={styles.healthInfoButtonText}>보건정보 조회하기</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={handlePetDelete} style={styles.healthInfoButton}>
+              <Text style={styles.healthInfoButtonText}>반려동물 삭제하기</Text>
           </TouchableOpacity>
         <View style={styles.container}>
           <TouchableOpacity onPress={handleBackButton} style={styles.backButton}>

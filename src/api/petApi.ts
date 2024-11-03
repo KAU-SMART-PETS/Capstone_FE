@@ -70,3 +70,40 @@ const saveSinglePetDetail = async (petId : string, pet : PetDetails) => {
     console.error(`Error saving details for pet ${petId}:`, error);
   }
 };
+
+export const deletePet =  async (petId: string): Promise<boolean> => {
+  try {
+
+    const jsessionid = await AsyncStorage.getItem('JSESSIONID');
+    if (!jsessionid) {
+      console.log('JSESSIONID not found');
+      return false;
+    }
+    console.log(petId);
+
+    const response = await fetch(`${config.API_SERVER_URL}/api/v1/pets/${petId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': `JSESSIONID=${jsessionid}`,
+      },
+    });
+
+    if (response.ok) {
+      console.log(`Pet ${petId} 삭제에 성공했습니다.`);
+
+      await AsyncStorage.removeItem(`PET_${petId}`);
+      console.log(`Pet ${petId} 캐시 삭제`);
+      
+      return true;
+    } else {
+      console.log(response)
+      console.log(`Failed to delete pet ${petId} from server: ${response.status}`);
+      return false;
+    }
+  } catch (error) {
+    console.error(`Error deleting pet ${petId}:`, error);
+    return false;
+  }
+
+}
