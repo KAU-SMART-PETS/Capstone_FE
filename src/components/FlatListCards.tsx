@@ -1,12 +1,11 @@
 import React from 'react';
 import { View , ImageSourcePropType } from 'react-native';
-import { PillBadge } from './common/Badge';
+import { PillBadge, RatingBadge } from '@common/Badge';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import AntIcon from 'react-native-vector-icons/AntDesign';
 import StylizedText from '@components/common/StylizedText';
 import ListCard from '@components/common/ListCard';
-import ColorMap from '@common/ColorMap';
 import bagImg from '@image/icon/bag.png';
+import dog1 from '@image/placeholder/dog.jpg';
 
 // TODO : 해당 항목과 버튼이 연결되도록 작업수행해야함!!!!
 
@@ -120,12 +119,7 @@ interface ReviewCardProps {
 }
 
 export const ReviewCard: React.FC<ReviewCardProps> = ({ reviewer, rating, comment }) => {
-  const ratingBadge = (
-    <View className="flex-row flex items-center mr-3">
-      <AntIcon name='staro' size={16} color={ColorMap['warning']} />
-      <StylizedText type="body1" styleClass="ml-2 text-black">{rating.toFixed(1)}</StylizedText>
-    </View>
-  );
+  const ratingBadge = (<RatingBadge rating={rating} />);
   return (
     <ListCard 
       preset='flatcard-fit'

@@ -52,7 +52,7 @@ export const getStyles = (type: string) : StyledTextStyle => {
     case 'header1':
       return {
         fontFamily: 'Pretendard-Bold',
-        fontSize: 24,
+        fontSize: 22,
       };
     case 'header2':
       return {
@@ -99,11 +99,16 @@ export const getStyles = (type: string) : StyledTextStyle => {
         fontFamily: 'Pretendard-Medium',
         fontSize: 10,
     };
-    case 'caption':
+    case 'caption-title':
       return {
-        fontFamily: 'Pretendard-Thin',
-        fontSize: 10,
-      };
+        fontFamily: 'Pretendard-Medium',
+        fontSize: 15,
+    };
+    case 'caption-label':
+      return {
+        fontFamily: 'Pretendard-Regular',
+        fontSize: 10.5,
+    };
     case 'label':
         return {
         fontFamily: 'Pretendard-Regular',
@@ -128,6 +133,16 @@ export const getStyles = (type: string) : StyledTextStyle => {
       return {
       fontFamily: 'Pretendard-Bold',
       fontSize: 6,
+    };
+    case 'record1':
+      return {
+      fontFamily: 'Pretendard-Bold',
+      fontSize: 13,
+    };
+    case 'record2':
+      return {
+      fontFamily: 'Pretendard-Medium',
+      fontSize: 13,
     };
     default:
       return {

@@ -1,68 +1,47 @@
 import React from 'react';
-import { View, ScrollView, Text } from 'react-native';
-import StylizedText, {HeaderText} from '@components/common/StylizedText';
-import RoundedBox from '@common/RoundedBox';
-import {SBar} from '@common/BarChart';
-import {WalkingRecord, Warning} from '@common/Records';
-import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { View, ScrollView } from 'react-native';
+import { VBarChart, HBarChart, SBar } from '@common/BarChart';
+import { HeaderText } from '@components/common/StylizedText';
 
-// IMPORTANT
-// TODO : 이거 다른 예제랑 분리안됨, 추가로 예제(가로막대, 세로막대) 예전거 찾아서 넣기
+// TODO : 좀더 예제 조정해야함. (주간데이터 세로막대 박스 안에 모아놓기, 가로막대는 중간에 기준점 잡는거 다듬기, .. 등)
+
 const BarChartExample: React.FC = () => {
+  const petName = "반려동물";
+
   return (
-    <ScrollView className="flex-1 bg-white pt-10 px-5">
-      {/* Header 부분 */}
-      <HeaderText
-      text={"똑똑님, 달성한 리워드를 확인해 주세요."}  // petName 사용
-      highlight={'똑똑'}                // 강조할 부분
-      />
-      {/* 오늘의 산책 기록 */}
-      <WalkingRecord
-      walkDate="2024.05.20 18:01 - 2024.05.20 19:01"
-      walkTime="00:14:23"
-      distance="0.5km"
-      calories="-"
-      steps="-"
-      />
+    <ScrollView className="flex-1 bg-white p-5">
+      <View className="px-4">
+        <HeaderText text={`${petName}의 일주일 활동량`} highlight={petName} />
 
-      {/*원형 차트*/}
-      <View className="flex-row justify-around mb-5">
-        <SBar percentage={30} color="#D1FAE5" label="일일 산책량" />
-        <SBar percentage={50} color="#FEB2B2" label="휴식량" />
-        <SBar percentage={90} color="#FFD966" label="걸음 수" />
-      </View>
-
-        {/* 동물 병원 후기 */}
-      <View className="w-full mb-5">
-          <RoundedBox
-            preset="A"
-            isButton={false}
-            shadow={true}
-            // borderActivate={false}
-          >
-            {/* 첫 번째 행: 이름 및 별점 */}
-            <View className="flex-row justify-between items-center px-4 py-2">
-              <StylizedText type="header2" styleClass="text-primary">
-                김똑똑
-              </StylizedText>
-              <View className="flex-row items-center">
-                <MCIcon name="star" size={18} color="#FFD700" />
-                <Text className="ml-1 text-base">5.0</Text>
-              </View>
-            </View>
-
-            {/* 두 번째 행: 후기 */}
-            <View className="px-4 pb-2">
-              <Text className="text-sm text-black">
-                수의사 선생님이 아주 친절하세요.
-              </Text>
-            </View>
-          </RoundedBox>
+        {/* 세로 막대 차트 예제 */}
+        <View className="my-4">
+          <VBarChart
+            date="2024-11-03"
+            percentage={75}
+            color="#4CAF50"
+            labels={["2024-11-03"]}  // 날짜 레이블
+          />
         </View>
 
-      {/* 주의 사항 */}
-      <Warning />
-      <Warning />
+        {/* 가로 막대 차트 예제 */}
+        <View className="my-4">
+          <HBarChart
+            date="2024-11-03"
+            percentage={50}
+            color="#2196F3"
+            labels={["0 걸음", "현재 1500 걸음", "3000 걸음"]}  // 시작, 현재, 최대값 레이블
+          />
+        </View>
+
+        {/* 반원형 차트 예제 */}
+        <View className="my-4">
+          <SBar
+            percentage={85}
+            color="#FF9800"
+            label="비타민 D 합성량"
+          />
+        </View>
+      </View>
     </ScrollView>
   );
 };

@@ -177,15 +177,38 @@ const ModalType5: React.FC<ModalWindowProps> = ({ visible, setVisible }) => {
 // CAUTION : ModalType은 하나의 예시이지, 컴포넌트가 아님! (ModalLayout을 어떻게 쓰는 지 보여준 것)
 // ModalType을 참고해서 저렇게 만들라는 뜻임.
 const ModalExample: React.FC = () => {
-  const [visible, setVisible] = React.useState<boolean>(false);
+  const [visibleModalType, setVisibleModalType] = React.useState<number | null>(null);
+
+  // 모달 표시를 위한 핸들러
+  const showModal = (type: number) => setVisibleModalType(type);
+  const hideModal = () => setVisibleModalType(null);
 
   return (
     <PaperProvider>
-      <Button onPress={() => setVisible(true)} className="mt-12">
-        Show Modal
-      </Button>
-      <ModalType5 visible={visible} setVisible={setVisible} />
-      {/* 필요에 따라 다른 ModalType을 선택해 표시할 수 있음 */}
+      <View className="p-4">
+        <Button mode="contained" onPress={() => showModal(1)} className="mb-4">
+          Show Modal Type 1
+        </Button>
+        <Button mode="contained" onPress={() => showModal(2)} className="mb-4">
+          Show Modal Type 2
+        </Button>
+        <Button mode="contained" onPress={() => showModal(3)} className="mb-4">
+          Show Modal Type 3
+        </Button>
+        <Button mode="contained" onPress={() => showModal(4)} className="mb-4">
+          Show Modal Type 4
+        </Button>
+        <Button mode="contained" onPress={() => showModal(5)} className="mb-4">
+          Show Modal Type 5
+        </Button>
+      </View>
+
+      {/* ModalType을 조건부로 렌더링 */}
+      {visibleModalType === 1 && <ModalType1 visible={visibleModalType === 1} setVisible={hideModal} />}
+      {visibleModalType === 2 && <ModalType2 visible={visibleModalType === 2} setVisible={hideModal} />}
+      {visibleModalType === 3 && <ModalType3 visible={visibleModalType === 3} setVisible={hideModal} />}
+      {visibleModalType === 4 && <ModalType4 visible={visibleModalType === 4} setVisible={hideModal} />}
+      {visibleModalType === 5 && <ModalType5 visible={visibleModalType === 5} setVisible={hideModal} />}
     </PaperProvider>
   );
 };

@@ -1,4 +1,4 @@
-import ColorMap from '@common/ColorMap';
+import ColorMap, { OpacityMap } from '@common/ColorMap';
 import { ViewStyle } from 'react-native';
 
 export type DesignPreset = 'A' | 'B' | 'C' | 'D' | 'modalC' | 'modalB' |
@@ -28,20 +28,20 @@ export const getBoxOutlnes = (outline: OutlinePreset) : ViewStyle => {
       case 'active-solid':
         return {
           borderStyle : 'solid', 
-          borderWidth : 1.8,
+          borderWidth : 1.5,
           borderColor: ColorMap['primary'],
       };
       case 'inactive-solid':
         return {
           borderStyle : 'solid', 
-          borderWidth : 1.8,
-          borderColor: ColorMap['secondary'],
+          borderWidth : 1.5,
+          borderColor: ColorMap['secondary'] + OpacityMap['35'],
       };
       case 'inactive-dashed':
         return {
           borderStyle : 'dashed', 
-          borderWidth : 1.8,
-          borderColor: ColorMap['secondary'],
+          borderWidth : 1.5,
+          borderColor: ColorMap['secondary'] + OpacityMap['60'],
       };
       default:
           return {};
@@ -94,7 +94,7 @@ export const getBoxOutlnes = (outline: OutlinePreset) : ViewStyle => {
       };
       case 'squarecard': 
         return {
-          backgroundColor: 'bg-silver/10',
+          backgroundColor: 'bg-lightgrey',
           borderStyle: 'rounded-xl',
           containerLayout: 'w-32 h-32 flex flex-col justify-center items-center text-center my-1 p-4',
       };

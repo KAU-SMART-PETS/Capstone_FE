@@ -33,7 +33,7 @@ const ModalBackground: React.FC<ModalBackgroundProps> = ({ onPress, children, po
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <View className={`flex-1 w-full h-full absolute inset-0 ${transparent ? 'bg-black/60' : 'bg-transparent'} ${containerStyle}`}>
+      <View className={`flex-1 w-full h-full absolute inset-0 ${!transparent ? 'bg-black/60' : 'bg-transparent'} ${containerStyle}`}>
         {children}
       </View>
     </TouchableWithoutFeedback>

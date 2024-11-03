@@ -12,7 +12,7 @@ const TestingPage: React.FC = () => {
   const buttonGroups: { [key: string]: (keyof RootStackParamList)[] } = {
     Cards: ["BoxExample", "ListCardExample", "ModalExample"],
     Frames: ["BadgeExample", "BalloonBoxExample"],
-    Inputs: ["RadioButtonExample" , "RadioButtonExample", "TextInputExample"],
+    Inputs: ["ButtonExample" , "RadioButtonExample", "TextInputExample"],
     Sections: ["RecordExample", "BarChartExample", "BannerExample", "CalendarExample"],
   };
 
@@ -28,7 +28,7 @@ const TestingPage: React.FC = () => {
               left={props => <List.Icon {...props} icon="dots-vertical" color="orange" />}
             >
               {buttonGroups[group].map((destination) => (
-                <React.Fragment key={destination}>
+                <React.Fragment key={`${destination}_nav`}>
                   <List.Item
                     title={destination}
                     titleStyle={{ color: 'white' }}
