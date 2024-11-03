@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import StylizedText from '@common/StylizedText';
-import ShadowBox from '@common/ShadowBox';
+import { ShadowStyle } from '@common/ShadowBox';
 
 export type ButtonColor = 'bg-secondary' | 'bg-primary' | 'bg-white' | 'bg-black' | `bg-skyblue`; // Define preset options
 
@@ -45,7 +45,7 @@ export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
       xl: 'w-80',
     };
     const widthClass = widthMap[widthOption] || widthMap.full;
-    const Content = (
+    const ContentBox = (
       <View className={`${color} ${borderRadius} mx-auto py-2.5 px-3 ${widthClass} flex flex-row items-center justify-center`}>
           {icon ? icon : null}
           <StylizedText type={textType} styleClass={`${textColor} ${icon ? 'ml-1.5' : ''}`}>
@@ -54,14 +54,8 @@ export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
       </View>
     );
     return (
-      <TouchableOpacity onPress={onPress} className='p-2'>
-        {shadow ? (
-          <ShadowBox className={`${borderRadius} ${widthClass}`}>
-          {Content}
-          </ShadowBox>
-        ) : (
-          Content
-        )}
+      <TouchableOpacity onPress={onPress} style={shadow && ShadowStyle} className={`${borderRadius} ${widthClass} my-1`}>
+        {ContentBox}
       </TouchableOpacity>
     );
   };
@@ -70,24 +64,13 @@ export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
     color = 'bg-primary',
     shadow = false,
     children,
-    size = 20,
+    size = 22,
     onPress,
   }) => {
     return (
-      <TouchableOpacity onPress={onPress}>
-        <View className='flex items-center justify-center'>
-        {shadow ? (
-          <ShadowBox className={`rounded-full`}>
-            <View className={`rounded-full ${color} w-[${size}px] h-[${size}px] p-2`}>
-              {children}
-            </View>
-          </ShadowBox>
-        ) : (
-          <View className={`rounded-full ${color} w-[${size}px] h-[${size}px] p-2`}>
-            {children}
-          </View>
-        )}
-        </View>
+      <TouchableOpacity onPress={onPress} style={[shadow && ShadowStyle, {width: size, height: size}]}
+        className={`rounded-full ${color} p-2 flex items-center justify-center`}>
+        {children}
       </TouchableOpacity>
     );
 };

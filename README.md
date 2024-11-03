@@ -125,7 +125,7 @@
          <Text>Button Text</Text> // 그 이외 다른 컴포넌트 넣을 수도 있음
          </RoundedBox>
       ```
-   - 해당 컴포넌트 파일에 `RoundedFrame`, `RoundedTextButton`, `RoundedCircleButton` 등 컴포넌트 존재
+   - 해당 컴포넌트 파일에 `RoundedTextButton`, `RoundedCircleButton` 등 컴포넌트 존재
       
       - shadow 옵션은 대부분의 컴포넌트에 존재
       
