@@ -82,6 +82,7 @@ interface CardProps {
   badge?: React.ReactNode;
   reverse?: boolean;
   preset?: DesignPreset;
+  onPress?: ()=> void;
 }
 
 const ListCard: React.FC<CardProps> = ({ 
@@ -93,10 +94,11 @@ const ListCard: React.FC<CardProps> = ({
   badge,
   reverse = false,
   preset = 'flatcard',
+  onPress
 }) => {
   return (
     <View className="mx-2">
-      <RoundedBox preset={preset}>
+      <RoundedBox preset={preset} onPress={onPress}>
         <View className={`${reverse ? 'flex-row-reverse' : 'flex-row'}`}>
           {layout !== 'contentOnly' && (
             <AvatarSection 

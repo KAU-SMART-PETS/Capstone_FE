@@ -7,20 +7,20 @@ import ListCard from '@components/common/ListCard';
 import bagImg from '@image/icon/bag.png';
 import dog1 from '@image/placeholder/dog.jpg';
 
-// TODO : 해당 항목과 버튼이 연결되도록 작업수행해야함!!!!
-
 // 리워드 관련
 interface RewardCardProps {
   avatarSource?: ImageSourcePropType | React.ReactNode | string;
   title: string;
   content: string;
-  completed: boolean;
+  completed: ()=> void;
+  onPress?: ()=> void;
 }
 
-export const RewardCard: React.FC<RewardCardProps> = ({ avatarSource, title, content, completed }) => {
+export const RewardCard: React.FC<RewardCardProps> = ({ avatarSource, title, content, completed, onPress }) => {
   return (
     <ListCard 
       avatar={avatarSource}
+      onPress={onPress}
       title={<StylizedText type="header7" styleClass="text-black mt-1.5">{title}</StylizedText>}
       content={<StylizedText type="body2" styleClass="text-secondary mb-1.5">{content}</StylizedText>}
       badge={<PillBadge color={completed ? 'bg-primary' : 'bg-secondary'} textColor="text-white" text={completed ? '달성' : '미달성'} />}
@@ -32,12 +32,14 @@ export const RewardCard: React.FC<RewardCardProps> = ({ avatarSource, title, con
 interface WalkDetailsCardProps {
   title: string;
   details: { label: string; value: string }[];
+  onPress?: ()=> void;
 }
 
-export const WalkDetailsCard: React.FC<WalkDetailsCardProps> = ({ title, details }) => (
+export const WalkDetailsCard: React.FC<WalkDetailsCardProps> = ({ title, details, onPress }) => (
   <ListCard 
     avatar={dog1}
     label={title}
+    onPress={onPress}
     // title={<StylizedText type="header6" styleClass="text-black">{title}</StylizedText>}
     content={
       <View className="text-left">
@@ -57,12 +59,14 @@ interface VeterinaryCardProps {
   title: string;
   contact: string;
   address: string;
+  onPress?: ()=> void;
 }
 
-export const VeterinaryCard: React.FC<VeterinaryCardProps> = ({ title, contact, address }) => (
+export const VeterinaryCard: React.FC<VeterinaryCardProps> = ({ title, contact, address, onPress }) => (
   <ListCard 
     avatar={dog1}
     title={<StylizedText type="header6" styleClass="text-black mt-0.5 mb-0.5">{title}</StylizedText>}
+    onPress={onPress}   
     content={
       <View className="ml-0.5 mb-1">
         <StylizedText type="label" styleClass="text-black">{contact}</StylizedText>
@@ -78,9 +82,10 @@ interface RegistrationCardProps {
   title: string;
   content: string;
   iconName: string;
+  onPress?: ()=> void;
 }
 
-export const RegistrationCard: React.FC<RegistrationCardProps> = ({ title, content, iconName }) => {
+export const RegistrationCard: React.FC<RegistrationCardProps> = ({ title, content, iconName, onPress }) => {
   const titleRow = (
     <View className='flex-row flex items-center'>
       <MCIcon name={iconName} size={42} color="black" />
@@ -90,6 +95,7 @@ export const RegistrationCard: React.FC<RegistrationCardProps> = ({ title, conte
   return(
   <ListCard 
     layout='contentOnly'
+    onPress={onPress} 
     title={titleRow}
     content={<StylizedText type="body2" styleClass="text-black">{content}</StylizedText>}
   />);
@@ -99,13 +105,15 @@ export const RegistrationCard: React.FC<RegistrationCardProps> = ({ title, conte
 interface ProductPurchaseCardProps {
   title: string;
   content: string;
-  reverse?: boolean;
+  reverse?: ()=> void;
+  onPress?: ()=> void;
 }
 
-export const ProductPurchaseCard: React.FC<ProductPurchaseCardProps> = ({ title, content, reverse }) => (
+export const ProductPurchaseCard: React.FC<ProductPurchaseCardProps> = ({ title, content, reverse, onPress }) => (
   <ListCard 
     avatar={bagImg}
     reverse={reverse}
+    onPress={onPress}
     title={<StylizedText type="header7" styleClass="text-black mt-1 ml-0.5">{title}</StylizedText>}
     content={<StylizedText type="body2" styleClass="text-black">{content}</StylizedText>}
   />
@@ -116,14 +124,16 @@ interface ReviewCardProps {
   reviewer: string;
   rating: number;
   comment: string;
+  onPress?: ()=> void;
 }
 
-export const ReviewCard: React.FC<ReviewCardProps> = ({ reviewer, rating, comment }) => {
+export const ReviewCard: React.FC<ReviewCardProps> = ({ reviewer, rating, comment, onPress }) => {
   const ratingBadge = (<RatingBadge rating={rating} />);
   return (
     <ListCard 
       preset='flatcard-fit'
       layout='contentOnly'
+      onPress={onPress}
       title={
         <StylizedText type="header5" styleClass="text-primary">{reviewer}</StylizedText>
       }
