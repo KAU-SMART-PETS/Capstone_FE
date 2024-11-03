@@ -13,7 +13,7 @@ const TestingPage: React.FC = () => {
     Cards: ["BoxExample", "ListCardExample", "ModalExample"],
     Frames: ["BadgeExample", "BalloonBoxExample"],
     Inputs: ["ButtonExample" , "RadioButtonExample", "TextInputExample"],
-    Sections: ["RecordExample", "BarChartExample", "BannerExample", "CalendarExample"],
+    Sections: ["RecordExample", "BarChartExample", "BannerExample", "CalendarExample", "LoadingExample"],
   };
 
   return (

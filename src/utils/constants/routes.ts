@@ -19,7 +19,8 @@ import BalloonBoxExample from '@example/frames/BallonBoxExample';
 import BannerExample from '@example/sections/BannerExample';
 import BarChartExample from '@example/sections/BarChartExample';
 import RecordExample from '@example/sections/RecordExample';
-import CalendarExample from '@screens/example/sections/CalendarExample';
+import CalendarExample from '@example/sections/CalendarExample';
+import LoadingExample from '@example/sections/LoadingExample';
 
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
@@ -46,6 +47,7 @@ export const routesConfig: {
   BarChartExample :  { component: BarChartExample, params: undefined },
   BannerExample :  { component: BannerExample, params: undefined },
   RecordExample :  { component: RecordExample, params: undefined },
+  LoadingExample :  { component: LoadingExample, params: undefined },
 };
 
 
