@@ -1,7 +1,12 @@
 module.exports = function (api) {
   api.cache(true);
   return {
-    presets: ['module:@react-native/babel-preset'],
+    presets: [
+      'module:@react-native/babel-preset',
+      '@babel/preset-env',
+      '@babel/preset-typescript',
+      '@babel/preset-react'
+    ],
     plugins: [
       [
         'module-resolver',
@@ -16,7 +21,7 @@ module.exports = function (api) {
             '@screens': './src/screens',
             '@example': './src/screens/example',
             '@constants': './src/utils/constants',
-            '@types': './src/utils/contsants/types',
+            '@types': './src/utils/constants/types',
             '@image': './src/assets/image',
             // 필요한 alias를 더 추가할 수 있음
           },
