@@ -124,3 +124,6 @@ out/
 .env
 .env.local
 .env.*.local
+# React Component Preview
+previewConfig.json
+*storybook.log

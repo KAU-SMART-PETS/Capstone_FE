@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import SquareBox, {SquareCardSize} from '@common/SquareBox';
+import SquareBox, {SquareCardSize, OutlinePreset} from '@common/SquareBox';
 import StylizedText from '@common/StylizedText';
 
 interface RadioButtonProps {
