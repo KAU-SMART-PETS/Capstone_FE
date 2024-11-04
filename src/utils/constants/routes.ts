@@ -29,6 +29,13 @@ import TodayWalk from '@screens/walk/TodayWalk';
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
 
+// Reward & Point & Food(Feed)
+import ChallengeList from '@screens/reward/ChallengeList';
+import CongratulatePopUp from '@screens/reward/CongratulatePopUp';
+import OrderReceived from '@screens/reward/OrderReceived';
+import ViewFeedList from '@screens/reward/ViewFeedList';
+import PaymentInformation from '@screens/reward/PaymentInformation';
+
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
   params?: ComponentProps;
@@ -55,7 +62,12 @@ export const routesConfig: {
   RegisterHealthInfo: { component: RegisterHealthInfo, params: { id: 0 } }, // id를 number로 설정
   DiseaseDetail: { component: DiseaseDetail, params: undefined },
   SelectPart: { component: SelectPart, params: undefined },
-  HospitalInfo: {component: HospitalInfo, params: undefined}
+  HospitalInfo: {component: HospitalInfo, params: undefined},
+  ChallengeList :  { component: ChallengeList, params: undefined },
+  CongratulatePopUp: { component: CongratulatePopUp, params: { point: 0 } as CongratulatePopUpParams },
+  OrderReceived :  { component: OrderReceived, params: undefined },
+  ViewFeedList :  { component: ViewFeedList, params: undefined },
+  PaymentInformation :  { component: PaymentInformation, params: undefined },
 };
 
 export const typedObjectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => {

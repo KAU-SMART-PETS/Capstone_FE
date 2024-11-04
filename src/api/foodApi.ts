@@ -1,18 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import config from '@constants/config';
-
-// 리워드 목록 조회 API 호출
-export const rewardsList = async () => {
+// TODO : 현재 
+// 사료 목록 조회 API 호출
+export const foodsList = async () => {
   try {
     /*
     const jsessionId = await AsyncStorage.getItem('JSESSIONID');
     if (!jsessionId) {
       console.log('JSESSIONID not found');
       return null;
-    }*/
+    }
+      */
     const jsessionId = "9518A6550FED09FF26C40A31B3DBDBCF";
 
-    const response = await fetch(`${config.API_SERVER_URL}/api/v1/rewards`, {
+    const response = await fetch(`${config.API_SERVER_URL}/api/v1/foods`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -21,20 +22,21 @@ export const rewardsList = async () => {
     });
 
     if (response.ok) {
-      const rewardsData = await response.json();
-      return rewardsData;
+      const foodsData = await response.json();
+      return foodsData;
     } else {
-      console.log('Failed to fetch rewards:', response.status);
+      console.log('Failed to fetch foods:', response.status);
       return null;
     }
   } catch (error) {
-    console.error('Error fetching rewards:', error);
+    console.error('Error fetching foods:', error);
     return null;
   }
 };
 
-// 리워드 포인트 적립 API 호출
-export const depositRewardPoints = async (rewardId: number) => {
+// 사료 포인트 결제 API 호출
+//NOTE : 현재 배송비 기본값 2500으로 설정하였음.
+export const purchaseFood = async (foodId: number, deliveryFee: number = 2500) => {
   try {
     /*
     const jsessionId = await AsyncStorage.getItem('JSESSIONID');
@@ -42,26 +44,27 @@ export const depositRewardPoints = async (rewardId: number) => {
       console.log('JSESSIONID not found');
       return null;
     }*/
-   const jsessionId = "9518A6550FED09FF26C40A31B3DBDBCF"
+      const jsessionId = "9518A6550FED09FF26C40A31B3DBDBCF";
 
-    const response = await fetch(`${config.API_SERVER_URL}/api/v1/rewards/${rewardId}/points/deposit`, {
+    const response = await fetch(`${config.API_SERVER_URL}/api/v1/foods/${foodId}/points/payment`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Cookie': `JSESSIONID=${jsessionId}`,
       },
+      body: JSON.stringify({ deliveryFee }),
     });
 
     if (response.ok) {
-      const depositData = await response.json();
-      console.log('Points deposited successfully:', depositData);
-      return depositData;
+      const paymentData = await response.json();
+      console.log('Payment successful:', paymentData);
+      return paymentData;
     } else {
-      console.log('Failed to deposit points:', response.status);
+      console.log('Failed to make payment:', response.status);
       return null;
     }
   } catch (error) {
-    console.error('Error depositing reward points:', error);
+    console.error('Error making payment:', error);
     return null;
   }
 };
