@@ -16,31 +16,31 @@ export const getBoxOutlnes = (outline: OutlinePreset) : ViewStyle => {
       case 'dashed':
         return {
           borderStyle : 'dashed', 
-          borderWidth : 1.2,
-          borderColor: ColorMap['secondary'],
+          borderWidth : 1.0,
+          borderColor: ColorMap['black'] + OpacityMap['50'],
       };
       case 'dotted':
         return {
           borderStyle : 'dotted', 
           borderWidth : 1.2,
-          borderColor: ColorMap['secondary'],
+          borderColor: ColorMap['black'] + OpacityMap['50'],
       };
       case 'active-solid':
         return {
           borderStyle : 'solid', 
-          borderWidth : 1.5,
+          borderWidth : 1.4,
           borderColor: ColorMap['primary'],
       };
       case 'inactive-solid':
         return {
           borderStyle : 'solid', 
-          borderWidth : 1.5,
+          borderWidth : 1.4,
           borderColor: ColorMap['secondary'] + OpacityMap['35'],
       };
       case 'inactive-dashed':
         return {
           borderStyle : 'dashed', 
-          borderWidth : 1.5,
+          borderWidth : 1.4,
           borderColor: ColorMap['secondary'] + OpacityMap['60'],
       };
       default:
@@ -91,12 +91,6 @@ export const getBoxOutlnes = (outline: OutlinePreset) : ViewStyle => {
           backgroundColor: 'bg-silver/10',
           borderStyle: 'rounded-xl',
           containerLayout: 'flex flex-col justify-center items-center text-center my-1 p-4',
-      };
-      case 'squarecard': 
-        return {
-          backgroundColor: 'bg-lightgrey',
-          borderStyle: 'rounded-xl',
-          containerLayout: 'w-32 h-32 flex flex-col justify-center items-center text-center my-1 p-4',
       };
       case 'flatcard': 
         return {

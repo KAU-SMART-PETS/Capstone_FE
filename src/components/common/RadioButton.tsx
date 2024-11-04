@@ -1,10 +1,15 @@
 import React from 'react';
-import RoundedBox, { OutlinePreset } from './RoundedBox';
+import { TouchableOpacity, View } from 'react-native';
+import SquareBox, {SquareCardSize} from '@common/SquareBox';
+import StylizedText from '@common/StylizedText';
 
 interface RadioButtonProps {
   isSelected?: boolean;
   onPress?: () => void;
-  children: React.ReactNode;
+  children?: React.ReactNode; // squarecard일 때는 children 사용
+  label?: string; // 텍스트형 라디오 버튼일 때 라벨 사용
+  variant?: 'box' | 'text'; // 버튼 스타일 선택
+  boxsize?: SquareCardSize;
   inactiveOutlineStyle?: 'dashed' | 'solid'; // 새로운 속성 추가
 }
 
@@ -12,20 +17,36 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   isSelected = false,
   onPress,
   children,
-  inactiveOutlineStyle = 'dashed', // 기본값 설정
+  label,
+  variant = 'box', // 기본 스타일을 squarecard로 설정
+  boxsize = 'md',
+  inactiveOutlineStyle = 'dashed',
 }) => {
-  const outlineStyle: OutlinePreset = isSelected ? 'active-solid' : `inactive-${inactiveOutlineStyle}`; // 비활성화 스타일에 따라 설정
+  const outlineStyle: OutlinePreset = isSelected ? 'active-solid' : `inactive-${inactiveOutlineStyle}`;
 
+  if (variant === 'box') {
+    // box 스타일의 라디오 버튼
+    return (
+      <SquareBox
+        shadow={false}
+        size={boxsize}
+        outline={outlineStyle}
+        onPress={onPress}
+      >
+        {children}
+      </SquareBox>
+    );
+  }
+  // 텍스트형 라디오 버튼 (일반적인 모양 = 원형버튼 + 레이블)
   return (
-    <RoundedBox
-      preset="squarecard"
-      shadow={false}
-      outline={outlineStyle}
-      isButton={true}
-      onPress={onPress}
-    >
-      {children}
-    </RoundedBox>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.7} className="flex-row items-center mb-2">
+      <View
+        className={`w-3.5 h-3.5 mr-2 border border-2 ${
+          isSelected ? 'border-primary bg-transparent' : 'border-secondary'
+        } rounded-full`}
+      />
+      <StylizedText type='header3' styleClass={`${isSelected ? 'text-primary' : 'text-black/60'}`}>{label}</StylizedText>
+    </TouchableOpacity>
   );
 };
 
