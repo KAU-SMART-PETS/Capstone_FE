@@ -7,7 +7,6 @@ import { DiseaseCard, VaccinationCard, OrderInfoCard } from '@components/InfoCar
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// TODO : 빠진 거 없는 지 한번 더 봐야함
 const HealthCards = () => {
     return (
       <>
@@ -69,72 +68,15 @@ const HealthCards = () => {
     </>);
 };
 
-
-// const HospitalCardExmaple: React.FC = () => {
-//   const [hospitalData, setHospitalData] = useState([]);
-  
-//   useEffect(() => {
-//     const loadHospitalData = async () => {
-//       const data:any = await fetchHospitalData; // JSON 파일에서 병원 데이터를 불러옴
-//       setHospitalData(data);
-//     };
-
-//     loadHospitalData();
-//   }, []);
-
-//   return (
-//     <View>
-//       {hospitalData.map((hospital) => (
-//         <HospitalInfoCard
-//           key={hospital.id}
-//           name={hospital.name}
-//           address={hospital.address}
-//           telephone={hospital.telephone}
-//         />
-//       ))}
-//     </View>
-//   );
-// };
-
-// const HospitalListCardExample: React.FC = () => {
-//   const [hospitalData, setHospitalData] = useState([]);
-
-//   useEffect(() => {
-//     const loadHospitalData = async () => {
-//       const data:any = await fetchHospitalData; // JSON 파일에서 병원 데이터를 불러옴
-//       setHospitalData(data);
-//     };
-
-//     loadHospitalData();
-//   }, []);
-
-//   return (
-//     <View>
-//       {hospitalData.map((hospital) => (
-//         <HospitalCard
-//           key={hospital.id}
-//           name={hospital.name}
-//           address={hospital.address}
-//           telephone={hospital.telephone}
-//         />
-//       ))}
-//     </View>
-//   );
-// };
-
-
 const BoxExample : React.FC<RootStackParamList> = () => {
-
   return (
     <SafeAreaView>
       <ScrollView className="" persistentScrollbar>
         <View className="flex-1 bg-white pt-10 px-5">
           <HealthCards />
-          <RoundedCircleButton onPress={() => console.log("button pressed!!!")} size={10}>
+          <RoundedCircleButton onPress={() => console.log("button pressed!!!")} size={50}>
             <MCIcon name="paw" size={30}/>
           </RoundedCircleButton>
-          {/* <HospitalCardExmaple/>
-          <HospitalListCardExample/> */}
         </View>
       </ScrollView>
     </SafeAreaView>
