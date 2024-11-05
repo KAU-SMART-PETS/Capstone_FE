@@ -4,7 +4,10 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { fetchHealthInfo } from '@src/api/vaccinationApi2';
+import {
+  fetchHealthInfo, addVaccination, updateVaccination, deleteVaccination
+} from '@src/api/vaccinationApi2';
+
 
 const RegisterHealthInfo = (id = 0) => {
   const petId = id.route.params.id;
@@ -16,13 +19,15 @@ const RegisterHealthInfo = (id = 0) => {
   const [selectedVaccination, setSelectedVaccination] = useState(null);
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
-  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetchHealthInfo(petId, setPetName, setHealthInfo);
+      const data = await fetchHealthInfo(petId);
+      setPetName(data.petName);
+      setHealthInfo(data.healthInfo);
 
-      if (selectedVaccination && !healthInfo.find(item => item.id === selectedVaccination.id)) {
+      if (selectedVaccination && !data.healthInfo.find(item => item.id === selectedVaccination.id)) {
         setSelectedVaccination(null);
       }
     };
@@ -36,90 +41,54 @@ const RegisterHealthInfo = (id = 0) => {
         Alert.alert('날짜 형식 오류', '날짜는 YYYYMMDD 형식으로 8자리 숫자여야 합니다.');
         return;
       }
-  
+
       try {
-        setIsLoading(true); // 로딩 시작
-        const year = parseInt(newInfo.date.slice(0, 4), 10);
-        const month = parseInt(newInfo.date.slice(4, 6), 10);
-        const day = parseInt(newInfo.date.slice(6, 8), 10);
-        const jsessionId = await AsyncStorage.getItem('JSESSIONID');
-  
+        setIsLoading(true);
+
         if (selectedVaccination) {
-          await axios.put(
-            `${config.API_SERVER_URL}/api/v1/pets/${petId}/vaccination/${selectedVaccination.id}`,
-            { name: newInfo.name, year, month, day },
-            { headers: { Cookie: `JSESSIONID=${jsessionId}` } }
-          );
-  
-          Alert.alert('수정 성공', '보건 정보가 수정되었습니다.');
+          await updateVaccination(petId, selectedVaccination.id, newInfo.name, newInfo.date);
         } else {
-          await axios.post(
-            `${config.API_SERVER_URL}/api/v1/pets/${petId}/vaccination`,
-            { name: newInfo.name, year, month, day },
-            { headers: { Cookie: `JSESSIONID=${jsessionId}` } }
-          );
-  
-          Alert.alert('추가 성공', '새로운 보건 정보가 추가되었습니다.');
+          await addVaccination(petId, newInfo.name, newInfo.date);
         }
-  
-        await fetchHealthInfo(petId, setPetName, setHealthInfo);
-  
+
+        const data = await fetchHealthInfo(petId);
+        setPetName(data.petName);
+        setHealthInfo(data.healthInfo);
+
         setNewInfo({ date: '', name: '' });
         setIsModalVisible(false);
         setSelectedVaccination(null);
         setReloadKey(prevKey => prevKey + 1);
       } catch (error) {
-        console.error('서버 요청 중 오류:', error);
-        Alert.alert('오류', '서버에 데이터를 전송하는 중 문제가 발생했습니다.');
+        console.error('오류:', error);
       } finally {
-        console.log("finished")
-        setIsLoading(false); // 로딩 종료
+        setIsLoading(false);
       }
     } else {
       Alert.alert('입력 오류', '모든 필드를 입력해주세요.');
     }
   };
-  
 
-const handleDelete = async () => {
-  if (!selectedVaccination) {
-    Alert.alert('오류', '선택된 보건 정보가 없습니다.');
-    return;
-  }
-
-  console.log('Attempting to delete vaccination:', selectedVaccination);
-
-  try {
-    setIsLoading(true); // 로딩 시작
-    const jsessionId = await AsyncStorage.getItem('JSESSIONID');
-    const deleteUrl = `${config.API_SERVER_URL}/api/v1/pets/${petId}/vaccination/${selectedVaccination.id}`;
-    console.log('Delete URL:', deleteUrl);
-
-    await axios.delete(deleteUrl, {
-      headers: {
-        Cookie: `JSESSIONID=${jsessionId}`,
-      },
-    });
-
-    setIsDetailModalVisible(false);
-    setSelectedVaccination(null);
-    setReloadKey(prevKey => prevKey + 1);
-    Alert.alert('삭제 성공', '보건 정보가 삭제되었습니다.');
-  } catch (error) {
-    console.error('삭제 오류:', error);
-    if (error.response) {
-      console.error('Error Response Data:', error.response.data);
-      console.error('Error Response Status:', error.response.status);
+  const handleDelete = async () => {
+    if (!selectedVaccination) {
+      Alert.alert('오류', '선택된 보건 정보가 없습니다.');
+      return;
     }
-    if (error.response && error.response.status === 404) {
-      Alert.alert('오류', '삭제하려는 보건 정보를 찾을 수 없습니다.');
-    } else {
-      Alert.alert('오류', '보건 정보를 삭제하는 중 문제가 발생했습니다.');
+
+    try {
+      setIsLoading(true);
+
+      await deleteVaccination(petId, selectedVaccination.id);
+
+      setIsDetailModalVisible(false);
+      setSelectedVaccination(null);
+      setReloadKey(prevKey => prevKey + 1);
+    } catch (error) {
+      console.error('삭제 오류:', error);
+    } finally {
+      setIsLoading(false);
     }
-  } finally {
-    setIsLoading(false); // 로딩 종료
-  }
-};
+  };
 
   const handleEdit = () => {
     if (!selectedVaccination) {
