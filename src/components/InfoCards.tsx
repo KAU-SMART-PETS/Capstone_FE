@@ -11,7 +11,6 @@ import FAIcon from 'react-native-vector-icons/FontAwesome5'
 interface DiseaseCardProps {
   title: string;
   percentage?: number;
-  preset?: DesignPreset;
   badge?: boolean;
   body?: boolean;
   icon?: boolean;
@@ -95,7 +94,6 @@ export const DiseaseCard: React.FC<DiseaseCardProps> = ({
 interface VaccinationCardProps {
   title: string;
   description: string;
-  preset?: DesignPreset;
 }
 
 export const VaccinationCard: React.FC<VaccinationCardProps> = ({

@@ -17,8 +17,10 @@ export const PillBadge: React.FC<BadgeProps> = ({
   textColor = 'text-gray-800',
 }) => {
   return (
-    <View className={`self-start px-2.5 py-1 rounded-full ${color}`}>
-      <StylizedText type="label" styleClass={textColor}>{text}</StylizedText>
+    <View className='flex-wrap'>
+      <View className={`self-start px-2.5 py-1 rounded-full ${color}`}>
+        <StylizedText type="label" styleClass={textColor}>{text}</StylizedText>
+      </View>
     </View>
   );
 };
@@ -38,8 +40,10 @@ export const Badge: React.FC<BadgeProps> = ({
   textColor = 'text-black',
 }) => {
   return (
-    <View className={`self-start px-4 py-1 rounded-sm ${color} m-2`}>
-      <StylizedText type="label" styleClass={textColor}>{text}</StylizedText>
+    <View className='flex-wrap'>
+      <View className={`self-start px-4 py-1 rounded-sm ${color} m-2`}>
+        <StylizedText type="label" styleClass={textColor}>{text}</StylizedText>
+      </View>
     </View>
   );
 };
@@ -56,11 +60,13 @@ export const RatingBadge: React.FC<RatingBadgeProps> = ({
   textSize = 'body1',
 }) => {
   return (
-    <View className="flex-row items-center px-3 py-1 bg-yellow-100 rounded-full">
-      <AntIcon name="staro" size={starSize} color={ColorMap['warning']} />
-      <StylizedText type={textSize} styleClass="ml-2 text-black">
-        {rating.toFixed(1)}
-      </StylizedText>
+    <View className='flex-wrap'>
+      <View className="flex-row items-center px-3 py-1">
+        <AntIcon name="staro" size={starSize} color={ColorMap['warning']} />
+        <StylizedText type={textSize} styleClass="ml-2 text-black">
+          {rating.toFixed(1)}
+        </StylizedText>
+      </View>
     </View>
   );
 };

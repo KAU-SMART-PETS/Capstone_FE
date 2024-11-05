@@ -21,7 +21,6 @@ type RoundedTextButtonProps = {
 
 type RoundedCircleButtonProps = {
   color?: string;
-  borderRadius?: string;
   shadow?: boolean;
   size?: number;
   children: React.ReactNode; // Accepts any React component as children

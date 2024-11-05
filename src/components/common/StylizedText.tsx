@@ -4,7 +4,6 @@ import { Text } from 'react-native';
 
 type TextProps = {
   type?: string;
-  color?: string,
   children?: React.ReactNode;
   styleClass?: string;  
 };
@@ -14,7 +13,7 @@ interface HeaderTextProps {
   highlight?: string;
 }
 
-const StylizedText: React.FC<TextProps> = ({ type = 'body1', children, color, styleClass }) => {
+const StylizedText: React.FC<TextProps> = ({ type = 'body1', children, styleClass }) => {
   const styles = getStyles(type);
   return (
     <Text className={styleClass} style={styles}>{children}</Text>
