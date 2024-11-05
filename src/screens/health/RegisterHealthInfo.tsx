@@ -28,7 +28,7 @@ const RegisterHealthInfo = (id = 0) => {
     };
 
     fetchData();
-  }, [petId, reloadKey, healthInfo]);
+  }, [petId, reloadKey]);
 
   const handleSaveInfo = async () => {
     if (newInfo.date && newInfo.name) {
@@ -36,65 +36,50 @@ const RegisterHealthInfo = (id = 0) => {
         Alert.alert('날짜 형식 오류', '날짜는 YYYYMMDD 형식으로 8자리 숫자여야 합니다.');
         return;
       }
-
+  
       try {
         setIsLoading(true); // 로딩 시작
         const year = parseInt(newInfo.date.slice(0, 4), 10);
         const month = parseInt(newInfo.date.slice(4, 6), 10);
         const day = parseInt(newInfo.date.slice(6, 8), 10);
         const jsessionId = await AsyncStorage.getItem('JSESSIONID');
-
+  
         if (selectedVaccination) {
           await axios.put(
             `${config.API_SERVER_URL}/api/v1/pets/${petId}/vaccination/${selectedVaccination.id}`,
-            {
-              name: newInfo.name,
-              year: year,
-              month: month,
-              day: day,
-            },
-            {
-              headers: {
-                Cookie: `JSESSIONID=${jsessionId}`,
-              },
-            }
+            { name: newInfo.name, year, month, day },
+            { headers: { Cookie: `JSESSIONID=${jsessionId}` } }
           );
-
+  
           Alert.alert('수정 성공', '보건 정보가 수정되었습니다.');
-          setReloadKey(prevKey => prevKey + 1);
         } else {
           await axios.post(
             `${config.API_SERVER_URL}/api/v1/pets/${petId}/vaccination`,
-            {
-              name: newInfo.name,
-              year: year,
-              month: month,
-              day: day,
-            },
-            {
-              headers: {
-                Cookie: `JSESSIONID=${jsessionId}`,
-              },
-            }
+            { name: newInfo.name, year, month, day },
+            { headers: { Cookie: `JSESSIONID=${jsessionId}` } }
           );
-
+  
           Alert.alert('추가 성공', '새로운 보건 정보가 추가되었습니다.');
-          setReloadKey(prevKey => prevKey + 1);
         }
-
+  
+        await fetchHealthInfo(petId, setPetName, setHealthInfo);
+  
         setNewInfo({ date: '', name: '' });
         setIsModalVisible(false);
         setSelectedVaccination(null);
+        setReloadKey(prevKey => prevKey + 1);
       } catch (error) {
         console.error('서버 요청 중 오류:', error);
         Alert.alert('오류', '서버에 데이터를 전송하는 중 문제가 발생했습니다.');
       } finally {
+        console.log("finished")
         setIsLoading(false); // 로딩 종료
       }
     } else {
       Alert.alert('입력 오류', '모든 필드를 입력해주세요.');
     }
   };
+  
 
 const handleDelete = async () => {
   if (!selectedVaccination) {
