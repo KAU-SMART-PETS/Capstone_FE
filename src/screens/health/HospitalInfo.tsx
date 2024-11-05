@@ -1,34 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { fetchHospitalInfo } from '@src/api/hospitalApi';
 import axios from 'axios';
 import KakaoMap from './kakaoMap';
+
 
 const HospitalInfo = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { vetId } = route.params;
+  const { vetId, latitude, longitude } = route.params;
   const [hospital, setHospital] = useState(null);
 
   useEffect(() => {
-    const latitude = 35.2031699;
-    const longitude = 126.8971756;
-    console.log(vetId);
-
-    const fetchHospitalInfo = async () => {
+    const loadHospitalInfo = async () => {
       try {
-        const response = await axios.post(`${config.API_SERVER_URL}/api/v1/vets/${vetId}`, {
-          latitude,
-          longitude,
-        });
-        setHospital(response.data);
+        const hospitalData = await fetchHospitalInfo(vetId, latitude, longitude); // API 호출
+        setHospital(hospitalData);
       } catch (error) {
         console.error('Error fetching hospital info:', error);
       }
     };
 
-    fetchHospitalInfo();
-  }, [vetId]);
+    loadHospitalInfo();
+  }, [vetId, latitude, longitude]);
 
   if (!hospital) {
     return (

@@ -21,7 +21,7 @@ import RegisterHealthInfo from '@screens/health/RegisterHealthInfo';
 import DiseaseDetail from '@screens/health/DiseaseDetail';
 import SelectPart from '@screens/health/SelectPart';
 import HospitalInfo from '@src/screens/health/HospitalInfo';
-
+import PetUpdate from '@src/screens/profile/PetUpdate';
 // Walk
 import WeeklySummary from '@screens/walk/WeeklySummary';
 import TodayWalk from '@screens/walk/TodayWalk';
@@ -62,6 +62,8 @@ export const routesConfig: {
   RegisterHealthInfo: { component: RegisterHealthInfo, params: { id: 0 } }, // id를 number로 설정
   DiseaseDetail: { component: DiseaseDetail, params: undefined },
   SelectPart: { component: SelectPart, params: undefined },
+  HospitalInfo: {component: HospitalInfo, params: undefined},
+  PetUpdate: { component: PetUpdate, params: { petId: '' } }
   HospitalInfo: {component: HospitalInfo, params: undefined},
   ChallengeList :  { component: ChallengeList, params: undefined },
   CongratulatePopUp: { component: CongratulatePopUp, params: { point: 0 } as CongratulatePopUpParams },
