@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import config from '@constants/config';
-import { TouchableOpacity, View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet, FlatList, SafeAreaView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { fetchHospitals } from '@src/api/hospitalApi';
+import Geolocation from '@react-native-community/geolocation';
 import axios from 'axios';
 
 // 임시 동물병원 데이터 제거
@@ -21,25 +23,44 @@ const HospitalCard = ({ item, onPress }) => (
 const FindHospital = () => {
   const navigation = useNavigation();
   const [hospitalData, setHospitalData] = useState([]);
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
 
   useEffect(() => {
-    // 위치 정보 (예: 사용자의 현재 위치)
-    const latitude = 35.2031699;
-    const longitude = 126.8971756;
-
-    const fetchHospitals = async () => {
+    const requestLocationPermission = async () => {
       try {
-        const response = await axios.post(`${config.API_SERVER_URL}/api/v1/vets`, {
-          latitude,
-          longitude,
-        });
-        setHospitalData(response.data.vets);
+
+        Geolocation.requestAuthorization();
+
+        Geolocation.getCurrentPosition(
+          position => {
+            const { latitude, longitude } = position.coords;
+            setLatitude(latitude);
+            setLongitude(longitude);
+            loadHospitalData(latitude, longitude); 
+          },
+          error => {
+            console.error("Error getting location:", error);
+            Alert.alert("위치 오류", "위치 정보를 가져오는 중 문제가 발생했습니다.");
+          },
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+        );
       } catch (error) {
-        console.error('Error fetching hospital data:', error);
+        console.error("Location permission error:", error);
+        Alert.alert("권한 오류", "위치 권한을 허용해주세요.");
       }
     };
 
-    fetchHospitals();
+    const loadHospitalData = async (latitude: number, longitude: number) => {
+      try {
+        const vets = await fetchHospitals(latitude, longitude); // API 호출
+        setHospitalData(vets); // 데이터를 상태에 설정
+      } catch (error) {
+        Alert.alert('오류', '병원 정보를 가져오는 중 문제가 발생했습니다.');
+      }
+    };
+
+    requestLocationPermission(); 
   }, []);
 
   const handleBackButton = () => {
@@ -47,7 +68,7 @@ const FindHospital = () => {
   };
   
   const handleHospitalPress = (item) => {
-    navigation.navigate('HospitalInfo',  { vetId: item.id });
+    navigation.navigate('HospitalInfo', { vetId: item.id, latitude, longitude });
   };
   
   return (
