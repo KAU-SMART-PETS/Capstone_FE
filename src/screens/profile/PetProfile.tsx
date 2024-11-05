@@ -80,6 +80,10 @@ const PetProfile: React.FC<{ route: RouteProp<RootStackParamList, 'PetProfile'> 
     }
   }
 
+  const handlePetUpdate = () => {
+    navigation.navigate('PetUpdate', { petId: pet.id });
+  };
+
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -90,6 +94,10 @@ const PetProfile: React.FC<{ route: RouteProp<RootStackParamList, 'PetProfile'> 
 
           <TouchableOpacity onPress={handlePetDelete} style={styles.healthInfoButton}>
               <Text style={styles.healthInfoButtonText}>반려동물 삭제하기</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={handlePetUpdate} style={styles.healthInfoButton}>
+              <Text style={styles.healthInfoButtonText}>반려동물 수정하기</Text>
           </TouchableOpacity>
         <View style={styles.container}>
           <TouchableOpacity onPress={handleBackButton} style={styles.backButton}>
