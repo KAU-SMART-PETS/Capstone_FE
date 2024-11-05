@@ -4,13 +4,12 @@ import config from '@constants/config';
 // 리워드 목록 조회 API 호출
 export const rewardsList = async () => {
   try {
-    /*
+    
     const jsessionId = await AsyncStorage.getItem('JSESSIONID');
     if (!jsessionId) {
       console.log('JSESSIONID not found');
       return null;
-    }*/
-    const jsessionId = "9518A6550FED09FF26C40A31B3DBDBCF";
+    }
 
     const response = await fetch(`${config.API_SERVER_URL}/api/v1/rewards`, {
       method: 'GET',
@@ -36,13 +35,11 @@ export const rewardsList = async () => {
 // 리워드 포인트 적립 API 호출
 export const depositRewardPoints = async (rewardId: number) => {
   try {
-    /*
     const jsessionId = await AsyncStorage.getItem('JSESSIONID');
     if (!jsessionId) {
       console.log('JSESSIONID not found');
       return null;
-    }*/
-   const jsessionId = "9518A6550FED09FF26C40A31B3DBDBCF"
+    }
 
     const response = await fetch(`${config.API_SERVER_URL}/api/v1/rewards/${rewardId}/points/deposit`, {
       method: 'POST',

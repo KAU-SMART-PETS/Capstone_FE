@@ -63,7 +63,7 @@ export const routesConfig: {
   DiseaseDetail: { component: DiseaseDetail, params: undefined },
   SelectPart: { component: SelectPart, params: undefined },
   HospitalInfo: {component: HospitalInfo, params: undefined},
-  PetUpdate: { component: PetUpdate, params: { petId: '' } }
+  PetUpdate: { component: PetUpdate, params: { petId: '' } },
   HospitalInfo: {component: HospitalInfo, params: undefined},
   ChallengeList :  { component: ChallengeList, params: undefined },
   CongratulatePopUp: { component: CongratulatePopUp, params: { point: 0 } as CongratulatePopUpParams },
