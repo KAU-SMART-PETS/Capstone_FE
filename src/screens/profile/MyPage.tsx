@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, FlatList, Modal, Alert } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { useNavigation, NavigationProp, CommonActions } from '@react-navigation/native';
 import { PetDetails } from '@types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { fetchUserProfile } from '@api/userApi';
 import { fetchUserPets, getPetDetails } from '@api/petApi';
 import { handleLogout } from '@api/loginApi';
+
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
 
@@ -160,8 +161,6 @@ const AddDeviceButton: React.FC = () => (
   </TouchableOpacity>
 );
 
-
-
 const MyPage: React.FC = () => {
   const navigation = useNavigation<MyPageNavigationProp>();
 
@@ -187,6 +186,18 @@ const MyPage: React.FC = () => {
 
   const renderPetItem = ({ item }: { item: string }) => <PetCard petId={item} devices={deviceData} />;
   const renderDeviceItem = ({ item }: { item: Device }) => <DeviceCard device={item} />;
+  
+  const handleLogoutPress = async () => {
+    const success = await handleLogout(); 
+    if (success) {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'Login' }],
+        })
+      );
+    }
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -238,7 +249,7 @@ const MyPage: React.FC = () => {
         <TouchableOpacity style={styles.customerServiceButton}>
           <Text style={styles.customerServiceText}>고객센터</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogoutPress}>
           <Text style={styles.logoutText}>로그아웃</Text>
         </TouchableOpacity>
       </View>
