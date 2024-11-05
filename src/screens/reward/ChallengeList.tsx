@@ -38,7 +38,7 @@ const ChallengeList: React.FC = () => {
     fetchData();
   }, []);
 
-  // 리워드 정렬
+  // 리워드 정렬. 보상을 받을 수 있는 리워드가 최상위
   const sortedRewards = rewardsData.sort((a, b) => {
     if (a.isAchieved && !a.isObtain) return -1;
     if (!a.isAchieved) return 1;

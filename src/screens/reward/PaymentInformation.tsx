@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { foodsList, purchaseFood } from '@api/foodApi';
 import { fetchPointHistory } from '@api/pointApi';
 import { fetchUserProfile } from '@api/userApi';
-
+//TODO : 사료 선택과 결제 로직 수정, 알림창 제거
 const PaymentInformation: React.FC = () => {
   const navigation = useNavigation();
   const [foods, setFoods] = useState([]);
@@ -124,6 +124,7 @@ const PaymentInformation: React.FC = () => {
           keyboardType="email-address"
           type="freeText"
         />
+        {/*TODO : 텍스트 입력창 체크*/}
         <CustomTextInput
           label="주소"
           value=""
