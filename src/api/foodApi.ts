@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import config from '@constants/config';
-// TODO : 현재 
 // 사료 목록 조회 API 호출
 export const foodsList = async () => {
   try {

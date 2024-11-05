@@ -1,19 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Text, Alert } from 'react-native';
+import { View, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import StylizedText, { HeaderText } from '@components/common/StylizedText';
 import RoundedBox from '@common/RoundedBox';
 import Avatar from '@components/common/Avatar';
 import { PillBadge } from '@components/common/Badge';
 import { rewardsList, depositRewardPoints } from '@api/rewardApi';
-import { depositPoints } from '@api/pointApi'; //NOTE : 테스트용 포인트 적립 API. 실 화면에서는 삭제해야 함.
+import { depositPoints } from '@api/pointApi';
+import { fetchUserProfile } from '@api/userApi';
 import { RoundedTextButton } from '@components/common/RoundedButton';
 
 const ChallengeList: React.FC = () => {
   const navigation = useNavigation();
   const [rewardsData, setRewardsData] = useState([]);
+  const [userName, setUserName] = useState<string>(''); // 기본값 빈 문자열
+  const [userData, setUserData] = useState(null); // 사용자 데이터를 저장할 상태
 
-  const fetchRewards = async () => {
+  // 사용자 데이터와 리워드 목록을 로드
+  const fetchData = async () => {
+    const userProfile = await fetchUserProfile();
+    if (userProfile) {
+      setUserName(userProfile.name || ''); // 이름이 없을 때 빈 문자열로 처리
+      setUserData(userProfile);
+    } else {
+      console.log('Failed to load user profile');
+    }
+
     const data = await rewardsList();
     if (data) {
       setRewardsData(data.rewards || []);
@@ -23,9 +35,10 @@ const ChallengeList: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchRewards();
+    fetchData();
   }, []);
 
+  // 리워드 정렬
   const sortedRewards = rewardsData.sort((a, b) => {
     if (a.isAchieved && !a.isObtain) return -1;
     if (!a.isAchieved) return 1;
@@ -33,13 +46,13 @@ const ChallengeList: React.FC = () => {
     return 0;
   });
 
+  // 리워드 선택 시 포인트 적립
   const handleRewardPress = async (reward) => {
     if (reward.isAchieved && !reward.isObtain) {
       const result = await depositRewardPoints(reward.id);
       if (result) {
-        // 포인트 적립 완료 후 CongratulatePopUp 페이지로 이동, 적립 포인트를 params로 전달
         navigation.navigate('CongratulatePopUp', { point: reward.earnPoint });
-        fetchRewards();
+        fetchData(); // 리워드 목록 업데이트
       } else {
         Alert.alert('적립 실패', '포인트 적립에 실패했습니다. 다시 시도해 주세요.');
       }
@@ -62,8 +75,8 @@ const ChallengeList: React.FC = () => {
     <>
       <ScrollView className="flex-1 bg-white pt-10 px-5">
         <HeaderText
-          text={"똑똑님, 달성한 리워드를 확인해 주세요."}
-          highlight={'똑똑'}
+          text={`${userName || '사용자'}님,\n달성한 리워드를 확인해 주세요.`}
+          highlight={userName || '사용자'}
         />
         <View className="space-y-4 mt-4">
           {sortedRewards.map((reward) => {
@@ -73,7 +86,7 @@ const ChallengeList: React.FC = () => {
             } else if (reward.isAchieved) {
               statusText = "달성";
             }
-
+            //TODO : minimal_env에 업데이트 된 컴포넌트 사용 
             return (
               <View key={reward.id} className="w-[90%] flex justify-center">
                 <RoundedBox
