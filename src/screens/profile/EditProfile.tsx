@@ -3,101 +3,36 @@ import {
   View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { fetchUserProfile, updateUserProfile } from '@src/api/userApi';
+import { UserData } from '@src/utils/constants/types';
 
-interface UserInfo {
-  name: string;
-  email: string;
-  phoneNumber: string | null;
-  point: number;
-  socialSite: string;
-  smsOptIn: boolean;
-  emailOptIn: boolean;
-}
-
-type EditableField = keyof UserInfo | 'consent' | null;
-
+type EditableField = keyof UserData | 'consent' | null;
 const EditProfile: React.FC = () => {
   const [editingField, setEditingField] = useState<EditableField>(null);
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [userInfo, setUserInfo] = useState<UserData | null>(null);
 
   const navigation = useNavigation();
 
   useEffect(() => {
     const loadUserData = async () => {
-      try {
-        const userDataString = await AsyncStorage.getItem('USER_DATA');
-        if (userDataString) {
-          const userData: UserInfo = JSON.parse(userDataString);
-          setUserInfo(userData);
-        } else {
-          console.log('No user data found in AsyncStorage');
-        }
-      } catch (error) {
-        console.error('Error loading user data from AsyncStorage:', error);
-      }
+      const userData = await fetchUserProfile();
+      if (userData) setUserInfo(userData);
     };
 
     loadUserData();
   }, []);
 
   const handleSave = async () => {
-    try {
-      if (userInfo) {
-
-        const jsessionid = await AsyncStorage.getItem('JSESSIONID');
-        if (!jsessionid) {
-          Alert.alert('오류', '로그인이 필요합니다.');
-          return;
-        }
-  
-        const updateData = {
-          email: userInfo.email,
-          phoneNumber: userInfo.phoneNumber,
-          smsOptIn: userInfo.smsOptIn,
-          emailOptIn: userInfo.emailOptIn,
-        };
-
-        const response = await fetch('http://52.79.140.133:8080/api/v1/users', {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            'Cookie': `JSESSIONID=${jsessionid}`,
-          },
-          body: JSON.stringify(updateData),
-        });
-  
-
-
-        const responseText = await response.text();
-        console.log('Response text:', responseText);
-  
-        if (response.ok) {
-          let updatedUserData: UserInfo | null = null;
-  
-          if (responseText) {
-
-            updatedUserData = JSON.parse(responseText);
-          } else {
-            updatedUserData = userInfo;
-          }
-          await AsyncStorage.setItem('USER_DATA', JSON.stringify(updatedUserData));
-          setUserInfo(updatedUserData);
-  
-          setEditingField(null);
-          Alert.alert('알림', '정보가 성공적으로 업데이트되었습니다.');
-        } else {
-          console.error('Failed to update user data:', responseText);
-          Alert.alert('오류', '정보를 업데이트하는 중 오류가 발생했습니다.');
-        }
+    if (userInfo) {
+      const success = await updateUserProfile(userInfo);
+      if (success) {
+        setEditingField(null);
+        Alert.alert('알림', '정보가 성공적으로 업데이트되었습니다.');
       }
-    } catch (error) {
-      console.error('Error saving user data:', error);
-      Alert.alert('오류', '정보를 저장하는 중 오류가 발생했습니다.');
     }
   };
 
-  const handleChange = (key: keyof UserInfo, value: string | boolean) => {
+  const handleChange = (key: keyof UserData, value: string | boolean) => {
     setUserInfo(prevInfo => {
       if (prevInfo) {
         return {
@@ -119,7 +54,7 @@ const EditProfile: React.FC = () => {
 
   const renderInput = (
     label: string,
-    key: keyof UserInfo,
+    key: keyof UserData,
     keyboardType: 'default' | 'email-address' | 'phone-pad' = 'default',
   ) => (
     <View style={styles.inputContainer}>
