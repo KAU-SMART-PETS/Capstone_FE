@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, FlatList, Modal, Alert } from 'react-native';
-import { useNavigation, NavigationProp, CommonActions } from '@react-navigation/native';
+import { useNavigation, NavigationProp, CommonActions, useFocusEffect } from '@react-navigation/native';
 import { PetDetails } from '@types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -169,20 +169,22 @@ const MyPage: React.FC = () => {
   const [petIds, setPetIds] = useState<string[]>([]);
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const userData = await fetchUserProfile();
-      if (userData) {
-        setUsername(userData.name);
-        setUserData(userData);
-      }
-  
-      const petIds = await fetchUserPets();
-      setPetIds(petIds);
-    };
-  
-    fetchData();
-  }, []);
+  const fetchData = async () => {
+    const userData = await fetchUserProfile();
+    if (userData) {
+      setUsername(userData.name);
+      setUserData(userData);
+    }
+
+    const petIds = await fetchUserPets();
+    setPetIds(petIds);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchData(); // Reloads data every time the page is focused
+    }, [])
+  );
 
   const renderPetItem = ({ item }: { item: string }) => <PetCard petId={item} devices={deviceData} />;
   const renderDeviceItem = ({ item }: { item: Device }) => <DeviceCard device={item} />;
