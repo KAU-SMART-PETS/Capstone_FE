@@ -25,6 +25,7 @@
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.3",
+    "expo-linear-gradient": "^13.0.2",
     "file-loader": "^6.2.0",
     "react": "18.3.1",
     "react-native": "0.75.3",
@@ -37,8 +38,7 @@
     "react-native-reanimated": "^3.16.1",
     "react-native-safe-area-context": "^4.14.0",
     "react-native-screens": "^3.34.0",
-    "react-native-svg": "^15.7.1",
-    "react-native-vector-icons": "^10.2.0"
+    "react-native-svg": "^15.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
@@ -46,6 +46,7 @@
     "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
     "@gorhom/bottom-sheet": "^5.0.5",
+    "@mdx-js/loader": "^3.1.0",
     "@react-native-async-storage/async-storage": "^2.0.0",
     "@react-native-community/datetimepicker": "^8.2.0",
     "@react-native/babel-preset": "^0.76.1",
@@ -61,6 +62,7 @@
     "react-native-calendars": "^1.1307.0",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-smooth-bootsplash": "^4.5.2",
+    "react-native-vector-icons": "10.0.3",
     "react-native-web": "^0.19.13",
     "react-native-webview": "^13.12.3",
     "react-test-renderer": "18.3.1",

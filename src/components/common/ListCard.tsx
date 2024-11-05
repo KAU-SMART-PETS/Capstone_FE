@@ -99,7 +99,7 @@ const ListCard: React.FC<CardProps> = ({
   return (
     <View className="mx-2">
       <RoundedBox preset={preset} onPress={onPress}>
-        <View className={`${reverse ? 'flex-row-reverse' : 'flex-row'}`}>
+        <View className={`${reverse ? 'flex-row-reverse' : 'flex-row'} min-w-80`}>
           {layout !== 'contentOnly' && (
             <AvatarSection 
               source={avatar} 
