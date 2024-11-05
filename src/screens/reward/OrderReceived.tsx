@@ -1,23 +1,44 @@
-import React, { useEffect } from 'react';
-import { View, TouchableWithoutFeedback } from 'react-native';
+import React, { useCallback } from 'react';
+import { View, TouchableWithoutFeedback, BackHandler } from 'react-native';
 import Animated, { FadeInUp, FadeOut } from 'react-native-reanimated';
 import Avatar from '@components/common/Avatar';
 import StylizedText from '@components/common/StylizedText';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 const OrderReceived: React.FC = () => {
   const navigation = useNavigation();
-  // TODO : 이전 페이지로부터 샘플 결제 완료인지 일반 사료 결제 완료인지 넘겨받아서 텍스트 변경
-  // TODO : 현재는 화면 터치 시 이전 페이지로 이동. 차후 Home 페이지로 이동하도록 수정 예정.
+  //TODO : 텍스트 변경
+  // Home 페이지로 이동하면서 네비게이션 스택을 초기화하는 함수
   const handleClose = () => {
-    navigation.goBack();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Home' }],
+    });
   };
+
+  // 뒤로가기 버튼 커스텀 동작 설정
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        handleClose();
+        return true; // 기본 뒤로가기 동작 막기
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, [])
+  );
 
   return (
     <TouchableWithoutFeedback onPress={handleClose}>
       <View className="flex-1 justify-center items-center bg-white">
         {/* 트럭 아이콘과 텍스트 애니메이션 뷰 */}
-        <Animated.View entering={FadeInUp.duration(500)} exiting={FadeOut.duration(300)} className="items-center">
+        <Animated.View
+          entering={FadeInUp.duration(500).delay(300)} // 시작을 300ms 지연
+          exiting={FadeOut.duration(300)}
+          className="items-center"
+        >
           <Avatar
             source={require('@image/icon/truck.png')}
             size={40}
