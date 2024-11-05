@@ -46,10 +46,9 @@ const ViewFeedList: React.FC = () => {
       {/* Food Display */}
       <ScrollView contentContainerStyle={{ paddingBottom: 80, paddingHorizontal: 16 }}>
         <View className="flex flex-wrap flex-row justify-center">
-          {foods.map((food) => (
-            <View className="m-2">
+        {foods.map((food) => (
+          <View key={food.id} className="m-2">
             <RoundedBox
-              key={food.id}
               preset="squarecard"
               shadow={false}
               outline="active-solid"
@@ -64,8 +63,8 @@ const ViewFeedList: React.FC = () => {
                 </StylizedText>
               </View>
             </RoundedBox>
-            </View>
-          ))}
+          </View>
+        ))}
         </View>
       </ScrollView>
 
