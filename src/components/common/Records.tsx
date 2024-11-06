@@ -16,9 +16,9 @@ interface WalkingRecordProps {
 
 export const WalkingRecord: React.FC<WalkingRecordProps> = ({ walkDate, walkTime, distance, calories, steps }) => {
   return (
-    <View className="bg-white flex-1 px-5 my-2">
+    <View className="bg-white flex-1 px-3 my-2">
       {/* Header 부분 */}
-      <View className="flex-row justify-between items-center mb-6">
+      <View className="flex-row justify-between items-center mb-2">
         <StylizedText type="header1" styleClass="text-black">
           오늘의 산책 기록
         </StylizedText>
@@ -29,7 +29,7 @@ export const WalkingRecord: React.FC<WalkingRecordProps> = ({ walkDate, walkTime
       {/* 텍스트 */}
       <View className="flex-row justify-start">
         {/* 왼쪽 박스 (고정 텍스트) */}
-        <View className="flex flex-col space-y-8 mr-8">
+        <View className="flex flex-col space-y-2 mr-10">
           <View>
             <StylizedText type="body1" styleClass="text-black">산책 일시</StylizedText>
           </View>
