@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { foodsList, purchaseFood } from '@api/foodApi';
 import { fetchPointHistory } from '@api/pointApi';
 import { fetchUserProfile } from '@api/userApi';
-//TODO : 사료 선택과 결제 로직 수정, 알림창 제거
+
 const PaymentInformation: React.FC = () => {
   const navigation = useNavigation();
   const [foods, setFoods] = useState([]);
@@ -18,9 +18,9 @@ const PaymentInformation: React.FC = () => {
   const [deliveryFee] = useState(2500);
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({ name: '', email: '', phoneNumber: '' });
+  const [address, setAddress] = useState(''); // 주소 상태 추가
   const radioButtonGroupRef = useRef<any>(null);
 
-  // 서버에서 사료 목록을 불러오기
   const fetchFoods = async () => {
     const data = await foodsList();
     if (data) {
@@ -30,7 +30,6 @@ const PaymentInformation: React.FC = () => {
     }
   };
 
-  // 최신 포인트 정보 가져오기
   const fetchUserBalance = async () => {
     const pointHistory = await fetchPointHistory();
     if (pointHistory && pointHistory.history.length > 0) {
@@ -41,14 +40,13 @@ const PaymentInformation: React.FC = () => {
     }
   };
 
-  // 사용자 프로필 정보 가져오기
   const fetchUserData = async () => {
     const userProfile = await fetchUserProfile();
     if (userProfile) {
       setUserData({
         name: userProfile.name,
         email: userProfile.email || '',
-        phoneNumber: userProfile.phoneNumber || '',
+        phoneNumber: userProfile.phoneNumber || '', // 휴대폰 번호 설정
       });
     } else {
       console.log('Failed to load user profile');
@@ -95,7 +93,6 @@ const PaymentInformation: React.FC = () => {
           제품을 선택하고 주문 정보를 입력해주세요.
         </StylizedText>
 
-        {/* 사료 선택 영역 */}
         <RadioButtonGroup
           ref={radioButtonGroupRef}
           maxChoice={foods.length}
@@ -110,7 +107,6 @@ const PaymentInformation: React.FC = () => {
           ))}
         </RadioButtonGroup>
 
-        {/* 주문 정보 입력 */}
         <CustomTextInput
           label="주문자명"
           value={userData.name}
@@ -124,25 +120,25 @@ const PaymentInformation: React.FC = () => {
           keyboardType="email-address"
           type="freeText"
         />
-        {/*TODO : 텍스트 입력창 체크*/}
+        {/*TODO: 주소 입력 잘 되게 수정*/}
         <CustomTextInput
           label="주소"
-          value=""
-          placeholder="주소를 입력하세요"
-          onChangeText=""
+          placeholder="주소를 입력해주세요"
+          value={address}
+          onChangeText={setAddress}
           type="freeText"
+          keyboardType="default"
         />
         <CustomTextInput
           label="휴대폰 번호"
           placeholder="010-1234-5678"
-          value={userData.phoneNumber || ''}
-          onChangeText={(text) => setUserData(prev => ({ ...prev, phoneNumber: text }))}
-          isEditableInitially={!userData.phoneNumber}
-          type={userData.phoneNumber ? 'editableWithButton' : 'freeText'}
+          value={userData.phoneNumber}
+          onChangeText={(text) => setUserData((prev) => ({ ...prev, phoneNumber: text }))}
+          isEditableInitially={!userData.phoneNumber} // null이면 직접 입력 가능
+          type={userData.phoneNumber ? 'editableWithButton' : 'freeText'} // 초기값이 있으면 수정 가능
           keyboardType="phone-pad"
         />
 
-        {/* 결제 수단 및 잔액 표시 */}
         <View className="mt-6">
           <StylizedText type="header2" styleClass="text-black mb-2">결제 수단</StylizedText>
           <StylizedText type="body2" styleClass="text-grey mb-2">ⓘ 배송비는 포인트에서 차감됩니다.</StylizedText>
@@ -150,7 +146,6 @@ const PaymentInformation: React.FC = () => {
           <StylizedText type="body2" styleClass="text-grey mb-2">보유 잔액 {balance.toLocaleString()} P</StylizedText>
         </View>
 
-        {/* 결제 정보 */}
         <View className="mt-6 border-t border-grey pt-4">
           <StylizedText type="header2" styleClass="text-black mb-2">결제 정보</StylizedText>
           <View className="flex-row justify-between mb-1">
