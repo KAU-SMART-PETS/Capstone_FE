@@ -31,7 +31,7 @@ const colorKeys = Object.keys(colors);  // colors 객체에서 키만 가져옴
 
 // Tailwind CSS 설정을 정의합니다.
 const tailwindConfig = {
-  content: ["./src/**/*.{js,ts,jsx,tsx}", "./src/*.{js,ts,jsx,tsx}", "./src/**/**/*.{js,ts,jsx,tsx}", "./stories/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{js,ts,jsx,tsx}", "./src/*.{js,ts,jsx,tsx}", "./src/**/**/*.{js,ts,jsx,tsx}"],
   safelist: [
     {
       pattern: new RegExp(`(bg|text|border)-(${colorKeys.join('|')})`),
