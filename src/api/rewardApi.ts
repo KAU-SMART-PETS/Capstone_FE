@@ -4,7 +4,6 @@ import config from '@constants/config';
 // 리워드 목록 조회 API 호출
 export const rewardsList = async () => {
   try {
-    
     const jsessionId = await AsyncStorage.getItem('JSESSIONID');
     if (!jsessionId) {
       console.log('JSESSIONID not found');
@@ -20,8 +19,8 @@ export const rewardsList = async () => {
     });
 
     if (response.ok) {
-      const rewardsData = await response.json();
-      return rewardsData;
+      const text = await response.text();
+      return text ? JSON.parse(text) : null;
     } else {
       console.log('Failed to fetch rewards:', response.status);
       return null;
@@ -50,9 +49,15 @@ export const depositRewardPoints = async (rewardId: number) => {
     });
 
     if (response.ok) {
-      const depositData = await response.json();
-      console.log('Points deposited successfully:', depositData);
-      return depositData;
+      const text = await response.text();
+      if (text) {
+        const depositData = JSON.parse(text);
+        console.log('Points deposited successfully:', depositData);
+        return depositData;
+      } else {
+        console.log('Empty response from server');
+        return null;
+      }
     } else {
       console.log('Failed to deposit points:', response.status);
       return null;

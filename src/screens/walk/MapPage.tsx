@@ -1,15 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, PermissionsAndroid, Platform } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
 const MapPage: React.FC = () => {
-  const mapRef = useRef<MapView>(null); // MapView에 대한 참조 생성
-
-  const [region, setRegion] = useState<Region>({
-    latitude: 37.78825, // 기본 위치
-    longitude: -122.4324,
-    latitudeDelta: 0.005, // 줌인 배율 설정 (주변 5블록 정도 보기)
+  const [region, setRegion] = useState({
+    latitude: 37.4219983,
+    longitude: -122.084,
+    latitudeDelta: 0.005,
     longitudeDelta: 0.005,
   });
 
@@ -19,56 +17,45 @@ const MapPage: React.FC = () => {
   } | null>(null);
 
   useEffect(() => {
-    // 위치 권한 요청 함수
+    let watchId: number | null = null;
+
     const requestLocationPermission = async () => {
       if (Platform.OS === 'android') {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
         );
-        console.log("위치 권한 부여:", granted); // 권한 확인
+        console.log("위치 권한 부여:", granted);
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          startWatchingLocation();
+          watchId = startWatchingLocation();
         }
       } else {
-        startWatchingLocation();
+        watchId = startWatchingLocation();
       }
     };
 
     requestLocationPermission();
 
-    // 컴포넌트 언마운트 시 위치 추적 중지
     return () => {
-      Geolocation.stopObserving();
+      if (watchId !== null) {
+        Geolocation.clearWatch(watchId);
+      }
     };
   }, []);
 
-  // 위치 추적을 시작하는 함수
   const startWatchingLocation = () => {
-    Geolocation.watchPosition(
+    const watchId = Geolocation.watchPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        console.log("위치 추적:", latitude, longitude); // 위치 로그 추가
+        console.log("위치 추적:", latitude, longitude);
+
         setLocation({ latitude, longitude });
 
-        // 사용자의 위치를 지도의 중심으로 이동
-        const newRegion = {
+        setRegion({
           latitude,
           longitude,
-          latitudeDelta: 0.005, // 주변 5블록 정도 범위를 유지
-          longitudeDelta: 0.005,
-        };
-
-        // 지도 위치를 애니메이션으로 이동
-        mapRef.current?.animateToRegion(newRegion, 1000); // 1초 동안 애니메이션
-
-        // 기존에 설정된 초기 위치 관련 코드를 주석 처리
-        /*
-        setRegion((prevRegion) => ({
-          ...prevRegion,
-          latitude,
-          longitude,
-        }));
-        */
+          latitudeDelta: 0.002,
+          longitudeDelta: 0.002,
+        });
       },
       (error) => console.log("위치 추적 오류:", error),
       {
@@ -78,15 +65,16 @@ const MapPage: React.FC = () => {
         fastestInterval: 2000,
       }
     );
+
+    return watchId;
   };
 
   return (
     <View style={{ flex: 1 }}>
       <MapView
-        ref={mapRef} // MapView에 대한 참조 연결
         provider={PROVIDER_GOOGLE}
         style={{ flex: 1 }}
-        region={region} // 초기 지역 설정 (필요시 주석 처리 가능)
+        region={region}
         showsUserLocation
       >
         {location && (
