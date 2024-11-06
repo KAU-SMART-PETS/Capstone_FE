@@ -150,7 +150,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ reviewer, rating, commen
   );
 };
 
-
+// MyPage PetCard
 interface Device {
   id: string;
   name: string;
