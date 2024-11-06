@@ -62,7 +62,7 @@
     "react-native-calendars": "^1.1307.0",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-smooth-bootsplash": "^4.5.2",
-    "react-native-vector-icons": "10.0.3",
+    "react-native-vector-icons": "^10.2.0",
     "react-native-web": "^0.19.13",
     "react-native-webview": "^13.12.3",
     "react-test-renderer": "18.3.1",
