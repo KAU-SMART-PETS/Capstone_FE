@@ -3,10 +3,11 @@ import { View } from 'react-native';
 
 interface RadioButtonGroupProps {
   maxChoice?: number;
-  onSubmit?: (selectedIds: number[]) => void;
+  onSubmit?: (selectedIds: number[]) => void; // Submit 시 선택된 ID 배열
+  onSelect?: (selectedIds: number[]) => void; // 선택 상태 변경 시 호출
   children: React.ReactNode[];
   containerStyle?: string;
-  inactiveOutlineStyle?: 'dashed' | 'solid'; // 새로운 속성 추가
+  inactiveOutlineStyle?: 'dashed' | 'solid';
 }
 
 interface RadioButtonProps {
@@ -19,9 +20,10 @@ interface RadioButtonProps {
 const RadioButtonGroup = forwardRef<any, RadioButtonGroupProps>(({
   maxChoice = 1,
   onSubmit,
+  onSelect, // 새로운 콜백 추가
   children,
   containerStyle = '',
-  inactiveOutlineStyle = 'dashed', // 기본값 설정
+  inactiveOutlineStyle = 'dashed',
 }, ref) => {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
@@ -35,9 +37,18 @@ const RadioButtonGroup = forwardRef<any, RadioButtonGroupProps>(({
       } else {
         updatedSelectedIds = [...prevSelectedIds.slice(1), index];
       }
+  
+      // 상태 업데이트 이후 콜백 실행
+      setTimeout(() => {
+        if (onSelect) {
+          onSelect(updatedSelectedIds);
+        }
+      }, 0);
+  
       return updatedSelectedIds.sort((a, b) => a - b);
     });
   };
+  
 
   useImperativeHandle(ref, () => ({
     submit: () => {
@@ -54,7 +65,7 @@ const RadioButtonGroup = forwardRef<any, RadioButtonGroupProps>(({
           return React.cloneElement(child, {
             isSelected: selectedIds.includes(index),
             onPress: () => handlePress(index),
-            inactiveOutlineStyle, // 비활성화 버튼을 회색 대쉬선으로 할 것인지, 회색 실선으로 할 것인지.
+            inactiveOutlineStyle,
           });
         }
         return child;
