@@ -4,17 +4,13 @@ import ColorMap from '@common/ColorMap';
 import { TagBadge } from '@common/Badge';
 import { DesignPreset } from '@common/RoundedBox';
 import RoundedBox from '@common/RoundedBox';
-
 import StylizedText from '@common/StylizedText';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome5'
 
-// DiseaseCard, VaccinationCard, OrderInfoCard, HospitalInfoCard
-
 interface DiseaseCardProps {
   title: string;
   percentage?: number;
-  preset?: DesignPreset;
   badge?: boolean;
   body?: boolean;
   icon?: boolean;
@@ -98,7 +94,6 @@ export const DiseaseCard: React.FC<DiseaseCardProps> = ({
 interface VaccinationCardProps {
   title: string;
   description: string;
-  preset?: DesignPreset;
 }
 
 export const VaccinationCard: React.FC<VaccinationCardProps> = ({
