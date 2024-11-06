@@ -16,14 +16,30 @@ interface RewardCardProps {
   onPress?: ()=> void;
 }
 
-export const RewardCard: React.FC<RewardCardProps> = ({ avatarSource, title, content, completed, onPress }) => {
+//NOTE : 뱃지 색상 3가지로 확장하여 추가하였음.
+export const RewardCard: React.FC<RewardCardProps & { status: '미달성' | '달성' | '수령 완료' }> = ({
+  avatarSource,
+  title,
+  content,
+  status,
+  onPress,
+}) => {
+  // 배지 색상 및 텍스트 설정
+  const badgeStyles = {
+    '미달성': { color: 'bg-secondary', text: '미달성' },
+    '달성': { color: 'bg-primary', text: '달성' },
+    '수령 완료': { color: 'bg-darkgreen', text: '수령 완료' },
+  };
+
+  const { color, text } = badgeStyles[status];
+
   return (
-    <ListCard 
+    <ListCard
       avatar={avatarSource}
       onPress={onPress}
       title={<StylizedText type="header7" styleClass="text-black mt-1.5">{title}</StylizedText>}
       content={<StylizedText type="body2" styleClass="text-secondary mb-1.5">{content}</StylizedText>}
-      badge={<PillBadge color={completed ? 'bg-primary' : 'bg-secondary'} textColor="text-white" text={completed ? '달성' : '미달성'} />}
+      badge={<PillBadge color={color} textColor="text-white" text={text} />}
     />
   );
 };
