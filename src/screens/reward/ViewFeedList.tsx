@@ -35,17 +35,17 @@ const ViewFeedList: React.FC = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <View className="flex-1 bg-white">
       {/* Header */}
-      <View style={{ paddingHorizontal: 20, paddingTop: 40 }}>
+      <View className="px-5 pt-10">
         <StylizedText type="header1" styleClass="text-black mb-6">
           구매하실 수 있는{"\n"}제품을 소개해드릴게요!
         </StylizedText>
       </View>
 
       {/* Food Display */}
-      <ScrollView contentContainerStyle={{ paddingBottom: 80, paddingHorizontal: 16 }}>
-        <View style={{ flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center' }}>
+      <ScrollView contentContainerStyle="pb-20 px-4">
+        <View className="flex-wrap flex-row justify-center">
           {foods.map((food) => (
             <View key={food.id} className="mb-4 mx-2">{/* 한 행에 2개씩 배치 */}
               <SquareBox
@@ -54,12 +54,12 @@ const ViewFeedList: React.FC = () => {
                 rounded="xl"
                 size="md"
               >
-                <View style={{ alignItems: 'center' }}>
+                <View className="items-center">
                   <Avatar source={{ uri: food.imageUrl }} size={60} />
-                  <Text style={{ marginTop: 8 }}>
+                  <Text className="mt-2">
                     <StylizedText type="body1">{`사료 ${food.id}`}</StylizedText>
                   </Text>
-                  <Text style={{ color: 'black', marginTop: 4 }}>
+                  <Text className="text-black mt-1">
                     <StylizedText type="body2">{`${food.price.toLocaleString()} P`}</StylizedText>
                   </Text>
                 </View>
@@ -70,7 +70,7 @@ const ViewFeedList: React.FC = () => {
       </ScrollView>
 
       {/* Fixed Footer Button */}
-      <View style={{ position: 'absolute', bottom: 0, width: '100%', padding: 16 }}>
+      <View className="absolute bottom-0 w-full p-4">
         <RoundedTextButton
           content="구매하기"
           widthOption="full"

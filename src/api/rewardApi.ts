@@ -49,21 +49,14 @@ export const depositRewardPoints = async (rewardId: number) => {
     });
 
     if (response.ok) {
-      const text = await response.text();
-      if (text) {
-        const depositData = JSON.parse(text);
-        console.log('Points deposited successfully:', depositData);
-        return depositData;
-      } else {
-        console.log('Empty response from server');
-        return null;
-      }
+      console.log('Points deposited successfully');
+      return true; // 성공적인 응답
     } else {
       console.log('Failed to deposit points:', response.status);
-      return null;
+      return false; // 실패한 응답
     }
   } catch (error) {
     console.error('Error depositing reward points:', error);
-    return null;
+    return null; // 에러 발생 시
   }
 };

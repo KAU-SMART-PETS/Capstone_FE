@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Alert } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import ModalLayout from '@components/ModalLayout'; // ModalLayout import
 import StylizedText, { HeaderText } from '@components/common/StylizedText';
 import { RewardCard } from '@components/FlatListCards';
 import { rewardsList, depositRewardPoints } from '@api/rewardApi';
 import { depositPoints } from '@api/pointApi';
 import { fetchUserProfile } from '@api/userApi';
 import { RoundedTextButton } from '@components/common/RoundedButton';
-
+//TODO : 리워드 적립 시 로컬 푸쉬알림 보내기
 const ChallengeList: React.FC = () => {
   const navigation = useNavigation();
   const [rewardsData, setRewardsData] = useState([]);
   const [userName, setUserName] = useState<string>(''); // 기본값 빈 문자열
+
+  // Modal 상태
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
 
   // 사용자 데이터와 리워드 목록을 로드
   const fetchData = async () => {
@@ -35,12 +40,14 @@ const ChallengeList: React.FC = () => {
   }, []);
 
   // 리워드 정렬. 보상을 받을 수 있는 리워드가 최상위
+  /*
   const sortedRewards = rewardsData.sort((a, b) => {
     if (a.isAchieved && !a.isObtain) return -1;
     if (!a.isAchieved) return 1;
     if (a.isAchieved && a.isObtain) return 2;
     return 0;
   });
+  */
 
   // 리워드 선택 시 포인트 적립
   const handleRewardPress = async (reward) => {
@@ -50,7 +57,8 @@ const ChallengeList: React.FC = () => {
         navigation.navigate('CongratulatePopUp', { point: reward.earnPoint });
         fetchData(); // 리워드 목록 업데이트
       } else {
-        Alert.alert('적립 실패', '포인트 적립에 실패했습니다. 다시 시도해 주세요.');
+        setModalMessage('포인트 적립에 실패했습니다. 다시 시도해 주세요.');
+        setModalVisible(true);
       }
     } else {
       console.log(`Reward ID ${reward.id} is not eligible for deposit`);
@@ -61,9 +69,11 @@ const ChallengeList: React.FC = () => {
   const handleTestDeposit = async () => {
     const isSuccess = await depositPoints(50000);
     if (isSuccess) {
-      Alert.alert('포인트 적립 완료', '5만 포인트가 적립되었습니다.');
+      setModalMessage('5만 포인트가 적립되었습니다.');
+      setModalVisible(true);
     } else {
-      Alert.alert('적립 실패', '포인트 적립에 실패했습니다.');
+      setModalMessage('포인트 적립에 실패했습니다.');
+      setModalVisible(true);
     }
   };
 
@@ -75,7 +85,10 @@ const ChallengeList: React.FC = () => {
           highlight={userName || '사용자'}
         />
         <View className="space-y-4 mt-4">
-          {sortedRewards.map((reward) => {
+          {/*
+          sortedRewards.map((reward) => {
+          */}
+          {rewardsData.map((reward) => {
             const statusText = reward.isAchieved
               ? reward.isObtain
                 ? '수령 완료'
@@ -96,7 +109,7 @@ const ChallengeList: React.FC = () => {
         </View>
       </ScrollView>
 
-      {/* 테스트용 포인트 적립 버튼 */}
+      {/*NOTE: 테스트용 포인트 적립 버튼. 테스트 종료시 삭제 바람.*/}
       <View className="absolute bottom-0 w-full p-4">
         <RoundedTextButton
           content="테스트용 무한 포인트 적립 버튼"
@@ -104,6 +117,14 @@ const ChallengeList: React.FC = () => {
           onPress={handleTestDeposit}
         />
       </View>
+
+      {/* Modal */}
+      <ModalLayout
+        visible={modalVisible}
+        setVisible={setModalVisible}
+        title={modalMessage}
+        rows={[{ content: [<RoundedTextButton content="확인" onPress={() => setModalVisible(false)} />] }]}
+      />
     </>
   );
 };
