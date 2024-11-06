@@ -1,11 +1,15 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '@types';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+type HomeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 const Home: React.FC<RootStackParamList> = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeScreenProp>();
   const buttons = [
+    { id : 'TestingPage', title:'Testing Page', screen: 'TestingPage'},
+    { id: 'WalkStartPage', title: 'WalkStartPage', screen: 'WalkStartPage' },
     { id: 'Login', title: 'Login', screen: 'Login' },
     { id: 'Camera', title: 'Camera', screen: 'CameraView' },
     { id: 'MyPage', title: 'My Page', screen: 'MyPage' },
@@ -16,11 +20,6 @@ const Home: React.FC<RootStackParamList> = () => {
     { id: 'WeeklySummary', title: 'Weekly Summary', screen: 'WeeklySummary' },
     // { id: 'TodayWalk', title: 'Today Walk', screen: 'TodayWalk' },
     { id: 'Example', title: 'Example Test', screen: 'Example' },
-    { id : 'TestingPage', title:'Testing Page', screen: 'TestingPage'},
-    { id : 'WalkStartPage', title:'WalkStartPage', screen: 'WalkStartPage'},
-    { id : 'MapPage', title:'MapPage', screen: 'MapPage'},
-    { id : 'WalkRecord', title:'WalkRecord', screen: 'WalkRecord'},
-
   ];
 
   return (
@@ -30,7 +29,7 @@ const Home: React.FC<RootStackParamList> = () => {
           <TouchableOpacity
             key={button.id}
             className="bg-cyan-600 px-5 py-2 my-2 rounded-lg border border-black"
-            onPress={() => navigation.navigate(button.screen as never)} // Type assertion here
+            onPress={() => navigation.navigate(button.screen)} // Type assertion here
           >
             <Text className="text-white text-center">{button.title}</Text>
           </TouchableOpacity>
