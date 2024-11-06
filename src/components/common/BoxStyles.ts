@@ -110,6 +110,12 @@ export const getBoxOutlnes = (outline: OutlinePreset) : ViewStyle => {
           borderStyle: 'rounded-[16px]',
           containerLayout: 'p-6',
       };
+      case 'A-yellow-20': //'A'랑 색상만 다름
+      return {
+        backgroundColor: 'bg-yellow/20',
+        borderStyle: 'rounded-[16px]',
+        containerLayout: 'py-6 px-2',
+    };
       default:
         return {
           backgroundColor: 'bg-white',
