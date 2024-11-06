@@ -7,7 +7,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fetchUserProfile } from '@api/userApi';
 import { fetchUserPets, getPetDetails } from '@api/petApi';
 import { handleLogout } from '@api/loginApi';
+import { PetCard as NewPetCard } from '@src/components/FlatListCards';
 
+interface PetCardProps {
+  petId: string;
+  devices: Device[];
+}
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
 
@@ -16,47 +21,18 @@ interface Device {
   name: string;
 }
 
+interface PetCardContainerProps {
+  petId: string;
+  devices: Device[];
+}
+
 const deviceData: Device[] = [
   { id: '1', name: 'WATCH (1)' },
   { id: '2', name: 'WATCH (2)' },
   { id: '3', name: 'WATCH (3)' },
 ];
 
-const DropdownModal: React.FC<{
-  isVisible: boolean,
-  onClose: () => void,
-  devices: Device[],
-  onSelect: (deviceId: string) => void
-}> = ({ isVisible, onClose, devices, onSelect }) => {
-  return (
-    <Modal
-      transparent={true}
-      visible={isVisible}
-      onRequestClose={onClose}
-      animationType="fade"
-    >
-      <TouchableOpacity style={styles.modalOverlay} onPress={onClose}>
-        <View style={styles.modalContent}>
-          {devices.map((device) => (
-            <TouchableOpacity
-              key={device.id}
-              style={styles.dropdownItem}
-              onPress={() => {
-                onSelect(device.id);
-                onClose();
-              }}
-            >
-              <Text style={{color: 'black'}}>{device.name}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </TouchableOpacity>
-    </Modal>
-  );
-};
-
-const PetCard: React.FC<{ petId: string; devices: Device[] }> = ({ petId, devices }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+const PetCardContainer: React.FC<PetCardContainerProps> = ({ petId, devices }) => {
   const [selectedDeviceId, setSelectedDeviceId] = useState('');
   const [petDetails, setPetDetails] = useState<PetDetails | null>(null);
   const navigation = useNavigation<MyPageNavigationProp>();
@@ -71,18 +47,8 @@ const PetCard: React.FC<{ petId: string; devices: Device[] }> = ({ petId, device
     fetchDetails();
   }, [petId]);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const selectDevice = (deviceId: string) => {
-    setSelectedDeviceId(deviceId);
-    setIsDropdownOpen(false);
-  };
-
   const tempShowPetDetails = async () => {
     try {
-
       const petData = await AsyncStorage.getItem(`PET_${petId}`);
       if (petData) {
         const pet: PetDetails = JSON.parse(petData);
@@ -97,37 +63,26 @@ const PetCard: React.FC<{ petId: string; devices: Device[] }> = ({ petId, device
     }
   };
 
-  const selectedDevice = devices.find(device => device.id === selectedDeviceId);
+  const name = petDetails?.name || 'Loading...';
+  const details = petDetails
+    ? `${petDetails.petType} ${petDetails.gender}, ${petDetails.weight}kg, ${petDetails.age}세`
+    : '';
+  const avatarPath = petDetails?.imageUrl;
 
   return (
-    <TouchableOpacity onPress={tempShowPetDetails}>
-    <View style={styles.petCardContainer}>
-      <View style={styles.petCard}>
-        <Image
-          source={{ uri: petDetails?.imageUrl ? petDetails.imageUrl : 'https://via.placeholder.com/80' }}
-          style={styles.petImage}
-        />
-        <View style={styles.petInfo}>
-          <Text style={styles.petName}>{petDetails?.name || 'Loading...'}</Text>
-          {petDetails && (
-            <Text style={styles.petDetails}>
-              {`${petDetails.petType} ${petDetails.gender}, ${petDetails.weight}kg, ${petDetails.age}세`}
-            </Text>
-          )}
-        </View>
-        <TouchableOpacity style={styles.deviceStatus} onPress={toggleDropdown}>
-          <Image source={{ uri: 'https://via.placeholder.com/80' }} style={styles.watchIcon} />
-          <Text style={styles.deviceStatusText}>{selectedDevice ? selectedDevice.name : 'Select Device'}</Text>
-        </TouchableOpacity>
-      </View>
-      <DropdownModal
-        isVisible={isDropdownOpen}
-        onClose={() => setIsDropdownOpen(false)}
+    <View className="flex-1">
+      <NewPetCard
+        name={name}
+        details={details}
+        avatarPath={avatarPath || null} 
         devices={devices}
-        onSelect={selectDevice}
+        selectedDeviceId={selectedDeviceId}
+        onSelectDevice={(deviceId: string) => {
+          setSelectedDeviceId(deviceId);
+        }}
+        onPress={tempShowPetDetails}
       />
     </View>
-    </TouchableOpacity>
   );
 };
 
@@ -161,13 +116,13 @@ const AddDeviceButton: React.FC = () => (
   </TouchableOpacity>
 );
 
+
 const MyPage: React.FC = () => {
   const navigation = useNavigation<MyPageNavigationProp>();
 
   const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
   const [petIds, setPetIds] = useState<string[]>([]);
-
 
   const fetchData = async () => {
     const userData = await fetchUserProfile();
@@ -182,15 +137,18 @@ const MyPage: React.FC = () => {
 
   useFocusEffect(
     useCallback(() => {
-      fetchData(); // Reloads data every time the page is focused
+      fetchData(); 
     }, [])
   );
 
-  const renderPetItem = ({ item }: { item: string }) => <PetCard petId={item} devices={deviceData} />;
+  const renderPetItem = ({ item }: { item: string }) => (
+    <PetCardContainer petId={item} devices={deviceData} />
+  );
+
   const renderDeviceItem = ({ item }: { item: Device }) => <DeviceCard device={item} />;
-  
+
   const handleLogoutPress = async () => {
-    const success = await handleLogout(); 
+    const success = await handleLogout();
     if (success) {
       navigation.dispatch(
         CommonActions.reset({
@@ -205,7 +163,9 @@ const MyPage: React.FC = () => {
     <ScrollView style={styles.container}>
       <View style={styles.profileSection}>
         <Image source={{ uri: 'https://via.placeholder.com/80' }} style={styles.profileImage} />
-        <Text style={styles.greeting}>안녕하세요 <Text style={{ color: 'skyblue' }}>{username}!</Text></Text>
+        <Text style={styles.greeting}>
+          안녕하세요 <Text style={{ color: 'skyblue' }}>{username}!</Text>
+        </Text>
         <TouchableOpacity style={styles.editProfileButton} onPress={() => navigation.navigate('EditProfile')}>
           <Text style={styles.editProfileText}>내 정보 관리하기</Text>
         </TouchableOpacity>
@@ -213,7 +173,9 @@ const MyPage: React.FC = () => {
 
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}><Text style={{ color: 'skyblue' }}>{username}</Text>의 반려동물</Text>
+          <Text style={styles.sectionTitle}>
+            <Text style={{ color: 'skyblue' }}>{username}</Text>의 반려동물
+          </Text>
           <TouchableOpacity>
             <Text style={styles.seeAllText}>전체보기</Text>
           </TouchableOpacity>
@@ -232,7 +194,9 @@ const MyPage: React.FC = () => {
 
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}><Text style={{ color: 'skyblue' }}>{username}</Text>의 기기</Text>
+          <Text style={styles.sectionTitle}>
+            <Text style={{ color: 'skyblue' }}>{username}</Text>의 기기
+          </Text>
           <TouchableOpacity>
             <Text style={styles.seeAllText}>전체보기</Text>
           </TouchableOpacity>

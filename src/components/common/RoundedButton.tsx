@@ -41,6 +41,7 @@ export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
   }) => {
     const widthMap = {
       full: 'w-96',
+      xxs: 'w-10',
       xs: 'w-20',
       sm: 'w-24',  // Example: small width
       md: 'w-32',  // Example: medium width
