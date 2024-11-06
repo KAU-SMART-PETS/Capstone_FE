@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import StylizedText, { HeaderText } from '@components/common/StylizedText';
-import RoundedBox from '@common/RoundedBox';
-import Avatar from '@components/common/Avatar';
-import { PillBadge } from '@components/common/Badge';
+import { RewardCard } from '@components/FlatListCards';
 import { rewardsList, depositRewardPoints } from '@api/rewardApi';
 import { depositPoints } from '@api/pointApi';
 import { fetchUserProfile } from '@api/userApi';
@@ -14,14 +12,12 @@ const ChallengeList: React.FC = () => {
   const navigation = useNavigation();
   const [rewardsData, setRewardsData] = useState([]);
   const [userName, setUserName] = useState<string>(''); // 기본값 빈 문자열
-  const [userData, setUserData] = useState(null); // 사용자 데이터를 저장할 상태
 
   // 사용자 데이터와 리워드 목록을 로드
   const fetchData = async () => {
     const userProfile = await fetchUserProfile();
     if (userProfile) {
       setUserName(userProfile.name || ''); // 이름이 없을 때 빈 문자열로 처리
-      setUserData(userProfile);
     } else {
       console.log('Failed to load user profile');
     }
@@ -80,49 +76,21 @@ const ChallengeList: React.FC = () => {
         />
         <View className="space-y-4 mt-4">
           {sortedRewards.map((reward) => {
-            let statusText = "미달성";
-            if (reward.isAchieved && reward.isObtain) {
-              statusText = "수령 완료";
-            } else if (reward.isAchieved) {
-              statusText = "달성";
-            }
-            //TODO : minimal_env에 업데이트 된 컴포넌트 사용 
+            const statusText = reward.isAchieved
+              ? reward.isObtain
+                ? '수령 완료'
+                : '달성'
+              : '미달성';
+
             return (
-              <View key={reward.id} className="w-[90%] flex justify-center">
-                <RoundedBox
-                  preset="A"
-                  isButton={true}
-                  shadow={true}
-                  onPress={() => handleRewardPress(reward)}
-                >
-                  <View className="flex-row items-center pl-4 pr-4">
-                    <Avatar size={40} />
-                    <View className="flex flex-1 ml-5">
-                      <View className="flex flex-row items-center mb-2">
-                        <StylizedText type="header2" styleClass="text-black">
-                          {reward.title}
-                        </StylizedText>
-                        <View className="ml-auto">
-                          <PillBadge
-                            text={statusText}
-                            color={
-                              statusText === "달성"
-                                ? "bg-primary"
-                                : statusText === "수령 완료"
-                                ? "bg-darkgreen"
-                                : "bg-silver"
-                            }
-                            textColor="text-white"
-                          />
-                        </View>
-                      </View>
-                      <StylizedText type="body2" styleClass="text-darkgrey">
-                        {reward.content}
-                      </StylizedText>
-                    </View>
-                  </View>
-                </RoundedBox>
-              </View>
+              <RewardCard
+                key={reward.id}
+                title={reward.title}
+                content={reward.content}
+                status={statusText}
+                avatarSource={reward.earnPoint.toString()} // 포인트를 avatarSource로 표시
+                onPress={() => handleRewardPress(reward)}
+              />
             );
           })}
         </View>
