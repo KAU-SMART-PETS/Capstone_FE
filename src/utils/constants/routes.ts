@@ -24,8 +24,10 @@ import HospitalInfo from '@src/screens/health/HospitalInfo';
 import PetUpdate from '@src/screens/profile/PetUpdate';
 // Walk
 import WeeklySummary from '@screens/walk/WeeklySummary';
-import TodayWalk from '@screens/walk/TodayWalk';
 import WalkStartPage from '@screens/walk/WalkStartPage'
+import MapPage from '@screens/walk/MapPage'
+import WalkRecord from '@screens/walk/WalkRecord'
+import WalkWeeklyRecord from '@src/screens/walk/WalkWeeklyRecord';
 
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
@@ -107,7 +109,12 @@ export const routesConfig: {
   LoadingExample :  { component: LoadingExample, params: undefined },
 
   //산책 기능 관련 테스트 페이지
-  WalkStartPage: {component:WalkStartPage, params:undefined}
+  WalkStartPage: {component:WalkStartPage, params:undefined},
+  MapPage: {component:MapPage, params:undefined},
+  WalkRecord: {component:WalkRecord, params:undefined},
+  WalkWeeklyRecord: {component:WalkWeeklyRecord, params:undefined},
+  WeeklySummary: {component:WeeklySummary, params: { petId: 1 } },
+
 };
 
 export const typedObjectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => {
