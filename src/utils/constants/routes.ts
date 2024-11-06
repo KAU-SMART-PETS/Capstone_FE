@@ -25,6 +25,7 @@ import PetUpdate from '@src/screens/profile/PetUpdate';
 // Walk
 import WeeklySummary from '@screens/walk/WeeklySummary';
 import TodayWalk from '@screens/walk/TodayWalk';
+import WalkStartPage from '@screens/walk/WalkStartPage'
 
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
@@ -104,6 +105,9 @@ export const routesConfig: {
   BannerExample :  { component: BannerExample, params: undefined },
   RecordExample :  { component: RecordExample, params: undefined },
   LoadingExample :  { component: LoadingExample, params: undefined },
+
+  //산책 기능 관련 테스트 페이지
+  WalkStartPage: {component:WalkStartPage, params:undefined}
 };
 
 export const typedObjectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => {
