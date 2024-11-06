@@ -29,6 +29,33 @@ import TodayWalk from '@screens/walk/TodayWalk';
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
 
+
+//example routes
+import TestingPage from '@src/screens/examples/TestingPage';
+
+// cards
+import BoxExample from '@src/screens/examples/example/cards/BoxExample';   
+
+import ModalExample from '@src/screens/examples/example/cards/ModalExample';
+import ListCardExample from '@src/screens/examples/example/cards/ListCardExample';
+// inputs
+import TextInputExample from '@src/screens/examples/example/inputs/TextInputExample';
+import RadioButtonExample from '@src/screens/examples/example/inputs/RadioButtonExample';
+import ButtonExample from '@src/screens/examples/example/inputs/ButtonExample';
+// frames
+import BadgeExample from '@src/screens/examples/example/frames/BadgeExample';
+import BalloonBoxExample from '@src/screens/examples/example/frames/BallonBoxExample';
+// sections
+import BannerExample from '@src/screens/examples/example/sections/BannerExample';
+import BarChartExample from '@src/screens/examples/example/sections/BarChartExample';
+import RecordExample from '@src/screens/examples/example/sections/RecordExample';
+import CalendarExample from '@src/screens/examples/example/sections/CalendarExample';
+import LoadingExample from '@src/screens/examples/example/sections/LoadingExample';
+
+
+
+
+
 // Reward & Point & Food(Feed)
 import ChallengeList from '@screens/reward/ChallengeList';
 import CongratulatePopUp from '@screens/reward/CongratulatePopUp';
@@ -66,6 +93,27 @@ export const routesConfig: {
   DiseaseDetail: { component: DiseaseDetail, params: undefined },
   SelectPart: { component: SelectPart, params: undefined },
   HospitalInfo: {component: HospitalInfo, params: undefined},
+  PetUpdate: { component: PetUpdate, params: { petId: '' } },
+  
+  //TESTING PAGES
+  TestingPage: { component: TestingPage, params: undefined },
+  // cards 
+  BoxExample: { component: BoxExample, params: undefined },
+  ModalExample: { component: ModalExample, params: undefined },
+  ListCardExample: { component: ListCardExample, params: undefined },
+  // inputs
+  TextInputExample: { component: TextInputExample, params: undefined },
+  RadioButtonExample: { component: RadioButtonExample, params: undefined },
+  ButtonExample: { component: ButtonExample, params: undefined },
+  // frames
+  BadgeExample: { component: BadgeExample, params: undefined },
+  BalloonBoxExample: { component: BalloonBoxExample, params: undefined },
+  // sections
+  CalendarExample : { component: CalendarExample, params: undefined },
+  BarChartExample :  { component: BarChartExample, params: undefined },
+  BannerExample :  { component: BannerExample, params: undefined },
+  RecordExample :  { component: RecordExample, params: undefined },
+  LoadingExample :  { component: LoadingExample, params: undefined },
   PetUpdate: { component: PetUpdate, params: { petId: '' } },
   HospitalInfo: {component: HospitalInfo, params: undefined},
   ChallengeList :  { component: ChallengeList, params: undefined },
