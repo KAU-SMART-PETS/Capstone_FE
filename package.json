@@ -30,6 +30,7 @@
     "react-native-ble-plx": "^3.2.1",
     "react-native-gesture-handler": "latest",
     "react-native-image-picker": "^7.1.2",
+    "react-native-linear-gradient": "^2.8.3",
     "react-native-location": "^2.5.0",
     "react-native-masked-view": "^0.2.0",
     "react-native-paper": "^5.12.5",

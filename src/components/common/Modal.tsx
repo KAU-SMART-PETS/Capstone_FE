@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TouchableWithoutFeedback } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { FadeInDown } from 'react-native-reanimated';
-import { RoundedFrame, DesignPreset } from './RoundedBox';
+import RoundedBox, { DesignPreset } from '@common/RoundedBox';
 import { Portal } from 'react-native-paper';
 
 interface ModalProps {
@@ -23,7 +23,7 @@ interface ModalBackgroundProps {
 
 interface ModalContentProps {
   children?: React.ReactNode;
-  preset?: DesignPreset; // RoundedFrame에 적용할 preset prop
+  preset?: DesignPreset; // RoundedBox에 적용할 preset prop
 }
 
 // 배경 컴포넌트
@@ -33,7 +33,7 @@ const ModalBackground: React.FC<ModalBackgroundProps> = ({ onPress, children, po
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <View className={`flex-1 w-full h-full absolute inset-0 ${transparent ? 'bg-black/60' : 'bg-transparent'} ${containerStyle}`}>
+      <View className={`flex-1 w-full h-full absolute inset-0 ${!transparent ? 'bg-black/60' : 'bg-transparent'} ${containerStyle}`}>
         {children}
       </View>
     </TouchableWithoutFeedback>
@@ -44,9 +44,9 @@ const ModalBackground: React.FC<ModalBackgroundProps> = ({ onPress, children, po
 const ModalContent: React.FC<ModalContentProps> = ({ children, preset }) => {
   return (
     <Animated.View entering={FadeInDown.duration(500)}>
-      <RoundedFrame shadow={false} preset={preset}>
+      <RoundedBox shadow={false} preset={preset}>
         {children}
-      </RoundedFrame>
+      </RoundedBox>
     </Animated.View>
   );
 };

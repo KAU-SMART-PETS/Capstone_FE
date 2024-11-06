@@ -1,4 +1,3 @@
-// src/components/RadioButtonGroup.tsx
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
 import { View } from 'react-native';
 
@@ -7,12 +6,14 @@ interface RadioButtonGroupProps {
   onSubmit?: (selectedIds: number[]) => void;
   children: React.ReactNode[];
   containerStyle?: string;
+  inactiveOutlineStyle?: 'dashed' | 'solid'; // 새로운 속성 추가
 }
 
 interface RadioButtonProps {
   isSelected?: boolean;
   onPress?: () => void;
   children: React.ReactNode;
+  inactiveOutlineStyle?: 'dashed' | 'solid';
 }
 
 const RadioButtonGroup = forwardRef<any, RadioButtonGroupProps>(({
@@ -20,6 +21,7 @@ const RadioButtonGroup = forwardRef<any, RadioButtonGroupProps>(({
   onSubmit,
   children,
   containerStyle = '',
+  inactiveOutlineStyle = 'dashed', // 기본값 설정
 }, ref) => {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
@@ -33,7 +35,7 @@ const RadioButtonGroup = forwardRef<any, RadioButtonGroupProps>(({
       } else {
         updatedSelectedIds = [...prevSelectedIds.slice(1), index];
       }
-      return updatedSelectedIds.sort((a, b) => a - b); // 오름차순 정렬
+      return updatedSelectedIds.sort((a, b) => a - b);
     });
   };
 
@@ -52,6 +54,7 @@ const RadioButtonGroup = forwardRef<any, RadioButtonGroupProps>(({
           return React.cloneElement(child, {
             isSelected: selectedIds.includes(index),
             onPress: () => handlePress(index),
+            inactiveOutlineStyle, // 비활성화 버튼을 회색 대쉬선으로 할 것인지, 회색 실선으로 할 것인지.
           });
         }
         return child;
