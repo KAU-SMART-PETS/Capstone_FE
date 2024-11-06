@@ -12,7 +12,7 @@ interface RewardCardProps {
   avatarSource?: ImageSourcePropType | React.ReactNode | string;
   title: string;
   content: string;
-  completed: ()=> void;
+  completed: boolean;
   onPress?: ()=> void;
 }
 
