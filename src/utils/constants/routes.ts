@@ -36,6 +36,9 @@ import OrderReceived from '@screens/reward/OrderReceived';
 import ViewFeedList from '@screens/reward/ViewFeedList';
 import PaymentInformation from '@screens/reward/PaymentInformation';
 
+//walk
+import MapPage from '@screens/walk/MapPage';
+
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
   params?: ComponentProps;
@@ -70,6 +73,7 @@ export const routesConfig: {
   OrderReceived :  { component: OrderReceived, params: undefined },
   ViewFeedList :  { component: ViewFeedList, params: undefined },
   PaymentInformation :  { component: PaymentInformation, params: undefined },
+  MapPage :  { component: MapPage, params: undefined },
   Home :  { component: Home, params: undefined },
 };
 
