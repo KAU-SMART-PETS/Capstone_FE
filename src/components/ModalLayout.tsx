@@ -52,7 +52,7 @@ const ModalLayout: React.FC<ModalLayoutProps> = ({
           }}
         >
           {row.content.map((item, index) => (
-            <View key={index}>
+            <View key={index} className='m-1'>
               {item}
             </View>
           ))}
