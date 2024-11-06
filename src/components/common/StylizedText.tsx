@@ -4,7 +4,6 @@ import { Text } from 'react-native';
 
 type TextProps = {
   type?: string;
-  color?: string,
   children?: React.ReactNode;
   styleClass?: string;  
 };
@@ -14,7 +13,7 @@ interface HeaderTextProps {
   highlight?: string;
 }
 
-const StylizedText: React.FC<TextProps> = ({ type = 'body1', children, color, styleClass }) => {
+const StylizedText: React.FC<TextProps> = ({ type = 'body1', children, styleClass }) => {
   const styles = getStyles(type);
   return (
     <Text className={styleClass} style={styles}>{children}</Text>
@@ -52,7 +51,7 @@ export const getStyles = (type: string) : StyledTextStyle => {
     case 'header1':
       return {
         fontFamily: 'Pretendard-Bold',
-        fontSize: 24,
+        fontSize: 22,
       };
     case 'header2':
       return {
@@ -99,11 +98,16 @@ export const getStyles = (type: string) : StyledTextStyle => {
         fontFamily: 'Pretendard-Medium',
         fontSize: 10,
     };
-    case 'caption':
+    case 'caption-title':
       return {
-        fontFamily: 'Pretendard-Thin',
-        fontSize: 10,
-      };
+        fontFamily: 'Pretendard-Medium',
+        fontSize: 15,
+    };
+    case 'caption-label':
+      return {
+        fontFamily: 'Pretendard-Regular',
+        fontSize: 10.5,
+    };
     case 'label':
         return {
         fontFamily: 'Pretendard-Regular',
@@ -128,6 +132,16 @@ export const getStyles = (type: string) : StyledTextStyle => {
       return {
       fontFamily: 'Pretendard-Bold',
       fontSize: 6,
+    };
+    case 'record1':
+      return {
+      fontFamily: 'Pretendard-Bold',
+      fontSize: 13,
+    };
+    case 'record2':
+      return {
+      fontFamily: 'Pretendard-Medium',
+      fontSize: 13,
     };
     default:
       return {
