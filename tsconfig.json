@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "jsx": "react-native",
+    "target": "ES2015",
+    "lib": ["ES2015"],
+    "moduleResolution": "node",
+    "allowJs": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types", "./src/utils/constants/types"],
+    "baseUrl": "./src",  
+    "paths": {
+      "@root/*": ["../*"],       
+      "@src/*": ["*"],         
+      "@api/*": ["api/*"],         
+      "@data/*": ["api/data/*"],   
+      "@components/*": ["components/*"],
+      "@common/*" : ["components/common/*"],
+      "@screens/*": ["screens/*"],
+      "@example/*": ["screens/examples/example/*"],
+      "@image/*": ["assets/image/*"], 
+      "@constants/*": ["utils/constants/*"],  
+      "@types": ["utils/constants/types"], 
+    }
+  },
+  "include": ["src/*.ts", "src/*.tsx", "src/**/*.ts", "src/**/*.tsx", 
+    "src/utils/constants/declaration.d.ts", "src/utils/constants/image.d.ts"],
+  "exclude": ["node_modules"]
+}
