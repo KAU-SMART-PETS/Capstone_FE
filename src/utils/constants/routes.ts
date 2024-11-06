@@ -56,6 +56,16 @@ import LoadingExample from '@src/screens/examples/example/sections/LoadingExampl
 
 
 
+// Reward & Point & Food(Feed)
+import ChallengeList from '@screens/reward/ChallengeList';
+import CongratulatePopUp from '@screens/reward/CongratulatePopUp';
+import OrderReceived from '@screens/reward/OrderReceived';
+import ViewFeedList from '@screens/reward/ViewFeedList';
+import PaymentInformation from '@screens/reward/PaymentInformation';
+
+//walk
+import MapPage from '@screens/walk/MapPage';
+
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
   params?: ComponentProps;
@@ -104,6 +114,15 @@ export const routesConfig: {
   BannerExample :  { component: BannerExample, params: undefined },
   RecordExample :  { component: RecordExample, params: undefined },
   LoadingExample :  { component: LoadingExample, params: undefined },
+  PetUpdate: { component: PetUpdate, params: { petId: '' } },
+  HospitalInfo: {component: HospitalInfo, params: undefined},
+  ChallengeList :  { component: ChallengeList, params: undefined },
+  CongratulatePopUp: { component: CongratulatePopUp, params: { point: 0 } as CongratulatePopUpParams },
+  OrderReceived :  { component: OrderReceived, params: undefined },
+  ViewFeedList :  { component: ViewFeedList, params: undefined },
+  PaymentInformation :  { component: PaymentInformation, params: undefined },
+  MapPage :  { component: MapPage, params: undefined },
+  Home :  { component: Home, params: undefined },
 };
 
 export const typedObjectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => {

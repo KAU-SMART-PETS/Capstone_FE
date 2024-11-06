@@ -106,10 +106,16 @@ export const getBoxOutlnes = (outline: OutlinePreset) : ViewStyle => {
         };
       case 'opaque-panel': 
         return {
-          backgroundColor: 'bg-white opacity-50',
+          backgroundColor: `bg-white/50`,
           borderStyle: 'rounded-[16px]',
-          containerLayout: 'p-6',
+          containerLayout: 'px-4 py-5 max-w-full flex-row justify-center align-center space-x-10 w-[85%]',
       };
+      case 'A-yellow-20': //'A'랑 색상만 다름
+      return {
+        backgroundColor: 'bg-yellow/20',
+        borderStyle: 'rounded-[16px]',
+        containerLayout: 'py-6 px-2',
+    };
       default:
         return {
           backgroundColor: 'bg-white',

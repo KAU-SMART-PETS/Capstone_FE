@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {RoundedCircleButton} from '@common/RoundedButton';
 import { DiseaseCard, VaccinationCard, OrderInfoCard } from '@components/InfoCards';
+import WalkRecordingPanel from '@components/WalkingRecordPanel';
 // import { HospitalInfoCard, HospitalCard } from '@components/InfoListCards';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -72,7 +73,8 @@ const BoxExample : React.FC<RootStackParamList> = () => {
   return (
     <SafeAreaView>
       <ScrollView className="" persistentScrollbar>
-        <View className="flex-1 bg-white pt-10 px-5">
+        <View className="flex-1 bg-black pt-10 px-5">
+          <WalkRecordingPanel distanceInMeters={1500} timeInSeconds={932} />
           <HealthCards />
           <RoundedCircleButton onPress={() => console.log("button pressed!!!")} size={50}>
             <MCIcon name="paw" size={30}/>

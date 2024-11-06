@@ -1,46 +1,62 @@
-import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import config from '@constants/config';
 
-// 타입 정의
-export interface MemberLocationRequest {
-  latitude: number;
-  longitude: number;
-}
-
-export interface VetResponse {
-  id: number;
-  name: string;
-  address: string;
-  telephone: string;
-}
-
-export interface VetsResponse {
-  vets: VetResponse[];
-}
-
-// 동물병원 목록 조회
-export const fetchVets = async (latitude: number, longitude: number) => {
+// 리워드 목록 조회 API 호출
+export const rewardsList = async () => {
   try {
-    const response = await axios.post(`${config.API_LOCAL_URL}/api/v1/vets`, {
-      latitude,
-      longitude,
+    const jsessionId = await AsyncStorage.getItem('JSESSIONID');
+    if (!jsessionId) {
+      console.log('JSESSIONID not found');
+      return null;
+    }
+
+    const response = await fetch(`${config.API_SERVER_URL}/api/v1/rewards`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': `JSESSIONID=${jsessionId}`,
+      },
     });
-    return response.data as VetsResponse;
+
+    if (response.ok) {
+      const text = await response.text();
+      return text ? JSON.parse(text) : null;
+    } else {
+      console.log('Failed to fetch rewards:', response.status);
+      return null;
+    }
   } catch (error) {
-    console.error('Error fetching vets:', error);
-    throw error;
+    console.error('Error fetching rewards:', error);
+    return null;
   }
 };
 
-// 동물병원 세부 정보 조회
-export const fetchVetDetail = async (vetId: number, latitude: number, longitude: number) => {
+// 리워드 포인트 적립 API 호출
+export const depositRewardPoints = async (rewardId: number) => {
   try {
-    const response = await axios.post(`${config.API_LOCAL_URL}/api/v1/vets/${vetId}`, {
-      latitude,
-      longitude,
+    const jsessionId = await AsyncStorage.getItem('JSESSIONID');
+    if (!jsessionId) {
+      console.log('JSESSIONID not found');
+      return null;
+    }
+
+    const response = await fetch(`${config.API_SERVER_URL}/api/v1/rewards/${rewardId}/points/deposit`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': `JSESSIONID=${jsessionId}`,
+      },
     });
-    return response.data; // VetDetailResponse 타입으로 반환
+
+    if (response.ok) {
+      console.log('Points deposited successfully');
+      return true; // 성공적인 응답
+    } else {
+      console.log('Failed to deposit points:', response.status);
+      return false; // 실패한 응답
+    }
   } catch (error) {
-    console.error('Error fetching vet details:', error);
-    throw error;
+    console.error('Error depositing reward points:', error);
+    return null; // 에러 발생 시
   }
 };
