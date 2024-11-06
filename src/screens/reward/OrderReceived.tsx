@@ -44,7 +44,7 @@ const OrderReceived: React.FC = () => {
             size={40}
           />
           <StylizedText type="header2" styleClass="text-center text-black mt-4">
-            사료 샘플이 접수됐어요.{"\n"}곧 만나요!
+            사료가 접수됐어요.{"\n"}곧 만나요!
           </StylizedText>
         </Animated.View>
       </View>

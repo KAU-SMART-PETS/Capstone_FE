@@ -50,15 +50,14 @@ export const purchaseFood = async (foodId: number, deliveryFee: number = 2500) =
     });
 
     if (response.ok) {
-      const paymentData = await response.json();
-      console.log('Payment successful:', paymentData);
-      return paymentData;
+      console.log(`Payment successful for foodId ${foodId}`);
+      return true; // 성공 여부를 true로 반환
     } else {
       console.log('Failed to make payment:', response.status);
-      return null;
+      return false; // 실패 시 false 반환
     }
   } catch (error) {
     console.error('Error making payment:', error);
-    return null;
+    return false; // 에러 발생 시 false 반환
   }
 };
