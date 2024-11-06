@@ -34,21 +34,22 @@ const ListCardExample: React.FC = () => {
         <RewardCard 
           title="리워드 카드 타입1" 
           content="avatarSource에 사진 (이미지 자체 또는 require(파일명))" 
-          completed={true} 
+          status="수령 완료"
           avatarSource={dog1} 
           onPress={handlePress} 
         />
+        
         <RewardCard 
           title="리워드 카드 타입2" 
           content="avatarSource에 아이콘" 
-          completed={false} 
+           status="미달성"
           avatarSource={<MCIcon name='cart' size={25} color={'black'}/>} 
           onPress={handlePress} 
         />
         <RewardCard 
           title="7일 연속 산책하기" 
           content="avatarSource에 숫자"
-          completed={true} 
+           status="달성"
           avatarSource={'100'} 
           onPress={handlePress} 
         />
