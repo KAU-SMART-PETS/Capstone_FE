@@ -20,7 +20,6 @@ const Home: React.FC<RootStackParamList> = () => {
     { id: 'WeeklySummary', title: 'Weekly Summary', screen: 'WeeklySummary' },
     // { id: 'TodayWalk', title: 'Today Walk', screen: 'TodayWalk' },
     { id: 'Example', title: 'Example Test', screen: 'Example' },
-    { id : 'TestingPage', title:'Testing Page', screen: 'TestingPage'},
     { id: 'ChallengeList', title: 'ChallengeList', screen: 'ChallengeList' },
     { id: 'ViewFeedList', title: 'BuyFeeds', screen: 'ViewFeedList' },
     { id: 'CongratulatePopUp', title: 'CongratulatePopUp', screen: 'CongratulatePopUp' },

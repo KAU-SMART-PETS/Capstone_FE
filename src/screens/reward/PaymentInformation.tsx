@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, ScrollView, Alert } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import StylizedText from '@common/StylizedText';
 import CustomTextInput from '@common/CustomTextInput';
 import RadioButtonGroup from '@common/RadioButtonGroup';
@@ -7,6 +7,7 @@ import RadioButton from '@common/RadioButton';
 import Avatar from '@common/Avatar';
 import { RoundedTextButton } from '@common/RoundedButton';
 import { useNavigation } from '@react-navigation/native';
+import ModalLayout from '@components/ModalLayout'; // ModalLayout import
 import { foodsList, purchaseFood } from '@api/foodApi';
 import { fetchPointHistory } from '@api/pointApi';
 import { fetchUserProfile } from '@api/userApi';
@@ -18,8 +19,12 @@ const PaymentInformation: React.FC = () => {
   const [deliveryFee] = useState(2500);
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({ name: '', email: '', phoneNumber: '' });
-  const [address, setAddress] = useState(''); // 주소 상태 추가
+  const [address, setAddress] = useState('');
   const radioButtonGroupRef = useRef<any>(null);
+
+  // Modal state
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
 
   const fetchFoods = async () => {
     const data = await foodsList();
@@ -46,7 +51,7 @@ const PaymentInformation: React.FC = () => {
       setUserData({
         name: userProfile.name,
         email: userProfile.email || '',
-        phoneNumber: userProfile.phoneNumber || '', // 휴대폰 번호 설정
+        phoneNumber: userProfile.phoneNumber || '',
       });
     } else {
       console.log('Failed to load user profile');
@@ -60,47 +65,61 @@ const PaymentInformation: React.FC = () => {
   }, []);
 
   const selectedFoodsTotal = selectedFoodIds.reduce((total, foodId) => {
-    const food = foods.find(f => f.id === foodId);
+    const food = foods.find((f) => f.id === foodId);
     return total + (food ? food.price : 0);
   }, 0);
 
   const finalTotal = selectedFoodsTotal + deliveryFee;
 
   const handleOrderSubmit = async () => {
+    if (radioButtonGroupRef.current) {
+      radioButtonGroupRef.current.submit();
+    }
+
     if (balance < finalTotal) {
-      Alert.alert('잔액 부족', '보유 포인트가 결제 금액보다 적습니다.');
+      setModalMessage('보유 포인트가 결제 금액보다 적습니다.');
+      setModalVisible(true);
       return;
     }
 
-    const purchaseResults = await Promise.all(
-      selectedFoodIds.map(foodId => purchaseFood(foodId, deliveryFee))
-    );
-
-    const isPurchaseSuccessful = purchaseResults.every(result => result !== null);
-
-    if (isPurchaseSuccessful) {
-      Alert.alert('결제 성공', `사료가 성공적으로 결제되었습니다.\n선택한 사료 ID: ${selectedFoodIds.join(', ')}`);
-      navigation.navigate('OrderReceived', { product: '사료' });
-    } else {
-      Alert.alert('결제 실패', '결제 중 문제가 발생했습니다.');
+    for (const foodId of selectedFoodIds) {
+      const result = await purchaseFood(foodId, deliveryFee);
+      if (!result) {
+        setModalMessage(`사료 ID ${foodId} 구매 중 문제가 발생했습니다.`);
+        setModalVisible(true);
+        return; // 실패 시 중단
+      }
     }
+
+    //setModalMessage(`모든 사료가 성공적으로 결제되었습니다.\n선택한 사료 ID: ${selectedFoodIds.join(', ')}`);
+    //setModalVisible(true);
+    navigation.navigate('OrderReceived', { product: '사료' });
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <View className="flex-1 bg-white">
       <ScrollView contentContainerStyle={{ paddingBottom: 80 }} className="px-5">
-        <StylizedText type="header1" styleClass="text-black mb-4 mt-6">
+        <StylizedText type="header1" styleClass="text-black mb-4 mx-2 mt-6">
           제품을 선택하고 주문 정보를 입력해주세요.
         </StylizedText>
-
+        {/*TODO : 사료 레이아웃 변경 */}
         <RadioButtonGroup
           ref={radioButtonGroupRef}
           maxChoice={foods.length}
-          onSubmit={(selectedIds) => setSelectedFoodIds(selectedIds)}
-          containerStyle="flex-row flex-wrap justify-around mb-6"
+          onSubmit={(selectedIndexes) => {
+            const selectedIds = selectedIndexes.map((index) => foods[index]?.id); // Index를 foodId로 변환
+            setSelectedFoodIds(selectedIds);
+            console.log('현재 선택된 food ID 배열 (onSubmit):', selectedIds);
+          }}
+          onSelect={(selectedIndexes) => {
+            const selectedIds = selectedIndexes.map((index) => foods[index]?.id); // Index를 foodId로 변환
+            setSelectedFoodIds(selectedIds);
+            console.log('현재 선택된 food ID 배열 (onSelect):', selectedIds);
+          }}
+          containerStyle="flex-row flex-wrap justify-around mb-2"
         >
           {foods.map((food) => (
-            <RadioButton key={food.id} value={food.id}>
+            <RadioButton key={food.id}>
               <Avatar size={80} source={{ uri: food.imageUrl }} />
               <StylizedText type="body2" styleClass="text-center mt-2">{`사료 ${food.id}`}</StylizedText>
             </RadioButton>
@@ -120,7 +139,6 @@ const PaymentInformation: React.FC = () => {
           keyboardType="email-address"
           type="freeText"
         />
-        {/*TODO: 주소 입력 잘 되게 수정*/}
         <CustomTextInput
           label="주소"
           placeholder="주소를 입력해주세요"
@@ -134,8 +152,8 @@ const PaymentInformation: React.FC = () => {
           placeholder="010-1234-5678"
           value={userData.phoneNumber}
           onChangeText={(text) => setUserData((prev) => ({ ...prev, phoneNumber: text }))}
-          isEditableInitially={!userData.phoneNumber} // null이면 직접 입력 가능
-          type={userData.phoneNumber ? 'editableWithButton' : 'freeText'} // 초기값이 있으면 수정 가능
+          isEditableInitially={!userData.phoneNumber}
+          type={userData.phoneNumber ? 'editableWithButton' : 'freeText'}
           keyboardType="phone-pad"
         />
 
@@ -166,6 +184,14 @@ const PaymentInformation: React.FC = () => {
           <RoundedTextButton content="결제하기" widthOption="xl" onPress={handleOrderSubmit} />
         </View>
       </ScrollView>
+
+      {/* Modal */}
+      <ModalLayout
+        visible={modalVisible}
+        setVisible={setModalVisible}
+        title={modalMessage}
+        rows={[{ content: [<RoundedTextButton content="확인" onPress={() => setModalVisible(false)} />] }]}
+      />
     </View>
   );
 };
