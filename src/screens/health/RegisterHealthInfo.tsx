@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, TouchableOpacity, Modal, TextInput, StyleSheet, FlatList, Alert, ActivityIndicator,
+  View, FlatList, Alert, ActivityIndicator,
 } from 'react-native';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   fetchHealthInfo, addVaccination, updateVaccination, deleteVaccination
 } from '@src/api/vaccinationApi2';
+import CustomTextInput from '@common/CustomTextInput';
+import { RoundedTextButton } from '@src/components/common/RoundedButton';
+import ModalLayout from '@src/components/ModalLayout';
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import StylizedText, { HeaderText } from '@src/components/common/StylizedText';
+import { VaccinationCard } from '@src/components/InfoCards';
 
 
 const RegisterHealthInfo = (id = 0) => {
@@ -102,19 +106,17 @@ const RegisterHealthInfo = (id = 0) => {
   };
 
   const renderHealthInfoItem = ({ item }) => (
-    <TouchableOpacity
+    <VaccinationCard
+      title={item.name}
+      description={`${formatDate(item.date)} 에 접종되었습니다.`}
       onPress={() => {
         console.log(item.id);
         setSelectedVaccination(item);
         setIsDetailModalVisible(true);
       }}
-    >
-      <View style={styles.healthInfoCard}>
-        <Text style={styles.cardTitle}>{item.name}</Text>
-        <Text style={{ color: 'black' }}>접종 시기: {formatDate(item.date)}</Text>
-      </View>
-    </TouchableOpacity>
+    />
   );
+  
 
   const handleDateChange = text => {
     const numericValue = text.replace(/[^0-9]/g, '');
@@ -129,238 +131,152 @@ const RegisterHealthInfo = (id = 0) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{petName}의 보건 정보</Text>
-
+  <View className="flex-1 p-5 bg-white">
+      <HeaderText
+        text={`${petName}의 보건정보`}
+        highlight={petName}
+      />
       {isLoading ? (
-        <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator} />
+        <ActivityIndicator size="large" color="#0000ff" className="mt-5" />
       ) : (
         <FlatList
           data={healthInfo}
           renderItem={renderHealthInfoItem}
           keyExtractor={item => item.id.toString()}
-          contentContainerStyle={styles.healthInfoGrid}
+          contentContainerStyle={{ flexGrow: 1 }}
         />
       )}
 
-      <TouchableOpacity
-        onPress={() => setIsModalVisible(true)}
-        style={[styles.addButton, isLoading && styles.disabledButton]}
-        disabled={isLoading}
-      >
-        <Text style={styles.addButtonText}>보건정보 추가하기</Text>
-      </TouchableOpacity>
-
+      <RoundedTextButton 
+        color="bg-primary" 
+        icon={<MCIcon name="note-plus" color="black" size={20} />} 
+        textColor="text-white" content="보건정보 추가하기" 
+        widthOption='full'
+        onPress={() => setIsModalVisible(true)}/>
+        
       {/* 보건정보 추가/수정 모달 */}
-      <Modal
-        animationType="slide"
-        transparent={true}
+      <ModalLayout
         visible={isModalVisible}
-        onRequestClose={() => setIsModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>
-              {selectedVaccination ? '보건정보 수정' : '새 보건정보 추가'}
-            </Text>
-            <View style={styles.formGroup}>
-              <Text style={styles.label}>접종 시기</Text>
-              <TextInput
-                value={newInfo.date}
-                onChangeText={handleDateChange}
-                style={styles.input}
-                placeholder="YYYYMMDD"
-                placeholderTextColor={styles.placeholderText.color}
-                keyboardType="numeric"
-                maxLength={8}
-                editable={!isLoading}
-              />
-            </View>
-            <View style={styles.formGroup}>
-              <Text style={styles.label}>접종 정보</Text>
-              <TextInput
-                value={newInfo.name}
-                onChangeText={text => setNewInfo({ ...newInfo, name: text })}
-                style={styles.input}
-                placeholder="예: 광견병 예방접종"
-                placeholderTextColor={styles.placeholderText.color}
-                editable={!isLoading}
-              />
-            </View>
-            <View style={styles.buttonGroup}>
-              <TouchableOpacity
+        setVisible={setIsModalVisible}
+        position="bottom"
+        title={selectedVaccination ? '보건정보 수정' : '새 보건정보 추가'}
+        titleAlign="left"
+        rows={[
+          {
+            content: [
+              <View
+                key="date"
+                style={{
+                  width: '100%',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                }}
+              >
+                <CustomTextInput
+                  label="날짜"
+                  value={newInfo.date}
+                  onChangeText={handleDateChange}
+                  placeholder="YYYYMMDD"
+                  keyboardType="numeric"
+                  maxLength={8}
+                  type="freeText"
+                />
+              </View>,
+              <View
+                key="info"
+                style={{
+                  width: '100%',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                }}
+              >
+                <CustomTextInput
+                  label="접종 정보"
+                  value={newInfo.name}
+                  onChangeText={(text) => setNewInfo({ ...newInfo, name: text })}
+                  placeholder="예: 광견병 예방접종"
+                  type="freeText"
+                />
+              </View>,
+            ],
+          },
+          {
+            content: [
+              <RoundedTextButton
+                key="save"
+                content="저장"
+                color="bg-primary"
+                widthOption="sm"
                 onPress={handleSaveInfo}
-                style={[styles.addButton, isLoading && styles.disabledButton]}
-                disabled={isLoading}
-              >
-                <Text style={styles.addButtonText}>저장</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => setIsModalVisible(false)}
-                style={styles.cancelButton}
-                disabled={isLoading}
-              >
-                <Text style={styles.cancelButtonText}>취소</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+              />,
+              <RoundedTextButton
+                key="cancel"
+                content="취소"
+                color="bg-secondary"
+                widthOption="sm"
+                onPress={() => {
+                  setIsModalVisible(false);
+                  setSelectedVaccination(null);
+                  setNewInfo({ date: '', name: '' });
+                }}
+              />,
+            ],
+            layout: 'row',
+          },
+        ]}
+      />
 
       {/* 상세 모달 */}
-      <Modal
-        animationType="slide"
-        transparent={true}
+      <ModalLayout
         visible={isDetailModalVisible}
-        onRequestClose={() => setIsDetailModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>보건 정보</Text>
-            <Text>접종 시기: {formatDate(selectedVaccination?.date)}</Text>
-            <Text>접종 정보: {selectedVaccination?.name}</Text>
-            <View style={styles.buttonGroup}>
-              <TouchableOpacity
-                onPress={handleEdit}
-                style={[styles.editButton, isLoading && styles.disabledButton]}
-                disabled={isLoading}
-              >
-                <Text style={styles.editButtonText}>수정하기</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={handleDelete}
-                style={[styles.deleteButton, isLoading && styles.disabledButton]}
-                disabled={isLoading}
-              >
-                <Text style={styles.deleteButtonText}>삭제하기</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => setIsDetailModalVisible(false)}
-                style={styles.cancelButton}
-              >
-                <Text style={styles.cancelButtonText}>닫기</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+        setVisible={setIsDetailModalVisible}
+        position="center"
+        title="보건 정보"
+        titleAlign="center"
+        rows={[
+          {
+            content: [
+              <StylizedText key="date" type='body1'>
+                접종 시기: {formatDate(selectedVaccination?.date)}
+              </StylizedText>,
+              <StylizedText key="info" type='body1'>
+                접종 정보: {selectedVaccination?.name}
+              </StylizedText>,
+            ],
+          },
+          {
+            content: [
+              <RoundedTextButton 
+                color="bg-safe" 
+                icon={<MCIcon name="lead-pencil" color="black" size={20} />} 
+                textColor="text-black" 
+                content="수정"
+                widthOption='xs'
+                onPress={handleEdit} />,
+              <RoundedTextButton 
+                color="bg-danger" 
+                icon={<MCIcon name="delete" color="black" size={20} />} 
+                textColor="text-black" 
+                content="삭제"
+                widthOption='xs'
+                onPress={handleDelete} />,
+              <RoundedTextButton 
+                color="bg-secondary" 
+                icon={<MCIcon name="close" color="black" size={20} />} 
+                textColor="text-black" 
+                content="닫기"
+                widthOption='xs'
+                onPress={() => {
+                  setIsDetailModalVisible(false);
+                  setSelectedVaccination(null);
+                }} />,
+            ],
+            layout: 'row', 
+          },
+        ]}
+      />
     </View>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    color: 'black',
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  healthInfoGrid: {
-    flexGrow: 1,
-  },
-  healthInfoCard: {
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    padding: 15,
-    backgroundColor: '#f9f9f9',
-    marginBottom: 10,
-  },
-  disabledButton: {
-    backgroundColor: '#BDBDBD',
-  },
-  cardTitle: {
-    color: 'black',
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  addButton: {
-    backgroundColor: '#73A8BA',
-    padding: 10,
-    borderRadius: 4,
-    alignItems: 'center',
-  },
-  addButtonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.4)',
-  },
-  modalContent: {
-    color: 'black',
-    backgroundColor: '#fefefe',
-    padding: 20,
-    borderRadius: 8,
-    width: '80%',
-  },
-  loadingIndicator: {
-    marginTop: 20,
-  },
-  modalTitle: {
-    color: 'black',
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 15,
-  },
-  formGroup: {
-    marginBottom: 15,
-  },
-  label: {
-    color: 'black',
-    marginBottom: 5,
-  },
-  input: {
-    color: 'black',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 4,
-    padding: 8,
-  },
-  buttonGroup: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
-  },
-  cancelButton: {
-    backgroundColor: 'pink',
-    padding: 10,
-    borderRadius: 4,
-    marginLeft: 10,
-  },
-  cancelButtonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  placeholderText: {
-    color: '#888', 
-  },
-  editButton: {
-    backgroundColor: '#4CAF50',
-    padding: 10,
-    borderRadius: 4,
-  },
-  editButtonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  deleteButton: {
-    backgroundColor: 'red',
-    padding: 10,
-    borderRadius: 4,
-    marginLeft: 10,
-  },
-  deleteButtonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-});
+
 export default RegisterHealthInfo;
