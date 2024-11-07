@@ -11,6 +11,7 @@ interface HospitalRecordProps {
   name: string;
   address: string;
   telephone: string;
+  distance: number;
 }
 
 interface WalkingRecordProps {
@@ -22,17 +23,18 @@ interface WalkingRecordProps {
   steps: string;
 }
 
-export const HospitalRecord: React.FC<HospitalRecordProps> = ({ name, address, telephone }) => {
+export const HospitalRecord: React.FC<HospitalRecordProps> = ({ name, address, telephone, distance }) => {
   const fields = [
     { label: <Image source={phoneIcon} style={{ width: 16, height: 16 }} />, value: telephone },
     { label: <Image source={locationIcon} style={{ width: 16, height: 16 }} />, value: address },
+    { label: <Image source={locationIcon} style={{ width: 16, height: 16 }} />, value: distance },
   ];
 
   return (
     <RecordSection
       title={name}
       fields={fields}
-      badge={<RatingBadge starSize={20} textSize="header5" rating={3.5} />}
+      // badge={<RatingBadge starSize={20} textSize="header5" rating={3.5} />}
       labelWidth="w-8"
       footerText="참고: 병원 운영 시간에 따라 전화 응답이 제한될 수 있습니다."
       preset="iconLabel"
