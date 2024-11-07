@@ -6,7 +6,7 @@ import Avatar from '@components/common/Avatar';
 import { RoundedTextButton } from '@components/common/RoundedButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { ModalType1 } from '../../screens/examples/example/cards/ModalExample';
+import ModalLayout from '@components/ModalLayout';  // ModalLayout 컴포넌트 직접 사용
 import { launchImageLibrary } from 'react-native-image-picker';
 
 const defaultImage = require('../../assets/image/icon/pawprint.png');
@@ -134,11 +134,32 @@ const SelectPetToScan = () => {
       <View style={styles.bottomButtonContainer}>
         <RoundedTextButton content="사진 등록하기" widthOption="xl" onPress={handleRegisterButtonPress} />
       </View>
-      <ModalType1
+
+      {/* 직접 정의한 모달 컴포넌트 */}
+      <ModalLayout
         visible={isModalVisible}
         setVisible={setModalVisible}
-        galleryHandler={handleGallerySelect}
-        cameraHandler={handleCameraLaunch}
+        rows={[
+          {
+            content: [
+              <RoundedTextButton
+                content="갤러리에서 가져오기"
+                widthOption="lg"
+                color="bg-primary"
+                onPress={handleGallerySelect}
+                key="gallery"
+              />,
+              <RoundedTextButton
+                content="촬영하기"
+                widthOption="lg"
+                color="bg-primary"
+                onPress={handleCameraLaunch}
+                key="camera"
+              />
+            ],
+            layout: 'col',
+          }
+        ]}
       />
     </View>
   );
@@ -189,5 +210,3 @@ const styles = StyleSheet.create({
 });
 
 export default SelectPetToScan;
-
-

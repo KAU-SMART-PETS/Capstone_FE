@@ -28,6 +28,7 @@
     "react-native": "0.75.3",
     "react-native-bars": "^2.4.3",
     "react-native-ble-plx": "^3.2.1",
+    "react-native-camera": "^4.2.1",
     "react-native-gesture-handler": "latest",
     "react-native-image-picker": "^7.1.2",
     "react-native-linear-gradient": "^2.8.3",

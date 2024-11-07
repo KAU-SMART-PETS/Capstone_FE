@@ -29,6 +29,11 @@ import TodayWalk from '@screens/walk/TodayWalk';
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
 
+// Ai
+import ReadyToScan from '@screens/ai/ReadyToScan';
+import SelectPetToScan from '@screens/ai/SelectPetToScan';
+import TakePicture from '@screens/ai/TakePicture';
+import ResultEyeScan from '@screens/ai/ResultEyeScan';
 
 //example routes
 import TestingPage from '@src/screens/examples/TestingPage';
@@ -94,6 +99,10 @@ export const routesConfig: {
   SelectPart: { component: SelectPart, params: undefined },
   HospitalInfo: {component: HospitalInfo, params: undefined},
   PetUpdate: { component: PetUpdate, params: { petId: '' } },
+  SelectPetToScan: { component: SelectPetToScan, params: undefined },
+    ReadyToScan: { component: ReadyToScan, params: undefined },
+    TakePicture: { component: TakePicture, params: undefined },
+    ResultEyeScan: { component: ResultEyeScan, params: undefined },
   
   //TESTING PAGES
   TestingPage: { component: TestingPage, params: undefined },

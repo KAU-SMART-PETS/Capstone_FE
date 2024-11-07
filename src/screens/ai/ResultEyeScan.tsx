@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ScrollView, Image, StyleSheet } from 'react-native';
 import HealthCards from '../../components/common/HealthCards';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import StylizedText from '../../components/common/StylizedText';
+import StylizedText from '@components/common/StylizedText';
 import { RoundedTextButton } from '../../components/common/RoundedButton';
 
 const ResultEyeScan = () => {
