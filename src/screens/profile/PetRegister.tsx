@@ -86,7 +86,7 @@ const PetRegister = () => {
       <CustomTextInput label="나이" placeholder="나이를 입력하세요" value={age} onChangeText={setAge} keyboardType="numeric" />
 
       {/* Pet Type Row */}
-      <View className="w-full flex-row justify-around items-center mb-5">
+      <View className="w-full flex-row justify-around items-center mb-5 pt-5">
 
         <TouchableOpacity
           onPress={() => setPetType('강아지')}
@@ -95,7 +95,9 @@ const PetRegister = () => {
           <View className={`w-6 h-6 rounded-full border-2 border-skyblue justify-center items-center ${petType === '강아지' ? 'bg-blue' : ''}`}>
             {petType === '강아지' && <View className="w-3 h-3 rounded-full bg-white" />}
           </View>
-          <Text className="text-lg text-black ml-2">강아지</Text>
+          <View className='pl-5'>
+            <StylizedText type='header2'>강아지</StylizedText>
+          </View>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setPetType('고양이')}
@@ -104,12 +106,14 @@ const PetRegister = () => {
           <View className={`w-6 h-6 rounded-full border-2 border-skyblue justify-center items-center ${petType === '고양이' ? 'bg-blue' : ''}`}>
             {petType === '고양이' && <View className="w-3 h-3 rounded-full bg-white" />}
           </View>
-          <Text className="text-lg text-black ml-2">고양이</Text>
+          <View className='pl-5'>
+            <StylizedText type='header2'>고양이</StylizedText>
+          </View>
         </TouchableOpacity>
       </View>
 
       {/* Gender Row */}
-      <View className="w-full flex-row justify-around items-center mb-5">
+      <View className="w-full flex-row justify-around items-center mb-5 ">
         <TouchableOpacity
           onPress={() => setGender('암')}
           className="flex-row items-center -ml-6"
@@ -117,7 +121,9 @@ const PetRegister = () => {
           <View className={`w-6 h-6 rounded-full border-2 border-skyblue justify-center items-center ${gender === '암' ? 'bg-blue' : ''}`}>
             {gender === '암' && <View className="w-3 h-3 rounded-full bg-white" />}
           </View>
-          <Text className="text-lg text-black ml-2">암</Text>
+          <View className='pl-5'>
+            <StylizedText type='header2'>암</StylizedText>
+          </View>
 
         </TouchableOpacity>
         <TouchableOpacity
@@ -127,8 +133,9 @@ const PetRegister = () => {
           <View className={`w-6 h-6 rounded-full border-2 border-skyblue justify-center items-center ${gender === '수' ? 'bg-blue' : ''}`}>
             {gender === '수' && <View className="w-3 h-3 rounded-full bg-white" />}
           </View>
-
-          <Text className="text-lg text-black ml-2">수</Text>
+          <View className='pl-5'>
+            <StylizedText type='header2'>수</StylizedText>
+          </View>
 
         </TouchableOpacity>
       </View>
