@@ -63,3 +63,40 @@ export interface WeeklyDataType {
 export interface WeeklySummaryProps {
   petId: number;
 }
+
+// 블루투스 정보
+
+// src/types.ts
+
+export interface LoginInfo {
+  authToken: string;
+}
+
+export interface BluetoothRegistryRequest {
+  deviceName: string;
+  deviceId: string;
+  macAddress: string;
+}
+
+export interface BluetoothRegistryResponse {
+  success: boolean;
+  message?: string;
+  // 기타 필요한 필드
+}
+
+export interface OwnedBluetoothResponse {
+  success: boolean;
+  devices: OwnedBluetoothDevice[];
+}
+
+export interface OwnedBluetoothDevice {
+  id: string;
+  name: string;
+  macAddress: string;
+  status: 'connected' | 'connecting' | 'disconnected';
+}
+
+export interface DetectionInfo {
+  deviceId: string;
+  timestamp: string;
+}

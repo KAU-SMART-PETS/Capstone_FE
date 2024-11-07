@@ -10,10 +10,7 @@ const TestingPage: React.FC = () => {
 
   // 버튼 정보 배열
   const buttonGroups: { [key: string]: (keyof RootStackParamList)[] } = {
-    Cards: ["BoxExample", "ListCardExample", "ModalExample"],
-    Frames: ["BadgeExample", "BalloonBoxExample"],
-    Inputs: ["ButtonExample" , "RadioButtonExample", "TextInputExample"],
-    Sections: ["RecordExample", "BarChartExample", "BannerExample", "CalendarExample", "LoadingExample"],
+    Cards: ["BlueotoothScanner"],
   };
 
   return (
