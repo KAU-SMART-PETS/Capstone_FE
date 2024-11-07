@@ -40,7 +40,8 @@ const PetProfile: React.FC<{ route: RouteProp<RootStackParamList, 'PetProfile'> 
     imageUrl = '',
     age = '나이 없음',
   } = pet || {}; // pet이 undefined일 경우 빈 객체로 대체
-  
+
+  console.log(imageUrl)
   const navigation = useNavigation();
   const [showDetail, setShowDetail] = useState(false);
 
@@ -104,7 +105,7 @@ const PetProfile: React.FC<{ route: RouteProp<RootStackParamList, 'PetProfile'> 
           {/* 프로필 섹션 */}
           <View className="items-center mt-5 mb-5 w-full">
             <Avatar
-              source={imageUrl || AvatarPlaceholder}
+              source={imageUrl ? {uri: imageUrl} : AvatarPlaceholder}
               size={150}
             />
             <View className='pt-4'>
