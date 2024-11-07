@@ -8,8 +8,10 @@ import emptyCircleFrame from '@image/frame/addPetCircle.png';
 import { PetRegistRequest } from '@src/utils/constants/types';
 import { submitPetRegistration } from '@src/api/petApi';
 import CustomTextInput from '@src/components/common/CustomTextInput';
-import { RoundedCircleButton } from '@src/components/common/RoundedButton';
+import { RoundedCircleButton, RoundedTextButton } from '@src/components/common/RoundedButton';
 import StylizedText from '@src/components/common/StylizedText';
+import Avatar from '@src/components/common/Avatar';
+
 
 const PetRegister = () => {
   const navigation = useNavigation();
@@ -62,9 +64,14 @@ const PetRegister = () => {
       {/* Pet Image */}
       <View className="mb-6 mt-20">
         <RoundedCircleButton color="bg-white" shadow={false} size={100} onPress={handleImagePick}>
+{/* 
           <Image 
             source={petImage ? { uri: petImage.uri } : emptyCircleFrame}  
-            className="w-[150px] h-[150px]" 
+            className="w-[150px] h-[150px]"  */}
+
+          <Avatar 
+            source={petImage ? { uri: petImage.uri } : emptyCircleFrame}  
+            size={150}
           />
         </RoundedCircleButton>
         <View className="mt-10">
@@ -80,6 +87,7 @@ const PetRegister = () => {
 
       {/* Pet Type Row */}
       <View className="w-full flex-row justify-around items-center mb-5">
+
         <TouchableOpacity
           onPress={() => setPetType('강아지')}
           className="flex-row items-center"
@@ -110,6 +118,7 @@ const PetRegister = () => {
             {gender === '암' && <View className="w-3 h-3 rounded-full bg-white" />}
           </View>
           <Text className="text-lg text-black ml-2">암</Text>
+
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setGender('수')}
@@ -118,17 +127,23 @@ const PetRegister = () => {
           <View className={`w-6 h-6 rounded-full border-2 border-skyblue justify-center items-center ${gender === '수' ? 'bg-blue' : ''}`}>
             {gender === '수' && <View className="w-3 h-3 rounded-full bg-white" />}
           </View>
+
           <Text className="text-lg text-black ml-2">수</Text>
+
         </TouchableOpacity>
       </View>
 
       {/* Submit Button */}
-      <TouchableOpacity 
-        onPress={handleSubmit}
-        className="w-full bg-skyblue rounded-md py-4 mt-5 items-center"
-      >
-        <Text className="text-white font-bold">저장하기</Text>
-      </TouchableOpacity>
+      <View className='pt-5'>
+        <RoundedTextButton
+          content={'저장하기'}
+          textType='header2'
+          widthOption="full"
+          color="bg-primary"
+          onPress={handleSubmit}
+        />
+      </View>
+
     </View>
   </ScrollView>
 </SafeAreaView>
