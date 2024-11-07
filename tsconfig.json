@@ -21,6 +21,9 @@
       "@screens/*": ["screens/*"],
       "@example/*": ["screens/example/*"],
       "@image/*": ["assets/image/*"], 
+      "@store/*": ["store/*"], 
+      "@utils/*": ["utils/*"],
+      "@hook/*": ["utils/hook/*"],
       "@constants/*": ["utils/constants/*"],  
       "@types": ["utils/constants/types"], 
     }

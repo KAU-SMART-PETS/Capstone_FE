@@ -17,7 +17,10 @@ module.exports = function (api) {
             '@common': './src/components/common',
             '@screens': './src/screens',
             '@example': './src/screens/example',
+            '@store': './src/store',
+            '@utils': './src/utils',
             '@constants': './src/utils/constants',
+            '@hook': './src/utils/hook',
             '@types': './src/utils/constants/types',
             '@image': './src/assets/image',
             // 필요한 alias를 더 추가할 수 있음

@@ -8,23 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* reactCapsoneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* reactCapsoneTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-reactCapsone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-reactCapsone.a */; };
+		0AF6164166B44680B7132177 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27D08CDB6C3F4D93A22E6578 /* BootSplash.storyboard */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7699B88040F8A987B510C191 /* libPods-reactCapsone-reactCapsoneTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-reactCapsone-reactCapsoneTests.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		0AF6164166B44680B7132177 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27D08CDB6C3F4D93A22E6578 /* BootSplash.storyboard */; };
-		EB21ADB41424478AB0715D8C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 230EC077AC064EB5BFB07B97 /* Colors.xcassets */; };
-		E811584499EC4DBCB1B8B05C /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0D811C99F28E489CB0D15ED3 /* Pretendard-Black.otf */; };
-		2D1C93483FAB42BA806290BB /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0394E672059413F8BFFAC0A /* Pretendard-Bold.otf */; };
-		C0B1B169679A48F1A5D8D7FA /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79E910A85F354A5C8713161A /* Pretendard-ExtraBold.otf */; };
-		B0D3DB9B6C0C47A19C3D9B74 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1897BC44BBA8451888FCD350 /* Pretendard-ExtraLight.otf */; };
-		EA27BE50AEE943B4A24BB74D /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2131EA2E36D146E1A22922F4 /* Pretendard-Light.otf */; };
-		30E1DA60731F4379AE174288 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B50495B1958241BB996F2C0E /* Pretendard-Medium.otf */; };
-		F5DBEFD80FEE47D9B7CF9E0B /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 80B0BDF834194455812702C2 /* Pretendard-Regular.otf */; };
 		20C63E97AFDE46F18D679716 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 78402653744C487D8D657CF8 /* Pretendard-SemiBold.otf */; };
+		2D1C93483FAB42BA806290BB /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0394E672059413F8BFFAC0A /* Pretendard-Bold.otf */; };
+		30E1DA60731F4379AE174288 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B50495B1958241BB996F2C0E /* Pretendard-Medium.otf */; };
 		3F621668841C4354844A9D46 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 90287CCE86664666B4C69A9D /* Pretendard-Thin.otf */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A8CA3566FBB4ADCA019144A0 /* libPods-reactCapsone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DB2DE0ED2713AD1DF2FFCDA /* libPods-reactCapsone.a */; };
+		B0D3DB9B6C0C47A19C3D9B74 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1897BC44BBA8451888FCD350 /* Pretendard-ExtraLight.otf */; };
+		C0B1B169679A48F1A5D8D7FA /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79E910A85F354A5C8713161A /* Pretendard-ExtraBold.otf */; };
+		C0B52C50B3254BCD100DEBCC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0E173743545DAC6D3BECA184 /* PrivacyInfo.xcprivacy */; };
+		CA43521315D881861F18C8EE /* libPods-reactCapsoneTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D2E6D68AAED4EE7BC2130C3 /* libPods-reactCapsoneTests.a */; };
+		E811584499EC4DBCB1B8B05C /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0D811C99F28E489CB0D15ED3 /* Pretendard-Black.otf */; };
+		EA27BE50AEE943B4A24BB74D /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2131EA2E36D146E1A22922F4 /* Pretendard-Light.otf */; };
+		EB21ADB41424478AB0715D8C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 230EC077AC064EB5BFB07B97 /* Colors.xcassets */; };
+		F5DBEFD80FEE47D9B7CF9E0B /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 80B0BDF834194455812702C2 /* Pretendard-Regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,9 @@
 		00E356EE1AD99517003FC87E /* reactCapsoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = reactCapsoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* reactCapsoneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = reactCapsoneTests.m; sourceTree = "<group>"; };
+		0D2E6D68AAED4EE7BC2130C3 /* libPods-reactCapsoneTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-reactCapsoneTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D811C99F28E489CB0D15ED3 /* Pretendard-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Black.otf"; path = "../src/assets/fonts/Pretendard-Black.otf"; sourceTree = "<group>"; };
+		0E173743545DAC6D3BECA184 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = reactCapsone/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* reactCapsone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reactCapsone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = reactCapsone/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = reactCapsone/AppDelegate.mm; sourceTree = "<group>"; };
@@ -48,25 +52,25 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = reactCapsone/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = reactCapsone/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = reactCapsone/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-reactCapsone-reactCapsoneTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-reactCapsone-reactCapsoneTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1897BC44BBA8451888FCD350 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-ExtraLight.otf"; path = "../src/assets/fonts/Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
+		2131EA2E36D146E1A22922F4 /* Pretendard-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Light.otf"; path = "../src/assets/fonts/Pretendard-Light.otf"; sourceTree = "<group>"; };
+		230EC077AC064EB5BFB07B97 /* Colors.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = reactCapsone/Colors.xcassets; sourceTree = "<group>"; };
+		27D08CDB6C3F4D93A22E6578 /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = reactCapsone/BootSplash.storyboard; sourceTree = "<group>"; };
+		2DB2DE0ED2713AD1DF2FFCDA /* libPods-reactCapsone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-reactCapsone.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-reactCapsone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsone.debug.xcconfig"; path = "Target Support Files/Pods-reactCapsone/Pods-reactCapsone.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-reactCapsone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsone.release.xcconfig"; path = "Target Support Files/Pods-reactCapsone/Pods-reactCapsone.release.xcconfig"; sourceTree = "<group>"; };
+		58341F6E657ED06BCB764EA8 /* Pods-reactCapsoneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsoneTests.release.xcconfig"; path = "Target Support Files/Pods-reactCapsoneTests/Pods-reactCapsoneTests.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-reactCapsone-reactCapsoneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsone-reactCapsoneTests.debug.xcconfig"; path = "Target Support Files/Pods-reactCapsone-reactCapsoneTests/Pods-reactCapsone-reactCapsoneTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-reactCapsone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-reactCapsone.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		78402653744C487D8D657CF8 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-SemiBold.otf"; path = "../src/assets/fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		79E910A85F354A5C8713161A /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-ExtraBold.otf"; path = "../src/assets/fonts/Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
+		80B0BDF834194455812702C2 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Regular.otf"; path = "../src/assets/fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = reactCapsone/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-reactCapsone-reactCapsoneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsone-reactCapsoneTests.release.xcconfig"; path = "Target Support Files/Pods-reactCapsone-reactCapsoneTests/Pods-reactCapsone-reactCapsoneTests.release.xcconfig"; sourceTree = "<group>"; };
+		90287CCE86664666B4C69A9D /* Pretendard-Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Thin.otf"; path = "../src/assets/fonts/Pretendard-Thin.otf"; sourceTree = "<group>"; };
+		B50495B1958241BB996F2C0E /* Pretendard-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Medium.otf"; path = "../src/assets/fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		B7392F4949F3C1DD320C4B13 /* Pods-reactCapsoneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsoneTests.debug.xcconfig"; path = "Target Support Files/Pods-reactCapsoneTests/Pods-reactCapsoneTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D0394E672059413F8BFFAC0A /* Pretendard-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Bold.otf"; path = "../src/assets/fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		27D08CDB6C3F4D93A22E6578 /* BootSplash.storyboard */ = {isa = PBXFileReference; name = "BootSplash.storyboard"; path = "reactCapsone/BootSplash.storyboard"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		230EC077AC064EB5BFB07B97 /* Colors.xcassets */ = {isa = PBXFileReference; name = "Colors.xcassets"; path = "reactCapsone/Colors.xcassets"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = folder.assetcatalog; explicitFileType = undefined; includeInIndex = 0; };
-		0D811C99F28E489CB0D15ED3 /* Pretendard-Black.otf */ = {isa = PBXFileReference; name = "Pretendard-Black.otf"; path = "../src/assets/fonts/Pretendard-Black.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D0394E672059413F8BFFAC0A /* Pretendard-Bold.otf */ = {isa = PBXFileReference; name = "Pretendard-Bold.otf"; path = "../src/assets/fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		79E910A85F354A5C8713161A /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; name = "Pretendard-ExtraBold.otf"; path = "../src/assets/fonts/Pretendard-ExtraBold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		1897BC44BBA8451888FCD350 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; name = "Pretendard-ExtraLight.otf"; path = "../src/assets/fonts/Pretendard-ExtraLight.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		2131EA2E36D146E1A22922F4 /* Pretendard-Light.otf */ = {isa = PBXFileReference; name = "Pretendard-Light.otf"; path = "../src/assets/fonts/Pretendard-Light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B50495B1958241BB996F2C0E /* Pretendard-Medium.otf */ = {isa = PBXFileReference; name = "Pretendard-Medium.otf"; path = "../src/assets/fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		80B0BDF834194455812702C2 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; name = "Pretendard-Regular.otf"; path = "../src/assets/fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		78402653744C487D8D657CF8 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; name = "Pretendard-SemiBold.otf"; path = "../src/assets/fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		90287CCE86664666B4C69A9D /* Pretendard-Thin.otf */ = {isa = PBXFileReference; name = "Pretendard-Thin.otf"; path = "../src/assets/fonts/Pretendard-Thin.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-reactCapsone-reactCapsoneTests.a in Frameworks */,
+				CA43521315D881861F18C8EE /* libPods-reactCapsoneTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-reactCapsone.a in Frameworks */,
+				A8CA3566FBB4ADCA019144A0 /* libPods-reactCapsone.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +122,7 @@
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
 				27D08CDB6C3F4D93A22E6578 /* BootSplash.storyboard */,
 				230EC077AC064EB5BFB07B97 /* Colors.xcassets */,
+				0E173743545DAC6D3BECA184 /* PrivacyInfo.xcprivacy */,
 			);
 			name = reactCapsone;
 			sourceTree = "<group>";
@@ -126,10 +131,26 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-reactCapsone.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-reactCapsone-reactCapsoneTests.a */,
+				2DB2DE0ED2713AD1DF2FFCDA /* libPods-reactCapsone.a */,
+				0D2E6D68AAED4EE7BC2130C3 /* libPods-reactCapsoneTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7656D8E9D08A4DF98CDB740B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0D811C99F28E489CB0D15ED3 /* Pretendard-Black.otf */,
+				D0394E672059413F8BFFAC0A /* Pretendard-Bold.otf */,
+				79E910A85F354A5C8713161A /* Pretendard-ExtraBold.otf */,
+				1897BC44BBA8451888FCD350 /* Pretendard-ExtraLight.otf */,
+				2131EA2E36D146E1A22922F4 /* Pretendard-Light.otf */,
+				B50495B1958241BB996F2C0E /* Pretendard-Medium.otf */,
+				80B0BDF834194455812702C2 /* Pretendard-Regular.otf */,
+				78402653744C487D8D657CF8 /* Pretendard-SemiBold.otf */,
+				90287CCE86664666B4C69A9D /* Pretendard-Thin.otf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -171,26 +192,11 @@
 				5709B34CF0A7D63546082F79 /* Pods-reactCapsone.release.xcconfig */,
 				5B7EB9410499542E8C5724F5 /* Pods-reactCapsone-reactCapsoneTests.debug.xcconfig */,
 				89C6BE57DB24E9ADA2F236DE /* Pods-reactCapsone-reactCapsoneTests.release.xcconfig */,
+				B7392F4949F3C1DD320C4B13 /* Pods-reactCapsoneTests.debug.xcconfig */,
+				58341F6E657ED06BCB764EA8 /* Pods-reactCapsoneTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		7656D8E9D08A4DF98CDB740B /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				0D811C99F28E489CB0D15ED3 /* Pretendard-Black.otf */,
-				D0394E672059413F8BFFAC0A /* Pretendard-Bold.otf */,
-				79E910A85F354A5C8713161A /* Pretendard-ExtraBold.otf */,
-				1897BC44BBA8451888FCD350 /* Pretendard-ExtraLight.otf */,
-				2131EA2E36D146E1A22922F4 /* Pretendard-Light.otf */,
-				B50495B1958241BB996F2C0E /* Pretendard-Medium.otf */,
-				80B0BDF834194455812702C2 /* Pretendard-Regular.otf */,
-				78402653744C487D8D657CF8 /* Pretendard-SemiBold.otf */,
-				90287CCE86664666B4C69A9D /* Pretendard-Thin.otf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -203,8 +209,6 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -225,8 +229,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -298,6 +300,7 @@
 				F5DBEFD80FEE47D9B7CF9E0B /* Pretendard-Regular.otf in Resources */,
 				20C63E97AFDE46F18D679716 /* Pretendard-SemiBold.otf in Resources */,
 				3F621668841C4354844A9D46 /* Pretendard-Thin.otf in Resources */,
+				C0B52C50B3254BCD100DEBCC /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,23 +323,6 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-reactCapsone/Pods-reactCapsone-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-reactCapsone/Pods-reactCapsone-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-reactCapsone/Pods-reactCapsone-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -352,7 +338,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-reactCapsone-reactCapsoneTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-reactCapsoneTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -379,57 +365,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-reactCapsone-reactCapsoneTests/Pods-reactCapsone-reactCapsoneTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-reactCapsone-reactCapsoneTests/Pods-reactCapsone-reactCapsoneTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-reactCapsone-reactCapsoneTests/Pods-reactCapsone-reactCapsoneTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-reactCapsone/Pods-reactCapsone-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-reactCapsone/Pods-reactCapsone-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-reactCapsone/Pods-reactCapsone-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-reactCapsone-reactCapsoneTests/Pods-reactCapsone-reactCapsoneTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-reactCapsone-reactCapsoneTests/Pods-reactCapsone-reactCapsoneTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-reactCapsone-reactCapsoneTests/Pods-reactCapsone-reactCapsoneTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -465,7 +400,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-reactCapsone-reactCapsoneTests.debug.xcconfig */;
+			baseConfigurationReference = B7392F4949F3C1DD320C4B13 /* Pods-reactCapsoneTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -492,7 +427,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-reactCapsone-reactCapsoneTests.release.xcconfig */;
+			baseConfigurationReference = 58341F6E657ED06BCB764EA8 /* Pods-reactCapsoneTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -521,6 +456,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3V7392TQQH;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = reactCapsone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -548,6 +484,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3V7392TQQH;
 				INFOPLIST_FILE = reactCapsone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -570,6 +507,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -597,6 +535,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CXX = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -616,6 +555,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -635,7 +576,11 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
+				OTHER_LDFLAGS = "$(inherited)  ";
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -643,6 +588,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -670,6 +616,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				CXX = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -682,6 +629,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -700,7 +649,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
+				OTHER_LDFLAGS = "$(inherited)  ";
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
