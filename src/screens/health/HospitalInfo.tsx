@@ -53,7 +53,7 @@ const HospitalInfo = () => {
             />
             <StylizedText type="header2">{hospital.telephone}</StylizedText>
           </View>
-          <View className="flex-row items-center mb-2.5">
+          <View className="flex-row items-center mb-2.5 mr-5">
             <Image
               source={require('@image/icon/locationVector.png')}
               className="w-[30px] h-[30px] mr-2.5"
