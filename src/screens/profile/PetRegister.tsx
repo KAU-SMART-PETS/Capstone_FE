@@ -64,11 +64,6 @@ const PetRegister = () => {
       {/* Pet Image */}
       <View className="mb-6 mt-20">
         <RoundedCircleButton color="bg-white" shadow={false} size={100} onPress={handleImagePick}>
-{/* 
-          <Image 
-            source={petImage ? { uri: petImage.uri } : emptyCircleFrame}  
-            className="w-[150px] h-[150px]"  */}
-
           <Avatar 
             source={petImage ? { uri: petImage.uri } : emptyCircleFrame}  
             size={150}
