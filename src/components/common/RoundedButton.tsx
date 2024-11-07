@@ -17,7 +17,7 @@ type RoundedTextButtonProps = {
   content: string; // Content is a string for text button
   borderRadius?: string;
   shadow?: boolean;
-  widthOption?: 'full' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  widthOption?: 'full' |'xxs'| 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   extraStyleClass?: string;
   onPress: () => void; // Function to handle press
 };
