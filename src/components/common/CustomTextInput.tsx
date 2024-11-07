@@ -18,6 +18,7 @@ interface CustomTextInputProps {
   iconSize?: number;
   keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad' | 'decimal-pad' | 'number-pad' | 'url' | 'web-search' | 'visible-password';
   returnKeyType?: 'done' | 'go' | 'next' | 'search' | 'send' | 'none' | 'previous';
+  maxLength?: number;
 }
 
 const CustomTextInput: React.FC<CustomTextInputProps> = ({
@@ -33,6 +34,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
   iconSize = 20,
   keyboardType = 'default',
   returnKeyType = 'done',
+  maxLength,
 }) => {
   const IconColor = ColorMap['secondary'] + OpacityMap[60]; // Semi-transparent icon color
   const [isEditable, setIsEditable] = useState(
@@ -190,6 +192,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
             onSubmitEditing={handleSubmitEditing}
             keyboardType={keyboardType}
             returnKeyType={returnKeyType}
+            maxLength={maxLength}
           />
         </View>
         {errorMessage && (
