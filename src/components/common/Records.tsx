@@ -67,7 +67,7 @@ export const WalkingRecord: React.FC<WalkingRecordProps> = ({ walkDate, walkTime
         </View>
       </View>
               {/* Footer 텍스트 */}
-              <View className="mt-2 justify-center">
+              <View className="mt-1 justify-center mb-5">
           <StylizedText type="body2" styleClass="text-darkgrey">
             소모 칼로리와 걸음 수를 측정하기 위해서는 디바이스가 필요해요!
           </StylizedText>

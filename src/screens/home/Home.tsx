@@ -10,6 +10,7 @@ const Home: React.FC<RootStackParamList> = () => {
   const buttons = [
     { id : 'TestingPage', title:'Testing Page', screen: 'TestingPage'},
     { id: 'WalkStartPage', title: 'WalkStartPage', screen: 'WalkStartPage' },
+    { id: 'MapPage', title: 'MapPage', screen: 'MapPage' },
     { id: 'Login', title: 'Login', screen: 'Login' },
     { id: 'Camera', title: 'Camera', screen: 'CameraView' },
     { id: 'MyPage', title: 'My Page', screen: 'MyPage' },
