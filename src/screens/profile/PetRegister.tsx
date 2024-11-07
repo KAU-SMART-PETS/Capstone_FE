@@ -12,6 +12,7 @@ import { RoundedCircleButton, RoundedTextButton } from '@src/components/common/R
 import StylizedText from '@src/components/common/StylizedText';
 import Avatar from '@src/components/common/Avatar';
 
+
 const PetRegister = () => {
   const navigation = useNavigation();
 
@@ -53,8 +54,8 @@ const PetRegister = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="p-5">
-      <View className="flex items-center">
+  <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="p-5">
+    <View className="flex items-center">
       {/* Back Button */}
       <TouchableOpacity onPress={handleBackButton} className="absolute top-5 left-5">
         <Text className="text-2xl text-gray-500">{'<'}</Text>
@@ -63,6 +64,11 @@ const PetRegister = () => {
       {/* Pet Image */}
       <View className="mb-6 mt-20">
         <RoundedCircleButton color="bg-white" shadow={false} size={100} onPress={handleImagePick}>
+{/* 
+          <Image 
+            source={petImage ? { uri: petImage.uri } : emptyCircleFrame}  
+            className="w-[150px] h-[150px]"  */}
+
           <Avatar 
             source={petImage ? { uri: petImage.uri } : emptyCircleFrame}  
             size={150}
@@ -81,6 +87,7 @@ const PetRegister = () => {
 
       {/* Pet Type Row */}
       <View className="w-full flex-row justify-around items-center mb-5 pt-5">
+
         <TouchableOpacity
           onPress={() => setPetType('강아지')}
           className="flex-row items-center"
@@ -89,7 +96,7 @@ const PetRegister = () => {
             {petType === '강아지' && <View className="w-3 h-3 rounded-full bg-white" />}
           </View>
           <View className='pl-5'>
-            <StylizedText type='body1'>강아지</StylizedText>
+            <StylizedText type='header2'>강아지</StylizedText>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
@@ -100,13 +107,13 @@ const PetRegister = () => {
             {petType === '고양이' && <View className="w-3 h-3 rounded-full bg-white" />}
           </View>
           <View className='pl-5'>
-            <StylizedText type='body1'>고양이</StylizedText>
+            <StylizedText type='header2'>고양이</StylizedText>
           </View>
         </TouchableOpacity>
       </View>
 
       {/* Gender Row */}
-      <View className="w-full flex-row justify-around items-center mb-5">
+      <View className="w-full flex-row justify-around items-center mb-5 ">
         <TouchableOpacity
           onPress={() => setGender('암')}
           className="flex-row items-center -ml-6"
@@ -115,8 +122,9 @@ const PetRegister = () => {
             {gender === '암' && <View className="w-3 h-3 rounded-full bg-white" />}
           </View>
           <View className='pl-5'>
-            <StylizedText type='body1'>암</StylizedText>
+            <StylizedText type='header2'>암</StylizedText>
           </View>
+
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setGender('수')}
@@ -126,8 +134,9 @@ const PetRegister = () => {
             {gender === '수' && <View className="w-3 h-3 rounded-full bg-white" />}
           </View>
           <View className='pl-5'>
-            <StylizedText type='body1'>수</StylizedText>
+            <StylizedText type='header2'>수</StylizedText>
           </View>
+
         </TouchableOpacity>
       </View>
 
@@ -141,6 +150,7 @@ const PetRegister = () => {
           onPress={handleSubmit}
         />
       </View>
+
     </View>
   </ScrollView>
 </SafeAreaView>
