@@ -24,7 +24,10 @@ import HospitalInfo from '@src/screens/health/HospitalInfo';
 import PetUpdate from '@src/screens/profile/PetUpdate';
 // Walk
 import WeeklySummary from '@screens/walk/WeeklySummary';
-import TodayWalk from '@screens/walk/TodayWalk';
+import WalkStartPage from '@screens/walk/WalkStartPage'
+import MapPage from '@screens/walk/MapPage'
+import WalkRecord from '@screens/walk/WalkRecord'
+import WalkWeeklyRecord from '@src/screens/walk/WalkWeeklyRecord';
 
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
@@ -124,19 +127,6 @@ export const routesConfig: {
   BannerExample :  { component: BannerExample, params: undefined },
   RecordExample :  { component: RecordExample, params: undefined },
   LoadingExample :  { component: LoadingExample, params: undefined },
-  PetUpdate: { component: PetUpdate, params: { petId: '' } },
-  HospitalInfo: {component: HospitalInfo, params: undefined},
-
-  // reward pages
-  ChallengeList :  { component: ChallengeList, params: undefined },
-  CongratulatePopUp: { component: CongratulatePopUp, params: { point: 0 } as CongratulatePopUpParams },
-  OrderReceived: { component: OrderReceived, params: { product: '' } },
-  ViewFeedList :  { component: ViewFeedList, params: undefined },
-  PaymentInformation :  { component: PaymentInformation, params: undefined },
-  PaymentSampleInformation :  { component: PaymentSampleInformation, params: undefined },
-
-  MapPage :  { component: MapPage, params: undefined },
-  Home :  { component: Home, params: undefined },
 };
 
 export const typedObjectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => {
