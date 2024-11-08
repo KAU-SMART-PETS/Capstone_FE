@@ -1,3 +1,4 @@
+//자꾸 오류나서 일단 walkweeklyrecord 써둠
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { fetchWeeklyData } from '@api/weeklyDataApi'; // 주간 데이터 가져오기
