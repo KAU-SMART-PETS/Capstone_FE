@@ -33,7 +33,7 @@ const CongratulatePopUp: React.FC = () => {
 
   // PaymentInformation 페이지로 이동
   const handleNavigateToPayment = () => {
-    navigation.navigate('PaymentInformation');
+    navigation.navigate('PaymentSampleInformation');
   };
 
   // 화면의 아무 부분을 눌렀을 때 닫기
