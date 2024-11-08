@@ -104,10 +104,21 @@ export const routesConfig: {
   HospitalInfo: {component: HospitalInfo, params: undefined},
   PetUpdate: { component: PetUpdate, params: { petId: '' } },
   SelectPetToScan: { component: SelectPetToScan, params: undefined },
-    ReadyToScan: { component: ReadyToScan, params: undefined },
-    TakePicture: { component: TakePicture, params: undefined },
-    ResultEyeScan: { component: ResultEyeScan, params: undefined },
-  
+  ReadyToScan: { component: ReadyToScan, params: undefined },
+  TakePicture: { component: TakePicture, params: undefined },
+  ResultEyeScan: { component: ResultEyeScan, params: undefined },
+  PetUpdate: { component: PetUpdate, params: { petId: '' } },
+  HospitalInfo: {component: HospitalInfo, params: undefined},
+  // reward pages
+  ChallengeList :  { component: ChallengeList, params: undefined },
+  CongratulatePopUp: { component: CongratulatePopUp, params: { point: 0 } as CongratulatePopUpParams },
+  OrderReceived: { component: OrderReceived, params: { product: '' } },
+  ViewFeedList :  { component: ViewFeedList, params: undefined },
+  PaymentInformation :  { component: PaymentInformation, params: undefined },
+  PaymentSampleInformation :  { component: PaymentSampleInformation, params: undefined },
+
+  Home :  { component: Home, params: undefined },
+
   //TESTING PAGES
   TestingPage: { component: TestingPage, params: undefined },
   // cards 
