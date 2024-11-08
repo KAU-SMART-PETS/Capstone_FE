@@ -29,6 +29,15 @@ import TodayWalk from '@screens/walk/TodayWalk';
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
 
+// Reward & Point & Food(Feed)
+import ChallengeList from '@screens/reward/ChallengeList';
+import CongratulatePopUp from '@screens/reward/CongratulatePopUp';
+import OrderReceived from '@screens/reward/OrderReceived';
+import { OrderReceivedParams } from '@screens/reward/OrderReceived';
+import ViewFeedList from '@screens/reward/ViewFeedList';
+import PaymentInformation from '@screens/reward/PaymentInformation';
+import PaymentSampleInformation from '@screens/reward/PaymentSampleInformation';
+
 
 //example routes
 import TestingPage from '@src/screens/examples/TestingPage';
@@ -52,17 +61,6 @@ import RecordExample from '@src/screens/examples/example/sections/RecordExample'
 import CalendarExample from '@src/screens/examples/example/sections/CalendarExample';
 import LoadingExample from '@src/screens/examples/example/sections/LoadingExample';
 
-
-
-
-
-// Reward & Point & Food(Feed)
-import ChallengeList from '@screens/reward/ChallengeList';
-import CongratulatePopUp from '@screens/reward/CongratulatePopUp';
-import OrderReceived from '@screens/reward/OrderReceived';
-import ViewFeedList from '@screens/reward/ViewFeedList';
-import PaymentInformation from '@screens/reward/PaymentInformation';
-
 //walk
 import MapPage from '@screens/walk/MapPage';
 
@@ -76,6 +74,7 @@ export const routesConfig: {
 } & {
   RegisterHealthInfo: RouteEntry<{ id: number }>;
   PetProfile: RouteEntry<{pet?: PetDetails}>;
+  OrderReceived: RouteEntry<OrderReceivedParams>;
 } = {
   MainTab: { component: MainTab, params: undefined },
   Login: { component: Login, params: undefined },
@@ -116,11 +115,15 @@ export const routesConfig: {
   LoadingExample :  { component: LoadingExample, params: undefined },
   PetUpdate: { component: PetUpdate, params: { petId: '' } },
   HospitalInfo: {component: HospitalInfo, params: undefined},
+
+  // reward pages
   ChallengeList :  { component: ChallengeList, params: undefined },
   CongratulatePopUp: { component: CongratulatePopUp, params: { point: 0 } as CongratulatePopUpParams },
-  OrderReceived :  { component: OrderReceived, params: undefined },
+  OrderReceived: { component: OrderReceived, params: { product: '' } },
   ViewFeedList :  { component: ViewFeedList, params: undefined },
   PaymentInformation :  { component: PaymentInformation, params: undefined },
+  PaymentSampleInformation :  { component: PaymentSampleInformation, params: undefined },
+
   MapPage :  { component: MapPage, params: undefined },
   Home :  { component: Home, params: undefined },
 };

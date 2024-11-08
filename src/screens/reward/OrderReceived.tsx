@@ -3,12 +3,17 @@ import { View, TouchableWithoutFeedback, BackHandler } from 'react-native';
 import Animated, { FadeInUp, FadeOut } from 'react-native-reanimated';
 import Avatar from '@components/common/Avatar';
 import StylizedText from '@components/common/StylizedText';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useNavigation, useFocusEffect, useRoute } from '@react-navigation/native';
+
+type OrderReceivedParams = {
+  product: string; // "사료" 또는 "사료 샘플"
+};
 
 const OrderReceived: React.FC = () => {
   const navigation = useNavigation();
-  //TODO : 텍스트 변경
-  // Home 페이지로 이동하면서 네비게이션 스택을 초기화하는 함수
+  const route = useRoute();
+  const { product = '사료' } = route.params as OrderReceivedParams; // 전달받은 제품 정보
+
   const handleClose = () => {
     navigation.reset({
       index: 0,
@@ -16,12 +21,11 @@ const OrderReceived: React.FC = () => {
     });
   };
 
-  // 뒤로가기 버튼 커스텀 동작 설정
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
         handleClose();
-        return true; // 기본 뒤로가기 동작 막기
+        return true;
       };
 
       BackHandler.addEventListener('hardwareBackPress', onBackPress);
@@ -33,9 +37,8 @@ const OrderReceived: React.FC = () => {
   return (
     <TouchableWithoutFeedback onPress={handleClose}>
       <View className="flex-1 justify-center items-center bg-white">
-        {/* 트럭 아이콘과 텍스트 애니메이션 뷰 */}
         <Animated.View
-          entering={FadeInUp.duration(500).delay(300)} // 시작을 300ms 지연
+          entering={FadeInUp.duration(500).delay(300)}
           exiting={FadeOut.duration(300)}
           className="items-center"
         >
@@ -44,7 +47,7 @@ const OrderReceived: React.FC = () => {
             size={40}
           />
           <StylizedText type="header2" styleClass="text-center text-black mt-4">
-            사료가 접수됐어요.{"\n"}곧 만나요!
+            {product}(이)가 접수됐어요.{"\n"}곧 만나요!
           </StylizedText>
         </Animated.View>
       </View>
