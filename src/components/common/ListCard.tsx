@@ -27,7 +27,7 @@ const AvatarSection: React.FC<AvatarProps> = ({
     <View className={`justify-center items-center ${label ? 'mt-1' : ''}`}>
       <View 
         className={`
-          rounded-full overflow-hidden flex items-center justify-center
+          rounded-full overflow-hidden flex items-center justify-center mx-3
           ${isImage(source) ? '' : `${bgColor} border-${borderSize} ${borderColor}`}
         `}
         style={{ width: size, height: size }}
@@ -59,13 +59,13 @@ const ContentSection: React.FC<ContentProps> = ({
   badge, 
 }) => {
   return (
-    <View className="flex-1 pl-4">
+    <View className="flex-1 min-w-0">
       <View className="flex-row items-center justify-between">
-        {title && <View className="flex-1">{title}</View>}
-        {badge && <View>{badge}</View>}
+        {title && <View className="flex-1 min-w-0">{title}</View>} 
+        {badge && <View className='ml-3'>{badge}</View>}
       </View>
       <View className="flex-row items-center mt-1">
-        {content && <View className="flex-1">{content}</View>}
+      {content && <View className="flex-1 min-w-0">{content}</View>} 
       </View>
     </View>
   );
@@ -97,9 +97,9 @@ const ListCard: React.FC<CardProps> = ({
   onPress
 }) => {
   return (
-    <View className="mx-2">
+    <View style={{ flexGrow: 1, flexShrink: 1, minWidth: 0 }}>
       <RoundedBox preset={preset} onPress={onPress}>
-        <View className={`${reverse ? 'flex-row-reverse' : 'flex-row'} min-w-80`}>
+      <View className={`${reverse ? 'flex-row-reverse' : 'flex-row'} space-x-4 justify-between`}>
           {layout !== 'contentOnly' && (
             <AvatarSection 
               source={avatar} 

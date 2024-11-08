@@ -66,6 +66,7 @@ export const DiseaseCard: React.FC<DiseaseCardProps> = ({
   const preset = 'greycard';
 
   return (
+    <View className='flex-wrap mx-auto'>
     <RoundedBox preset={preset} shadow={false}>
       {badge && <TagBadge text={badgeText} color={badgeColor} />}
       <View className={`${body && 'px-2'}`}>
@@ -91,6 +92,7 @@ export const DiseaseCard: React.FC<DiseaseCardProps> = ({
         </View>
       </View>
     </RoundedBox>
+    </View>
   );
 };
 
@@ -108,6 +110,7 @@ export const VaccinationCard: React.FC<VaccinationCardProps> = ({
   const preset: DesignPreset = "greycard";
 
   return (
+    <View className='flex-wrap mx-auto'>
     <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
       <RoundedBox preset={preset} shadow={false}>
         <View className="min-w-full px-3">
@@ -124,6 +127,7 @@ export const VaccinationCard: React.FC<VaccinationCardProps> = ({
         </View>
       </RoundedBox>
     </TouchableOpacity>
+    </View>
   );
 };
 
@@ -133,6 +137,7 @@ export const OrderInfoCard: React.FC<VaccinationCardProps> = ({
 }) => {
   const preset:DesignPreset = "dashedcard";
   return (
+    <View className='flex-wrap mx-auto'>
       <RoundedBox preset={preset} shadow={false} outline='dashed'>
           <View className='min-w-full px-3 flex justify-center items-center'>
           {/* Body (Second Row) */}
@@ -141,5 +146,6 @@ export const OrderInfoCard: React.FC<VaccinationCardProps> = ({
           </View>
           </View>
       </RoundedBox>
+      </View>
   );
 };
