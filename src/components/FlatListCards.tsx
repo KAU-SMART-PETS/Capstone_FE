@@ -1,11 +1,16 @@
 import React from 'react';
-import { View , ImageSourcePropType } from 'react-native';
+import { View , ImageSourcePropType, Image } from 'react-native';
 import { PillBadge, RatingBadge } from '@common/Badge';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import StylizedText from '@components/common/StylizedText';
 import ListCard from '@components/common/ListCard';
 import bagImg from '@image/icon/bag.png';
 import dog1 from '@image/placeholder/dog.jpg';
+import ModalLayout from './ModalLayout';
+import { TouchableOpacity } from 'react-native';
+import { useState } from 'react';
+import { RoundedTextButton, RoundedSquareButton } from './common/RoundedButton';
+
 
 // 리워드 관련
 interface RewardCardProps {
@@ -92,6 +97,8 @@ export const VeterinaryCard: React.FC<VeterinaryCardProps> = ({ title, contact, 
   />
 );
 
+
+
 // 제목행의 앞에 아이템 하나 집어넣음 (아랫줄의 본문란은 전혀 옆으로 밀리지 X)
 // 비문등록 항목버튼
 interface RegistrationCardProps {
@@ -158,3 +165,116 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ reviewer, rating, commen
     />
   );
 };
+
+// MyPage PetCard
+interface Device {
+  id: string;
+  name: string;
+}
+interface PetCardProps {
+  name: string;
+  details: string;
+  avatarPath?: string;
+  devices: Device[];
+  selectedDeviceId: string;
+  onSelectDevice: (deviceId: string) => void;
+  onPress?: ()=> void;
+}
+
+export const PetCard: React.FC<PetCardProps> = ({
+  name,
+  details,
+  avatarPath,
+  devices,
+  selectedDeviceId,
+  onSelectDevice,
+  onPress,
+}) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+
+  const handleButtonPress = (action: () => void, setVisible: (visible: boolean) => void) => {
+    return () => {
+      action();
+      setVisible(false);
+    };
+  };
+  const selectedDevice = devices.find(device => device.id === selectedDeviceId);
+  const imageSrc = avatarPath
+    ? { uri: avatarPath }
+    : dog1;
+    const CancelButton = (
+      <RoundedTextButton
+        content="취소"
+        color="bg-secondary"
+        widthOption="lg"
+        onPress={handleButtonPress(() => console.log('취소'), setIsModalVisible)}
+      />
+    );
+  
+    const modalRows = [
+      {
+        content: devices.map(device => (
+          <RoundedTextButton
+            key={device.id}
+            content={device.name}
+            widthOption="lg"
+            onPress={() => {
+              onSelectDevice(device.id);
+              setIsModalVisible(false);
+            }}
+          />
+        )),
+        layout: 'column',
+      },
+      {
+        content: [CancelButton],
+        layout: 'column',
+      },
+    ];
+  return (
+    <ListCard
+    avatar={ imageSrc
+    }
+      title={
+        <View className="flex-row items-start">
+          <View className="flex-col mr-3">
+            <StylizedText type="header6" styleClass="text-black mb-1">
+              {name}
+            </StylizedText>
+            <StylizedText type="label" styleClass="text-black">
+              {details}
+            </StylizedText>
+          </View>
+          <RoundedSquareButton
+            size="xxs"
+            rounded="lg"
+            outline="dotted"
+            backgroundColor="bg-white"
+            onPress={() => setIsModalVisible(true)}
+            className="ml-2"
+          >
+            <MCIcon name={selectedDevice ? selectedDevice.name : 'devices'} color="black" size={20} />
+            <StylizedText type="label" styleClass="text-black">
+              {selectedDevice ? selectedDevice.name : '기기 선택'}
+            </StylizedText>
+          </RoundedSquareButton>
+        </View>
+      }
+      onPress={onPress}
+      content={
+        <View>
+          <ModalLayout
+            visible={isModalVisible}
+            setVisible={setIsModalVisible}
+            title="디바이스 선택"
+            titleAlign="center"
+            rows={modalRows}
+            position="center"
+            transparent={false}
+          />
+        </View>
+      }
+    />
+  ); 
+}
