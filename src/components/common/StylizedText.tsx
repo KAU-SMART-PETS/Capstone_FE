@@ -2,6 +2,8 @@ import React from 'react';
 import { Text } from 'react-native';
 // import { TextProps, HeaderTextProps } from '@types';
 
+// NOTE : HeaderText 에 type 속성 추가
+
 type TextProps = {
   type?: string;
   children?: React.ReactNode;
@@ -11,6 +13,7 @@ type TextProps = {
 interface HeaderTextProps {
   text: string;
   highlight?: string;
+  type?: string;
 }
 
 const StylizedText: React.FC<TextProps> = ({ type = 'body1', children, styleClass }) => {
@@ -23,13 +26,14 @@ const StylizedText: React.FC<TextProps> = ({ type = 'body1', children, styleClas
 export const HeaderText: React.FC<HeaderTextProps> = ({
   text,
   highlight = '',
+  type='header1'
 }) => {
   // 강조할 부분을 찾아서 분리
   const parts = text.split(highlight);
   return (
-    <Text className="my-2 mb-4 ml-2 text-xl" style={getStyles('header1')}>
+    <Text className="my-2 mb-4 ml-2 text-xl" style={getStyles(type)}>
       {parts.map((part, index) => (
-        <Text key={index} className="text-black" style={getStyles('header1')}>
+        <Text key={index} className="text-black" style={getStyles(type)}>
           {part}
           {index < parts.length - 1 && (
             <Text className="text-primary">{highlight}</Text> // primary 컬러

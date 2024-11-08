@@ -5,6 +5,10 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { fetchUserProfile, updateUserProfile } from '@src/api/userApi';
 import { UserData } from '@src/utils/constants/types';
+import CustomTextInput from '@src/components/common/CustomTextInput';
+import StylizedText from '@src/components/common/StylizedText';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { RoundedTextButton } from '@src/components/common/RoundedButton';
 
 type EditableField = keyof UserData | 'consent' | null;
 const EditProfile: React.FC = () => {
@@ -57,30 +61,16 @@ const EditProfile: React.FC = () => {
     key: keyof UserData,
     keyboardType: 'default' | 'email-address' | 'phone-pad' = 'default',
   ) => (
-    <View style={styles.inputContainer}>
-      <Text style={styles.label}>{label}</Text>
-      <View style={styles.inputWrapper}>
-        <TextInput
-          style={[
-            styles.input,
-            editingField === key && styles.editingInput,
-            (key === 'email' || key === 'phoneNumber') && styles.inputWithButton,
-          ]}
-          value={userInfo ? String(userInfo[key] ?? '') : ''}
-          onChangeText={(text) => handleChange(key, text)}
-          keyboardType={keyboardType}
-          editable={editingField === key}
-        />
-        {(key === 'email' || key === 'phoneNumber') && editingField !== key && (
-          <TouchableOpacity
-            style={styles.changeButton}
-            onPress={() => handleFieldEdit(key)}
-          >
-            <Text style={styles.changeButtonText}>변경</Text>
-          </TouchableOpacity>
-        )}
-      </View>
-    </View>
+      <CustomTextInput
+        label={key}
+        placeholder={key}
+        value={userInfo ? String(userInfo[key] ?? '') : ''}
+        onChangeText={(text) => handleChange(key, text)}
+        keyboardType={keyboardType}
+        isEditableInitially={editingField === key}
+        type={(key === 'email' || key === 'phoneNumber') ? 'editableWithButton' : 'readOnly'}
+      />
+
   );
 
   const handleConsentChange = (key: 'smsOptIn' | 'emailOptIn', value: boolean) => {
@@ -97,203 +87,85 @@ const EditProfile: React.FC = () => {
   };
 
   const renderConsentButtons = (type: 'smsOptIn' | 'emailOptIn') => (
-    <View style={styles.consentButtonContainer}>
-      <TouchableOpacity
-        style={[
-          styles.consentButton,
-          userInfo && userInfo[type] && styles.activeConsentButton,
-        ]}
-        onPress={() => handleConsentChange(type, true)}
-      >
-        <Text style={[
-          styles.consentButtonText,
-          userInfo && userInfo[type] && styles.activeConsentButtonText,
-        ]}
-        >
-          동의
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[
-          styles.consentButton,
-          userInfo && !userInfo[type] && styles.activeConsentButton,
-        ]}
-        onPress={() => handleConsentChange(type, false)}
-      >
-        <Text style={[
-          styles.consentButtonText,
-          userInfo && !userInfo[type] && styles.activeConsentButtonText,
-        ]}
-        >
-          비동의
-        </Text>
-      </TouchableOpacity>
+    <View className="flex-row justify-between w-[150px]">
+      <View className='mr-1'>
+        <RoundedTextButton
+          color={`${userInfo && userInfo[type] ?  'bg-blue': 'bg-skyblue'}`}
+          textColor='text-white'
+          textType='body2'
+          content="동의"
+          borderRadius='rounded-3xl'
+          shadow={false}
+          widthOption='xs'
+          onPress={() => handleConsentChange(type,true)}
+        />
+      </View>
+
+      <RoundedTextButton
+        color={`${userInfo && !userInfo[type] ?  'bg-blue': 'bg-skyblue'}`}
+        textColor='text-white'
+        textType='body2'
+        content="비동의"
+        borderRadius='rounded-3xl'
+        shadow={false}
+        widthOption='xs'
+        onPress={() => handleConsentChange(type,false)}
+      />
     </View>
   );
-
   if (!userInfo) {
     return (
-      <View style={styles.loadingContainer}>
+      <View className="flex-1 justify-center items-center">
         <Text>로딩 중...</Text>
       </View>
+
     );
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <TouchableOpacity onPress={handleBackButton} style={styles.backButton}>
-        <Text style={styles.backButtonText}>{'<'}</Text>
-      </TouchableOpacity>
-      <Text style={styles.title}>회원 기본 정보</Text>
+    <SafeAreaView className="flex-1 fixed bg-white">
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="p-5">
+    <TouchableOpacity onPress={handleBackButton} className="pb-5">
+      <Text className="text-2xl text-black">{'<'}</Text>
+    </TouchableOpacity>
 
-      {renderInput('이름', 'name')}
-      {renderInput('이메일', 'email', 'email-address')}
 
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>소셜 사이트</Text>
-        <TextInput
-          style={[styles.input, { backgroundColor: '#f0f0f0' }]}
-          value={userInfo.socialSite}
-          editable={false}
-        />
+      <StylizedText type='header1'> 회원 기본 정보</StylizedText>
+
+      <View className="w-full bg-white flex items-center py-10">
+        {renderInput('이름', 'name')}
+        {renderInput('이메일', 'email', 'email-address')}
+        {renderInput('소셜 사이트', 'socialSite')}
+        {renderInput('휴대폰 번호', 'phoneNumber', 'phone-pad')}
+        {renderInput('포인트', 'point')}
       </View>
 
-      {renderInput('휴대폰 번호', 'phoneNumber', 'phone-pad')}
-      {renderInput('포인트', 'point')}
-
-      <Text style={styles.consentTitle}>광고성 정보 수신</Text>
-
-      <View style={styles.consentContainer}>
-        <Text style={{ color: 'black' }}>SMS 수신</Text>
+      <StylizedText type='header2'>광고성 정보 수신</StylizedText>
+      
+      <View className="flex-row justify-between items-center mb-2.5">
+        <StylizedText type="body1">SMS 수신</StylizedText>
         {renderConsentButtons('smsOptIn')}
       </View>
 
-      <View style={styles.consentContainer}>
-        <Text style={{ color: 'black' }}>이메일 수신</Text>
+      <View className="flex-row justify-between items-center mb-2.5">
+        <StylizedText type="body1">이메일 수신</StylizedText>
         {renderConsentButtons('emailOptIn')}
       </View>
 
-      {(editingField || editingField === 'consent') && (
-        <TouchableOpacity style={styles.button} onPress={handleSave}>
-          <Text style={styles.buttonText}>저장하기</Text>
-        </TouchableOpacity>
-      )}
+      <View className='pt-10'>
+        {(editingField || editingField === 'consent') && (
+
+          <RoundedTextButton 
+            color='bg-blue' 
+            content="저장하기" 
+            widthOption="full" 
+            onPress={handleSave} />
+        )}
+      </View>
+
     </ScrollView>
+    </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    color: 'black',
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  inputContainer: {
-    marginBottom: 15,
-  },
-  label: {
-    fontSize: 14,
-    marginBottom: 5,
-    color: '#333',
-  },
-  inputWrapper: {
-    position: 'relative',
-  },
-  input: {
-    color: 'black',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: '#f9f9f9',
-  },
-  inputWithButton: {
-    paddingRight: 50,
-  },
-  editingInput: {
-    backgroundColor: '#fff',
-    borderColor: '#007AFF',
-  },
-  changeButton: {
-    position: 'absolute',
-    right: 5,
-    top: '50%',
-    transform: [{ translateY: -12 }],
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    backgroundColor: '#87CEEB',
-    borderRadius: 15,
-  },
-  changeButtonText: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
-  consentTitle: {
-    color: 'black',
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  consentContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  consentButtonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 150,
-  },
-  consentButton: {
-    borderWidth: 1,
-    borderColor: '#87CEEB',
-    paddingVertical: 5,
-    paddingHorizontal: 15,
-    borderRadius: 15,
-  },
-  activeConsentButton: {
-    backgroundColor: '#87CEEB',
-  },
-  consentButtonText: {
-    color: '#87CEEB',
-  },
-  activeConsentButtonText: {
-    color: '#fff',
-  },
-  button: {
-    backgroundColor: '#87CEEB',
-    padding: 15,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  backButton: {
-    padding: 0,
-    paddingBottom: 20,
-  },
-  backButtonText: {
-    fontSize: 24,
-    color: '#000',
-  },
-});
 
 export default EditProfile;

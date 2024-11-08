@@ -2,9 +2,12 @@ import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import StylizedText from '@common/StylizedText';
 import { ShadowStyle } from '@common/ShadowBox';
+import Avatar from '@common/Avatar';
 import SquareBox, {SquareCardSize, OutlinePreset, SquareBoxProps} from '@common/SquareBox';
 
 export type ButtonColor = 'bg-transparent' | 'bg-secondary' | 'bg-primary' | 'bg-white' | 'bg-black' | `bg-skyblue`; // Define preset options
+
+// NOTE : RoundedSquareButtonWithAvatar 추가 -> 버튼 + avatar + text (mypage 의 반려동물 추가 버튼)
 
 type RoundedTextButtonProps = {
   icon?: React.ReactNode,
@@ -14,7 +17,7 @@ type RoundedTextButtonProps = {
   content: string; // Content is a string for text button
   borderRadius?: string;
   shadow?: boolean;
-  widthOption?: 'full' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  widthOption?: 'full' |'xxs'| 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   extraStyleClass?: string;
   onPress: () => void; // Function to handle press
 };
@@ -41,6 +44,7 @@ export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
   }) => {
     const widthMap = {
       full: 'w-96',
+      xxs: 'w-10',
       xs: 'w-20',
       sm: 'w-24',  // Example: small width
       md: 'w-32',  // Example: medium width
@@ -97,6 +101,38 @@ export const RoundedSquareButton: React.FC<SquareBoxProps> = ({
       backgroundColor={backgroundColor}
       >
       {children}
+    </SquareBox>
+  );
+};
+
+export const RoundedSquareButtonWithAvatar: React.FC<SquareBoxProps & { avatarSource?: any; avatarSize?: number }> = ({
+  children,
+  size = 'md',
+  shadow = false,
+  onPress,
+  outline = 'solid',
+  rounded = 'xl',
+  backgroundColor = 'bg-lightgrey',
+  avatarSource,
+  avatarSize = 80,
+}) => {
+  return (
+    <SquareBox
+      size={size}
+      shadow={shadow}
+      outline={outline}
+      onPress={onPress}
+      rounded={rounded}
+      backgroundColor={backgroundColor}
+    >
+      <View className="flex items-center pt-2 pb-2">
+        {avatarSource && <Avatar source={avatarSource} size={avatarSize} />}
+        {children && (
+          <StylizedText type="label" styleClass="mt-2 text-center">
+            {children}
+          </StylizedText>
+        )}
+      </View>
     </SquareBox>
   );
 };
