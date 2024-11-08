@@ -71,8 +71,8 @@ import RecordExample from '@src/screens/examples/example/sections/RecordExample'
 import CalendarExample from '@src/screens/examples/example/sections/CalendarExample';
 import LoadingExample from '@src/screens/examples/example/sections/LoadingExample';
 
-//walk
-import MapPage from '@screens/walk/MapPage';
+
+
 
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
@@ -127,6 +127,13 @@ export const routesConfig: {
   BannerExample :  { component: BannerExample, params: undefined },
   RecordExample :  { component: RecordExample, params: undefined },
   LoadingExample :  { component: LoadingExample, params: undefined },
+  
+   //산책 기능 관련 테스트 페이지
+   WalkStartPage: {component:WalkStartPage, params:undefined},
+   MapPage: {component:MapPage, params:undefined},
+   WalkRecord: {component:WalkRecord, params:undefined},
+   WalkWeeklyRecord: {component:WalkWeeklyRecord, params:undefined},
+   WeeklySummary: {component:WeeklySummary, params: { petId: 1 } },
 };
 
 export const typedObjectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => {
