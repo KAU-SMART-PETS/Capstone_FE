@@ -4,8 +4,8 @@ import { SafeAreaView, TouchableOpacity, Text, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { fetchHospitalInfo } from '@src/api/hospitalApi';
 import KakaoMap from './kakaoMap';
-import StylizedText from '@src/components/common/StylizedText';
-import { HospitalRecord } from '@src/components/Records';
+import StylizedText from '@common/StylizedText';
+import { HospitalRecord } from '@components/Records';
 
 const HospitalInfo = () => {
   const navigation = useNavigation();

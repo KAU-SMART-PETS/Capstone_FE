@@ -41,7 +41,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.7} className="flex-row items-center mb-2">
       <View
-        className={`w-3.5 h-3.5 mr-2 border border-2 ${
+        className={`w-3.5 h-3.5 mr-2 border-2 ${
           isSelected ? 'border-primary bg-transparent' : 'border-secondary'
         } rounded-full`}
       />

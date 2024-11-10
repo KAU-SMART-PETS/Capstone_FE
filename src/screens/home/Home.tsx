@@ -8,8 +8,6 @@ type HomeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
 const Home: React.FC<RootStackParamList> = () => {
   const navigation = useNavigation<HomeScreenProp>();
   const buttons = [
-    { id : 'TestingPage', title:'ComponentPreview', screen: 'TestingPage'},
-
     { id: 'Login', title: 'Login', screen: 'Login' },
     { id: 'MyPage', title: 'My Page', screen: 'MyPage' },
     //{ id: 'PetInfo', title: 'Pet Information', screen: 'PetProfile' },

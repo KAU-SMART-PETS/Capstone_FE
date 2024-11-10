@@ -166,8 +166,9 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
       >
         <View className="flex-1">
           {label && (
-            <View className="pl-1 absolute top-[9px]">
-              <StylizedText type="label2" styleClass="text-secondary">
+            <View className="pl-1 mt-1.5 absolute"> 
+            {/* NOTE : 앱배포 전달하여 받은 피드백에 따라 여백 조정했으나 실제 디바이스에서 알맞은 지 체크하는 게 필요함 */}
+              <StylizedText type="label" styleClass="text-secondary">
                 {label}
               </StylizedText>
             </View>
@@ -192,7 +193,6 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
             onSubmitEditing={handleSubmitEditing}
             keyboardType={keyboardType}
             returnKeyType={returnKeyType}
-            maxLength={maxLength}
           />
         </View>
         {errorMessage && (

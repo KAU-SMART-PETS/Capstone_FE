@@ -104,35 +104,3 @@ export const RoundedSquareButton: React.FC<SquareBoxProps> = ({
     </SquareBox>
   );
 };
-
-export const RoundedSquareButtonWithAvatar: React.FC<SquareBoxProps & { avatarSource?: any; avatarSize?: number }> = ({
-  children,
-  size = 'md',
-  shadow = false,
-  onPress,
-  outline = 'solid',
-  rounded = 'xl',
-  backgroundColor = 'bg-lightgrey',
-  avatarSource,
-  avatarSize = 80,
-}) => {
-  return (
-    <SquareBox
-      size={size}
-      shadow={shadow}
-      outline={outline}
-      onPress={onPress}
-      rounded={rounded}
-      backgroundColor={backgroundColor}
-    >
-      <View className="flex items-center pt-2 pb-2">
-        {avatarSource && <Avatar source={avatarSource} size={avatarSize} />}
-        {children && (
-          <StylizedText type="label" styleClass="mt-2 text-center">
-            {children}
-          </StylizedText>
-        )}
-      </View>
-    </SquareBox>
-  );
-};
