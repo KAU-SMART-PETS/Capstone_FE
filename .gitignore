@@ -1,6 +1,12 @@
+# Ignore APK files
+*.apk
+android/app/build/outputs/apk/debug/app-debug.apk
+
 # OSX
 #
 .DS_Store
+./src/**/.DS_Store
+./src/.DS_Store
 
 # Xcode
 #
