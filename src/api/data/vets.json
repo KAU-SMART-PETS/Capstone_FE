@@ -1,0 +1,15 @@
+[
+    {
+      "id": 1,
+      "name": "Sunnyvale Animal Hospital",
+      "address": "123 Sunny St, Sunnyvale, CA",
+      "telephone": "(123) 456-7890"
+    },
+    {
+      "id": 2,
+      "name": "Green Valley Vet Clinic",
+      "address": "456 Green Ave, Green Valley, CA",
+      "telephone": "(987) 654-3210"
+    }
+  ]
+  

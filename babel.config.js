@@ -16,7 +16,7 @@ module.exports = function (api) {
             '@constants': './src/utils/constants',
             '@types': './src/utils/contsants/types',
             '@image': './src/assets/image',
-            // 필요한 alias를 더 추가할 수 있습니다.
+            // 필요한 alias를 더 추가할 수 있음
           },
         },
       ],
