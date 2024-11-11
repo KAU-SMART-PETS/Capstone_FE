@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import RNLocation from 'react-native-location'; // Use react-native-location
+// import RNLocation from 'react-native-location'; // Use react-native-location
 import Toast from "react-native-toast-message";
 import { WeeklySummaryProps } from '@types';
 
@@ -11,41 +11,41 @@ const TodayWalk: React.FC<WeeklySummaryProps> = ({ petId = 1 }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Location fetching function
-  const getLocation = async () => {
-    try {
-      // Request permission to access location
-      const granted = await RNLocation.requestPermission({
-        ios: "whenInUse", // For iOS
-        android: {
-          detail: "fine", // or "coarse"
-        },
-      });
+  // const getLocation = async () => {
+  //   try {
+  //     // Request permission to access location
+  //     const granted = await RNLocation.requestPermission({
+  //       ios: "whenInUse", // For iOS
+  //       android: {
+  //         detail: "fine", // or "coarse"
+  //       },
+  //     });
 
-      if (granted) {
-        // Fetch the latest location
-        const location = await RNLocation.getLatestLocation({
-          timeout: 10000, // 10 seconds timeout
-        });
+  //     if (granted) {
+  //       // Fetch the latest location
+  //       const location = await RNLocation.getLatestLocation({
+  //         timeout: 10000, // 10 seconds timeout
+  //       });
 
-        setLocation(location);
-        setInitialRegion({
-          latitude: location.latitude,
-          longitude: location.longitude,
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.005,
-        });
-      } else {
-        setErrorMessage("Location permission denied");
-      }
-    } catch (error) {
-      console.error("Error fetching location:", error);
-      setErrorMessage("An error occurred while fetching location.");
-    }
-  };
+  //       setLocation(location);
+  //       setInitialRegion({
+  //         latitude: location.latitude,
+  //         longitude: location.longitude,
+  //         latitudeDelta: 0.005,
+  //         longitudeDelta: 0.005,
+  //       });
+  //     } else {
+  //       setErrorMessage("Location permission denied");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching location:", error);
+  //     setErrorMessage("An error occurred while fetching location.");
+  //   }
+  // };
 
-  useEffect(() => {
-    getLocation();
-  }, []);
+  // useEffect(() => {
+  //   getLocation();
+  // }, []);
 
   const endWalk = () => {
     Toast.show({
@@ -59,7 +59,7 @@ const TodayWalk: React.FC<WeeklySummaryProps> = ({ petId = 1 }) => {
   return (
     <View className="flex-1 bg-white">
       <View className="flex-1">
-        <MapView className="absolute inset-0" initialRegion={initialRegion}>
+        {/* <MapView className="absolute inset-0" initialRegion={initialRegion}>
           {location && (
             <Marker
               coordinate={{
@@ -70,7 +70,7 @@ const TodayWalk: React.FC<WeeklySummaryProps> = ({ petId = 1 }) => {
               description={"I am here"}
             />
           )}
-        </MapView>
+        </MapView> */}
       </View>
       <View className="p-5">
         <View className="flex-row justify-between items-center mb-5">
@@ -89,7 +89,7 @@ const TodayWalk: React.FC<WeeklySummaryProps> = ({ petId = 1 }) => {
         </TouchableOpacity>
       </View>
 
-      <Toast ref={(ref) => Toast.setRef(ref)} />
+      {/* <Toast ref={(ref) => Toast.setRef(ref)} /> */}
     </View>
   );
 };
