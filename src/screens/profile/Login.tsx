@@ -17,7 +17,12 @@ const Login = () => {
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [{ name: 'MyPage' }],
+        routes: [
+          {
+            name: 'MainTab', // 탭 이름
+            state: { routes: [{ name: '마이페이지' }] }, // 탭 하위페이지
+          },
+        ],
       })
     );
   };
