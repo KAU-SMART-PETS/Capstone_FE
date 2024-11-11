@@ -2,16 +2,13 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 //import { StatusBar } from 'expo-status-bar';
 import { useNavigation, CommonActions, NavigationProp } from '@react-navigation/native';
-
-type RootStackParamList = {
-  Login: undefined;
-  MyPage: undefined;
-  // 다른 화면들도 여기에 추가
-};
+import { RootStackParamList } from '@types';
+import KakaoLogo from '@image/icon/logo-kakao.png';
+import NaverLogo from '@image/icon/logo-naver.png';
 
 type LoginScreenNavigationProp = NavigationProp<RootStackParamList, 'Login'>;
 
-const LoginScreen: React.FC = () => {
+const Login: React.FC = () => {
   const navigation = useNavigation<LoginScreenNavigationProp>();
 
   const goToMyPage = () => {
@@ -32,7 +29,7 @@ const LoginScreen: React.FC = () => {
           <Text style={styles.subtitle}>현명하게</Text>
           <Text style={styles.subtitle}>우리 아이</Text>
           <Text style={styles.subtitle}>건강 관리</Text>
-          <Text></Text>
+          {/* <Text></Text> */}
           <Text style={styles.description}>우리 아이의</Text>
           <Text style={styles.description}>마음상태 몸상태를 알 수 있는</Text>
           <Text style={styles.description}>가장 정확하고 간편한 방법</Text>
@@ -44,10 +41,10 @@ const LoginScreen: React.FC = () => {
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={goToMyPage}>
-            <Image source={require('./btn_logo/kakao.png')} style={styles.buttonImage} />
+            <Image source={KakaoLogo} style={styles.buttonImage} />
           </TouchableOpacity>
           <TouchableOpacity>
-            <Image source={require('./btn_logo/naver.png')} style={styles.buttonImage} />
+            <Image source={NaverLogo} style={styles.buttonImage} />
           </TouchableOpacity>
         </View>
       </View>
@@ -113,4 +110,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default Login;

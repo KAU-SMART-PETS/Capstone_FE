@@ -11,7 +11,7 @@ const mockPetData = {
   name : '하늘',
 }
 
-const RegisterHealthInformation = () => {
+const RegisterHealthInfo = () => {
   const [healthInfo, setHealthInfo] = useState(mockHealthInfo);
   const [newInfo, setNewInfo] = useState({ date: '', name: '' });
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -198,4 +198,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterHealthInformation;
+export default RegisterHealthInfo;

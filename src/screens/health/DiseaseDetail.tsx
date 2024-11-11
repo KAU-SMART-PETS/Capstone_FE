@@ -2,29 +2,28 @@ import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 
+export type RootStackParamList = {
+  DiseaseDetail: {
+    disease: {
+      name: string;
+      probability: number;
+    };
+    petName: string;
+    diseaseDetail: {
+      about: string;
+      note: string;
+      goodFood: string;
+      badFood: string;
+    };
+  };
+};
 
 const screenWidth = Dimensions.get('window').width;
 
-
-type DiseaseDetailRouteParams = {
-  disease: {
-    name: string;
-    probability: number;
-  };
-  petName: string;
-  diseaseDetail: {
-    about: string;
-    note: string;
-    goodFood: string;
-    badFood: string;
-  };
-};
-
 type DiseaseDetailScreenProps = {
-  route: RouteProp<{ params: DiseaseDetailRouteParams }, 'params'>;
+  route: RouteProp<RootStackParamList, 'DiseaseDetail'>;
 };
-
-const DiseaseDetailScreen: React.FC<DiseaseDetailScreenProps> = ({ route }) => {
+const DiseaseDetail: React.FC<DiseaseDetailScreenProps> = ({ route }) => {
   const { disease, petName, diseaseDetail } = route.params;
 
   if (!diseaseDetail) {
@@ -47,7 +46,9 @@ const DiseaseDetailScreen: React.FC<DiseaseDetailScreenProps> = ({ route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.topPadding}></View>
-      <Text style={styles.title}><Text style={{ color: 'skyblue' }}>{petName}</Text>의 의심질환에 대해 설명 드릴게요</Text>
+      <Text style={styles.title}>
+        <Text style={{ color: 'skyblue' }}>{petName}</Text>의 의심질환에 대해 설명 드릴게요
+      </Text>
 
       <View style={styles.diseaseCard}>
         <View style={[styles.badge, { backgroundColor: badgeInfo.color }]}>
@@ -82,7 +83,6 @@ const DiseaseDetailScreen: React.FC<DiseaseDetailScreenProps> = ({ route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    color: 'white',
     flex: 1,
     padding: 20,
     backgroundColor: 'white',
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   diseaseCard: {
-    width: screenWidth * 0.53, // 53% of the screen width
-    alignSelf: 'flex-start', // Align to the left
+    width: screenWidth * 0.53,
+    alignSelf: 'flex-start',
     padding: 20,
     borderRadius: 15,
     backgroundColor: '#F7F7F7',
@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 3,
-    position: 'relative',
   },
   diseaseName: {
     fontSize: 22,
@@ -180,4 +179,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DiseaseDetailScreen;
+export default DiseaseDetail;

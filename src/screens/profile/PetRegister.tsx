@@ -3,8 +3,9 @@ import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Modal, Flat
 import { useNavigation } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { BleManager } from 'react-native-ble-plx';
+import emptyCircleFrame from '@image/frame/addPetCircle.png';
 
-const PetRegistrationPage = () => {
+const PetRegister = () => {
   const navigation = useNavigation();
   const [petType, setPetType] = useState<'강아지' | '고양이' | ''>('');
   const [gender, setGender] = useState<'암' | '수' | ''>('');
@@ -91,7 +92,7 @@ const PetRegistrationPage = () => {
           
           <TouchableOpacity onPress={handleImagePick} style={styles.imageContainer}>
             <Image 
-              source={petImage ? { uri: petImage } : require('./temp/addPetCircle.png')} 
+              source={petImage ? { uri: petImage } : emptyCircleFrame} 
               style={styles.image} 
             />
             <Text style={styles.imageText}>눌러서 사진 변경</Text>
@@ -365,4 +366,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PetRegistrationPage;
+export default PetRegister;

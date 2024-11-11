@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, FlatList, Modal } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-
-type RootStackParamList = {
-  MyPage: undefined;
-  takePhoto: undefined;
-  myProfile: undefined;
-};
+import { RootStackParamList } from '@types';
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
 

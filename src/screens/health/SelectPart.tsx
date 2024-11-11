@@ -2,16 +2,20 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
+import TeethFrame from '@image/frame/teeth.png';
+import EyeFrame from '@image/frame/eye.png';
+import HairFrame from '@image/frame/hair.png';
+import RegisterPhoto from '@image/frame/registerPhoto.png';
 
-const PhotoSelectionScreen = () => {
+const SelectPart = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
 
   const options = [
-    { id: 'teeth', icon: require('./temp/teeth.png') },
-    { id: 'eye', icon: require('./temp/eye.png') },
-    { id: 'hair', icon: require('./temp/hair.png') },
+    { id: 'teeth', icon: TeethFrame },
+    { id: 'eye', icon: EyeFrame },
+    { id: 'hair', icon: HairFrame },
   ];
 
   const handleOptionSelect = (id) => {
@@ -59,7 +63,7 @@ const PhotoSelectionScreen = () => {
       </Text>
       
       <TouchableOpacity style={styles.photoButton} onPress={handlePhotoButton}>
-        <Image source={require('./temp/registerPhoto.png')} style={styles.photoButtonImage} />
+        <Image source={RegisterPhoto} style={styles.photoButtonImage} />
       </TouchableOpacity>
       
       <View style={styles.optionsContainer}>
@@ -183,4 +187,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PhotoSelectionScreen;
+export default SelectPart;

@@ -83,7 +83,6 @@ export type RootStackParamList = {
     BTView: undefined;
     WeeklySummary: WeeklySummaryProps;
     TodayWalk: WeeklySummaryProps;
-    Example: undefined;
 };
 
 // 

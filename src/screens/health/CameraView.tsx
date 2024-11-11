@@ -4,7 +4,7 @@ import { Camera, useCameraDevices } from 'react-native-vision-camera';
 import { useNavigation } from '@react-navigation/native';
 
 
-const CameraScreen: React.FC = () => {
+const CameraView: React.FC = () => {
   const navigation = useNavigation();
   const camera = useRef<Camera>(null);
   const devices = useCameraDevices();
@@ -200,4 +200,4 @@ analysisPrompt: {
 },
 });
 
-export default CameraScreen;
+export default CameraView;

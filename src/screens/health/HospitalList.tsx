@@ -26,7 +26,7 @@ const HospitalCard = ({ item }) => (
 );
 
 
-const AnimalHospitalList = () => {
+const HospitalList = () => {
   const navigation = useNavigation();
   const handleBackButton = () => {
     navigation.goBack();
@@ -112,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AnimalHospitalList;
+export default HospitalList;

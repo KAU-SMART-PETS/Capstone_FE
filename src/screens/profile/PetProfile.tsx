@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import registerPhoto from '@image/frame/registerPhoto.png';
 
 // Mock data
 const mockData = {
@@ -64,10 +65,9 @@ const PetProfile = () => {
           <TouchableOpacity onPress={handleBackButton} style={styles.backButton}>
             <Text style={styles.backButtonText}>{'<'}</Text>
           </TouchableOpacity>
-          
           <View style={styles.profileSection}>
             <Image
-              source={require('./temp/registerPhoto.png')}
+              source={registerPhoto}
               style={styles.profileImage}
             />
             <Text style={styles.name}>{mockData.petDetails.name}</Text>

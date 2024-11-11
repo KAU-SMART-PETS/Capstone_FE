@@ -16,7 +16,7 @@ interface UserInfo {
 
 type EditableField = keyof UserInfo | 'consent' | null;
 
-const UserProfileView: React.FC = () => {
+const EditProfile: React.FC = () => {
   const [editingField, setEditingField] = useState<EditableField>(null);
   const [userInfo, setUserInfo] = useState<UserInfo>({
     name: '김똑똑',
@@ -294,4 +294,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserProfileView;
+export default EditProfile;

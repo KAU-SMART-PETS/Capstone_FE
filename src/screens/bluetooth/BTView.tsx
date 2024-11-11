@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, PermissionsAndroid, Platform, FlatList } from 'react-native';
 import { BleManager } from 'react-native-ble-plx';
 
-const App = () => {
+const BTView = () => {
   const [bleManager] = useState(new BleManager());
   const [devices, setDevices] = useState([]);
   const [scanning, setScanning] = useState(false);
@@ -90,4 +90,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default BTView;
