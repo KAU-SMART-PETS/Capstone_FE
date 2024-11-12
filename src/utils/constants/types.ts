@@ -62,7 +62,6 @@ export interface WeeklySummaryProps {
 
 // 각 페이지 관련 매개변수타입
 export type RootStackParamList = {
-    Splash: undefined;
     MainTab: undefined;
     Home: undefined;
     Login: undefined;
