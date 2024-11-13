@@ -1,3 +1,12 @@
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import dog1 from '@image/placeholder/dog.jpg';
+import { RoundedTextButton, RoundedSquareButton } from '@common/RoundedButton';
+import ModalLayout from '@components/ModalLayout';
+import ListCard from '@common/ListCard';
+import StylizedText from '@common/StylizedText';
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 // MyPage PetCard
 interface Device {
   id: string;
