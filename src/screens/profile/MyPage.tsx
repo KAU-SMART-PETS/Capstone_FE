@@ -11,6 +11,7 @@ import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import StylizedText, { HeaderText } from '@src/components/common/StylizedText';
 import { PetCard as NewPetCard } from '@components/MyPetCard';
 import Avatar from '@src/components/common/Avatar';
+import redirectIfNoSession from '@src/redirectionIfNoSession';
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
 
@@ -86,6 +87,7 @@ const PetCardContainer: React.FC<PetCardContainerProps> = ({ petId, devices }) =
 
 const AddPetButton: React.FC = () => {
   const navigation = useNavigation<MyPageNavigationProp>();
+  redirectIfNoSession();
 
   const handleAddPetPress = () => {
     navigation.navigate('PetRegister');

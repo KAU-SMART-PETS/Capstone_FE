@@ -6,6 +6,7 @@ import StylizedText from '@src/components/common/StylizedText';
 import Avatar from '@src/components/common/Avatar';
 import AvatarPlaceholder from '@image/placeholder/dog.jpg';
 import { RoundedTextButton } from '@src/components/common/RoundedButton';
+import redirectIfNoSession from '@src/redirectionIfNoSession';
 
 // TODO: 일일 산책 박스 필요
 // TODO: 반려동물 상세정보에서 text box 필요
@@ -30,6 +31,7 @@ const mockData = {
 };
 
 const PetProfile: React.FC<{ route: RouteProp<RootStackParamList, 'PetProfile'> }> = ({ route }) => {
+  redirectIfNoSession();
   const pet = route.params?.pet;
   const {
     id = 0,
@@ -41,7 +43,6 @@ const PetProfile: React.FC<{ route: RouteProp<RootStackParamList, 'PetProfile'> 
     age = '나이 없음',
   } = pet || {}; // pet이 undefined일 경우 빈 객체로 대체
 
-  console.log(imageUrl)
   const navigation = useNavigation();
   const [showDetail, setShowDetail] = useState(false);
 
