@@ -18,6 +18,7 @@ const CustomCameraScreen = () => {
       try {
         const options = { quality: 0.5, base64: false };
         const data = await cameraRef.current.takePictureAsync(options);
+        console.log("디버깅 출력 (카메라 촬영 시) : ", data.uri, petId, petType);
         navigation.navigate('ReadyToScan', { imageUri: data.uri, petId, petType });
       } catch (error) {
         console.error("Error taking picture: ", error);

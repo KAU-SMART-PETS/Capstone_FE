@@ -7,6 +7,7 @@ const ReadyToScan = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const { imageUri, petId, petType, petName } = route.params;
+  console.log("1. 디버깅 출력 (스캔요청으로 이동 시) : ", imageUri, petId, petType, petName);
 
   // 파일 확장자에 따른 MIME 타입 추론 함수
   const getMimeType = (uri) => {
@@ -34,7 +35,7 @@ const ReadyToScan = () => {
       });
 
       const petTypeLowerCase = petType.toLowerCase();
-
+    
       console.log("Preparing to send data");
       console.log("Selected Pet Type:", petTypeLowerCase);
       console.log("Image URI:", imageUri);
@@ -51,10 +52,14 @@ const ReadyToScan = () => {
           const data = await response.json();
           // 3초 후에 ResultEyeScan 화면으로 이동하면서 진단 결과와 이미지 URI, petName 전달
           setTimeout(() => {
+            console.log("2. 디버깅 출력 (서버에서 받은 진단결과) :", data);
+            console.log("3. 디버깅 출력 (진단 완료 시) : ", imageUri, petId, petType, petName);
             navigation.navigate('ResultEyeScan', { diagnosis: data, imageUri, petName });
           }, 3000);
         } else {
             const errorText = await response.text();
+            console.log("2. 디버깅 출력 (서버 오류메시지) :", errorText);
+            console.log("3. 디버깅 출력 (진단 완료 시) : ", imageUri, petId, petType, petName);
             Alert.alert("오류", `진단 결과를 가져오는 중 문제가 발생했습니다. (상태 코드: ${response.status})\n${errorText}`);
           }
 
