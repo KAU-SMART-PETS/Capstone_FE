@@ -11,10 +11,14 @@ import CustomTextInput from '@src/components/common/CustomTextInput';
 import { RoundedCircleButton, RoundedTextButton } from '@src/components/common/RoundedButton';
 import StylizedText from '@src/components/common/StylizedText';
 import Avatar from '@src/components/common/Avatar';
+import redirectIfNoSession from '@src/redirectionIfNoSession';
+import { dogData, catData } from '@src/utils/constants/species';
+
 
 
 const PetRegister = () => {
   const navigation = useNavigation();
+  redirectIfNoSession();
 
   const [petType, setPetType] = useState<'강아지' | '고양이' | ''>('');
   const [gender, setGender] = useState<'암' | '수' | ''>('');
@@ -76,7 +80,15 @@ const PetRegister = () => {
 
       {/* Input Fields */}
       <CustomTextInput label="이름" placeholder="이름을 입력하세요" value={name} onChangeText={setName} keyboardType="default" />
-      <CustomTextInput label="견종/묘종" placeholder="견종 / 묘종을 입력하세요" value={breed} onChangeText={setBreed} keyboardType="default" />
+      <CustomTextInput
+        label="견종 / 묘종"
+        value={breed}
+        onChangeText={(value) => setBreed(value)}
+        type={petType === "" ? "readOnly" : "picker"}
+        placeholder={petType ? '견종/묘종을 선택하세요' : '먼저 강아지/고양이를 선택해 주세요'}
+        pickerItems={petType === '강아지' ? dogData : petType === '고양이' ? catData : []}
+      />  
+
       <CustomTextInput label="체중(kg)" placeholder="체중 (kg)을 입력하세요" value={weight} onChangeText={setWeight} keyboardType="numeric" />
       <CustomTextInput label="나이" placeholder="나이를 입력하세요" value={age} onChangeText={setAge} keyboardType="numeric" />
 

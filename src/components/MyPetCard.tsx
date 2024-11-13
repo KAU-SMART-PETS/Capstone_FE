@@ -1,12 +1,10 @@
-
 import React, { useState } from 'react';
-import { RoundedTextButton, RoundedSquareButton } from "./common/RoundedButton";
-import StylizedText from "./common/StylizedText";
-import ListCard from "./common/ListCard";
-import { View } from "react-native";
-import ModalLayout from "./ModalLayout";
-import AvatarPlaceholder from '@image/placeholder/dog.jpg';
-
+import { View } from 'react-native';
+import dog1 from '@image/placeholder/dog.jpg';
+import { RoundedTextButton, RoundedSquareButton } from '@common/RoundedButton';
+import ModalLayout from '@components/ModalLayout';
+import ListCard from '@common/ListCard';
+import StylizedText from '@common/StylizedText';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // MyPage PetCard
@@ -45,7 +43,7 @@ export const PetCard: React.FC<PetCardProps> = ({
   const selectedDevice = devices.find(device => device.id === selectedDeviceId);
   const imageSrc = avatarPath
     ? { uri: avatarPath }
-    : AvatarPlaceholder;
+    : dog1;
     const CancelButton = (
       <RoundedTextButton
         content="취소"
