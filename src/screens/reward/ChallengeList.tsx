@@ -8,7 +8,7 @@ import { rewardsList, depositRewardPoints } from '@api/rewardApi';
 import { depositPoints } from '@api/pointApi';
 import { fetchUserProfile } from '@api/userApi';
 import { RoundedTextButton } from '@components/common/RoundedButton';
-//TODO : 리워드 적립 시 로컬 푸쉬알림 보내기 (note : 현재 담당자 실행 이슈로 해당 구현 임시 보류)
+
 const ChallengeList: React.FC = () => {
   const navigation = useNavigation();
   const [rewardsData, setRewardsData] = useState([]);

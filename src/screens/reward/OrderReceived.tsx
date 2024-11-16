@@ -50,6 +50,12 @@ const OrderReceived: React.FC = () => {
             {product}(이)가 접수됐어요.{"\n"}곧 만나요!
           </StylizedText>
         </Animated.View>
+        <StylizedText
+          type="body1"
+          styleClass="text-grey absolute bottom-10 text-center"
+        >
+          화면을 터치해 홈으로 이동하기
+        </StylizedText>
       </View>
     </TouchableWithoutFeedback>
   );
