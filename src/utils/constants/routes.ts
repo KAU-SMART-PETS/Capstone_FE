@@ -41,6 +41,7 @@ import { OrderReceivedParams } from '@screens/reward/OrderReceived';
 import ViewFeedList from '@screens/reward/ViewFeedList';
 import PaymentInformation from '@screens/reward/PaymentInformation';
 import PaymentSampleInformation from '@screens/reward/PaymentSampleInformation';
+import SearchAddress from '@screens/reward/SearchAddress';
 
 // Ai
 import ReadyToScan from '@screens/ai/ReadyToScan';
@@ -51,6 +52,12 @@ import ResultEyeScan from '@screens/ai/ResultEyeScan';
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
   params?: ComponentProps;
+};
+
+type AddressParams = {
+  zonecode?: string;
+  address?: string;
+  defaultAddress?: string;
 };
 
 export const routesConfig: {
@@ -88,8 +95,15 @@ export const routesConfig: {
   CongratulatePopUp: { component: CongratulatePopUp, params: { point: 0 } as CongratulatePopUpParams },
   OrderReceived: { component: OrderReceived, params: { product: '' } },
   ViewFeedList :  { component: ViewFeedList, params: undefined },
-  PaymentInformation :  { component: PaymentInformation, params: undefined },
-  PaymentSampleInformation :  { component: PaymentSampleInformation, params: undefined },
+  PaymentInformation: { 
+    component: PaymentInformation, 
+    params: {} as AddressParams, // 타입 적용
+  },
+  PaymentSampleInformation: { 
+    component: PaymentSampleInformation, 
+    params: {} as AddressParams, // 타입 적용
+  },
+  SearchAddress :  { component: SearchAddress, params: undefined },
 
   Home :  { component: Home, params: undefined },
    //산책 기능 관련 테스트 페이지
