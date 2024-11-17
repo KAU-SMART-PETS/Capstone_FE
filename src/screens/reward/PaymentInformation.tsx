@@ -5,43 +5,62 @@ import CustomTextInput from '@common/CustomTextInput';
 import RadioButtonGroup from '@common/RadioButtonGroup';
 import RadioButton from '@common/RadioButton';
 import Avatar from '@common/Avatar';
-import { RoundedTextButton } from '@common/RoundedButton';
-import { useNavigation } from '@react-navigation/native';
+import { RoundedTextButton } from '@components/common/RoundedButton';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import ModalLayout from '@components/ModalLayout';
+import { ProgressDots } from '@common/Loading';
 import { foodsList, purchaseFood } from '@api/foodApi';
 import { fetchPointHistory } from '@api/pointApi';
 import { fetchUserProfile } from '@api/userApi';
+import { WarningRecord } from '@components/Records';
 
 const PaymentInformation: React.FC = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { zonecode = '', address = '', defaultAddress = '' } = route.params || {};
   const [foods, setFoods] = useState([]);
   const [selectedFoodIds, setSelectedFoodIds] = useState<number[]>([]);
   const [deliveryFee] = useState(2500);
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({ name: '', email: '', phoneNumber: '' });
-  const [address, setAddress] = useState('');
-  const radioButtonGroupRef = useRef<any>(null);
-
-  // Modal state
+  const [postalCode, setPostalCode] = useState(zonecode || '');
+  const [fullAddress, setFullAddress] = useState(
+    address && defaultAddress ? `${address} ${defaultAddress}` : ''
+  );
+  const [detailAddress, setDetailAddress] = useState('');
+  const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const radioButtonGroupRef = useRef<any>(null);
+  const [inputType, setInputType] = useState<'editableWithButton' | 'freeText'>();
+
 
   const fetchFoods = async () => {
-    const data = await foodsList();
-    if (data) {
-      setFoods(data.foods || []);
-    } else {
-      console.log('Failed to load foods');
+    try {
+      const data = await foodsList();
+      if (data) {
+        setFoods(data.foods || []);
+      } else {
+        console.log('Failed to load foods');
+        throw new Error('Failed to load foods');
+      }
+    } catch (error) {
+      throw new Error('Failed to fetch foods');
     }
   };
 
   const fetchUserBalance = async () => {
-    const pointHistory = await fetchPointHistory();
-    if (pointHistory && pointHistory.history.length > 0) {
-      const latestPoint = pointHistory.history[0].totalPoint;
-      setBalance(latestPoint);
-    } else {
-      console.log('Failed to fetch user points');
+    try {
+      const pointHistory = await fetchPointHistory();
+      if (pointHistory && pointHistory.history.length > 0) {
+        const latestPoint = pointHistory.history[0].totalPoint;
+        setBalance(latestPoint);
+      } else {
+        console.log('Failed to fetch user points');
+        throw new Error('Failed to fetch user points');
+      }
+    } catch (error) {
+      throw new Error('Failed to fetch balance');
     }
   };
 
@@ -53,16 +72,51 @@ const PaymentInformation: React.FC = () => {
         email: userProfile.email || '',
         phoneNumber: userProfile.phoneNumber || '',
       });
+      return userProfile; // userData 반환
     } else {
       console.log('Failed to load user profile');
+      return {};
     }
   };
 
   useEffect(() => {
-    fetchFoods();
-    fetchUserBalance();
-    fetchUserData();
+    const fetchData = async () => {
+        try {
+            await Promise.all([
+                fetchFoods(),
+                fetchUserBalance(),
+                fetchUserData().then((userData) => {
+                    // userData.phoneNumber 값에 따라 inputType 상태 설정
+                    setInputType(userData.phoneNumber ? 'editableWithButton' : 'freeText');
+                }),
+            ]);
+        } catch (error) {
+            setModalMessage('오류가 발생했습니다. 다시 시도해주세요.');
+            setModalVisible(true);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    if (route.params) {
+        const { zonecode, address, defaultAddress } = route.params;
+
+        if (zonecode) {
+            setPostalCode(zonecode);
+        }
+        if (address || defaultAddress) {
+          const formattedAddress = defaultAddress
+              ? `${address} ${defaultAddress}` // 백틱(`)을 사용하여 템플릿 리터럴 작성
+              : address;
+          setFullAddress(formattedAddress || '');
+        }
+    }
+}, [route.params]);
+
 
   const selectedFoodsTotal = selectedFoodIds.reduce((total, foodId) => {
     const food = foods.find((f) => f.id === foodId);
@@ -72,9 +126,8 @@ const PaymentInformation: React.FC = () => {
   const finalTotal = selectedFoodsTotal + deliveryFee;
 
   const handleOrderSubmit = async () => {
-    // Check for empty address or phone number
-    if (!address || !userData.phoneNumber) {
-      setModalMessage('배송지 정보 입력을 바르게 했는지 확인해주세요.');
+    if (!detailAddress || !userData.phoneNumber || !postalCode) {
+      setModalMessage('주문 정보를 바르게 입력했는지 확인해 주세요.');
       setModalVisible(true);
       return;
     }
@@ -94,15 +147,18 @@ const PaymentInformation: React.FC = () => {
       if (!result) {
         setModalMessage(`사료 ID ${foodId} 구매 중 문제가 발생했습니다.`);
         setModalVisible(true);
-        return; // 실패 시 중단
+        return;
       }
     }
 
     navigation.navigate('OrderReceived', { product: '사료' });
   };
 
-  // Determine placeholder value for points
   const placeholderValue = Math.min(finalTotal, balance);
+
+  if (loading) {
+    return <ProgressDots />; // 로딩 중에는 ProgressDots 렌더링
+  }
 
   return (
     <View className="flex-1 bg-white">
@@ -147,21 +203,42 @@ const PaymentInformation: React.FC = () => {
           keyboardType="email-address"
           type="freeText"
         />
+        <View className="flex-row items-center w-full">
+          <View className="flex-1">
+            <CustomTextInput
+              label="우편 번호"
+              placeholder="우편번호를 검색해주세요."
+              value={postalCode}
+              type="readOnly"
+              keyboardType="default"
+            />
+          </View>
+          <View className="w-1/3">
+            <RoundedTextButton content="주소 검색" widthOption="sm" onPress={() => navigation.navigate('SearchAddress')} />
+          </View>
+        </View>
         <CustomTextInput
           label="주소"
-          placeholder="주소를 입력해주세요"
-          value={address}
-          onChangeText={setAddress}
+          placeholder="주소를 검색해주세요."
+          value={fullAddress}
+          type="readOnly"
+          keyboardType="default"
+        />
+        <CustomTextInput
+          label="상세 주소"
+          placeholder="상세 주소를 입력해주세요"
+          value={detailAddress}
+          onChangeText={setDetailAddress}
           type="freeText"
           keyboardType="default"
         />
         <CustomTextInput
           label="휴대폰 번호"
-          placeholder="010-1234-5678"
+          placeholder="휴대폰 번호를 입력해주세요."
           value={userData.phoneNumber}
           onChangeText={(text) => setUserData((prev) => ({ ...prev, phoneNumber: text }))}
           isEditableInitially={!userData.phoneNumber}
-          type={userData.phoneNumber ? 'editableWithButton' : 'freeText'}
+          type={inputType} // 동적으로 변경되지 않는 상태를 사용
           keyboardType="phone-pad"
         />
 
@@ -183,7 +260,7 @@ const PaymentInformation: React.FC = () => {
             type="body2"
             styleClass={`mb-2 ${balance < finalTotal ? 'text-danger' : 'text-grey'}`}
           >
-            보유 잔액 {balance.toLocaleString()} P
+            {`보유 잔액 ${balance.toLocaleString()} P`}
           </StylizedText>
         </View>
 
@@ -217,6 +294,13 @@ const PaymentInformation: React.FC = () => {
           </View>
         </View>
 
+        <View className="mt-6 border-t border-grey pt-4">
+          <StylizedText type="body2" styleClass="text-grey mb-2">
+            ⓘ 결제 취소는 고객 센터에 문의해 주세요. 배송 시작 후에는 결제 취소가 어렵습니다.
+            {"\n"} 취소된 포인트는 영업일 기준 5일 이내 복구됩니다.
+          </StylizedText>
+        </View>
+
         <View className="fixed bottom-0 left-0 right-0 p-5">
           <RoundedTextButton content="결제하기" widthOption="xl" onPress={handleOrderSubmit} />
         </View>
@@ -224,9 +308,25 @@ const PaymentInformation: React.FC = () => {
 
       <ModalLayout
         visible={modalVisible}
-        setVisible={setModalVisible}
+        setVisible={(visible) => {
+          setModalVisible(visible);
+        }}
         title={modalMessage}
-        rows={[{ content: [<RoundedTextButton content="확인" onPress={() => setModalVisible(false)} />] }]}
+        rows={[
+          {
+            content: [
+              <RoundedTextButton
+                content="확인"
+                onPress={() => {
+                  setModalVisible(false); // 모달을 닫음
+                  if (modalMessage === '오류가 발생했습니다. 다시 시도해주세요.') {
+                    navigation.goBack(); // [확인] 버튼을 눌렀을 때만 이전 페이지로 이동
+                  }
+                }}
+              />,
+            ],
+          },
+        ]}
       />
     </View>
   );

@@ -37,6 +37,7 @@ const EditProfile: React.FC = () => {
   };
 
   const handleChange = (key: keyof UserData, value: string | boolean) => {
+    setEditingField('consent');
     setUserInfo(prevInfo => {
       if (prevInfo) {
         return {

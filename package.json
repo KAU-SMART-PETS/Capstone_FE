@@ -47,6 +47,7 @@
     "react-native-webview": "^13.12.3"
   },
   "devDependencies": {
+    "@actbase/react-daum-postcode": "^1.0.4",
     "@babel/runtime": "^7.20.0",
     "@react-native-community/cli": "^15.1.0",
     "@react-native-community/datetimepicker": "^8.2.0",

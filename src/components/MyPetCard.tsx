@@ -1,10 +1,12 @@
-import { useState } from "react";
+
+import React, { useState } from 'react';
 import { RoundedTextButton, RoundedSquareButton } from "./common/RoundedButton";
 import StylizedText from "./common/StylizedText";
 import ListCard from "./common/ListCard";
 import { View } from "react-native";
 import ModalLayout from "./ModalLayout";
 import AvatarPlaceholder from '@image/placeholder/dog.jpg';
+
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // MyPage PetCard
