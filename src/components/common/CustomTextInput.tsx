@@ -4,6 +4,12 @@ import StylizedText, { getStyles } from './StylizedText';
 import { ColorMap, OpacityMap } from './ColorMap';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+import { Picker } from '@react-native-picker/picker';
+
+interface PickerItem {
+  label: string;
+  value: string;
+}
 
 interface CustomTextInputProps {
   label: string;
@@ -12,13 +18,14 @@ interface CustomTextInputProps {
   onChangeText?: (text: string) => void;
   isEditableInitially?: boolean;
   rightComponent?: ReactNode;
-  type?: 'readOnly' | 'editableWithButton' | 'freeText' | 'iconField' | 'passwordField';
+  type?: 'readOnly' | 'editableWithButton' | 'freeText' | 'iconField' | 'passwordField' | 'picker';
   iconLibrary?: 'Ionicons' | 'Feather';
   iconName?: string;
   iconSize?: number;
   keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad' | 'decimal-pad' | 'number-pad' | 'url' | 'web-search' | 'visible-password';
   returnKeyType?: 'done' | 'go' | 'next' | 'search' | 'send' | 'none' | 'previous';
   maxLength?: number;
+  pickerItems?: PickerItem[];
 }
 
 const CustomTextInput: React.FC<CustomTextInputProps> = ({
@@ -35,6 +42,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
   keyboardType = 'default',
   returnKeyType = 'done',
   maxLength,
+  pickerItems = [],
 }) => {
   const IconColor = ColorMap['secondary'] + OpacityMap[60]; // Semi-transparent icon color
   const [isEditable, setIsEditable] = useState(
@@ -115,6 +123,20 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
     return true;
   };
 
+  // picker
+  const renderPicker = () => (
+    <Picker
+      selectedValue={value}
+      onValueChange={(itemValue) => onChangeText?.(itemValue.toString())}
+      style={{ flex: 1 }}
+    >
+      <Picker.Item label={placeholder} value="" />
+      {pickerItems.map((item) => (
+        <Picker.Item key={item.value} label={item.label} value={item.value} />
+      ))}
+    </Picker>
+  );
+
   // Format phone number (specific for phone-pad)
   const formatPhoneNumber = (phoneNumber: string) => {
     const cleaned = phoneNumber.replace(/\D/g, '');
@@ -173,7 +195,9 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
               </StylizedText>
             </View>
           )}
-
+          {type === 'picker' && pickerItems.length > 0
+          ? renderPicker()
+          : (
           <TextInput
             className="px-1 mt-[14px] text-secondary"
             value={value}
@@ -194,6 +218,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
             keyboardType={keyboardType}
             returnKeyType={returnKeyType}
           />
+            )}
         </View>
         {errorMessage && (
           <Feather name='alert-circle' size={18} color={ColorMap['red'] + OpacityMap[70]} className="mr-4" />
