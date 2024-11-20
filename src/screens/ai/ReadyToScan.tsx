@@ -35,7 +35,7 @@ const ReadyToScan = () => {
       });
 
       const petTypeLowerCase = petType.toLowerCase();
-    
+
       console.log("Preparing to send data");
       console.log("Selected Pet Type:", petTypeLowerCase);
       console.log("Image URI:", imageUri);

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import RNBootSplash from 'react-native-smooth-bootsplash';
-import Splash from '@screens/home/Splash';
+import Splash from './screens/home/Splash';
 import { typedObjectEntries, routeComponents } from '@constants/routes';
 
 const Stack = createStackNavigator<RootStackParamList>();

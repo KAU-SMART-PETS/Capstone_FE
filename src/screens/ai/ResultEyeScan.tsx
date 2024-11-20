@@ -7,9 +7,8 @@ import { RoundedTextButton } from '../../components/common/RoundedButton';
 
 const ResultEyeScan = () => {
   const route = useRoute();
-  const navigation = useNavigation(); // useNavigation 훅 사용
+  const navigation = useNavigation();
   const { diagnosis = {}, imageUri, petName = '' } = route.params || {};
-
   const handleRegisterButtonPress = () => {
     navigation.navigate('HospitalList');
   };
@@ -18,8 +17,11 @@ const ResultEyeScan = () => {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <StylizedText type="header1" styleClass="text-black mb-4 mt-6">
-          {petName}의 진단 리포트
-        </StylizedText>
+          <StylizedText type="header1" style={{ color: '#73A8BA' }}>
+             {petName}
+          </StylizedText>
+            의 진단 리포트
+          </StylizedText>
         <Image source={{ uri: imageUri }} style={styles.image} />
         <HealthCards diagnosisData={diagnosis} />
       </ScrollView>
