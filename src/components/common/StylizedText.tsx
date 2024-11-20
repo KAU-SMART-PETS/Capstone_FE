@@ -52,6 +52,11 @@ interface StyledTextStyle {
 // Function to return the styles based on the type
 export const getStyles = (type: string) : StyledTextStyle => {
   switch (type) {
+    case 'header0':
+        return {
+            fontFamily: 'Pretendard-ExtraBold',
+            fontSize: 30,
+            };
     case 'header1':
       return {
         fontFamily: 'Pretendard-Bold',
