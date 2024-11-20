@@ -6,8 +6,6 @@ import Avatar from '@components/common/Avatar';
 import { RoundedTextButton } from '@components/common/RoundedButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import ModalLayout from '@components/ModalLayout';  // ModalLayout 컴포넌트 직접 사용
-import { launchImageLibrary } from 'react-native-image-picker';
 
 const defaultImage = require('../../assets/image/icon/pawprint.png');
 const backIcon = require('../../assets/image/icon/arrow_back.png');
@@ -18,27 +16,6 @@ const SelectPetToScan = () => {
   const [selectedPetId, setSelectedPetId] = useState(null);
   const [selectedPetType, setSelectedPetType] = useState(null);
   const [selectedPetName, setSelectedPetName] = useState(null);
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  // 반려동물 데이터를 불러오는 함수
-  const loadPets = async () => {
-    try {
-      const petIds = await fetchUserPets();
-      const petsData = await Promise.all(
-        petIds.map(async (petId) => {
-          const pet = await getPetDetails(petId);
-          if (pet) {
-            return { ...pet, id: petId, petType: pet.petType.toLowerCase() };
-          }
-          return null;
-        })
-      );
-      setPetList(petsData.filter(Boolean));
-      console.log("Loaded pet list:", petsData);
-    } catch (error) {
-      Alert.alert('Error', 'Failed to load pets. Please try again later.');
-    }
-  };
 
   useEffect(() => {
     const initializeData = async () => {
@@ -52,7 +29,24 @@ const SelectPetToScan = () => {
     initializeData();
   }, []);
 
-  // 반려동물을 선택하는 함수
+  const loadPets = async () => {
+    try {
+      const petIds = await fetchUserPets();
+      const petsData = await Promise.all(
+        petIds.map(async (petId) => {
+          const pet = await getPetDetails(petId);
+          if (pet) {
+            return { ...pet, id: petId, petType: pet.petType.toLowerCase() };
+          }
+          return null;
+        })
+      );
+      setPetList(petsData.filter(Boolean));
+    } catch (error) {
+      Alert.alert('Error', 'Failed to load pets. Please try again later.');
+    }
+  };
+
   const handlePetSelect = (petId, petType, petName) => {
     if (petId === selectedPetId) {
       setSelectedPetId(null);
@@ -63,48 +57,25 @@ const SelectPetToScan = () => {
       setSelectedPetType(petType);
       setSelectedPetName(petName);
     }
-    console.log("Selected Pet ID:", petId, "Pet Type:", petType, "Pet Name:", petName);
   };
 
-  // 모달 열기
   const handleRegisterButtonPress = () => {
     if (selectedPetId && selectedPetType) {
-      setModalVisible(true);
+      navigation.navigate('AlertScan', {
+        petId: selectedPetId,
+        petType: selectedPetType,
+        petName: selectedPetName,
+      });
     } else {
-      Alert.alert("알림", "반려동물을 선택해주세요.");
+      Alert.alert('알림', '반려동물을 선택해주세요.');
     }
   };
 
-  // 갤러리에서 이미지 선택
-  const handleGallerySelect = () => {
-    launchImageLibrary({ mediaType: 'photo', quality: 0.5 }, (response) => {
-      if (response.assets && response.assets[0]) {
-        const selectedImageUri = response.assets[0].uri;
-        console.log('Selected Image URI:', selectedImageUri);
-
-        // ReadyToScan 화면으로 이동하며 선택한 이미지와 반려동물 정보 전달
-        navigation.navigate('ReadyToScan', {
-          imageUri: selectedImageUri,
-          petId: selectedPetId,
-          petType: selectedPetType,
-          petName: selectedPetName,
-        });
-      } else {
-        Alert.alert("오류", "이미지 선택이 취소되었거나 실패했습니다.");
-      }
-    });
-    setModalVisible(false);
-  };
-
-  // 카메라 화면으로 이동
-  const handleCameraLaunch = () => {
-    setModalVisible(false);
-    navigation.navigate('TakePicture', {
-      petId: selectedPetId,
-      petType: selectedPetType,
-      petName: selectedPetName, // 반려동물 이름 전달
-    });
-  };
+  console.log("Navigating to AlertScan with params:", {
+    petId: selectedPetId,
+    petType: selectedPetType,
+    petName: selectedPetName,
+  });
 
   return (
     <View style={styles.container}>
@@ -134,33 +105,6 @@ const SelectPetToScan = () => {
       <View style={styles.bottomButtonContainer}>
         <RoundedTextButton content="사진 등록하기" widthOption="xl" onPress={handleRegisterButtonPress} />
       </View>
-
-      {/* 직접 정의한 모달 컴포넌트 */}
-      <ModalLayout
-        visible={isModalVisible}
-        setVisible={setModalVisible}
-        rows={[
-          {
-            content: [
-              <RoundedTextButton
-                content="갤러리에서 가져오기"
-                widthOption="lg"
-                color="bg-primary"
-                onPress={handleGallerySelect}
-                key="gallery"
-              />,
-              <RoundedTextButton
-                content="촬영하기"
-                widthOption="lg"
-                color="bg-primary"
-                onPress={handleCameraLaunch}
-                key="camera"
-              />
-            ],
-            layout: 'col',
-          }
-        ]}
-      />
     </View>
   );
 };

@@ -46,8 +46,9 @@ import SearchAddress from '@screens/reward/SearchAddress';
 // Ai
 import ReadyToScan from '@screens/ai/ReadyToScan';
 import SelectPetToScan from '@screens/ai/SelectPetToScan';
-import TakePicture from '@screens/ai/TakePicture';
 import ResultEyeScan from '@screens/ai/ResultEyeScan';
+import TakePicture from '@screens/ai/TakePicture';
+import AlertScan from '@screens/ai/AlertScan';
 
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
@@ -86,8 +87,9 @@ export const routesConfig: {
   PetUpdate: { component: PetUpdate, params: { petId: '' } },
   SelectPetToScan: { component: SelectPetToScan, params: undefined },
   ReadyToScan: { component: ReadyToScan, params: undefined },
-  TakePicture: { component: TakePicture, params: undefined },
   ResultEyeScan: { component: ResultEyeScan, params: undefined },
+  AlertScan: { component: AlertScan, params: undefined },
+  TakePicture: {component: TakePicture, params: undefined},
   PetUpdate: { component: PetUpdate, params: { petId: '' } },
   HospitalInfo: {component: HospitalInfo, params: undefined},
   // reward pages

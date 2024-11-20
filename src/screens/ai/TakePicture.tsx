@@ -8,7 +8,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 const CustomCameraScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { petId, petType } = route.params;
+  const { petId, petType, petName } = route.params;
   const cameraRef = useRef<RNCamera>(null);
   const [isTakingPicture, setIsTakingPicture] = useState(false);
 
@@ -18,6 +18,7 @@ const CustomCameraScreen = () => {
       try {
         const options = { quality: 0.5, base64: false };
         const data = await cameraRef.current.takePictureAsync(options);
+        console.log("디버깅 출력 (카메라 촬영 시) : ", data.uri, petId, petType);
         navigation.navigate('ReadyToScan', { imageUri: data.uri, petId, petType });
       } catch (error) {
         console.error("Error taking picture: ", error);
@@ -86,4 +87,3 @@ const styles = StyleSheet.create({
 });
 
 export default CustomCameraScreen;
-
