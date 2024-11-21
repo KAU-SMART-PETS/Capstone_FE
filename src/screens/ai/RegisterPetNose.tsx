@@ -4,21 +4,21 @@ import { fetchUserPets, getPetDetails } from '@api/petApi';
 import StylizedText from '../../components/common/StylizedText';
 import Avatar from '@components/common/Avatar';
 import { RoundedTextButton } from '@components/common/RoundedButton';
-import CustomAlert from '@components/common/CustomAlert'; // CustomAlert 임포트
+import CustomAlert from '@components/common/CustomAlert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
 const defaultImage = require('../../assets/image/icon/pawprint.png');
 const backIcon = require('../../assets/image/icon/arrow_back.png');
 
-const SelectPetToScan = () => {
+const RegisterNose = () => {
   const navigation = useNavigation();
   const [petList, setPetList] = useState([]);
   const [selectedPetId, setSelectedPetId] = useState(null);
   const [selectedPetType, setSelectedPetType] = useState(null);
   const [selectedPetName, setSelectedPetName] = useState(null);
-  const [isAlertVisible, setAlertVisible] = useState(false); // 알림창 상태 추가
-  const [alertMessage, setAlertMessage] = useState(''); // 알림창 메시지 상태 추가
+  const [isAlertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   useEffect(() => {
     const initializeData = async () => {
@@ -64,7 +64,7 @@ const SelectPetToScan = () => {
 
   const handleRegisterButtonPress = () => {
     if (selectedPetId && selectedPetType) {
-      navigation.navigate('AlertEyeScan', {
+      navigation.navigate('AlertNoseRegister', {
         petId: selectedPetId,
         petType: selectedPetType,
         petName: selectedPetName,
@@ -85,9 +85,14 @@ const SelectPetToScan = () => {
         <Image source={backIcon} style={styles.backIcon} />
       </TouchableOpacity>
 
-      <StylizedText type="header1" styleClass="text-black mb-4 mt-6">
-        촬영 시 {"\n"}반려동물의 동공이 {"\n"}잘 보일 수 있도록 찍어주세요.
-      </StylizedText>
+      <View style={styles.headerContainer}>
+        <StylizedText type="header1" styleClass="text-black mb-4">
+           비문 등록을 위한{"\n"}반려동물을 선택해주세요.
+        </StylizedText>
+        <StylizedText type="body2" styleClass="text-gray mb-6">
+           최초 1회만 등록하면 됩니다.
+        </StylizedText>
+       </View>
 
       <View style={styles.petListContainer}>
         {petList.map((pet) => (
@@ -105,10 +110,9 @@ const SelectPetToScan = () => {
         ))}
       </View>
       <View style={styles.bottomButtonContainer}>
-        <RoundedTextButton content="사진 등록하기" widthOption="xl" onPress={handleRegisterButtonPress} />
+        <RoundedTextButton content="등록하기" widthOption="xl" onPress={handleRegisterButtonPress} />
       </View>
 
-      {/* CustomAlert 추가 */}
       <CustomAlert
         visible={isAlertVisible}
         message={alertMessage}
@@ -123,7 +127,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     paddingHorizontal: 40,
-    paddingTop: 60,
+    paddingTop: 80,
   },
   backButton: {
     position: 'absolute',
@@ -162,5 +166,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SelectPetToScan;
-
+export default RegisterNose;

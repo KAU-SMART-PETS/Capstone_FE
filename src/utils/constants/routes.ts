@@ -43,12 +43,19 @@ import PaymentInformation from '@screens/reward/PaymentInformation';
 import PaymentSampleInformation from '@screens/reward/PaymentSampleInformation';
 import SearchAddress from '@screens/reward/SearchAddress';
 
-// Ai
+// AiEye
 import ReadyToScan from '@screens/ai/ReadyToScan';
 import SelectPetToScan from '@screens/ai/SelectPetToScan';
 import ResultEyeScan from '@screens/ai/ResultEyeScan';
-import TakePicture from '@screens/ai/TakePicture';
-import AlertScan from '@screens/ai/AlertScan';
+import EyeCamera from '@screens/ai/EyeCamera';
+import AlertEyeScan from '@screens/ai/AlertEyeScan';
+
+// AiNose
+import RegisterPetNose from '@screens/ai/RegisterPetNose';
+import NoseCamera from '@screens/ai/NoseCamera';
+import AlertNoseRegister from '@screens/ai/AlertNoseRegister';
+import ReadyToRegisterNose from '@screens/ai/ReadyToRegisterNose';
+import ResultNoseRegister from '@screens/ai/ResultNoseRegister';
 
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
@@ -88,8 +95,13 @@ export const routesConfig: {
   SelectPetToScan: { component: SelectPetToScan, params: undefined },
   ReadyToScan: { component: ReadyToScan, params: undefined },
   ResultEyeScan: { component: ResultEyeScan, params: undefined },
-  AlertScan: { component: AlertScan, params: undefined },
-  TakePicture: {component: TakePicture, params: undefined},
+  AlertEyeScan: { component: AlertEyeScan, params: undefined },
+  EyeCamera: {component: EyeCamera, params: undefined},
+  RegisterPetNose: {component: RegisterPetNose, params: undefined},
+  NoseCamera: {component: NoseCamera, params: undefined},
+  AlertNoseRegister: {component: AlertNoseRegister, params: undefined},
+  ReadyToRegisterNose: {component: ReadyToRegisterNose, params: undefined},
+  ResultNoseRegister: {component: ResultNoseRegister, params: undefined},
   PetUpdate: { component: PetUpdate, params: { petId: '' } },
   HospitalInfo: {component: HospitalInfo, params: undefined},
   // reward pages
