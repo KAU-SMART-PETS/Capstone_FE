@@ -6,6 +6,7 @@ class SearchAddress extends Component {
     constructor(props) {
         super(props);
     }
+    
 
     getAddressData = (data) => {
         let defaultAddress = '';
@@ -17,16 +18,34 @@ class SearchAddress extends Component {
         } else {
             defaultAddress = `(${data.buildingName})`;
         }
+        const returnTo = this.props.route.params?.returnTo || 'DefaultPage';
 
-          // Navigate back to the previous page with params
-          this.props.navigation.navigate({
-            name: 'PaymentInformation', // 정확한 페이지 이름
-            params: { 
-                zonecode: data.zonecode,
-                address: data.address,
-                defaultAddress,
-            },
-            merge: true, // 기존 params에 병합
+       /*
+       //setParams & goBack을 사용할 때 페이지에서 params값을 받아오지 못하는 이슈 발생하여 미사용 코드.
+        this.props.navigation.setParams({
+            zonecode: data.zonecode,
+            address: data.address,
+            defaultAddress,
+        });
+        console.log('setParams called with:', {
+            zonecode: data.zonecode,
+            address: data.address,
+            defaultAddress,
+        });
+        this.props.navigation.goBack();
+        */
+   
+        console.log('Navigating back to:', returnTo);
+        console.log('Passing params:', {
+        zonecode: data.zonecode,
+        address: data.address,
+        defaultAddress,
+        });
+
+        this.props.navigation.navigate(returnTo, {
+            zonecode: data.zonecode,
+            address: data.address,
+            defaultAddress,
         });
     };
 

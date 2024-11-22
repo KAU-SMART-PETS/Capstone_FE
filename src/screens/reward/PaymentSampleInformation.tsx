@@ -119,6 +119,11 @@ const PaymentSampleInformation: React.FC = () => {
   }, [route.params]);
 
   const handleOrderSubmit = async () => {
+    if (selectedFoodIds.length === 0) {
+      setModalMessage('사료를 선택해주세요.');
+      setModalVisible(true);
+      return;
+    }
     if (!detailAddress || !userData.phoneNumber || !postalCode) {
       setModalMessage('주문 정보를 바르게 입력했는지 확인해 주세요.');
       setModalVisible(true);
@@ -205,7 +210,7 @@ const PaymentSampleInformation: React.FC = () => {
             />
           </View>
           <View className="w-1/3">
-            <RoundedTextButton content="주소 검색" widthOption="sm" onPress={() => navigation.navigate('SearchAddress')} />
+            <RoundedTextButton content="주소 검색" widthOption="sm" onPress={() => navigation.navigate('SearchAddress', { returnTo: 'PaymentSampleInformation' })} />
           </View>
         </View>
         <CustomTextInput

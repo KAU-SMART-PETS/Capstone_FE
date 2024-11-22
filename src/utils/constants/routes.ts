@@ -117,7 +117,7 @@ export const routesConfig: {
     component: PaymentSampleInformation, 
     params: {} as AddressParams, // 타입 적용
   },
-  SearchAddress :  { component: SearchAddress, params: undefined },
+  SearchAddress :  { component: SearchAddress,  params: { returnTo: '' } },
 
   Home :  { component: Home, params: undefined },
    //산책 기능 관련 테스트 페이지
