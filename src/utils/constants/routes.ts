@@ -106,7 +106,7 @@ export const routesConfig: {
   HospitalInfo: {component: HospitalInfo, params: undefined},
   // reward pages
   ChallengeList :  { component: ChallengeList, params: undefined },
-  CongratulatePopUp: { component: CongratulatePopUp, params: { point: 0 } as CongratulatePopUpParams },
+  CongratulatePopUp: { component: CongratulatePopUp, params: { rewardId: 0 } as CongratulatePopUpParams },
   OrderReceived: { component: OrderReceived, params: { product: '' } },
   ViewFeedList :  { component: ViewFeedList, params: undefined },
   PaymentInformation: { 
