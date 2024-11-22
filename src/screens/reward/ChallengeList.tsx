@@ -55,7 +55,8 @@ const ChallengeList: React.FC = () => {
     if (reward.isAchieved && !reward.isObtain) {
       const result = await depositRewardPoints(reward.id);
       if (result) {
-        navigation.navigate('CongratulatePopUp', { point: reward.earnPoint });
+        console.log(`Navigating to CongratulatePopUp with rewardId: ${reward.id}`);
+        navigation.navigate('CongratulatePopUp', { rewardId: reward.id });
         fetchData(); // 리워드 목록 업데이트
       } else {
         setModalMessage('포인트 적립에 실패했습니다. 다시 시도해 주세요.');
