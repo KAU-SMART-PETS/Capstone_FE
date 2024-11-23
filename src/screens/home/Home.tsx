@@ -34,13 +34,13 @@ const HomeScreen: React.FC = () => {
       id: 'reward-check',
       title: '리워드 확인하기',
       content: '다양한 리워드를 달성하며 혜택을 받아보세요!',
-      onPress: () => console.log('리워드 확인하기 클릭됨'),
+      onPress: () => navigation.navigate('ChallengeList'),
     },
     {
       id: 'product-buy',
       title: '제품 구매하기',
       content: '누적된 포인트로 제품을 구매해보세요!',
-      onPress: () => console.log('제품 구매하기 클릭됨'),
+      onPress: () => navigation.navigate('ViewFeedList'),
     },
     {
       id: 'scan-iris',
@@ -74,8 +74,8 @@ const HomeScreen: React.FC = () => {
           { id : 'RegisterPetNose', title:'RegisterNose', screen: 'RegisterPetNose'},
           { id: 'PetHealthInfo', title: 'Pet Health Info', screen: 'Analysis' },
 
-          { id: 'ChallengeList', title: 'ChallengeList', screen: 'ChallengeList' },
-          { id: 'ViewFeedList', title: 'BuyFeeds', screen: 'ViewFeedList' },
+          //{ id: 'ChallengeList', title: 'ChallengeList', screen: 'ChallengeList' },
+          //{ id: 'ViewFeedList', title: 'BuyFeeds', screen: 'ViewFeedList' },
 
           //{ id: 'Example', title: 'Example Test', screen: 'Example' },
     ];
