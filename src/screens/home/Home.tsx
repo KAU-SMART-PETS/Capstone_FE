@@ -1,6 +1,5 @@
 import React from 'react';
 import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
-import bagImg from '../../assets/image/bag.png';
 import ListCard from '@components/common/ListCard';
 import StylizedText from '@components/common/StylizedText';
 import { useNavigation } from '@react-navigation/native';
@@ -11,12 +10,13 @@ interface ProductPurchaseCardProps {
   title: string;
   content: string;
   reverse?: boolean;
+  avatar: any;
   onPress?: () => void;
 }
 
-const ProductPurchaseCard: React.FC<ProductPurchaseCardProps> = ({ title, content, reverse, onPress }) => (
+const ProductPurchaseCard: React.FC<ProductPurchaseCardProps> = ({ title, avatar, content, reverse, onPress }) => (
   <ListCard
-    avatar={bagImg}
+    avatar={avatar}
     reverse={reverse}
     onPress={onPress}
     title={<StylizedText type="header7" styleClass="text-black mt-1 ml-0.5">{title}</StylizedText>}
@@ -34,24 +34,28 @@ const HomeScreen: React.FC = () => {
       id: 'reward-check',
       title: '리워드 확인하기',
       content: '다양한 리워드를 달성하며 혜택을 받아보세요!',
+      avatar: require('../../assets/image/reward.png'),
       onPress: () => navigation.navigate('ChallengeList'),
     },
     {
       id: 'product-buy',
       title: '제품 구매하기',
       content: '누적된 포인트로 제품을 구매해보세요!',
+      avatar: require('../../assets/image/bag.png'),
       onPress: () => navigation.navigate('ViewFeedList'),
     },
     {
       id: 'scan-iris',
       title: '홍채 스캔하기',
       content: '반려동물의 홍채를 스캔하여 건강 상태를 확인해보세요!',
+      avatar: require('../../assets/image/scan.png'),
       onPress: () => navigation.navigate('SelectPetToScan'),
     },
     {
       id: 'register-nose',
       title: '비문 등록하기',
       content: '반려동물의 안전을 위한 비문을 등록해주세요!',
+      avatar: require('../../assets/image/nose.png'),
       onPress: () => navigation.navigate('RegisterPetNose'),
     },
   ];
@@ -70,8 +74,8 @@ const HomeScreen: React.FC = () => {
           //{ id: 'WalkStartPage', title: 'WalkStartPage', screen: 'WalkStartPage' },
 
           { id: 'Camera', title: 'Camera', screen: 'CameraView' },
-          { id : 'SelectPetToScan', title:'ScanEye', screen: 'SelectPetToScan'},
-          { id : 'RegisterPetNose', title:'RegisterNose', screen: 'RegisterPetNose'},
+          //{ id : 'SelectPetToScan', title:'ScanEye', screen: 'SelectPetToScan'},
+          //{ id : 'RegisterPetNose', title:'RegisterNose', screen: 'RegisterPetNose'},
           { id: 'PetHealthInfo', title: 'Pet Health Info', screen: 'Analysis' },
 
           //{ id: 'ChallengeList', title: 'ChallengeList', screen: 'ChallengeList' },
@@ -90,6 +94,7 @@ const HomeScreen: React.FC = () => {
             title={card.title}
             content={card.content}
             onPress={card.onPress}
+            avatar={card.avatar}
           />
         ))}
       </View>
