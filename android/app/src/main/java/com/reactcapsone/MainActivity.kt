@@ -16,7 +16,7 @@ class MainActivity : ReactActivity() {
   override fun getMainComponentName(): String = "reactCapsone"
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    RNBootSplash.init(this) // ⬅️ initialize the splash screen
+    RNBootSplash.init(this) // Adjusted the init method call
     super.onCreate(savedInstanceState) // super.onCreate(null) with react-native-screens
   }
 
@@ -24,18 +24,6 @@ class MainActivity : ReactActivity() {
    * Returns the instance of the [ReactActivityDelegate]. We use [DefaultReactActivityDelegate]
    * which allows you to enable New Architecture with a single boolean flags [fabricEnabled]
    */
-   /**  override fun createReactActivityDelegate(): ReactActivityDelegate =
-     * DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled) 
-     */
-    override fun createReactActivityDelegate(): ReactActivityDelegate {
-      return DefaultReactActivityDelegate(
-          this,
-          mainComponentName,
-          fabricEnabled() // Use a function without 'DefaultNewArchitectureEntryPoint'
-    )}
-
-    fun fabricEnabled(): Boolean {
-        // Return true or false based on whether Fabric Renderer is enabled in your project
-        return false // Set it to false if you're not using the Fabric renderer yet
-    }
+    override fun createReactActivityDelegate(): ReactActivityDelegate =
+    DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
 }
