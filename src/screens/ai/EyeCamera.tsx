@@ -3,7 +3,6 @@ import { View, TouchableOpacity, Image, StyleSheet, ActivityIndicator, Alert } f
 import { RNCamera } from 'react-native-camera';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-//Todo: 고양이 촬영 이미지 전달 확인, 카메라 레이아웃 커스텀
 
 const CustomCameraScreen = () => {
   const navigation = useNavigation();
@@ -19,7 +18,7 @@ const CustomCameraScreen = () => {
         const options = { quality: 0.5, base64: false };
         const data = await cameraRef.current.takePictureAsync(options);
         console.log("디버깅 출력 (카메라 촬영 시) : ", data.uri, petId, petType);
-        navigation.navigate('ReadyToScan', { imageUri: data.uri, petId, petType });
+        navigation.navigate('ReadyToScan', { imageUri: data.uri, petId, petType, petName });
       } catch (error) {
         console.error("Error taking picture: ", error);
         Alert.alert("오류", "사진을 촬영하는 중 문제가 발생했습니다.");
