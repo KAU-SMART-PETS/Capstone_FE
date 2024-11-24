@@ -40,12 +40,28 @@
     <string>이 앱은 촬영을 위해 카메라를 사용합니다.</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>이 앱은 사진을 업로드하기 위해 사진 라이브러리에 접근합니다.</string>
+    <!-- 출시할 때에는 반드시 ** HTTPS ** 설정으로 전환해야함 (앱스토어 심사 거부 사유) -->
     <key>NSAppTransportSecurity</key>
     <dict>
+        <!-- 모든 비보안 연결(HTTP)을 허용 -->
         <key>NSAllowsArbitraryLoads</key>
-        <false/>
+        <true/>
+        <!-- 로컬 네트워킹 허용 -->
         <key>NSAllowsLocalNetworking</key>
         <true/>
+        <!-- 특정 도메인 예외 설정 -->
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>52.79.140.133</key>
+            <dict>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSTemporaryExceptionMinimumTLSVersion</key>
+                <string>TLSv1.0</string>
+            </dict>
+        </dict>
     </dict>
     <key>UILaunchStoryboardName</key>
     <string>BootSplash</string>

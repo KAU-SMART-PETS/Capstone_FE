@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android --active-arch-only",
-    "ios": "npx react-native run-ios --mode 'Debug' --scheme reactCapsone --verbose",
+    "ios": "cd ios && react-native run-ios --mode 'Debug' --scheme reactCapsone --xcconfig ExtraArgs.xcconfig",
     "lint": "eslint .",
     "start": "react-native start",
     "prepare": "husky install",
