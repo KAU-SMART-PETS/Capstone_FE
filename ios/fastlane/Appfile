@@ -1,0 +1,2 @@
+app_identifier("org.reactjs.native.example.reactCapsone") # 앱의 번들 ID
+apple_id(ENV['APPLE_USER']) # .env 파일에서 FASTLANE_USER를 읽어옴

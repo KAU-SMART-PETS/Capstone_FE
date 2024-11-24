@@ -1,0 +1,64 @@
+require 'dotenv'
+Dotenv.load(File.expand_path('../../../.env', __FILE__)) # Fastfile에서 .env 경로 지정
+
+# Fastlane 빌드에 로그 최소화
+sh("export FASTLANE_SKIP_UPDATE_CHECK=1")
+sh("export FASTLANE_HIDE_GIT_ACTIONS=1")
+sh("export FASTLANE_DISABLE_COLORS=1")
+sh("export FASTLANE_SKIP_DOCS=1")
+
+platform :ios do
+  desc "애플 Keychain을 설정하고 로드합니다."
+  lane :setup_keychain do
+    keychain_path = ENV['KEYCHAIN_PATH'] || "~/Library/Keychains/login.keychain-db"
+    expanded_keychain_path = File.expand_path(keychain_path)
+    password = ENV['APPLE_PASSWORD'] || "default_password"
+    unless File.exist?(expanded_keychain_path)
+      UI.message("Keychain이 없습니다. 새로 생성합니다: #{expanded_keychain_path}")
+      sh("security create-keychain -p \"#{password}\" #{expanded_keychain_path} > /dev/null 2>&1")
+    else
+      UI.message("Keychain이 이미 존재합니다: #{expanded_keychain_path}")
+    end
+    sh("security set-key-partition-list -S apple-tool:,apple: -s -k \"#{password}\" #{expanded_keychain_path} > /dev/null 2>&1")
+  end
+
+  desc "iOS app을 빌드합니다..."
+  lane :build do
+    sh("yarn install > /dev/null 2>&1")
+    sh("bundle exec pod install")
+    build_app(
+      sdk: "iphoneos",
+      scheme: "reactCapsone",
+      workspace: "reactCapsone.xcworkspace",
+      derived_data_path: "~/Library/Developer/Xcode/DerivedData",
+      build_path: "./build",
+      export_method: "development", # NOTE : 원래는 Firebase에 적합하도록 Ad-Hoc 설정해야함 (애플개발자 미구독 시 development 선택)
+      xcargs: "ONLY_ACTIVE_ARCH=YES -jobs 8 COMPILER_INDEX_STORE_ENABLE=NO CLANG_ENABLE_EXPLICIT_MODULES=NO",
+      clean: true,
+      silent: true,
+      output_directory: "./build/app",
+      output_name: "puppyDocTester",
+    )
+  end
+
+  desc "Firebase App Distribution으로 배포합니다."
+  lane :distribute_to_firebase do
+    # 릴리즈 노트 설정: 환경변수에서 읽거나 기본값으로 현재 날짜/시간 사용
+    release_notes = ENV['FIREBASE_RELEASE_NOTES'] || "테스트빌드 #{Time.now.strftime('%Y-%m-%d %H:%M:%S')}"
+    
+    sh("
+    firebase appdistribution:distribute ../build/app/puppyDocTester.ipa \
+    --app #{ENV['FIREBASE_APP_ID']} \
+    --testers '#{ENV['FIREBASE_TESTERS']}' \
+    --groups '#{ENV['FIREBASE_GROUPS']}' \
+    --release-notes '#{release_notes}'
+    ")
+  end
+
+  desc "전체 프로세스 실행"
+  lane :beta do
+    setup_keychain
+    build
+    distribute_to_firebase
+  end
+end
