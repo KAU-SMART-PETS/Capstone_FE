@@ -104,6 +104,8 @@ const SelectPetToScan = () => {
           </TouchableOpacity>
         ))}
       </View>
+
+      {/* "사진 등록하기" 버튼 */}
       <View style={styles.bottomButtonContainer}>
         <RoundedTextButton content="사진 등록하기" widthOption="xl" onPress={handleRegisterButtonPress} />
       </View>
@@ -135,16 +137,11 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
   },
-  bottomButtonContainer: {
-    position: 'absolute',
-    bottom: 20,
-    left: 50,
-  },
   petListContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    top: 39,
+    marginTop: 20,
   },
   petButton: {
     alignItems: 'center',
@@ -160,6 +157,13 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
   },
+  bottomButtonContainer: {
+      position: 'absolute',
+      bottom: 16,
+      left: 0,
+      right: 0,
+      alignItems: 'center',
+    },
 });
 
 export default SelectPetToScan;

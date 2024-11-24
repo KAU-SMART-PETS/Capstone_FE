@@ -100,11 +100,7 @@ const AlertNose = () => {
       </View>
 
       <View style={styles.bottomButtonContainer}>
-        <RoundedTextButton
-          content="준비 완료"
-          widthOption="full"
-          onPress={handleReadyButtonPress} // ModalLayout 열기
-        />
+        <RoundedTextButton content="준비 완료" widthOption="xl" onPress={handleReadyButtonPress} />
       </View>
 
       {/* ModalLayout */}
@@ -167,7 +163,6 @@ const styles = StyleSheet.create({
   imageWrapper: {
     alignItems: 'center',
     marginHorizontal: 10,
-    marginTop: 20,
   },
   image: {
     width: 100,
@@ -195,11 +190,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   bottomButtonContainer: {
-    position: 'absolute',
-    bottom: 30,
-    width: '100%',
-    alignItems: 'center',
-  },
+      position: 'absolute',
+      bottom: 16,
+      left: 0,
+      right: 0,
+      alignItems: 'center',
+    },
 });
 
 export default AlertNose;
