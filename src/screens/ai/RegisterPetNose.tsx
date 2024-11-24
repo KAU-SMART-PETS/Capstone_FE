@@ -140,10 +140,12 @@ const styles = StyleSheet.create({
     height: 30,
   },
   bottomButtonContainer: {
-    position: 'absolute',
-    bottom: 20,
-    left: 50,
-  },
+      position: 'absolute',
+      bottom: 16,
+      left: 0,
+      right: 0,
+      alignItems: 'center',
+    },
   petListContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
