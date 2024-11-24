@@ -12,7 +12,7 @@
     "android:clean": "cd android && ./gradlew clean",
     "ios:pods": "cd ios && pod install",
     "ios:fastlane": "cd ios && bundle exec fastlane ios beta",
-    "start:expo": "npx expo"
+    "start:script": "cd scripts && ./run_scripts.sh && cd ../"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.0.0",
