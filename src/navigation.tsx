@@ -20,7 +20,7 @@ const AppNavigator = () => {
       {isSplashVisible && <Splash duration={2500} onFinish={handleSplashFinish} />}
       {!isSplashVisible && (
         <Stack.Navigator
-          initialRouteName="MainTab"
+          initialRouteName="Login"
           screenOptions={{ headerShown: false }}
         >
         {typedObjectEntries(routeComponents).map(([name, Component]) => (
