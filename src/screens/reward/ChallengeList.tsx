@@ -81,7 +81,7 @@ const ChallengeList: React.FC = () => {
 
   return (
     <>
-      <ScrollView className="flex-1 bg-white pt-10 px-5">
+      <ScrollView className="flex-1 bg-white pt-10 px-5" contentContainerStyle={{ paddingBottom: 100}}>
         <HeaderText
           text={`${userName || '사용자'}님,\n달성한 리워드를 확인해 주세요.`}
           highlight={userName || '사용자'}

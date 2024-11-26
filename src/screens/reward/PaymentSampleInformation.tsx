@@ -77,30 +77,51 @@ const PaymentSampleInformation: React.FC = () => {
       throw new Error('Failed to fetch balance');
     }
   };
-
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const foodsResult = await fetchFoods();
-        console.log('Foods fetched:', foodsResult);
-        const balanceResult = await fetchUserBalance();
-        console.log('User balance fetched:', balanceResult);
-        const userDataResult = await fetchUserData();
-        console.log('User data fetched:', userDataResult);
-  
-        // User phone number type 설정
-        setInputType(userDataResult.phoneNumber ? 'editableWithButton' : 'freeText');
-      } catch (error) {
-        console.error('Fetch data error:', error.message || error);
-        setModalMessage('오류가 발생했습니다. 다시 시도해주세요.');
-        setModalVisible(true);
-      } finally {
-        setLoading(false);
-      }
+        try {
+            await Promise.all([
+                fetchFoods().catch((error) => {
+                    console.error('Error in fetchFoods:', error);
+                    throw new Error('사료 데이터를 가져오는 중 문제가 발생했습니다.');
+                }),
+                fetchUserBalance().catch((error) => {
+                    console.error('Error in fetchUserBalance:', error);
+                    throw new Error('사용자 잔액을 가져오는 중 문제가 발생했습니다.');
+                }),
+                fetchUserData()
+                    .then((userData) => {
+                        setInputType(userData.phoneNumber ? 'editableWithButton' : 'freeText');
+                    })
+                    .catch((error) => {
+                        console.error('Error in fetchUserData:', error);
+                        throw new Error('사용자 정보를 가져오는 중 문제가 발생했습니다.');
+                    }),
+            ]);
+        } catch (error) {
+            // 로그 기록
+            console.error('Fetch data failed:', error.message || error);
+
+            // 오류 원인에 따라 메시지 표시
+            if (error.message === '사료 데이터를 가져오는 중 문제가 발생했습니다.') {
+                setModalMessage('사료 데이터를 가져오는 중 문제가 발생했습니다. 다시 시도해주세요.');
+            } else if (error.message === '사용자 잔액을 가져오는 중 문제가 발생했습니다.') {
+                setModalMessage('사용자 잔액을 가져오는 중 문제가 발생했습니다. 다시 시도해주세요.');
+            } else if (error.message === '사용자 정보를 가져오는 중 문제가 발생했습니다.') {
+                setModalMessage('사용자 정보를 가져오는 중 문제가 발생했습니다. 다시 시도해주세요.');
+            } else {
+                setModalMessage('알 수 없는 오류가 발생했습니다. 다시 시도해주세요.');
+            }
+
+            // 팝업 활성화
+            setModalVisible(true);
+        } finally {
+            setLoading(false);
+        }
     };
-  
+
     fetchData();
-  }, []);
+}, []);
 
   useEffect(() => {
     if (route.params) {
@@ -288,8 +309,12 @@ const PaymentSampleInformation: React.FC = () => {
               <RoundedTextButton
                 content="확인"
                 onPress={() => {
-                  setModalVisible(false);
-                  if (modalMessage === '오류가 발생했습니다. 다시 시도해주세요.') {
+                  setModalVisible(false); // 모달을 닫음
+                  // [확인] 버튼을 눌렀을 때 모든 오류 메시지에 대해 goBack 처리
+                  if (
+                    modalMessage &&
+                    modalMessage.match(/발생했습니다\. 다시 시도해주세요\.$/)
+                  ) {
                     navigation.goBack();
                   }
                 }}
