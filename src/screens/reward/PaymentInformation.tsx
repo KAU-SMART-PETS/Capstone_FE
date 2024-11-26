@@ -10,7 +10,6 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import ModalLayout from '@components/ModalLayout';
 import { ProgressDots } from '@common/Loading';
 import { foodsList, purchaseFood } from '@api/foodApi';
-import { fetchPointHistory } from '@api/pointApi';
 import { fetchUserProfile } from '@api/userApi';
 import { WarningRecord } from '@components/Records';
 
@@ -49,21 +48,6 @@ const PaymentInformation: React.FC = () => {
     }
   };
 
-  const fetchUserBalance = async () => {
-    try {
-      const pointHistory = await fetchPointHistory();
-      if (pointHistory && pointHistory.history.length > 0) {
-        const latestPoint = pointHistory.history[0].totalPoint;
-        setBalance(latestPoint);
-      } else {
-        console.log('Failed to fetch user points');
-        throw new Error('Failed to fetch user points');
-      }
-    } catch (error) {
-      throw new Error('Failed to fetch balance');
-    }
-  };
-
   const fetchUserData = async () => {
     const userProfile = await fetchUserProfile();
     if (userProfile) {
@@ -72,6 +56,7 @@ const PaymentInformation: React.FC = () => {
         email: userProfile.email || '',
         phoneNumber: userProfile.phoneNumber || '',
       });
+      setBalance(userProfile.point || 0); // 사용자 잔액 설정
       return userProfile; // userData 반환
     } else {
       console.log('Failed to load user profile');
@@ -86,10 +71,6 @@ const PaymentInformation: React.FC = () => {
                 fetchFoods().catch((error) => {
                     console.error('Error in fetchFoods:', error);
                     throw new Error('사료 데이터를 가져오는 중 문제가 발생했습니다.');
-                }),
-                fetchUserBalance().catch((error) => {
-                    console.error('Error in fetchUserBalance:', error);
-                    throw new Error('사용자 잔액을 가져오는 중 문제가 발생했습니다.');
                 }),
                 fetchUserData()
                     .then((userData) => {
@@ -107,8 +88,6 @@ const PaymentInformation: React.FC = () => {
             // 오류 원인에 따라 메시지 표시
             if (error.message === '사료 데이터를 가져오는 중 문제가 발생했습니다.') {
                 setModalMessage('사료 데이터를 가져오는 중 문제가 발생했습니다. 다시 시도해주세요.');
-            } else if (error.message === '사용자 잔액을 가져오는 중 문제가 발생했습니다.') {
-                setModalMessage('사용자 잔액을 가져오는 중 문제가 발생했습니다. 다시 시도해주세요.');
             } else if (error.message === '사용자 정보를 가져오는 중 문제가 발생했습니다.') {
                 setModalMessage('사용자 정보를 가져오는 중 문제가 발생했습니다. 다시 시도해주세요.');
             } else {
