@@ -43,7 +43,7 @@ const ViewFeedList: React.FC = () => {
         <StylizedText type="body1" styleClass="text-grey mb-6">리워드를 수행하고 얻은 포인트로 사료를 구매할 수 있습니다!</StylizedText> 
       </View> 
  
-      <ScrollView contentContainerStyle="pb-20 px-4">
+      <ScrollView contentContainerStyle={{ paddingBottom: 100, paddingHorizontal: 16 }}>
         <View className="flex flex-col space-y-4 m-4">
           {foods.map((food) => (
             <View key={food.id}>
