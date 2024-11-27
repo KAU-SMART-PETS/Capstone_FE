@@ -16,7 +16,6 @@
 		2D1C93483FAB42BA806290BB /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0394E672059413F8BFFAC0A /* Pretendard-Bold.otf */; };
 		30E1DA60731F4379AE174288 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B50495B1958241BB996F2C0E /* Pretendard-Medium.otf */; };
 		3F621668841C4354844A9D46 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 90287CCE86664666B4C69A9D /* Pretendard-Thin.otf */; };
-		4E4AFD9CA954DD96BF74EDAE /* Pods_reactCapsone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25587392E18ECA704865AF71 /* Pods_reactCapsone.framework */; };
 		681D829E2CED002D008EA52A /* FontAwesome6_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 681D82932CED002D008EA52A /* FontAwesome6_Brands.ttf */; };
 		681D829F2CED002D008EA52A /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 681D829B2CED002D008EA52A /* Octicons.ttf */; };
 		681D82A02CED002D008EA52A /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 681D828D2CED002D008EA52A /* EvilIcons.ttf */; };
@@ -44,6 +43,7 @@
 		EA27BE50AEE943B4A24BB74D /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2131EA2E36D146E1A22922F4 /* Pretendard-Light.otf */; };
 		EB21ADB41424478AB0715D8C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 230EC077AC064EB5BFB07B97 /* Colors.xcassets */; };
 		F5DBEFD80FEE47D9B7CF9E0B /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 80B0BDF834194455812702C2 /* Pretendard-Regular.otf */; };
+		FFDB8B928A263F21E05104C1 /* Pods_reactCapsone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7594D5BD231D30B56E2FFB59 /* Pods_reactCapsone.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +60,7 @@
 		00E356EE1AD99517003FC87E /* reactCapsoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = reactCapsoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* reactCapsoneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = reactCapsoneTests.m; sourceTree = "<group>"; };
+		06AFBE597D53DB1E9930FE3D /* Pods-reactCapsone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsone.release.xcconfig"; path = "Target Support Files/Pods-reactCapsone/Pods-reactCapsone.release.xcconfig"; sourceTree = "<group>"; };
 		0D811C99F28E489CB0D15ED3 /* Pretendard-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Black.otf"; path = "../src/assets/fonts/Pretendard-Black.otf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* reactCapsone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reactCapsone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = reactCapsone/AppDelegate.h; sourceTree = "<group>"; };
@@ -72,8 +73,8 @@
 		2131EA2E36D146E1A22922F4 /* Pretendard-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Light.otf"; path = "../src/assets/fonts/Pretendard-Light.otf"; sourceTree = "<group>"; };
 		230EC077AC064EB5BFB07B97 /* Colors.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = reactCapsone/Colors.xcassets; sourceTree = "<group>"; };
 		2549910F7CCEFFE9A4BA48EE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = reactCapsone/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		25587392E18ECA704865AF71 /* Pods_reactCapsone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_reactCapsone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		27D08CDB6C3F4D93A22E6578 /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = reactCapsone/BootSplash.storyboard; sourceTree = "<group>"; };
+		4DED80EF3F8B8A01CED2E1D6 /* Pods-reactCapsone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsone.debug.xcconfig"; path = "Target Support Files/Pods-reactCapsone/Pods-reactCapsone.debug.xcconfig"; sourceTree = "<group>"; };
 		681D828B2CED002D008EA52A /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntDesign.ttf; sourceTree = "<group>"; };
 		681D828C2CED002D008EA52A /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		681D828D2CED002D008EA52A /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
@@ -93,7 +94,7 @@
 		681D829B2CED002D008EA52A /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		681D829C2CED002D008EA52A /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		681D829D2CED002D008EA52A /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
-		69EA9C73F70B73ED60A1416C /* Pods-reactCapsone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsone.release.xcconfig"; path = "Target Support Files/Pods-reactCapsone/Pods-reactCapsone.release.xcconfig"; sourceTree = "<group>"; };
+		7594D5BD231D30B56E2FFB59 /* Pods_reactCapsone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_reactCapsone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78402653744C487D8D657CF8 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-SemiBold.otf"; path = "../src/assets/fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		79E910A85F354A5C8713161A /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-ExtraBold.otf"; path = "../src/assets/fonts/Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		80B0BDF834194455812702C2 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Regular.otf"; path = "../src/assets/fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -102,7 +103,6 @@
 		B50495B1958241BB996F2C0E /* Pretendard-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Medium.otf"; path = "../src/assets/fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		D0394E672059413F8BFFAC0A /* Pretendard-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Bold.otf"; path = "../src/assets/fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		FD8645F201C7C9E7435706A5 /* Pods-reactCapsone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsone.debug.xcconfig"; path = "Target Support Files/Pods-reactCapsone/Pods-reactCapsone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E4AFD9CA954DD96BF74EDAE /* Pods_reactCapsone.framework in Frameworks */,
+				FFDB8B928A263F21E05104C1 /* Pods_reactCapsone.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				25587392E18ECA704865AF71 /* Pods_reactCapsone.framework */,
+				7594D5BD231D30B56E2FFB59 /* Pods_reactCapsone.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -245,8 +245,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FD8645F201C7C9E7435706A5 /* Pods-reactCapsone.debug.xcconfig */,
-				69EA9C73F70B73ED60A1416C /* Pods-reactCapsone.release.xcconfig */,
+				4DED80EF3F8B8A01CED2E1D6 /* Pods-reactCapsone.debug.xcconfig */,
+				06AFBE597D53DB1E9930FE3D /* Pods-reactCapsone.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -276,12 +276,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "reactCapsone" */;
 			buildPhases = (
-				74FC1E4A6FFC95AAA30B6D76 /* [CP] Check Pods Manifest.lock */,
+				966FCA90F768370F7D410B60 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				268695FC577947A2CF9AE622 /* [CP] Copy Pods Resources */,
+				93A2082C8CBE2B4F48E67D06 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -396,7 +396,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		268695FC577947A2CF9AE622 /* [CP] Copy Pods Resources */ = {
+		93A2082C8CBE2B4F48E67D06 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -413,7 +413,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-reactCapsone/Pods-reactCapsone-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		74FC1E4A6FFC95AAA30B6D76 /* [CP] Check Pods Manifest.lock */ = {
+		966FCA90F768370F7D410B60 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -519,7 +519,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD8645F201C7C9E7435706A5 /* Pods-reactCapsone.debug.xcconfig */;
+			baseConfigurationReference = 4DED80EF3F8B8A01CED2E1D6 /* Pods-reactCapsone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -550,7 +550,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 69EA9C73F70B73ED60A1416C /* Pods-reactCapsone.release.xcconfig */;
+			baseConfigurationReference = 06AFBE597D53DB1E9930FE3D /* Pods-reactCapsone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;

@@ -20,6 +20,7 @@
       "@common/*" : ["components/common/*"],
       "@screens/*": ["screens/*"],
       "@example/*": ["screens/example/*"],
+      "@assets/*": ["assets/*"], 
       "@image/*": ["assets/image/*"], 
       "@constants/*": ["utils/constants/*"],  
       "@types": ["utils/constants/types"], 

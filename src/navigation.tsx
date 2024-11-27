@@ -41,7 +41,7 @@ const AppNavigator = () => {
   };
   return (
     <NavigationContainer onReady={() => RNBootSplash.hide({fade : true, duration : 350})}>
-      {isSplashVisible && <Splash duration={220} onFinish={handleSplashFinish} />}
+      {isSplashVisible && <Splash duration={2500} onFinish={handleSplashFinish} />}
       {!isSplashVisible && (
       <Stack.Navigator
         initialRouteName="MainTab"

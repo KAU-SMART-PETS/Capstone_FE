@@ -1,82 +1,52 @@
-import React, { useEffect, useState } from "react";
-import { Animated, Easing } from "react-native";
-import { SystemBars } from "react-native-bars";
-import { ColorMap } from "@components/common/ColorMap";
-import bootSplashLogo from "@image/bootsplash/bootsplash_logo.png";
+import React, { useEffect, useRef } from "react";
+import { View, Platform } from "react-native";
+import LottieView from "lottie-react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-// SplashScreenProps 정의 (duration 추가)
+// Lottie 파일 import
+import LottieSplashAndroid from "@assets/lottie/BootSplash_Android.json";
+import LottieSplashIOS from "@assets/lottie/BootSplash_iOS.json";
+
+// SplashScreenProps 정의
 interface SplashScreenProps {
   duration?: number; // 속도 조절을 위한 duration 파라미터 (ms 단위)
   onFinish: () => void; // 애니메이션이 끝났을 때 호출될 콜백
 }
 
-const Splash: React.FC<SplashScreenProps> = ({ duration = 450, onFinish }) => {
-  const [bootSplashLogoIsLoaded, setBootSplashLogoIsLoaded] = useState<boolean>(false);
-
-  // Animated values
-  const opacity = React.useRef(new Animated.Value(0)).current;
-  const translateY = React.useRef(new Animated.Value(100)).current;
-  const backgroundColor = React.useRef(new Animated.Value(0)).current;
+const Splash: React.FC<SplashScreenProps> = ({ duration = 5000, onFinish }) => {
+  const animationRef = useRef<LottieView>(null);
 
   useEffect(() => {
-    if (bootSplashLogoIsLoaded) {
-      Animated.parallel([
-        Animated.timing(translateY, {
-          useNativeDriver: true,
-          toValue: -30, // Move up
-          duration: duration,
-          easing: Easing.out(Easing.quad),
-        }),
-        Animated.timing(opacity, {
-          useNativeDriver: true,
-          toValue: 1,
-          duration: duration,
-          delay: 200,
-        }),
-        Animated.timing(backgroundColor, {
-          useNativeDriver: false,
-          toValue: 1,
-          duration: duration,
-        }),
-      ]).start(() => {
-        setTimeout(() => {
-          onFinish(); // 애니메이션 끝나면 부모 컴포넌트의 onFinish 콜백 호출
-        }, 300);
-      });
-    }
-  }, [bootSplashLogoIsLoaded, duration, onFinish]);
+    // 애니메이션이 끝난 뒤 부모 컴포넌트의 onFinish 호출
+    const timeout = setTimeout(() => {
+      onFinish(); // 애니메이션 종료 후 콜백 호출
+    }, duration + 300); // 애니메이션 시간(duration) + 300ms 지연
+    return () => clearTimeout(timeout); // 컴포넌트 언마운트 시 타이머 정리
+  }, [duration, onFinish]);
 
-  // Interpolated background color
-  const interpolatedBackgroundColor = backgroundColor.interpolate({
-    inputRange: [0, 1],
-    outputRange: [ColorMap["skyblue"], ColorMap["primary"]],
-  });
+  // 플랫폼별 Lottie 파일 선택
+  const lottieSource = Platform.OS === "ios" ? LottieSplashIOS : LottieSplashAndroid;
 
   return (
-    <Animated.View
-      className="flex-1 justify-center items-center"
-      style={{ backgroundColor: interpolatedBackgroundColor }}
-    >
-      <SystemBars barStyle="dark-content" />
-      <Animated.Text
-        className="absolute bottom-6 text-2xl my-5 leading-8 text-black text-center"
-        style={{ opacity }}
+    <SafeAreaView className="flex-1 bg-white">
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
-        BRAND NAME
-      </Animated.Text>
-      <Animated.View
-        style={{ transform: [{ translateY }] }}
-        className="absolute inset-0 flex-1 justify-center items-center"
-      >
-        <Animated.Image
-          source={bootSplashLogo}
-          fadeDuration={500}
-          resizeMode="contain"
-          onLoadEnd={() => setBootSplashLogoIsLoaded(true)}
-          className="h-[140px] w-[170px]"
+        {/* LottieView 애니메이션 */}
+        <LottieView
+          ref={animationRef}
+          source={lottieSource} // 플랫폼에 따라 다른 파일 사용
+          autoPlay
+          loop={false} // 반복 금지
+          style={{ width: "100%", height: "100%" }} // 애니메이션 크기
+          resizeMode="cover" // 크기 조정 모드 (cover, contain, center 등)
         />
-      </Animated.View>
-    </Animated.View>
+      </View>
+    </SafeAreaView>
   );
 };
 

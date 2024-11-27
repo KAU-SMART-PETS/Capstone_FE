@@ -22,7 +22,7 @@ target 'reactCapsone' do
     :path => config[:reactNativePath],
     :app_path => "#{Pod::Config.instance.installation_root}/..",
     :hermes_enabled => false, # Hermes 비활성화
-    :fabric_enabled => false  # Fabric 비활성화
+    :fabric_enabled => true  # Fabric 활성화
   )
 
   # post_install 단계 설정

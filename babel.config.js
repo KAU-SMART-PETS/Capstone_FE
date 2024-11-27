@@ -20,6 +20,7 @@ module.exports = function (api) {
             '@constants': './src/utils/constants',
             '@types': './src/utils/constants/types',
             '@image': './src/assets/image',
+            '@assets': './src/assets', 
             // 필요한 alias를 더 추가할 수 있음
           },
         },
