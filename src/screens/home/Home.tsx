@@ -80,6 +80,7 @@ const HomeScreen: React.FC = () => {
 
           //{ id: 'ChallengeList', title: 'ChallengeList', screen: 'ChallengeList' },
           //{ id: 'ViewFeedList', title: 'BuyFeeds', screen: 'ViewFeedList' },
+          //{ id: 'Offline', title: 'Offline', screen: 'Offline' },
 
           //{ id: 'Example', title: 'Example Test', screen: 'Example' },
     ];

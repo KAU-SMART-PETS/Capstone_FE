@@ -57,6 +57,9 @@ import AlertNoseRegister from '@screens/ai/AlertNoseRegister';
 import ReadyToRegisterNose from '@screens/ai/ReadyToRegisterNose';
 import ResultNoseRegister from '@screens/ai/ResultNoseRegister';
 
+//System
+import Offline from '@screens/system/Offline';
+
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
   params?: ComponentProps;
@@ -104,6 +107,7 @@ export const routesConfig: {
   ResultNoseRegister: {component: ResultNoseRegister, params: undefined},
   PetUpdate: { component: PetUpdate, params: { petId: '' } },
   HospitalInfo: {component: HospitalInfo, params: undefined},
+  Offline: {component: Offline, params: undefined},
   // reward pages
   ChallengeList :  { component: ChallengeList, params: undefined },
   CongratulatePopUp: { component: CongratulatePopUp, params: { rewardId: 0 } as CongratulatePopUpParams },
