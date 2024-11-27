@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import ListCard from '@components/common/ListCard';
 import StylizedText from '@components/common/StylizedText';
 import { useNavigation } from '@react-navigation/native';
@@ -61,69 +61,58 @@ const HomeScreen: React.FC = () => {
   ];
 
   const buttons = [
-          //{ id: 'Login', title: 'Login', screen: 'Login' },
-          //{ id: 'MyPage', title: 'My Page', screen: 'MyPage' },
+      { id: 'Login', title: 'Login', screen: 'Login' },
+          { id: 'MyPage', title: 'My Page', screen: 'MyPage' },
           //{ id: 'PetInfo', title: 'Pet Information', screen: 'PetProfile' },
           //{ id: 'RegisterPet', title: 'Register Pet', screen: 'PetRegister' },
+
           //{ id: 'Bluetooth', title: 'Bluetooth', screen: 'BTView' },
+
           { id: 'MapPage', title: 'MapPage', screen: 'MapPage' },
           { id: 'WalkWeeklyRecord', title: 'WalkWeeklyRecord', screen: 'WalkWeeklyRecord' },
           // { id: 'TodayWalk', title: 'Today Walk', screen: 'TodayWalk' },
           //{ id: 'WalkStartPage', title: 'WalkStartPage', screen: 'WalkStartPage' },
+
           { id: 'Camera', title: 'Camera', screen: 'CameraView' },
           //{ id : 'SelectPetToScan', title:'ScanEye', screen: 'SelectPetToScan'},
           //{ id : 'RegisterPetNose', title:'RegisterNose', screen: 'RegisterPetNose'},
           { id: 'PetHealthInfo', title: 'Pet Health Info', screen: 'Analysis' },
+
           //{ id: 'ChallengeList', title: 'ChallengeList', screen: 'ChallengeList' },
           //{ id: 'ViewFeedList', title: 'BuyFeeds', screen: 'ViewFeedList' },
+          //{ id: 'Offline', title: 'Offline', screen: 'Offline' },
+
           //{ id: 'Example', title: 'Example Test', screen: 'Example' },
     ];
 
   return (
-    <View className="flex-1 bg-white">
-      {/* 상단 알람 아이콘 */}
-      <View className="flex-row justify-end items-center px-4 py-2" style={{ paddingTop: 20 }}>
-        <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
-          <Image
-            source={require('../../assets/image/icon/alarm.png')}
-            style={{ width: 15, height: 15 }}
+    <ScrollView className="flex-1 bg-white">
+      {/* ProductPurchaseCard 블록 */}
+      <View className="space-y-4 mt-4 px-4">
+        {productCards.map((card) => (
+          <ProductPurchaseCard
+            key={card.id}
+            title={card.title}
+            content={card.content}
+            onPress={card.onPress}
+            avatar={card.avatar}
           />
-        </TouchableOpacity>
+        ))}
       </View>
 
-      <ScrollView className="flex-1">
-      {/* 배너 섹션 */}
-      <View className="mt-6 mb-4 px-4">
-        <View className="w-full h-40 bg-gray-200 rounded-lg shadow-md flex items-center justify-center">
-          <Text className="text-lg font-bold text-gray-700">배너</Text>
-        </View>
+      <View className="w-full items-center mt-8">
+        <Text className="text-2xl text-center mb-4">Main Screen</Text>
+        {buttons.map((button) => (
+          <TouchableOpacity
+            key={button.id}
+            className="bg-cyan-600 px-5 py-2 my-2 rounded-lg border border-black"
+            onPress={() => navigation.navigate(button.screen)}
+          >
+            <Text className="text-white text-center">{button.title}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
-        <View className="space-y-4 mt-4 px-4">
-          {productCards.map((card) => (
-            <ProductPurchaseCard
-              key={card.id}
-              title={card.title}
-              content={card.content}
-              onPress={card.onPress}
-              avatar={card.avatar}
-            />
-          ))}
-        </View>
-
-        {/* 버튼 섹션 */}
-        <View className="w-full items-center mt-8">
-          {buttons.map((button) => (
-            <TouchableOpacity
-              key={button.id}
-              className="bg-cyan-600 px-5 py-2 my-2 rounded-lg border border-black"
-              onPress={() => navigation.navigate(button.screen)}
-            >
-              <Text className="text-white text-center">{button.title}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
-    </View>
+    </ScrollView>
   );
 };
 
