@@ -75,13 +75,13 @@ const WalkStartPage: React.FC = () => {
         </View>
 
         {/* 산책 시작하기 버튼 */}
-        <View className="p-4">
+        <View className="p-4 items-center">
           <RoundedTextButton
             color="bg-primary"
             textColor="text-white"
             content="산책 시작하기"
             borderRadius="rounded-3xl"
-            widthOption="full"
+            widthOption="xl"
             shadow={true}
             onPress={() => setIsModalVisible(true)}
           />

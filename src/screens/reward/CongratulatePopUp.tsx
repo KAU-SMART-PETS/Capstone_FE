@@ -91,8 +91,8 @@ const CongratulatePopUp: React.FC = () => {
         </RoundedBox>
 
         {/* 주소 입력하기 버튼 */}
-        <View className="flex-1 justify-end">
-          <RoundedTextButton content="주소 입력하기" widthOption="full" onPress={handleNavigateToPayment} />
+        <View className="flex-1 justify-end items-center">
+          <RoundedTextButton content="주소 입력하기" widthOption="xl" onPress={handleNavigateToPayment} />
         </View>
       </View>
     </TouchableWithoutFeedback>
