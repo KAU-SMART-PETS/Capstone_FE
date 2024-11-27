@@ -44,7 +44,7 @@ const ViewFeedList: React.FC = () => {
       </View> 
  
       <ScrollView contentContainerStyle={{ paddingBottom: 100, paddingHorizontal: 16 }}>
-        <View className="flex flex-col space-y-4 m-4">
+        <View className="flex flex-col space-y-4 my-4 mx-2">
           {foods.map((food) => (
             <View key={food.id}>
               <RoundedBox preset="A" shadow={true} outline="solid">
@@ -64,14 +64,14 @@ const ViewFeedList: React.FC = () => {
       </ScrollView>
 
  
-      {/* Fixed Footer Button */} 
-      <View className="absolute bottom-0 w-full p-4"> 
+      {/* Fixed Footer Button */}
+      <View className="absolute bottom-0 left-0 w-full px-4 pb-4 bg-white items-center">
         <RoundedTextButton 
           content="구매하기" 
-          widthOption="full" 
+          widthOption="xl" 
           onPress={handlePurchase} 
-        /> 
-      </View> 
+        />
+      </View>
     </View> 
   ); 
 }; 
