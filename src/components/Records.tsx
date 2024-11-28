@@ -25,10 +25,17 @@ interface WalkingRecordProps {
 }
 
 export const HospitalRecord: React.FC<HospitalRecordProps> = ({ name, address, telephone, distance, rating }) => {
+
+  var formatted = false;
+  if(distance > 1000){
+    formatted = true;
+    distance = (distance/1000);
+  }
+
   const fields = [
     { label: <Image source={phoneIcon} style={{ width: 16, height: 16 }} />, value: telephone },
     { label: <Image source={locationIcon} style={{ width: 16, height: 16 }} />, value: address },
-    { label: <Image source={locationIcon} style={{ width: 16, height: 16 }} />, value: distance },
+    { label: <Image source={locationIcon} style={{ width: 16, height: 16 }} />, value: formatted ? distance + "km" : distance + "m"},
   ];
 
   return (

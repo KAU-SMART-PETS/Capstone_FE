@@ -28,6 +28,7 @@ const FindHospital = () => {
       try {
 
         Geolocation.requestAuthorization();
+        console.log(Geolocation.getCurrentPosition);
 
         Geolocation.getCurrentPosition(
           position => {
@@ -40,7 +41,7 @@ const FindHospital = () => {
             console.error("Error getting location:", error);
             Alert.alert("위치 오류", "위치 정보를 가져오는 중 문제가 발생했습니다.");
           },
-          { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+          { enableHighAccuracy: false, timeout: 150000, maximumAge: 10000 }
         );
       } catch (error) {
         console.error("Location permission error:", error);
