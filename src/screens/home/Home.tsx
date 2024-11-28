@@ -76,6 +76,8 @@ const HomeScreen: React.FC = () => {
           //{ id: 'PetHealthInfo', title: 'Pet Health Info', screen: 'Analysis' },
           //{ id: 'ChallengeList', title: 'ChallengeList', screen: 'ChallengeList' },
           //{ id: 'ViewFeedList', title: 'BuyFeeds', screen: 'ViewFeedList' },
+          //{ id: 'Offline', title: 'Offline', screen: 'Offline' },
+
           //{ id: 'Example', title: 'Example Test', screen: 'Example' },
     ];
 

@@ -43,8 +43,8 @@ const ViewFeedList: React.FC = () => {
         <StylizedText type="body1" styleClass="text-grey mb-6">리워드를 수행하고 얻은 포인트로 사료를 구매할 수 있습니다!</StylizedText> 
       </View> 
  
-      <ScrollView contentContainerStyle="pb-20 px-4">
-        <View className="flex flex-col space-y-4 m-4">
+      <ScrollView contentContainerStyle={{ paddingBottom: 100, paddingHorizontal: 16 }}>
+        <View className="flex flex-col space-y-4 my-4 mx-2">
           {foods.map((food) => (
             <View key={food.id}>
               <RoundedBox preset="A" shadow={true} outline="solid">
@@ -64,14 +64,14 @@ const ViewFeedList: React.FC = () => {
       </ScrollView>
 
  
-      {/* Fixed Footer Button */} 
-      <View className="absolute bottom-0 w-full p-4"> 
+      {/* Fixed Footer Button */}
+      <View className="absolute bottom-0 left-0 w-full px-4 pb-4 bg-white items-center">
         <RoundedTextButton 
           content="구매하기" 
-          widthOption="full" 
+          widthOption="xl" 
           onPress={handlePurchase} 
-        /> 
-      </View> 
+        />
+      </View>
     </View> 
   ); 
 }; 

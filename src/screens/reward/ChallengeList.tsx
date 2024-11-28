@@ -81,11 +81,18 @@ const ChallengeList: React.FC = () => {
 
   return (
     <>
-      <ScrollView className="flex-1 bg-white pt-10 px-5">
+      <ScrollView className="flex-1 bg-white pt-10 px-5" contentContainerStyle={{ paddingBottom: 100}}>
         <HeaderText
           text={`${userName || '사용자'}님,\n달성한 리워드를 확인해 주세요.`}
           highlight={userName || '사용자'}
         />
+        <View className="flex-1 items-center">
+          <RoundedTextButton
+            content="테스트용 무한 포인트 적립 버튼"
+            widthOption="xl"
+            onPress={handleTestDeposit}
+          />
+        </View>
         <View className="space-y-4 mt-4">
           {/*
           sortedRewards.map((reward) => {
@@ -110,15 +117,6 @@ const ChallengeList: React.FC = () => {
           })}
         </View>
       </ScrollView>
-
-      {/*NOTE: 테스트용 포인트 적립 버튼. 테스트 종료시 삭제 바람.*/}
-      <View className="absolute bottom-0 w-full p-4">
-        <RoundedTextButton
-          content="테스트용 무한 포인트 적립 버튼"
-          widthOption="full"
-          onPress={handleTestDeposit}
-        />
-      </View>
 
       {/* Modal */}
       <ModalLayout

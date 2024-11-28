@@ -10,7 +10,6 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import ModalLayout from '@components/ModalLayout';
 import { ProgressDots } from '@common/Loading';
 import { foodsList, purchaseFood } from '@api/foodApi';
-import { fetchPointHistory } from '@api/pointApi';
 import { fetchUserProfile } from '@api/userApi';
 import { WarningRecord } from '@components/Records';
 
@@ -49,21 +48,6 @@ const PaymentInformation: React.FC = () => {
     }
   };
 
-  const fetchUserBalance = async () => {
-    try {
-      const pointHistory = await fetchPointHistory();
-      if (pointHistory && pointHistory.history.length > 0) {
-        const latestPoint = pointHistory.history[0].totalPoint;
-        setBalance(latestPoint);
-      } else {
-        console.log('Failed to fetch user points');
-        throw new Error('Failed to fetch user points');
-      }
-    } catch (error) {
-      throw new Error('Failed to fetch balance');
-    }
-  };
-
   const fetchUserData = async () => {
     const userProfile = await fetchUserProfile();
     if (userProfile) {
@@ -72,6 +56,7 @@ const PaymentInformation: React.FC = () => {
         email: userProfile.email || '',
         phoneNumber: userProfile.phoneNumber || '',
       });
+      setBalance(userProfile.point || 0); // 사용자 잔액 설정
       return userProfile; // userData 반환
     } else {
       console.log('Failed to load user profile');
@@ -83,15 +68,33 @@ const PaymentInformation: React.FC = () => {
     const fetchData = async () => {
         try {
             await Promise.all([
-                fetchFoods(),
-                fetchUserBalance(),
-                fetchUserData().then((userData) => {
-                    // userData.phoneNumber 값에 따라 inputType 상태 설정
-                    setInputType(userData.phoneNumber ? 'editableWithButton' : 'freeText');
+                fetchFoods().catch((error) => {
+                    console.error('Error in fetchFoods:', error);
+                    throw new Error('사료 데이터를 가져오는 중 문제가 발생했습니다.');
                 }),
+                fetchUserData()
+                    .then((userData) => {
+                        setInputType(userData.phoneNumber ? 'editableWithButton' : 'freeText');
+                    })
+                    .catch((error) => {
+                        console.error('Error in fetchUserData:', error);
+                        throw new Error('사용자 정보를 가져오는 중 문제가 발생했습니다.');
+                    }),
             ]);
         } catch (error) {
-            setModalMessage('오류가 발생했습니다. 다시 시도해주세요.');
+            // 로그 기록
+            console.error('Fetch data failed:', error.message || error);
+
+            // 오류 원인에 따라 메시지 표시
+            if (error.message === '사료 데이터를 가져오는 중 문제가 발생했습니다.') {
+                setModalMessage('사료 데이터를 가져오는 중 문제가 발생했습니다. 다시 시도해주세요.');
+            } else if (error.message === '사용자 정보를 가져오는 중 문제가 발생했습니다.') {
+                setModalMessage('사용자 정보를 가져오는 중 문제가 발생했습니다. 다시 시도해주세요.');
+            } else {
+                setModalMessage('알 수 없는 오류가 발생했습니다. 다시 시도해주세요.');
+            }
+
+            // 팝업 활성화
             setModalVisible(true);
         } finally {
             setLoading(false);
@@ -99,7 +102,8 @@ const PaymentInformation: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+}, []);
+
 
   useEffect(() => {
     if (route.params) {
@@ -326,8 +330,12 @@ const PaymentInformation: React.FC = () => {
                 content="확인"
                 onPress={() => {
                   setModalVisible(false); // 모달을 닫음
-                  if (modalMessage === '오류가 발생했습니다. 다시 시도해주세요.') {
-                    navigation.goBack(); // [확인] 버튼을 눌렀을 때만 이전 페이지로 이동
+                  // [확인] 버튼을 눌렀을 때 모든 오류 메시지에 대해 goBack 처리
+                  if (
+                    modalMessage &&
+                    modalMessage.match(/발생했습니다\. 다시 시도해주세요\.$/)
+                  ) {
+                    navigation.goBack();
                   }
                 }}
               />,
