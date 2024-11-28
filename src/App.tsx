@@ -1,17 +1,16 @@
 // App.tsx
 import React, { useEffect, useRef } from 'react';
+import { Alert } from 'react-native';
 import { Camera } from 'react-native-vision-camera';
 import { PaperProvider } from 'react-native-paper';
 import AppNavigator from './navigation'; // 네비게이션을 분리한 파일에서 import
 import NetInfo from '@react-native-community/netinfo'; // 네트워크 상태 확인 라이브러리
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import config from './utils/constants/config';
-import { useNavigation } from '@react-navigation/native';
 
 const App = () => {
-  // 최초 실행 여부를 추적하기 위한 useRef
   const hasClearedStorage = useRef(false);
-  const navigationRef = useRef();
+  const navigationRef = useRef(null); // 네비게이션 참조 객체 생성
 
   const clearAsyncStorage = async () => {
     try {
@@ -38,9 +37,7 @@ const App = () => {
     // 네트워크 상태 변경 이벤트 리스너 추가
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {
-        console.log('Network disconnected. Navigating to Offline Page.');
-        // 네비게이션 객체를 사용해 OfflinePage로 이동
-        navigationRef.current?.navigate('Offline');
+        navigationRef.current?.navigate('Offline'); // Offline 페이지로 이동
       }
     });
 
@@ -51,7 +48,7 @@ const App = () => {
 
   return (
     <PaperProvider>
-      <AppNavigator />
+      <AppNavigator ref={navigationRef} />{/* navigationRef를 전달 */}
     </PaperProvider>
   );
 };
