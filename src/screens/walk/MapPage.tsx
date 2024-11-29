@@ -9,6 +9,7 @@ import WalkRecordingPanel from '@src/components/WalkingRecordPanel';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RoundedCircleButton } from '@src/components/common/RoundedButton';
 import { registerWalkRecord } from '@src/api/walkApi'; // API 연결 코드
+import { useRoute,useNavigation } from '@react-navigation/native';
 
 const haversine = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
   const R = 6371; // 지구 반경 (km)
@@ -23,6 +24,9 @@ const haversine = (lat1: number, lon1: number, lat2: number, lon2: number): numb
 };
 
 const MapPage: React.FC = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { petId } = route.params as { petId: string }; 
   const mapRef = useRef<MapView>(null);
   const [isStarted, setIsStarted] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -45,6 +49,7 @@ const MapPage: React.FC = () => {
   let watchId: number | null = null;
 
   useEffect(() => {
+    
     const requestLocationPermission = async () => {
       if (Platform.OS === 'android') {
         const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
@@ -137,7 +142,7 @@ const MapPage: React.FC = () => {
       walkingTime: time,
     };
 
-    const petId = '1';
+    
 
     try {
       const response = await registerWalkRecord(petId, walkData);
@@ -165,6 +170,7 @@ const MapPage: React.FC = () => {
 
   const handleConfirmPress = () => {
     setIsThankYouModalVisible(false);
+    navigation.navigate('WalkStartPage'); 
   };
 
   return (

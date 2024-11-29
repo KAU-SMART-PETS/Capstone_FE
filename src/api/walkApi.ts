@@ -108,3 +108,42 @@ export const fetchRecentWalkRecords = async (): Promise<any | null> => {
     return null;
   }
 };
+
+
+// 반려동물 목록 GET 함수
+export const fetchPetList = async (): Promise<any | null> => {
+    try {
+      // Retrieve JSESSIONID from AsyncStorage
+      const jsessionid = await AsyncStorage.getItem('JSESSIONID');
+      if (!jsessionid) {
+        console.error('JSESSIONID not found');
+        return null;
+      }
+  
+      // API URL for fetching recent walk records
+      const apiUrl = `http://52.79.140.133:8080/api/v1/users/pets`;
+  
+      // Log debug information
+      console.log('반려동물 목록 불러오는 api:', apiUrl);
+  
+      // Make the GET request
+      const response = await axios.get(apiUrl, {
+        headers: {
+          'Content-Type': 'application/json', // Specify JSON content type
+          'Cookie': `JSESSIONID=${jsessionid}`, // Attach JSESSIONID in the Cookie header
+        },
+      });
+  
+      // Handle the response
+      if (response.status === 200) {
+        console.log('반려동물 목록 불러오기 성공:', response.data);
+        return response.data; // Return the fetched data
+      } else {
+        console.error(`반려동물 목록 불러오기 실패: ${response.status}`);
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching 반려동물 목록 records:', error);
+      return null;
+    }
+  };
