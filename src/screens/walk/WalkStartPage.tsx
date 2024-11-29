@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Text, Alert, ActivityIndicator, Modal, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { BannerSection } from '@components/common/Sections';
 import WalkingdogIcon from '@image/icon/walkingDogIcon.png';
 import { WalkDetailsCard } from '@components/FlatListCards';
@@ -7,10 +8,10 @@ import { RoundedTextButton } from '@components/common/RoundedButton';
 import StylizedText from '@common/StylizedText';
 import Avatar from '@common/Avatar';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { fetchUserPets, getPetDetails } from '@api/petApi';
-import { fetchRecentWalkRecords } from '@api/walkApi';
+import { fetchRecentWalkRecords, fetchPetList } from '@api/walkApi';
 
 const WalkStartPage: React.FC = () => {
+  const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [pets, setPets] = useState<any[]>([]);
   const [recentWalks, setRecentWalks] = useState<any[]>([]);
@@ -18,27 +19,7 @@ const WalkStartPage: React.FC = () => {
   const [loadingWalks, setLoadingWalks] = useState(false);
   const [selectedPetId, setSelectedPetId] = useState<string | null>(null);
 
-  // Fetch pets from the API
-  useEffect(() => {
-    const fetchPets = async () => {
-      try {
-        setLoadingPets(true);
-        const petIds = await fetchUserPets();
-        const petDetailsPromises = petIds.map((id) => getPetDetails(id));
-        const fetchedPets = await Promise.all(petDetailsPromises);
-        setPets(fetchedPets.filter((pet) => pet !== null));
-      } catch (error) {
-        console.error('Error fetching pets:', error);
-        Alert.alert('오류', '반려동물 정보를 불러오는 중 문제가 발생했습니다.');
-      } finally {
-        setLoadingPets(false);
-      }
-    };
-
-    fetchPets();
-  }, []);
-
-  // Fetch recent walk records from the API
+  // Fetch recent walk records
   useEffect(() => {
     const fetchWalkRecords = async () => {
       try {
@@ -60,24 +41,39 @@ const WalkStartPage: React.FC = () => {
     fetchWalkRecords();
   }, []);
 
-  // Format seconds into HH:MM:SS
-  const formatTime = (seconds: number): string => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    return `${hours.toString().padStart(2, '0')}:${minutes
-      .toString()
-      .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
+  // Fetch pet list when modal is opened
+  useEffect(() => {
+    const fetchPets = async () => {
+      if (isModalVisible) {
+        try {
+          setLoadingPets(true);
+          const petData = await fetchPetList();
+          if (petData && Array.isArray(petData.pets)) {
+            setPets(petData.pets);
+            console.log('Fetched pets:', petData.pets);
+          } else {
+            setPets([]);
+            console.error('Invalid pet list response structure');
+          }
+        } catch (error) {
+          console.error('Error fetching pets:', error);
+          Alert.alert('오류', '반려동물 목록을 불러오는 중 문제가 발생했습니다.');
+        } finally {
+          setLoadingPets(false);
+        }
+      }
+    };
+
+    fetchPets();
+  }, [isModalVisible]);
 
   // Handle pet selection submission
   const handleSubmit = () => {
     if (selectedPetId) {
       const selectedPet = pets.find((pet) => pet.id === selectedPetId);
       if (selectedPet) {
-        console.log(`Selected Pet: ${selectedPet.name}, ID: ${selectedPet.id}`);
-        Alert.alert('선택된 반려동물:', `${selectedPet.name} (${selectedPet.petType})`);
         setIsModalVisible(false);
+        navigation.navigate('MapPage', { petId: selectedPetId }); // Navigate with petId
       } else {
         Alert.alert('오류', '반려동물을 선택해주세요.');
       }
@@ -111,7 +107,7 @@ const WalkStartPage: React.FC = () => {
                 title={walk.petName}
                 details={[
                   { label: '산책일시', value: walk.walkDate },
-                  { label: '산책 시간', value: formatTime(walk.walkTime) },
+                  { label: '산책 시간', value: walk.walkTime },
                   { label: '이동 거리', value: `${(walk.distance / 1000).toFixed(2)} km` },
                 ]}
               />
@@ -153,12 +149,9 @@ const WalkStartPage: React.FC = () => {
                       backgroundColor: selectedPetId === pet.id ? '#ADD8E6' : '#F0F0F0',
                       marginBottom: 8,
                     }}
-                    onPress={() => {
-                      console.log(`Pet clicked: ${pet.name}, ID: ${pet.id}`); // 디버그 출력
-                      setSelectedPetId(pet.id); // 상태 업데이트
-                    }}
+                    onPress={() => setSelectedPetId(pet.id)}
                   >
-                    <Avatar size={60} imageUri={pet.pet_image} />
+                    <Avatar size={60} imageUri={pet.imageUrl || undefined} />
                     <StylizedText type="body1" style={{ marginLeft: 16 }}>
                       {pet.name}
                     </StylizedText>
