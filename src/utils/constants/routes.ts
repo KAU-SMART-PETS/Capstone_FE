@@ -28,8 +28,16 @@ import WalkStartPage from '@screens/walk/WalkStartPage'
 import MapPage from '@screens/walk/MapPage'
 import WalkRecord from '@screens/walk/WalkRecord'
 import WalkWeeklyRecord from '@src/screens/walk/WalkWeeklyRecord';
+
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
+
+// Ai
+import ReadyToScan from '@screens/ai/ReadyToScan';
+import SelectPetToScan from '@screens/ai/SelectPetToScan';
+import TakePicture from '@screens/ai/TakePicture';
+import ResultEyeScan from '@screens/ai/ResultEyeScan';
+
 // Reward & Point & Food(Feed)
 import ChallengeList from '@screens/reward/ChallengeList';
 import CongratulatePopUp from '@screens/reward/CongratulatePopUp';
@@ -65,6 +73,10 @@ export const routesConfig: {
   SelectPart: { component: SelectPart, params: undefined },
   HospitalInfo: {component: HospitalInfo, params: undefined},
   PetUpdate: { component: PetUpdate, params: { petId: '' } },
+  SelectPetToScan: { component: SelectPetToScan, params: undefined },
+  ReadyToScan: { component: ReadyToScan, params: undefined },
+  TakePicture: { component: TakePicture, params: undefined },
+  ResultEyeScan: { component: ResultEyeScan, params: undefined },
   ChallengeList :  { component: ChallengeList, params: undefined },
   CongratulatePopUp: { component: CongratulatePopUp, params: { point: 0 } as CongratulatePopUpParams },
   OrderReceived :  { component: OrderReceived, params: undefined },
