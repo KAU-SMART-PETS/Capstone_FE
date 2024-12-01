@@ -2,6 +2,7 @@
 #import "RNBootSplash.h" 
 
 #import <React/RCTBundleURLProvider.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 // @implementation AppDelegate
 
@@ -20,6 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   self.moduleName = @"reactCapsone";
+  [GMSServices provideAPIKey:@"AIzaSyBPeD4s_jU-hCCZnA2Sx_b0O3ZEwgO77Ho"]; // add this line using the api key obtained from Google Console
   self.initialProps = @{};
   [super application:application didFinishLaunchingWithOptions:launchOptions];
 
