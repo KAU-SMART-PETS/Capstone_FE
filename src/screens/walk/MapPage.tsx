@@ -8,11 +8,11 @@ import { WalkingRecord } from '@components/Records';
 import WalkRecordingPanel from '@src/components/WalkingRecordPanel';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RoundedCircleButton } from '@src/components/common/RoundedButton';
-import { registerWalkRecord } from '@src/api/walkApi'; // API 연결 코드
-import { useRoute,useNavigation } from '@react-navigation/native';
+import { registerWalkRecord } from '@src/api/walkApi';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 const haversine = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
-  const R = 6371; // 지구 반경 (km)
+  const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLon = ((lon2 - lon1) * Math.PI) / 180;
   const a =
@@ -20,13 +20,13 @@ const haversine = (lat1: number, lon1: number, lat2: number, lon2: number): numb
     Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) *
     Math.sin(dLon / 2) * Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c; // 결과 거리 (km)
+  return R * c;
 };
 
 const MapPage: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { petId } = route.params as { petId: string }; 
+  const { petId } = route.params as { petId: string };
   const mapRef = useRef<MapView>(null);
   const [isStarted, setIsStarted] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -49,7 +49,6 @@ const MapPage: React.FC = () => {
   let watchId: number | null = null;
 
   useEffect(() => {
-    
     const requestLocationPermission = async () => {
       if (Platform.OS === 'android') {
         const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
@@ -142,21 +141,19 @@ const MapPage: React.FC = () => {
       walkingTime: time,
     };
 
-    
-
     try {
       const response = await registerWalkRecord(petId, walkData);
 
       if (response) {
-          console.log("산책 기록 저장 성공:", response); // 응답 내용을 출력
-          setWalkResponse(response); 
-          setIsBottomModalVisible(true); // 응답 데이터를 보여주기 위해 하단 모달 표시
+        console.log('산책 기록 저장 성공:', response);
+        setWalkResponse(response);
+        setIsBottomModalVisible(true);
       } else {
-          Alert.alert('실패', '산책 기록 저장에 실패했습니다.');
+        Alert.alert('실패', '산책 기록 저장에 실패했습니다.');
       }
-  } catch (error) {
+    } catch (error) {
       console.error('산책 기록 저장 중 오류 발생:', error);
-  }
+    }
 
     setDistance(0);
     setTime(0);
@@ -170,7 +167,7 @@ const MapPage: React.FC = () => {
 
   const handleConfirmPress = () => {
     setIsThankYouModalVisible(false);
-    navigation.navigate('WalkStartPage'); 
+    navigation.navigate('WalkStartPage');
   };
 
   return (
@@ -198,9 +195,9 @@ const MapPage: React.FC = () => {
           <View className="flex-row justify-center space-x-4">
             <RoundedTextButton
               color="bg-primary"
-              icon={<MCIcon name={isPaused ? "play" : "pause"} color="black" size={20} />}
+              icon={<MCIcon name={isPaused ? 'play' : 'pause'} color="black" size={20} />}
               textColor="text-black"
-              content={isPaused ? "다시 시작" : "일시정지"}
+              content={isPaused ? '다시 시작' : '일시정지'}
               widthOption="sm"
               onPress={handlePausePress}
             />
@@ -222,7 +219,7 @@ const MapPage: React.FC = () => {
               textColor="text-white"
               widthOption="md"
               borderRadius="rounded-full"
-              shadow={true}
+              shadow
             />
           </View>
         )}
@@ -256,7 +253,8 @@ const MapPage: React.FC = () => {
           ]}
         />
       )}
-
+      
+      
       {isBottomModalVisible && walkResponse && (
         <ModalLayout
           visible={isBottomModalVisible}
@@ -269,7 +267,7 @@ const MapPage: React.FC = () => {
               content: [
                 <RoundedCircleButton
                   color="bg-secondary"
-                  shadow={true}
+                  shadow
                   size={40}
                   onPress={showThankYouModal}
                 >
@@ -280,33 +278,33 @@ const MapPage: React.FC = () => {
             },
             {
               content: [
-                <WalkingRecord
-                walkDate={
-                  walkResponse?.startDate
-                    ? walkResponse.startDate.split(' ')[0]
-                    : '날짜 없음'
-                }
-                walkTime={
-                  walkResponse?.walkingTime
-                    ? `${Math.floor(walkResponse.walkingTime / 60)}분`
-                    : '시간 없음'
-                }
-                distance={
-                  walkResponse?.distance
-                    ? `${walkResponse.distance.toFixed(2)}km`
-                    : '거리 없음'
-                }
-                calories={
-                  walkResponse?.calories
-                    ? `${walkResponse.calories.toFixed(2)}kcal`
-                    : '칼로리 없음'
-                }
-                steps={
-                  walkResponse?.step
-                    ? `${walkResponse.step}걸음`
-                    : '걸음 수 없음'
-                }
-              />,
+                <WalkingRecord //없음이라고 뜸. 수정필요
+                  walkDate={
+                    walkResponse?.startDate
+                      ? walkResponse.startDate.split(' ')[0]
+                      : '날짜 없음'
+                  }
+                  walkTime={
+                    walkResponse?.walkingTime
+                      ? `${Math.floor(walkResponse.walkingTime / 60)}분 ${walkResponse.walkingTime % 60}초`
+                      : '시간 없음'
+                  }
+                  distance={
+                    walkResponse?.distance !== undefined
+                      ? `${walkResponse.distance.toFixed(3)} km`
+                      : '거리 없음'
+                  }
+                  calories={
+                    walkResponse?.calories !== undefined
+                      ? `${walkResponse.calories.toFixed(1)} kcal`
+                      : '칼로리 없음'
+                  }
+                  steps={
+                    walkResponse?.step !== undefined
+                      ? `${walkResponse.step.toLocaleString()} 걸음`
+                      : '걸음 수 없음'
+                  }
+                />,
               ],
               layout: 'col',
             },

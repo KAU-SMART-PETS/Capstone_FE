@@ -4,11 +4,13 @@ import Calendar from '@components/Calendar';
 import { HeaderText } from '@common/StylizedText';
 import { SBar } from '@common/BarChart';
 import dayjs from 'dayjs';
-import { useNavigation } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import { fetchDailyWalkRecord, fetchMonthlyWalkRecord } from '@api/recordApi';
 
 const WalkRecord: React.FC = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { petId, petName } = route.params as { petId: string; petName: string }; // Extract petId and petName from route params
   const [selectedDate, setSelectedDate] = useState<string>(dayjs().format('YYYY-MM-DD'));
   const [activeDates, setActiveDates] = useState<{ [key: string]: boolean }>({});
   const [data, setData] = useState({
@@ -20,17 +22,15 @@ const WalkRecord: React.FC = () => {
     vitaminSynthesis: 0,
   });
 
-  const petId = '1'; // petId 설정
 
-  // 초기 로딩 시 월간 데이터를 가져와 activeDates 설정
   useEffect(() => {
     const fetchActiveDates = async () => {
       try {
-        const year = dayjs().year();
-        const month = dayjs().month() + 1; // dayjs는 0부터 시작
+        const year = dayjs(selectedDate).year();
+        const month = dayjs(selectedDate).month() + 1; 
         const apiData = await fetchMonthlyWalkRecord(petId, year, month);
 
-        if (apiData && apiData.walkDates) {
+        if (apiData?.walkDates) {
           const updatedActiveDates = apiData.walkDates.reduce(
             (acc: { [key: string]: boolean }, date: string) => {
               acc[date] = true;
@@ -40,7 +40,7 @@ const WalkRecord: React.FC = () => {
           );
           setActiveDates(updatedActiveDates);
         } else {
-          Alert.alert('오류', '월간 데이터를 가져올 수 없습니다.');
+          Alert.alert('오류', '월간 데이터를 불러오는 데 실패했습니다.');
         }
       } catch (error) {
         console.error('Error fetching monthly walk record:', error);
@@ -49,7 +49,8 @@ const WalkRecord: React.FC = () => {
     };
 
     fetchActiveDates();
-  }, []);
+  }, [petId, selectedDate]);
+
 
   const handleDateSelect = async (date: string) => {
     setSelectedDate(date);
@@ -58,7 +59,7 @@ const WalkRecord: React.FC = () => {
       const apiData = await fetchDailyWalkRecord(petId, date);
 
       if (apiData) {
-        console.log('Fetched weekly walk record successfully:', apiData);
+        console.log('Fetched daily walk record successfully:', apiData);
         setData({
           walkingDistance: apiData.walkingDistancePercent || 0,
           restTime: apiData.restTimePercent || 0,
@@ -68,7 +69,7 @@ const WalkRecord: React.FC = () => {
           vitaminSynthesis: apiData.vitaminSynthesisPercent || 0,
         });
       } else {
-        Alert.alert('오류', '해당 날짜에 대한 데이터를 가져올 수 없습니다.');
+        Alert.alert('오류', '해당 날짜의 데이터를 불러올 수 없습니다.');
       }
     } catch (error) {
       console.error('Error fetching data for selected date:', error);
@@ -78,18 +79,25 @@ const WalkRecord: React.FC = () => {
 
   return (
     <View className="flex-1 items-center justify-center p-4">
-      <HeaderText text="바둑이의 산책 기록" highlight="산책" />
+    
+      <HeaderText text={`${petName}의 산책 기록`} highlight="산책" />
+      
+    
       <Calendar onDateSelect={handleDateSelect} petId={petId} activeDates={activeDates} />
 
+   
       <View className="flex-row justify-between items-center w-full px-4 my-4">
         <Text style={{ color: '#4B5563', fontSize: 14 }}>{dayjs(selectedDate).format('YYYY.MM.DD')}</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('WalkWeeklyRecord', { date: selectedDate })}>
-  <Text style={{ color: '#9CA3AF', fontSize: 14 }}>이번 주 한눈에 보기 &gt;</Text>
-</TouchableOpacity>
-
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('WalkWeeklyRecord', { date: selectedDate, petId, petName })
+          } 
+        >
+          <Text style={{ color: '#9CA3AF', fontSize: 14 }}>이번 주 한눈에 보기 &gt;</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* 일일 상태 표시 차트 */}
+    
       <View className="flex-row flex-wrap justify-around mb-5 mt-5">
         <View className="w-1/3 flex items-center mb-4">
           <SBar percentage={data.walkingDistance} color="#85E0A3" label="일일 산책량" />
