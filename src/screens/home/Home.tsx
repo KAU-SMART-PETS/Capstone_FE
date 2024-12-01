@@ -33,7 +33,7 @@ const HomeScreen: React.FC = () => {
     {
       id: 'reward-check',
       title: '리워드 확인하기',
-      content: '다양한 리워드를 달성하며 혜택을 받아보세요!',
+      content: '다양한 리워드를\n달성하며 혜택을 받아보세요!',
       avatar: require('../../assets/image/reward.png'),
       onPress: () => navigation.navigate('ChallengeList'),
     },
@@ -47,16 +47,23 @@ const HomeScreen: React.FC = () => {
     {
       id: 'scan-iris',
       title: '홍채 스캔하기',
-      content: '반려동물의 홍채를 스캔하여 건강 상태를 확인해보세요!',
+      content: '반려동물의 홍채를 스캔하여\n건강 상태를 확인해보세요!',
       avatar: require('../../assets/image/scan.png'),
       onPress: () => navigation.navigate('SelectPetToScan'),
     },
     {
       id: 'register-nose',
       title: '비문 등록하기',
-      content: '반려동물의 안전을 위한 비문을 등록해주세요!',
+      content: '반려동물의 안전을 위한\n비문을 등록해보세요!',
       avatar: require('../../assets/image/nose.png'),
       onPress: () => navigation.navigate('RegisterPetNose'),
+    },
+    {
+      id: 'scan-nose',
+      title: '비문 스캔하기',
+      content: '반려동물의 비문을 스캔하여\n정보를 확인해보세요!',
+      avatar: require('../../assets/image/scan_nose.png'),
+      onPress: () => navigation.navigate('ScanNose'),
     },
   ];
 

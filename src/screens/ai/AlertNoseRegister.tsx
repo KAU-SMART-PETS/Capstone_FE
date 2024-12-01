@@ -55,7 +55,7 @@ const AlertNose = () => {
           코의 전체 모양이{"\n"}잘 보이는 사진을 준비해주세요.
         </StylizedText>
         <StylizedText type="body2" styleClass="text-gray mb-6">
-          준비된 사진이 적합하지 않으면 비문 조회에 어려움을 겪을 수 있습니다.
+          준비된 사진이 적합하지 않으면 비문 등록에 어려움을 겪을 수 있습니다.
         </StylizedText>
       </View>
 
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
       padding: 10,
     },
   backIcon: {
-    width: 30,
-    height: 30,
+    width: 20,
+    height: 20,
   },
   headerContainer: {
     paddingHorizontal: 30,

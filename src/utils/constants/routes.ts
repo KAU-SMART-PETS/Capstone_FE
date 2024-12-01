@@ -56,6 +56,8 @@ import NoseCamera from '@screens/ai/NoseCamera';
 import AlertNoseRegister from '@screens/ai/AlertNoseRegister';
 import ReadyToRegisterNose from '@screens/ai/ReadyToRegisterNose';
 import ResultNoseRegister from '@screens/ai/ResultNoseRegister';
+import ScanNose from '@screens/ai/ScanNose';
+import ScanNoseResult from '@screens/ai/ScanNoseResult';
 
 //System
 import Offline from '@screens/system/Offline';
@@ -102,6 +104,8 @@ export const routesConfig: {
   EyeCamera: {component: EyeCamera, params: undefined},
   RegisterPetNose: {component: RegisterPetNose, params: undefined},
   NoseCamera: {component: NoseCamera, params: undefined},
+  ScanNose: {component: ScanNose, params: undefined},
+  ScanNoseResult: {component: ScanNoseResult, params: undefined},
   AlertNoseRegister: {component: AlertNoseRegister, params: undefined},
   ReadyToRegisterNose: {component: ReadyToRegisterNose, params: undefined},
   ResultNoseRegister: {component: ResultNoseRegister, params: undefined},

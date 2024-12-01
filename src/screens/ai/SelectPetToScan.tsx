@@ -4,7 +4,7 @@ import { fetchUserPets, getPetDetails } from '@api/petApi';
 import StylizedText from '../../components/common/StylizedText';
 import Avatar from '@components/common/Avatar';
 import { RoundedTextButton } from '@components/common/RoundedButton';
-import CustomAlert from '@components/common/CustomAlert'; // CustomAlert 임포트
+import CustomAlert from '@components/common/CustomAlert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   backIcon: {
-    width: 30,
-    height: 30,
+    width: 20,
+    height: 20,
   },
   petListContainer: {
     flexDirection: 'row',
