@@ -32,7 +32,7 @@ const AlertScan = () => {
 
   // 촬영하기 버튼 동작
   const handleTakePhoto = () => {
-    navigation.navigate('TakePicture', {
+    navigation.navigate('EyeCamera', {
       petId,
       petType,
       petName,
