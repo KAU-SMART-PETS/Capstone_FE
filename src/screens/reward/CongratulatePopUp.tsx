@@ -6,16 +6,19 @@ import RoundedBox from '@common/RoundedBox';
 import { RoundedTextButton } from '@components/common/RoundedButton';
 import Avatar from '@components/common/Avatar';
 import { fetchUserProfile } from '@api/userApi';
+import { rewardsList } from '@api/rewardApi';
 
 const CongratulatePopUp: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  // point 값을 안전하게 가져오고 기본값 설정
-  const { point = 0 } = route.params || {};
+  // rewardId 값을 안전하게 가져오고 기본값 설정
+  const { rewardId = null } = route.params || {};
 
-  // 유저 이름을 저장할 state
-  const [userName, setUserName] = useState('똑똑');
+  // State
+  const [userName, setUserName] = useState('똑똑'); // 기본 사용자 이름
+  const [rewardTitle, setRewardTitle] = useState('리워드'); // 기본 리워드 제목
+  const [rewardPoints, setRewardPoints] = useState(0); // 기본 리워드 포인트
 
   useEffect(() => {
     // 유저 이름을 가져오는 함수
@@ -28,8 +31,31 @@ const CongratulatePopUp: React.FC = () => {
       }
     };
 
+// 리워드 데이터를 가져오는 함수
+    const fetchRewardData = async () => {
+      if (rewardId) {
+        //console.log(`Fetching reward data for rewardId: ${rewardId}`);
+        const rewardsData = await rewardsList();
+        if (rewardsData && rewardsData.rewards) {
+          //console.log('Reward API response:', rewardsData);
+          const reward = rewardsData.rewards.find((r) => r.id === rewardId);
+          if (reward) {
+            //console.log(`Reward found: Title - ${reward.title}, Points - ${reward.earnPoint}`);
+            setRewardTitle(reward.title); // 제목 설정
+            setRewardPoints(reward.earnPoint); // 포인트 설정
+          } else {
+            console.log(`Reward with ID ${rewardId} not found`);
+          }
+        } else {
+          console.log('Failed to load rewards data');
+        }
+      }
+    };
+
+
     fetchUserName();
-  }, []);
+    fetchRewardData();
+  }, [rewardId]);
 
   // PaymentInformation 페이지로 이동
   const handleNavigateToPayment = () => {
@@ -46,7 +72,7 @@ const CongratulatePopUp: React.FC = () => {
       <View className="bg-white flex-1 px-5 py-10">
         {/* 헤더 부분 */}
         <HeaderText
-          text={`${userName}님,\n7일 연속 산책하기 달성을 축하드려요!`}
+          text={`${userName}님,\n${rewardTitle} 달성을 축하드려요!`} // rewardTitle을 출력
           highlight={userName}
         />
 
@@ -59,14 +85,14 @@ const CongratulatePopUp: React.FC = () => {
           <View className="flex flex-row items-center justify-center p-4">
             <Avatar source={require('@image/icon/coin.png')} size={40} />
             <StylizedText type="header1" styleClass="text-black ml-2">
-              {point} P
+              {rewardPoints} P
             </StylizedText>
           </View>
         </RoundedBox>
 
         {/* 주소 입력하기 버튼 */}
-        <View className="flex-1 justify-end">
-          <RoundedTextButton content="주소 입력하기" widthOption="full" onPress={handleNavigateToPayment} />
+        <View className="flex-1 justify-end items-center">
+          <RoundedTextButton content="주소 입력하기" widthOption="xl" onPress={handleNavigateToPayment} />
         </View>
       </View>
     </TouchableWithoutFeedback>

@@ -152,13 +152,13 @@ const EditProfile: React.FC = () => {
         {renderConsentButtons('emailOptIn')}
       </View>
 
-      <View className='pt-10'>
+      <View className='pt-10 items-center'>
         {(editingField || editingField === 'consent') && (
 
           <RoundedTextButton 
             color='bg-blue' 
             content="저장하기" 
-            widthOption="full" 
+            widthOption="xl" 
             onPress={handleSave} />
         )}
       </View>

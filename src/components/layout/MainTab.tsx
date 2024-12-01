@@ -77,6 +77,7 @@ const MainTab: React.FC = () => {
           tabBarInactiveTintColor: inactiveIconColor,
           tabBarStyle: tabBarStyle, // 기존 스타일 유지
           tabBarLabelStyle : {paddingBottom : 13},
+          headerShown: false, // 헤더 숨기기
         })}
         screenListeners={({ route }) => ({
           tabPress: () => {

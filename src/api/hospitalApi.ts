@@ -7,11 +7,21 @@ export const fetchHospitals = async (latitude: number, longitude: number) => {
       latitude,
       longitude,
     });
-    return response.data.vets.slice(0, 20);
+    const formattedVets = response.data.vets.slice(0, 20).map((vet) => ({
+      ...vet,
+      address: formatAddress(vet.address), 
+    }));
+
+    return formattedVets;
   } catch (error) {
     console.error('Error fetching hospital data:', error);
     throw error; 
   }
+};
+
+const formatAddress = (address) => {
+  const match = address.match(/^([^ ]+ [^ ]+ [^ ]+ [^ ]+)/);
+  return match ? match[1] : address;
 };
 
 export const fetchHospitalInfo = async (vetId: number, latitude: number, longitude: number) => {
