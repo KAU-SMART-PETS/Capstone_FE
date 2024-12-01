@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import StylizedText from '@common/StylizedText';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import ColorMap from '@common/ColorMap';
@@ -9,6 +9,7 @@ type BadgeProps = {
   color?: string;
   textColor?: string;
   customStyle?: string;
+  onPress?: () => void;
 };
 
 export const PillBadge: React.FC<BadgeProps> = ({
@@ -24,6 +25,21 @@ export const PillBadge: React.FC<BadgeProps> = ({
     </View>
   );
 };
+
+export const PillBadgeButton: React.FC<BadgeProps> = ({
+  text = '반려동물 추가하기',
+  color = 'bg-lightgrey',
+  textColor='text-secondary',
+  onPress
+}) => (
+  <TouchableOpacity onPress={onPress}>
+    <View className='flex-wrap'>
+      <View className={`self-start px-2.5 py-1 rounded-full ${color}`}>
+        <StylizedText type="label" styleClass={textColor}>{text}</StylizedText>
+      </View>
+    </View>
+  </TouchableOpacity>
+)
 
 export const TagBadge : React.FC<BadgeProps> = ({ text = 'TagBadge', color = 'bg-red', textColor = 'text-white'}) => {
   // 박스 한쪽 끝에 걸쳐서 붙여놓는 뱃지

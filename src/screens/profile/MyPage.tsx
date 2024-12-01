@@ -12,6 +12,7 @@ import StylizedText, { HeaderText } from '@src/components/common/StylizedText';
 import { PetCard as NewPetCard } from '@components/MyPetCard';
 import Avatar from '@src/components/common/Avatar';
 import redirectIfNoSession from '@src/redirectionIfNoSession';
+import { PillBadgeButton } from '@src/components/common/Badge';
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
 
@@ -150,6 +151,10 @@ const MyPage: React.FC = () => {
   const [userData, setUserData] = useState(null);
   const [petIds, setPetIds] = useState<string[]>([]);
 
+  const TempAddPet = () => {
+    navigation.navigate('PetRegister');
+  };
+
   const fetchData = async () => {
     const userData = await fetchUserProfile();
     if (userData) {
@@ -213,6 +218,7 @@ const MyPage: React.FC = () => {
             text={`${username}의 반려동물`}
             type='header2'
           />
+          <PillBadgeButton onPress={TempAddPet}/>
         </View>
 
         <FlatList
