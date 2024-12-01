@@ -12,6 +12,7 @@ interface HospitalRecordProps {
   address: string;
   telephone: string;
   distance: number;
+  rating?: number; // NOTE : rating 안들어갈 경우에는 별점 뱃지 뜨지 않을 것임
 }
 
 interface WalkingRecordProps {
@@ -23,7 +24,7 @@ interface WalkingRecordProps {
   steps: string;
 }
 
-export const HospitalRecord: React.FC<HospitalRecordProps> = ({ name, address, telephone, distance }) => {
+export const HospitalRecord: React.FC<HospitalRecordProps> = ({ name, address, telephone, distance, rating }) => {
   const fields = [
     { label: <Image source={phoneIcon} style={{ width: 16, height: 16 }} />, value: telephone },
     { label: <Image source={locationIcon} style={{ width: 16, height: 16 }} />, value: address },
@@ -34,6 +35,7 @@ export const HospitalRecord: React.FC<HospitalRecordProps> = ({ name, address, t
     <RecordSection
       title={name}
       fields={fields}
+      badge={rating && <RatingBadge starSize={20} textSize="header5" rating={rating} />}
       // badge={<RatingBadge starSize={20} textSize="header5" rating={3.5} />}
       labelWidth="w-8"
       footerText="참고: 병원 운영 시간에 따라 전화 응답이 제한될 수 있습니다."

@@ -13,8 +13,8 @@ type BadgeProps = {
 
 export const PillBadge: React.FC<BadgeProps> = ({
   text = 'PillBadge',
-  color = 'bg-gray-200',
-  textColor = 'text-gray-800',
+  color = 'bg-lightgrey',
+  textColor = 'text-secondary',
 }) => {
   return (
     <View className='flex-wrap'>

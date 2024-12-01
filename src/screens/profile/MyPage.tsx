@@ -3,13 +3,13 @@ import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, FlatList, 
 import { useNavigation, NavigationProp, CommonActions, useFocusEffect } from '@react-navigation/native';
 import { PetDetails } from '@types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { RoundedSquareButton, RoundedSquareButtonWithAvatar, RoundedTextButton } from '@src/components/common/RoundedButton';
+import { RoundedSquareButton, RoundedTextButton } from '@src/components/common/RoundedButton';
 import { fetchUserProfile } from '@api/userApi';
 import { fetchUserPets, getPetDetails } from '@api/petApi';
 import { handleLogout } from '@api/loginApi';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import StylizedText, { HeaderText } from '@src/components/common/StylizedText';
-import { PetCard as NewPetCard } from '@src/components/FlatListCards';
+import { PetCard as NewPetCard } from '@components/MyPetCard';
 import Avatar from '@src/components/common/Avatar';
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
@@ -93,16 +93,15 @@ const AddPetButton: React.FC = () => {
 
   return (
     <View className='pt-5 pl-5'>
-      <RoundedSquareButtonWithAvatar
+      <RoundedSquareButton
         size="xs"
         backgroundColor="bg-white"
         outline='dotted'
         onPress={handleAddPetPress}
-        avatarSource={require('@src/assets/image/frame/addPet.png')}
-        avatarSize={40}
       >
-        <Text style={{ textAlign: 'center', color: 'black', marginTop: 8 }}>반려동물 추가</Text>
-      </RoundedSquareButtonWithAvatar>
+        <Avatar source={require('@src/assets/image/frame/addPet.png')} size={40} />
+      </RoundedSquareButton>
+      {/* <Text style={{ textAlign: 'center', color: 'black', marginTop: 8 }}>반려동물 추가</Text> */}
     </View>
   );
 };

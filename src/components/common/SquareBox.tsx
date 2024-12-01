@@ -5,7 +5,7 @@ import { ShadowStyle } from '@common/ShadowBox';
 
 type SquareCardSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg';
 
-type BorderRadiusSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+type BorderRadiusSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
 export type { OutlinePreset, SquareCardSize, BorderRadiusSize };
 

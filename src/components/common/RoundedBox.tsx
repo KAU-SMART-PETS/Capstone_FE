@@ -7,9 +7,9 @@ export type { DesignPreset, OutlinePreset };
 
 export type RoundedBoxProps = {
   children: React.ReactNode;
-  preset?: DesignPreset; // Preset options
-  shadow?: boolean; // Option for shadow
-  onPress?: () => void; // Function to call on press
+  preset?: DesignPreset; 
+  shadow?: boolean;
+  onPress?: () => void;
   outline?: OutlinePreset;
 };
 

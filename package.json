@@ -79,7 +79,6 @@
     "react-native-maps": "^1.19.0",
     "react-native-masked-view": "^0.2.0",
     "react-native-reanimated-carousel": "^3.5.1",
-    "react-native-shadow-2": "^7.1.1",
     "react-native-smooth-bootsplash": "^4.5.2",
     "react-native-toast-message": "^2.2.1",
     "react-test-renderer": "18.3.1",

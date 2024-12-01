@@ -9,8 +9,6 @@ import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome5'
 import { TouchableOpacity } from 'react-native';
 
-// TODO : VaccinationCard 에 onPress 속성 추가
-
 interface DiseaseCardProps {
   title: string;
   percentage?: number;

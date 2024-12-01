@@ -55,7 +55,7 @@ const CongratulatePopUp: React.FC = () => {
         </StylizedText>
 
         {/* 포인트 박스 */}
-        <RoundedBox preset="A-yellow-20" shadow={false} isButton={false}>
+        <RoundedBox preset="A-yellow-20" shadow={false}>
           <View className="flex flex-row items-center justify-center p-4">
             <Avatar source={require('@image/icon/coin.png')} size={40} />
             <StylizedText type="header1" styleClass="text-black ml-2">
