@@ -78,7 +78,7 @@ export const getBoxOutlnes = (outline: OutlinePreset) : ViewStyle => {
         return {
         backgroundColor: 'bg-white',
         borderStyle: 'rounded-t-[24px]',
-        containerLayout: 'w-full h-2/5 mx-auto px-12 py-6 flex items-center justify-bottom',
+        containerLayout: 'w-full h-80 mx-auto px-12 py-6 flex items-center justify-bottom',
       };
       case 'greycard':  // 옅은 회색박스 - 질병정보카드1 (아이콘)
         return {

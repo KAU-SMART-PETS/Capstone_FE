@@ -8,22 +8,20 @@ type HomeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
 const Home: React.FC<RootStackParamList> = () => {
   const navigation = useNavigation<HomeScreenProp>();
   const buttons = [
-    { id : 'TestingPage', title:'Testing Page', screen: 'TestingPage'},
-    { id: 'WalkStartPage', title: 'WalkStartPage', screen: 'WalkStartPage' },
-    { id: 'MapPage', title: 'MapPage', screen: 'MapPage' },
     { id: 'Login', title: 'Login', screen: 'Login' },
-    { id: 'Camera', title: 'Camera', screen: 'CameraView' },
     { id: 'MyPage', title: 'My Page', screen: 'MyPage' },
-    { id: 'RegisterPet', title: 'Register Pet', screen: 'PetRegister' },
-    { id: 'Bluetooth', title: 'Bluetooth', screen: 'BTView' },
-    { id: 'PetInfo', title: 'Pet Information', screen: 'PetProfile' },
-    { id: 'PetHealthInfo', title: 'Pet Health Info', screen: 'Analysis' },
-    { id: 'WeeklySummary', title: 'Weekly Summary', screen: 'WeeklySummary' },
+    //{ id: 'PetInfo', title: 'Pet Information', screen: 'PetProfile' },
+    //{ id: 'RegisterPet', title: 'Register Pet', screen: 'PetRegister' },
+    //{ id: 'Bluetooth', title: 'Bluetooth', screen: 'BTView' },
+    { id: 'MapPage', title: 'MapPage', screen: 'MapPage' },
+    { id: 'WalkWeeklyRecord', title: 'WalkWeeklyRecord', screen: 'WalkWeeklyRecord' },
     // { id: 'TodayWalk', title: 'Today Walk', screen: 'TodayWalk' },
-    //{ id: 'Example', title: 'Example Test', screen: 'Example' },
+    //{ id: 'WalkStartPage', title: 'WalkStartPage', screen: 'WalkStartPage' },
+    { id: 'Camera', title: 'Camera', screen: 'CameraView' },
+    { id : 'SelectPetToScan', title:'ScanEye', screen: 'SelectPetToScan'},
+    { id: 'PetHealthInfo', title: 'Pet Health Info', screen: 'Analysis' },
     { id: 'ChallengeList', title: 'ChallengeList', screen: 'ChallengeList' },
     { id: 'ViewFeedList', title: 'BuyFeeds', screen: 'ViewFeedList' },
-    { id : 'SelectPetToScan', title:'ScanEye', screen: 'SelectPetToScan'},
   ];
 
   return (

@@ -24,7 +24,6 @@ import HospitalInfo from '@src/screens/health/HospitalInfo';
 import PetUpdate from '@src/screens/profile/PetUpdate';
 // Walk
 import WeeklySummary from '@screens/walk/WeeklySummary';
-// import TodayWalk from '@screens/walk/TodayWalk';
 import WalkStartPage from '@screens/walk/WalkStartPage'
 import MapPage from '@screens/walk/MapPage'
 import WalkRecord from '@screens/walk/WalkRecord'
@@ -32,12 +31,6 @@ import WalkWeeklyRecord from '@src/screens/walk/WalkWeeklyRecord';
 
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
-
-// Ai
-import ReadyToScan from '@screens/ai/ReadyToScan';
-import SelectPetToScan from '@screens/ai/SelectPetToScan';
-import TakePicture from '@screens/ai/TakePicture';
-import ResultEyeScan from '@screens/ai/ResultEyeScan';
 
 // Reward & Point & Food(Feed)
 import ChallengeList from '@screens/reward/ChallengeList';
@@ -47,6 +40,12 @@ import { OrderReceivedParams } from '@screens/reward/OrderReceived';
 import ViewFeedList from '@screens/reward/ViewFeedList';
 import PaymentInformation from '@screens/reward/PaymentInformation';
 import PaymentSampleInformation from '@screens/reward/PaymentSampleInformation';
+
+// Ai
+import ReadyToScan from '@screens/ai/ReadyToScan';
+import SelectPetToScan from '@screens/ai/SelectPetToScan';
+import TakePicture from '@screens/ai/TakePicture';
+import ResultEyeScan from '@screens/ai/ResultEyeScan';
 
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
@@ -88,10 +87,12 @@ export const routesConfig: {
   ViewFeedList :  { component: ViewFeedList, params: undefined },
   PaymentInformation :  { component: PaymentInformation, params: undefined },
   PaymentSampleInformation :  { component: PaymentSampleInformation, params: undefined },
-  MapPage :  { component: MapPage, params: undefined },
-  Home :  { component: Home, params: undefined },
+
+  Home :  { component: Home, params: undefined }, 
+
   //산책 기능 관련 테스트 페이지
   WalkStartPage: {component:WalkStartPage, params:undefined},
+  MapPage: {component:MapPage, params:undefined},
   WalkRecord: {component:WalkRecord, params:undefined},
   WalkWeeklyRecord: {component:WalkWeeklyRecord, params:undefined},
   WeeklySummary: {component:WeeklySummary, params: { petId: 1 } },
