@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Alert, Image } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import StylizedText from '@components/common/StylizedText';
 import { RoundedTextButton } from '@components/common/RoundedButton';
@@ -10,6 +10,7 @@ const AlertScan = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
+  const backIcon = require('../../assets/image/icon/arrow_back.png');
   const { petId, petType, petName } = route.params || {};
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -24,16 +25,32 @@ const AlertScan = () => {
           petType,
           petName,
         });
-      } else {
-        Alert.alert('오류', '이미지 선택이 취소되었거나 실패했습니다.');
       }
+      setModalVisible(false); // 모달 닫기
     });
-    setModalVisible(false);
+  };
+
+  // 촬영하기 버튼 동작
+  const handleTakePhoto = () => {
+    navigation.navigate('TakePicture', {
+      petId,
+      petType,
+      petName,
+    });
+    setModalVisible(false); // 모달 닫기
+  };
+
+  // 준비 완료 버튼 클릭
+  const handleReadyButtonPress = () => {
+    setModalVisible(true); // 모달창 띄우기
   };
 
   return (
-    <View className="flex-1 bg-white">
-      <View className="px-5 pt-10">
+    <View style={styles.container}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Image source={backIcon} style={styles.backIcon} />
+         </TouchableOpacity>
+      <View style={styles.headerContainer}>
         <StylizedText type="header1" styleClass="text-black mb-4">
           홍채가 잘 보이도록{"\n"}눈을 크게 뜬 사진을 준비해주세요.
         </StylizedText>
@@ -60,53 +77,92 @@ const AlertScan = () => {
         </View>
 
         {/* 부적합한 사진 */}
-          <View style={styles.incorrectRow}>
-            <View style={styles.incorrectWrapper}>
-              <Image source={require('@image/example4.png')} style={styles.image} />
-              <View style={styles.textWrapper}>
-                <Image source={require('@image/icon/x.png')} style={styles.icon} />
-                <StylizedText type="body2" styleClass="text-gray">
-                  홍채의 크기가{"\n"}  너무 작아요.
-                </StylizedText>
-              </View>
+        <View style={styles.incorrectRow}>
+          <View style={styles.incorrectWrapper}>
+            <Image source={require('@image/example4.png')} style={styles.image} />
+            <View style={styles.textWrapper}>
+              <Image source={require('@image/icon/x.png')} style={styles.icon} />
+              <StylizedText type="body2" styleClass="text-gray">
+                홍채의 크기가{"\n"}너무 작아요.
+              </StylizedText>
             </View>
-            <View style={styles.incorrectWrapper}>
-              <Image source={require('@image/example5.png')} style={styles.image} />
-              <View style={styles.textWrapper}>
-                <Image source={require('@image/icon/x.png')} style={styles.icon} />
-                <StylizedText type="body2" styleClass="text-gray">
-                  홍채의 전부가{"\n"}보이지 않아요.
-                </StylizedText>
-              </View>
+          </View>
+          <View style={styles.incorrectWrapper}>
+            <Image source={require('@image/example5.png')} style={styles.image} />
+            <View style={styles.textWrapper}>
+              <Image source={require('@image/icon/x.png')} style={styles.icon} />
+              <StylizedText type="body2" styleClass="text-gray">
+                홍채의 전부가{"\n"}보이지 않아요.
+              </StylizedText>
             </View>
           </View>
         </View>
+      </View>
 
       <View style={styles.bottomButtonContainer}>
         <RoundedTextButton
           content="준비 완료"
           widthOption="full"
-          onPress={() => setModalVisible(true)}
+          onPress={handleReadyButtonPress} // ModalLayout 열기
         />
       </View>
+
+      {/* ModalLayout */}
+      <ModalLayout
+        visible={isModalVisible}
+        setVisible={setModalVisible}
+        rows={[
+          {
+            content: [
+              <RoundedTextButton
+                content="갤러리에서 가져오기"
+                widthOption="lg"
+                color="bg-primary"
+                onPress={handleGallerySelect}
+                key="gallery"
+              />,
+              <RoundedTextButton
+                content="촬영하기"
+                widthOption="lg"
+                color="bg-primary"
+                onPress={handleTakePhoto}
+                key="camera"
+              />,
+            ],
+            layout: 'col',
+          },
+        ]}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  backButton: {
+      position: 'absolute',
+      top: 30,
+      left: 10,
+      padding: 10,
+    },
+  backIcon: {
+    width: 30,
+    height: 30,
+  },
+  headerContainer: {
+    paddingHorizontal: 30,
+    paddingVertical: 80,
+  },
   imageContainer: {
-    marginVertical: 20,
     alignItems: 'center',
   },
   imageRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginBottom: 15,
-  },
-  imageColumn: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: 20,
   },
   imageWrapper: {
     alignItems: 'center',
@@ -124,20 +180,20 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   incorrectRow: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginVertical: 10,
-      paddingHorizontal: 20,
-    },
-    incorrectWrapper: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      marginHorizontal: 20,
-    },
-    textWrapper: {
-      alignItems: 'center',
-      marginTop: 10,
-    },
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+    paddingHorizontal: 20,
+  },
+  incorrectWrapper: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginHorizontal: 20,
+  },
+  textWrapper: {
+    alignItems: 'center',
+    marginTop: 10,
+  },
   bottomButtonContainer: {
     position: 'absolute',
     bottom: 30,

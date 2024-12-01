@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Alert, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { fetchUserPets, getPetDetails } from '@api/petApi';
 import StylizedText from '../../components/common/StylizedText';
 import Avatar from '@components/common/Avatar';
 import { RoundedTextButton } from '@components/common/RoundedButton';
+import CustomAlert from '@components/common/CustomAlert'; // CustomAlert 임포트
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
@@ -16,6 +17,8 @@ const SelectPetToScan = () => {
   const [selectedPetId, setSelectedPetId] = useState(null);
   const [selectedPetType, setSelectedPetType] = useState(null);
   const [selectedPetName, setSelectedPetName] = useState(null);
+  const [isAlertVisible, setAlertVisible] = useState(false); // 알림창 상태 추가
+  const [alertMessage, setAlertMessage] = useState(''); // 알림창 메시지 상태 추가
 
   useEffect(() => {
     const initializeData = async () => {
@@ -43,7 +46,7 @@ const SelectPetToScan = () => {
       );
       setPetList(petsData.filter(Boolean));
     } catch (error) {
-      Alert.alert('Error', 'Failed to load pets. Please try again later.');
+      showAlert('반려동물 정보를 불러오는 데 실패했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -67,15 +70,14 @@ const SelectPetToScan = () => {
         petName: selectedPetName,
       });
     } else {
-      Alert.alert('알림', '반려동물을 선택해주세요.');
+      showAlert('반려동물을 선택해주세요.');
     }
   };
 
-  console.log("Navigating to AlertScan with params:", {
-    petId: selectedPetId,
-    petType: selectedPetType,
-    petName: selectedPetName,
-  });
+  const showAlert = (message) => {
+    setAlertMessage(message);
+    setAlertVisible(true);
+  };
 
   return (
     <View style={styles.container}>
@@ -105,6 +107,13 @@ const SelectPetToScan = () => {
       <View style={styles.bottomButtonContainer}>
         <RoundedTextButton content="사진 등록하기" widthOption="xl" onPress={handleRegisterButtonPress} />
       </View>
+
+      {/* CustomAlert 추가 */}
+      <CustomAlert
+        visible={isAlertVisible}
+        message={alertMessage}
+        onClose={() => setAlertVisible(false)}
+      />
     </View>
   );
 };
@@ -144,7 +153,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   selectedPetButton: {
-    borderColor: 'blue',
+    borderColor: '#73A8BA',
     borderWidth: 2,
   },
   unselectedPetButton: {
@@ -154,3 +163,4 @@ const styles = StyleSheet.create({
 });
 
 export default SelectPetToScan;
+
