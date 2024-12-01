@@ -70,6 +70,7 @@ export const routesConfig: {
   OrderReceived :  { component: OrderReceived, params: undefined },
   ViewFeedList :  { component: ViewFeedList, params: undefined },
   PaymentInformation :  { component: PaymentInformation, params: undefined },
+  Home :  { component: Home, params: undefined },
 };
 
 export const typedObjectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => {

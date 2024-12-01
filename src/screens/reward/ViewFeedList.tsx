@@ -6,6 +6,7 @@ import { RoundedTextButton } from '@components/common/RoundedButton';
 import RoundedBox from '@common/RoundedBox';
 import { useNavigation } from '@react-navigation/native';
 import { foodsList } from '@api/foodApi';
+// 구매할 수 있는 사료들의 리스트를 보여주는 페이지. 사료 선택은 구매 페이지에서 진행할 수 있다.
 
 interface Food {
   id: number;
@@ -46,10 +47,9 @@ const ViewFeedList: React.FC = () => {
       {/* Food Display */}
       <ScrollView contentContainerStyle={{ paddingBottom: 80, paddingHorizontal: 16 }}>
         <View className="flex flex-wrap flex-row justify-center">
-          {foods.map((food) => (
-            <View className="m-2">
+        {foods.map((food) => (
+          <View key={food.id} className="m-2">
             <RoundedBox
-              key={food.id}
               preset="squarecard"
               shadow={false}
               outline="active-solid"
@@ -64,8 +64,8 @@ const ViewFeedList: React.FC = () => {
                 </StylizedText>
               </View>
             </RoundedBox>
-            </View>
-          ))}
+          </View>
+        ))}
         </View>
       </ScrollView>
 
