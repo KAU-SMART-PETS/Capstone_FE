@@ -8,6 +8,7 @@ export interface VaccinationResponse {
     name: string;
   };
   vaccination: {
+    id: number;
     name: string;
     year: number;
     month: number;
@@ -32,7 +33,7 @@ export const fetchHealthInfo = async (
     setPetName(pet.name);
     setHealthInfo(
       vaccination.map((v, index) => ({
-        id: index, 
+        id: v.id, 
         name: v.name,
         date: `${v.year}${String(v.month).padStart(2, '0')}${String(v.day).padStart(2, '0')}`,
       }))
