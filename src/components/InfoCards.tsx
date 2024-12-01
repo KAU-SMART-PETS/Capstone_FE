@@ -7,6 +7,9 @@ import RoundedBox from '@common/RoundedBox';
 import StylizedText from '@common/StylizedText';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome5'
+import { TouchableOpacity } from 'react-native';
+
+// TODO : VaccinationCard 에 onPress 속성 추가
 
 interface DiseaseCardProps {
   title: string;
@@ -63,7 +66,6 @@ export const DiseaseCard: React.FC<DiseaseCardProps> = ({
   const preset = 'greycard';
 
   return (
-    <View className='flex-wrap mx-auto'>
     <RoundedBox preset={preset} shadow={false}>
       {badge && <TagBadge text={badgeText} color={badgeColor} />}
       <View className={`${body && 'px-2'}`}>
@@ -89,34 +91,39 @@ export const DiseaseCard: React.FC<DiseaseCardProps> = ({
         </View>
       </View>
     </RoundedBox>
-    </View>
   );
 };
 
 interface VaccinationCardProps {
   title: string;
   description: string;
+  onPress?: () => void;
 }
 
 export const VaccinationCard: React.FC<VaccinationCardProps> = ({
   title,
   description,
+  onPress, // onPress 속성 받기
 }) => {
-  const preset:DesignPreset = "greycard";
+  const preset: DesignPreset = "greycard";
+
   return (
-    <View className='flex-wrap mx-auto'>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
       <RoundedBox preset={preset} shadow={false}>
-          <View className='min-w-full px-3'>
+        <View className="min-w-full px-3">
           <View className="mt-1">
-            <StylizedText type="header4" styleClass="text-black">{title}</StylizedText>
+            <StylizedText type="header4" styleClass="text-black">
+              {title}
+            </StylizedText>
           </View>
-          {/* Body (Second Row) */}
           <View className="mb-1">
-            <StylizedText type="body3" styleClass="text-black">{description}</StylizedText>
+            <StylizedText type="body3" styleClass="text-black">
+              {description}
+            </StylizedText>
           </View>
-          </View>
+        </View>
       </RoundedBox>
-      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -126,7 +133,6 @@ export const OrderInfoCard: React.FC<VaccinationCardProps> = ({
 }) => {
   const preset:DesignPreset = "dashedcard";
   return (
-    <View className='flex-wrap mx-auto'>
       <RoundedBox preset={preset} shadow={false} outline='dashed'>
           <View className='min-w-full px-3 flex justify-center items-center'>
           {/* Body (Second Row) */}
@@ -135,6 +141,5 @@ export const OrderInfoCard: React.FC<VaccinationCardProps> = ({
           </View>
           </View>
       </RoundedBox>
-      </View>
   );
 };
