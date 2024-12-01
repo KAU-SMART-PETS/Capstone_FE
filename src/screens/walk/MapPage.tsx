@@ -1,17 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, PermissionsAndroid, Platform } from 'react-native';
+import { View, PermissionsAndroid, Platform, Alert } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import { RoundedTextButton } from '@src/components/common/RoundedButton';
 import ModalLayout from '@components/ModalLayout';
-import WalkingRecord from '@src/components/common/Records';
+import { WalkingRecord } from '@components/Records';
 import WalkRecordingPanel from '@src/components/WalkingRecordPanel';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RoundedCircleButton } from '@src/components/common/RoundedButton';
+import { registerWalkRecord } from '@src/api/walkApi';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
-// 두 지점 간 거리 계산을 위한 haversine 공식을 구현
 const haversine = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
-  const R = 6371; // 지구 반경 (km)
+  const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLon = ((lon2 - lon1) * Math.PI) / 180;
   const a =
@@ -19,16 +20,19 @@ const haversine = (lat1: number, lon1: number, lat2: number, lon2: number): numb
     Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) *
     Math.sin(dLon / 2) * Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c; // 결과 거리 (km)
+  return R * c;
 };
 
 const MapPage: React.FC = () => {
-  const mapRef = useRef<MapView>(null); 
-  const [isStarted, setIsStarted] = useState(false); 
-  const [isPaused, setIsPaused] = useState(false); // 일시정지 상태
-  const [isModalVisible, setIsModalVisible] = useState(false); 
-  const [isBottomModalVisible, setIsBottomModalVisible] = useState(false); 
-  const [isThankYouModalVisible, setIsThankYouModalVisible] = useState(false); 
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { petId } = route.params as { petId: string };
+  const mapRef = useRef<MapView>(null);
+  const [isStarted, setIsStarted] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isBottomModalVisible, setIsBottomModalVisible] = useState(false);
+  const [isThankYouModalVisible, setIsThankYouModalVisible] = useState(false);
   const [region, setRegion] = useState<Region>({
     latitude: 37.78825,
     longitude: -122.4324,
@@ -36,53 +40,53 @@ const MapPage: React.FC = () => {
     longitudeDelta: 0.005,
   });
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
-  const [prevLocation, setPrevLocation] = useState<{ latitude: number; longitude: number } | null>(null); // 이전 위치
-  const [distance, setDistance] = useState(0); 
-  const [time, setTime] = useState(0); // 타이머 상태
-  const timerRef = useRef<NodeJS.Timeout | null>(null); // 타이머 참조
+  const [prevLocation, setPrevLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+  const [distance, setDistance] = useState(0);
+  const [time, setTime] = useState(0);
+  const [startTime, setStartTime] = useState<string | null>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const [walkResponse, setWalkResponse] = useState<any | null>(null);
+  let watchId: number | null = null;
 
   useEffect(() => {
     const requestLocationPermission = async () => {
       if (Platform.OS === 'android') {
         const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          startWatchingLocation();
+          watchId = startWatchingLocation();
         }
       } else {
-        startWatchingLocation();
+        watchId = startWatchingLocation();
       }
     };
 
     requestLocationPermission();
 
     return () => {
-      Geolocation.stopObserving();
-      clearInterval(timerRef.current!); // 페이지를 떠날 때 타이머를 정리
+      if (watchId !== null) {
+        Geolocation.clearWatch(watchId);
+      }
+      Geolocation.clearWatch();
+      clearInterval(timerRef.current!);
     };
   }, []);
 
-  const startWatchingLocation = () => {
-    Geolocation.watchPosition(
+  const startWatchingLocation = (): number | null => {
+    const id = Geolocation.watchPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
         setLocation({ latitude, longitude });
 
         if (prevLocation) {
           const addedDistance = haversine(prevLocation.latitude, prevLocation.longitude, latitude, longitude);
-          setDistance(prevDistance => prevDistance + addedDistance);
+          if (addedDistance > 0.001) {
+            setDistance((prevDistance) => prevDistance + addedDistance);
+          }
         }
 
-        setPrevLocation({ latitude, longitude }); // 현재 위치를 이전 위치로 업데이트
-
-        const newRegion = {
-          latitude,
-          longitude,
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.005,
-        };
-        mapRef.current?.animateToRegion(newRegion, 1000);
+        setPrevLocation({ latitude, longitude });
       },
-      (error) => console.log("위치 추적 오류:", error),
+      (error) => console.log('위치 추적 오류:', error),
       {
         enableHighAccuracy: true,
         distanceFilter: 1,
@@ -90,50 +94,80 @@ const MapPage: React.FC = () => {
         fastestInterval: 2000,
       }
     );
+
+    return id;
   };
 
   const handleStartPress = () => {
     setIsStarted(true);
     setIsPaused(false);
+    setStartTime(new Date().toISOString());
     timerRef.current = setInterval(() => {
-      setTime(prevTime => prevTime + 1); // 매 초마다 시간 증가
-    }, 1000); // 1초 간격으로 업데이트
+      setTime((prevTime) => prevTime + 1);
+    }, 1000);
   };
 
   const handlePausePress = () => {
     if (isPaused) {
-      // 다시 시작
       timerRef.current = setInterval(() => {
-        setTime(prevTime => prevTime + 1);
+        setTime((prevTime) => prevTime + 1);
       }, 1000);
     } else {
-      // 일시정지
       clearInterval(timerRef.current!);
     }
-    setIsPaused(!isPaused); // 상태 토글
+    setIsPaused(!isPaused);
   };
 
   const handleStopPress = () => {
-    setIsModalVisible(true); // 첫 번째 모달 표시
+    setIsModalVisible(true);
   };
 
-  const handleFinishPress = () => {
+  const handleFinishPress = async () => {
     setIsStarted(false);
-    clearInterval(timerRef.current!); // 타이머 정지
-    setTime(0); // 시간 초기화
-    setDistance(0); // 거리 초기화
+    clearInterval(timerRef.current!);
     setIsModalVisible(false);
-    setIsBottomModalVisible(true); // 하단 모달 표시
+
+    const endTime = new Date().toISOString();
+
+    const walkData = {
+      dataInpDt: new Date().toISOString().split('T')[0],
+      step: Math.round(distance * 1300),
+      tLux: 0,
+      avgK: 0,
+      avgLux: 0,
+      startTime: startTime || '',
+      endTime,
+      distance: Math.round(distance * 1000) / 1000,
+      walkingTime: time,
+    };
+
+    try {
+      const response = await registerWalkRecord(petId, walkData);
+
+      if (response) {
+        console.log('산책 기록 저장 성공:', response);
+        setWalkResponse(response);
+        setIsBottomModalVisible(true);
+      } else {
+        Alert.alert('실패', '산책 기록 저장에 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('산책 기록 저장 중 오류 발생:', error);
+    }
+
+    setDistance(0);
+    setTime(0);
+    setStartTime(null);
   };
 
   const showThankYouModal = () => {
     setIsBottomModalVisible(false);
-    setIsThankYouModalVisible(true); // 감사 모달 표시
+    setIsThankYouModalVisible(true);
   };
 
   const handleConfirmPress = () => {
     setIsThankYouModalVisible(false);
-    // 화면 이동 코드
+    navigation.navigate('WalkStartPage');
   };
 
   return (
@@ -159,21 +193,21 @@ const MapPage: React.FC = () => {
       <View className="absolute bottom-5 left-0 right-0 items-center">
         {isStarted ? (
           <View className="flex-row justify-center space-x-4">
-            <RoundedTextButton 
-              color="bg-primary" 
-              icon={<MCIcon name={isPaused ? "play" : "pause"} color="black" size={20} />} 
-              textColor="text-black" 
-              content={isPaused ? "다시 시작" : "일시정지"}
+            <RoundedTextButton
+              color="bg-primary"
+              icon={<MCIcon name={isPaused ? 'play' : 'pause'} color="black" size={20} />}
+              textColor="text-black"
+              content={isPaused ? '다시 시작' : '일시정지'}
               widthOption="sm"
-              onPress={handlePausePress} 
+              onPress={handlePausePress}
             />
-            <RoundedTextButton 
-              color="bg-secondary" 
-              icon={<MCIcon name="stop" color="black" size={20} />} 
-              textColor="text-black" 
+            <RoundedTextButton
+              color="bg-secondary"
+              icon={<MCIcon name="stop" color="black" size={20} />}
+              textColor="text-black"
               content="중지"
               widthOption="sm"
-              onPress={handleStopPress} 
+              onPress={handleStopPress}
             />
           </View>
         ) : (
@@ -185,7 +219,7 @@ const MapPage: React.FC = () => {
               textColor="text-white"
               widthOption="md"
               borderRadius="rounded-full"
-              shadow={true}
+              shadow
             />
           </View>
         )}
@@ -212,39 +246,65 @@ const MapPage: React.FC = () => {
                   color="bg-primary"
                   widthOption="sm"
                   onPress={handleFinishPress}
-                />
+                />,
               ],
               layout: 'row',
             },
           ]}
         />
       )}
-
-      {isBottomModalVisible && (
+      
+      
+      {isBottomModalVisible && walkResponse && (
         <ModalLayout
           visible={isBottomModalVisible}
           setVisible={setIsBottomModalVisible}
           position="bottom"
-          transparent // 배경 투명화 옵션
+          transparent
           titleAlign="left"
           rows={[
             {
               content: [
-                <RoundedCircleButton color="bg-secondary" shadow={true} size={40} onPress={showThankYouModal}>
+                <RoundedCircleButton
+                  color="bg-secondary"
+                  shadow
+                  size={40}
+                  onPress={showThankYouModal}
+                >
                   <MCIcon name="close" size={22} color="white" />
-                </RoundedCircleButton>
+                </RoundedCircleButton>,
               ],
               layout: 'col',
             },
             {
               content: [
-                <WalkingRecord
-                  walkDate="2023-11-01"
-                  walkTime="30분"
-                  distance="2.5km"
-                  calories="200kcal"
-                  steps="4000걸음"
-                />
+                <WalkingRecord //없음이라고 뜸. 수정필요
+                  walkDate={
+                    walkResponse?.startDate
+                      ? walkResponse.startDate.split(' ')[0]
+                      : '날짜 없음'
+                  }
+                  walkTime={
+                    walkResponse?.walkingTime
+                      ? `${Math.floor(walkResponse.walkingTime / 60)}분 ${walkResponse.walkingTime % 60}초`
+                      : '시간 없음'
+                  }
+                  distance={
+                    walkResponse?.distance !== undefined
+                      ? `${walkResponse.distance.toFixed(3)} km`
+                      : '거리 없음'
+                  }
+                  calories={
+                    walkResponse?.calories !== undefined
+                      ? `${walkResponse.calories.toFixed(1)} kcal`
+                      : '칼로리 없음'
+                  }
+                  steps={
+                    walkResponse?.step !== undefined
+                      ? `${walkResponse.step.toLocaleString()} 걸음`
+                      : '걸음 수 없음'
+                  }
+                />,
               ],
               layout: 'col',
             },
@@ -265,18 +325,16 @@ const MapPage: React.FC = () => {
                   content="확인"
                   color="bg-primary"
                   widthOption="sm"
-                  onPress={handleConfirmPress} // Home 화면으로 이동
-                />
+                  onPress={handleConfirmPress}
+                />,
               ],
               layout: 'col',
             },
-         
           ]}
-          />
-        )}
-      </View>
-    );
-  };
-  
-  export default MapPage;
-  
+        />
+      )}
+    </View>
+  );
+};
+
+export default MapPage;

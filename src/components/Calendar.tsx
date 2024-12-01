@@ -1,12 +1,11 @@
-// NOTE : 기록이 없는 일자( - 로 표시)에 대해 처리를 추가해도 좋을 듯
-// (클릭이 불가능하게 만들거나, 클릭 시 기록이 없다는 메시지 화면을 아래에 보여주거나)
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Calendar as BaseCalendar, LocaleConfig } from 'react-native-calendars';
 import StylizedText from '@common/StylizedText';
 import ColorMap from '@common/ColorMap';
 import pawPrint from '@image/icon/pawprint.png';
 import dayjs from 'dayjs';
+import { fetchMonthlyWalkRecord } from '@api/recordApi';
 
 // 한국어 설정
 LocaleConfig.locales['kr'] = {
@@ -18,28 +17,56 @@ LocaleConfig.locales['kr'] = {
 };
 LocaleConfig.defaultLocale = 'kr';
 
-const Calendar = () => {
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [currentMonth, setCurrentMonth] = useState(dayjs().month()); // 현재 월 상태
+interface CalendarProps {
+  onDateSelect: (date: string) => void; // 날짜 선택 콜백 함수
+  petId: string; // petId 매개변수
+}
 
-  // 각 날짜의 active 여부 설정
-  const activeDates = {
-    '2024-09-01': true,
-    '2024-09-20': true,
-    '2024-09-30': true,
-    // 추가적인 active 날짜들을 여기에 추가하세요.
-  };
+const Calendar: React.FC<CalendarProps> = ({ onDateSelect, petId }) => {
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [currentMonth, setCurrentMonth] = useState(dayjs().month());
+  const [activeDates, setActiveDates] = useState<{ [key: string]: boolean }>({});
+
+  // 월 변경 시 activeDates 업데이트
+  useEffect(() => {
+    const fetchActiveDatesForMonth = async () => {
+      try {
+        const year = dayjs().year();
+        const month = currentMonth + 1; // dayjs는 0부터 시작
+        const response = await fetchMonthlyWalkRecord(petId, year, month);
+
+        if (response && response.walkDates) {
+          const updatedActiveDates = response.walkDates.reduce(
+            (acc: { [key: string]: boolean }, date: string) => {
+              acc[date] = true;
+              return acc;
+            },
+            {}
+          );
+          setActiveDates(updatedActiveDates); // 상태 업데이트
+        } else {
+          setActiveDates({}); // 데이터가 없으면 초기화
+        }
+      } catch (error) {
+        console.error('Error fetching monthly walk record:', error);
+        setActiveDates({}); // 오류 발생 시 상태 초기화
+      }
+    };
+
+    fetchActiveDatesForMonth();
+  }, [currentMonth, petId]); // currentMonth 변경 시 실행
 
   const handleDatePress = (date: string) => {
     setSelectedDate(date);
+    onDateSelect(date); // 선택된 날짜를 부모 컴포넌트로 전달
   };
 
   const handleMonthChange = (date: any) => {
-    setCurrentMonth(dayjs(date.dateString).month()); // 월 변경 시 currentMonth 업데이트
+    setCurrentMonth(dayjs(date.dateString).month());
   };
 
   return (
-    <View className='px-6 pt-1 pb-4 rounded-3xl my-2 bg-lightgrey'> 
+    <View className="px-6 pt-1 pb-4 rounded-3xl my-2 bg-lightgrey">
       <BaseCalendar
         markingType={'custom'}
         theme={{
@@ -47,7 +74,7 @@ const Calendar = () => {
           todayTextColor: 'black',
           textMonthFontWeight: 'bold',
           textDayFontWeight: 'bold',
-          textDayFontSize: 14, // 텍스트 크기 조정
+          textDayFontSize: 14,
           textMonthFontSize: 18,
           backgroundColor: ColorMap['lightgrey'],
           calendarBackground: ColorMap['lightgrey'],
@@ -56,25 +83,27 @@ const Calendar = () => {
           selectedDayBackgroundColor: ColorMap['green'],
           selectedDayTextColor: 'black',
         }}
-        onMonthChange={handleMonthChange} // 월 변경 시 이벤트 핸들러 추가
+        onMonthChange={handleMonthChange}
         dayComponent={({ date }) => {
           const formattedDate = dayjs(date.dateString).format('YYYY-MM-DD');
           const isSelected = selectedDate === formattedDate;
           const isActive = activeDates[formattedDate] || false;
-          const isCurrentMonth = dayjs(date.dateString).month() === currentMonth;
 
           return (
             <TouchableOpacity onPress={() => handleDatePress(formattedDate)}>
               <View
-                className={`flex items-center justify-end w-6 h-8 -mb-1.5 ${isSelected ? 'bg-green' : 'bg-transparent'} rounded-md`}>
+                className={`flex items-center justify-end w-6 h-8 -mb-1.5 ${
+                  isSelected ? 'bg-green' : 'bg-transparent'
+                } rounded-md`}
+              >
                 {isActive ? (
-                  <Image source={pawPrint} className='absolute w-3.5 h-3.5 bottom-4'/> 
+                  <Image source={pawPrint} className="absolute w-3.5 h-3.5 bottom-4" />
                 ) : (
-                  <StylizedText type="body2" styleClass={isCurrentMonth ? "text-black" : "text-secondary"}>-</StylizedText>
+                  <StylizedText type="body2" styleClass="text-secondary">-</StylizedText>
                 )}
                 <StylizedText
                   type="body2"
-                  styleClass={isCurrentMonth ? "text-black" : "text-secondary"}
+                  styleClass="text-black"
                   style={{ fontSize: 12 }}
                 >
                   {date.day}
