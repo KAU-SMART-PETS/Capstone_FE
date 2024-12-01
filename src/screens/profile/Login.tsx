@@ -4,7 +4,7 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import KakaoLogo from '@image/icon/logo-kakao.png';
 import NaverLogo from '@image/icon/logo-naver.png';
 import { WebView, WebViewNavigation } from 'react-native-webview';
-import { handleLoginPress, handleWebViewNavigationStateChange } from '@screens/profile/Login/LoginApi';
+import { handleLoginPress, handleWebViewNavigationStateChange } from '@screens/API/LoginApi';
 import StylizedText from '@components/common/StylizedText';
 
 const Login = () => {
