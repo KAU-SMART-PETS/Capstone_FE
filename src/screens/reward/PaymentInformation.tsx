@@ -7,7 +7,7 @@ import RadioButton from '@common/RadioButton';
 import Avatar from '@common/Avatar';
 import { RoundedTextButton } from '@common/RoundedButton';
 import { useNavigation } from '@react-navigation/native';
-import ModalLayout from '@components/ModalLayout'; // ModalLayout import
+import ModalLayout from '@components/ModalLayout';
 import { foodsList, purchaseFood } from '@api/foodApi';
 import { fetchPointHistory } from '@api/pointApi';
 import { fetchUserProfile } from '@api/userApi';
@@ -72,6 +72,13 @@ const PaymentInformation: React.FC = () => {
   const finalTotal = selectedFoodsTotal + deliveryFee;
 
   const handleOrderSubmit = async () => {
+    // Check for empty address or phone number
+    if (!address || !userData.phoneNumber) {
+      setModalMessage('배송지 정보 입력을 바르게 했는지 확인해주세요.');
+      setModalVisible(true);
+      return;
+    }
+
     if (radioButtonGroupRef.current) {
       radioButtonGroupRef.current.submit();
     }
@@ -91,10 +98,11 @@ const PaymentInformation: React.FC = () => {
       }
     }
 
-    //setModalMessage(`모든 사료가 성공적으로 결제되었습니다.\n선택한 사료 ID: ${selectedFoodIds.join(', ')}`);
-    //setModalVisible(true);
     navigation.navigate('OrderReceived', { product: '사료' });
   };
+
+  // Determine placeholder value for points
+  const placeholderValue = Math.min(finalTotal, balance);
 
   return (
     <View className="flex-1 bg-white">
@@ -102,17 +110,17 @@ const PaymentInformation: React.FC = () => {
         <StylizedText type="header1" styleClass="text-black mb-4 mx-2 mt-6">
           제품을 선택하고 주문 정보를 입력해주세요.
         </StylizedText>
-        {/*TODO : 사료 레이아웃 변경 */}
+
         <RadioButtonGroup
           ref={radioButtonGroupRef}
           maxChoice={foods.length}
           onSubmit={(selectedIndexes) => {
-            const selectedIds = selectedIndexes.map((index) => foods[index]?.id); // Index를 foodId로 변환
+            const selectedIds = selectedIndexes.map((index) => foods[index]?.id);
             setSelectedFoodIds(selectedIds);
             console.log('현재 선택된 food ID 배열 (onSubmit):', selectedIds);
           }}
           onSelect={(selectedIndexes) => {
-            const selectedIds = selectedIndexes.map((index) => foods[index]?.id); // Index를 foodId로 변환
+            const selectedIds = selectedIndexes.map((index) => foods[index]?.id);
             setSelectedFoodIds(selectedIds);
             console.log('현재 선택된 food ID 배열 (onSelect):', selectedIds);
           }}
@@ -158,25 +166,54 @@ const PaymentInformation: React.FC = () => {
         />
 
         <View className="mt-6">
-          <StylizedText type="header2" styleClass="text-black mb-2">결제 수단</StylizedText>
-          <StylizedText type="body2" styleClass="text-grey mb-2">ⓘ 배송비는 포인트에서 차감됩니다.</StylizedText>
-          <CustomTextInput label="포인트" placeholder="포인트 사용" keyboardType="numeric" />
-          <StylizedText type="body2" styleClass="text-grey mb-2">보유 잔액 {balance.toLocaleString()} P</StylizedText>
+          <StylizedText type="header2" styleClass="text-black mb-2">
+            결제 수단
+          </StylizedText>
+          <StylizedText type="body2" styleClass="text-grey mb-2">
+            ⓘ 배송비는 포인트에서 차감됩니다.
+          </StylizedText>
+          <CustomTextInput
+            label="포인트"
+            placeholder={`${placeholderValue.toLocaleString()} P`}
+            isEditableInitially={false}
+            type="readOnly"
+            keyboardType="numeric"
+          />
+          <StylizedText
+            type="body2"
+            styleClass={`mb-2 ${balance < finalTotal ? 'text-danger' : 'text-grey'}`}
+          >
+            보유 잔액 {balance.toLocaleString()} P
+          </StylizedText>
         </View>
 
         <View className="mt-6 border-t border-grey pt-4">
-          <StylizedText type="header2" styleClass="text-black mb-2">결제 정보</StylizedText>
+          <StylizedText type="header2" styleClass="text-black mb-2">
+            결제 정보
+          </StylizedText>
           <View className="flex-row justify-between mb-1">
-            <StylizedText type="body2" styleClass="text-grey">주문 상품</StylizedText>
-            <StylizedText type="body2" styleClass="text-black">{selectedFoodsTotal.toLocaleString()} P</StylizedText>
+            <StylizedText type="body2" styleClass="text-grey">
+              주문 상품
+            </StylizedText>
+            <StylizedText type="body2" styleClass="text-black">
+              {selectedFoodsTotal.toLocaleString()} P
+            </StylizedText>
           </View>
           <View className="flex-row justify-between mb-1">
-            <StylizedText type="body2" styleClass="text-grey">배송비</StylizedText>
-            <StylizedText type="body2" styleClass="text-black">{deliveryFee.toLocaleString()} P</StylizedText>
+            <StylizedText type="body2" styleClass="text-grey">
+              배송비
+            </StylizedText>
+            <StylizedText type="body2" styleClass="text-black">
+              {deliveryFee.toLocaleString()} P
+            </StylizedText>
           </View>
           <View className="flex-row justify-between">
-            <StylizedText type="body2" styleClass="text-grey">최종 결제 포인트</StylizedText>
-            <StylizedText type="body2" styleClass="text-black">{finalTotal.toLocaleString()} P</StylizedText>
+            <StylizedText type="body2" styleClass="text-grey">
+              최종 결제 포인트
+            </StylizedText>
+            <StylizedText type="body2" styleClass="text-black">
+              {finalTotal.toLocaleString()} P
+            </StylizedText>
           </View>
         </View>
 
@@ -185,7 +222,6 @@ const PaymentInformation: React.FC = () => {
         </View>
       </ScrollView>
 
-      {/* Modal */}
       <ModalLayout
         visible={modalVisible}
         setVisible={setModalVisible}

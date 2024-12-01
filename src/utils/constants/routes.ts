@@ -24,6 +24,7 @@ import HospitalInfo from '@src/screens/health/HospitalInfo';
 import PetUpdate from '@src/screens/profile/PetUpdate';
 // Walk
 import WeeklySummary from '@screens/walk/WeeklySummary';
+// import TodayWalk from '@screens/walk/TodayWalk';
 import WalkStartPage from '@screens/walk/WalkStartPage'
 import MapPage from '@screens/walk/MapPage'
 import WalkRecord from '@screens/walk/WalkRecord'
@@ -42,8 +43,10 @@ import ResultEyeScan from '@screens/ai/ResultEyeScan';
 import ChallengeList from '@screens/reward/ChallengeList';
 import CongratulatePopUp from '@screens/reward/CongratulatePopUp';
 import OrderReceived from '@screens/reward/OrderReceived';
+import { OrderReceivedParams } from '@screens/reward/OrderReceived';
 import ViewFeedList from '@screens/reward/ViewFeedList';
 import PaymentInformation from '@screens/reward/PaymentInformation';
+import PaymentSampleInformation from '@screens/reward/PaymentSampleInformation';
 
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
@@ -55,6 +58,7 @@ export const routesConfig: {
 } & {
   RegisterHealthInfo: RouteEntry<{ id: number }>;
   PetProfile: RouteEntry<{pet?: PetDetails}>;
+  OrderReceived: RouteEntry<OrderReceivedParams>;
 } = {
   MainTab: { component: MainTab, params: undefined },
   Login: { component: Login, params: undefined },
@@ -77,11 +81,13 @@ export const routesConfig: {
   ReadyToScan: { component: ReadyToScan, params: undefined },
   TakePicture: { component: TakePicture, params: undefined },
   ResultEyeScan: { component: ResultEyeScan, params: undefined },
+  // reward pages
   ChallengeList :  { component: ChallengeList, params: undefined },
   CongratulatePopUp: { component: CongratulatePopUp, params: { point: 0 } as CongratulatePopUpParams },
-  OrderReceived :  { component: OrderReceived, params: undefined },
+  OrderReceived: { component: OrderReceived, params: { product: '' } },
   ViewFeedList :  { component: ViewFeedList, params: undefined },
   PaymentInformation :  { component: PaymentInformation, params: undefined },
+  PaymentSampleInformation :  { component: PaymentSampleInformation, params: undefined },
   MapPage :  { component: MapPage, params: undefined },
   Home :  { component: Home, params: undefined },
   //산책 기능 관련 테스트 페이지
