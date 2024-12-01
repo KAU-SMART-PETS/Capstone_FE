@@ -28,8 +28,6 @@ import WalkStartPage from '@screens/walk/WalkStartPage'
 import MapPage from '@screens/walk/MapPage'
 import WalkRecord from '@screens/walk/WalkRecord'
 import WalkWeeklyRecord from '@src/screens/walk/WalkWeeklyRecord';
-import RecordStartPage from '@src/screens/walk/RecordStartPage';
-//import RecordStartPage from '@src/screens/walk/RecordStartPage';
 
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
@@ -45,24 +43,11 @@ import PaymentInformation from '@screens/reward/PaymentInformation';
 import PaymentSampleInformation from '@screens/reward/PaymentSampleInformation';
 import SearchAddress from '@screens/reward/SearchAddress';
 
-// AiEye
+// Ai
 import ReadyToScan from '@screens/ai/ReadyToScan';
 import SelectPetToScan from '@screens/ai/SelectPetToScan';
+import TakePicture from '@screens/ai/TakePicture';
 import ResultEyeScan from '@screens/ai/ResultEyeScan';
-import EyeCamera from '@screens/ai/EyeCamera';
-import AlertEyeScan from '@screens/ai/AlertEyeScan';
-
-// AiNose
-import RegisterPetNose from '@screens/ai/RegisterPetNose';
-import NoseCamera from '@screens/ai/NoseCamera';
-import AlertNoseRegister from '@screens/ai/AlertNoseRegister';
-import ReadyToRegisterNose from '@screens/ai/ReadyToRegisterNose';
-import ResultNoseRegister from '@screens/ai/ResultNoseRegister';
-import ScanNose from '@screens/ai/ScanNose';
-import ScanNoseResult from '@screens/ai/ScanNoseResult';
-
-//System
-import Offline from '@screens/system/Offline';
 
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
@@ -101,20 +86,13 @@ export const routesConfig: {
   PetUpdate: { component: PetUpdate, params: { petId: '' } },
   SelectPetToScan: { component: SelectPetToScan, params: undefined },
   ReadyToScan: { component: ReadyToScan, params: undefined },
+  TakePicture: { component: TakePicture, params: undefined },
   ResultEyeScan: { component: ResultEyeScan, params: undefined },
-  AlertEyeScan: { component: AlertEyeScan, params: undefined },
-  EyeCamera: {component: EyeCamera, params: undefined},
-  RegisterPetNose: {component: RegisterPetNose, params: undefined},
-  NoseCamera: {component: NoseCamera, params: undefined},
-  ScanNose: {component: ScanNose, params: undefined},
-  ScanNoseResult: {component: ScanNoseResult, params: undefined},
-  AlertNoseRegister: {component: AlertNoseRegister, params: undefined},
-  ReadyToRegisterNose: {component: ReadyToRegisterNose, params: undefined},
-  ResultNoseRegister: {component: ResultNoseRegister, params: undefined},
-  Offline: {component: Offline, params: undefined},
+  PetUpdate: { component: PetUpdate, params: { petId: '' } },
+  HospitalInfo: {component: HospitalInfo, params: undefined},
   // reward pages
   ChallengeList :  { component: ChallengeList, params: undefined },
-  CongratulatePopUp: { component: CongratulatePopUp, params: { rewardId: 0 } as CongratulatePopUpParams },
+  CongratulatePopUp: { component: CongratulatePopUp, params: { point: 0 } as CongratulatePopUpParams },
   OrderReceived: { component: OrderReceived, params: { product: '' } },
   ViewFeedList :  { component: ViewFeedList, params: undefined },
   PaymentInformation: { 
@@ -125,17 +103,15 @@ export const routesConfig: {
     component: PaymentSampleInformation, 
     params: {} as AddressParams, // 타입 적용
   },
-  SearchAddress :  { component: SearchAddress,  params: { returnTo: '' } },
+  SearchAddress :  { component: SearchAddress, params: undefined },
 
   Home :  { component: Home, params: undefined },
    //산책 기능 관련 테스트 페이지
    WalkStartPage: {component:WalkStartPage, params:undefined},
    MapPage: {component:MapPage, params:undefined},
-  //RecordStartPage: { component: RecordStartPage, params: undefined },
    WalkRecord: {component:WalkRecord, params:undefined},
    WalkWeeklyRecord: {component:WalkWeeklyRecord, params:undefined},
-   RecordStartPage: {component:RecordStartPage, params: undefined},
-  // WeeklySummary: {component:WeeklySummary, params: { petId: 1 } },
+   WeeklySummary: {component:WeeklySummary, params: { petId: 1 } },
 };
 
 export const typedObjectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => {

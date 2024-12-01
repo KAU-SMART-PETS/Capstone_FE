@@ -17,6 +17,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@actbase/react-daum-postcode@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "@actbase/react-daum-postcode@npm:1.0.4"
+  checksum: dc0de6c6c517380b7994b188957a532a2296680e1955f0b768e6fb2ef991317f36727ab8de80e3f4e93c07373e6932ef7bcb3d16515f6bda2993e354e07ae1e0
+  languageName: node
+  linkType: hard
+
 "@alloc/quick-lru@npm:^5.2.0":
   version: 5.2.0
   resolution: "@alloc/quick-lru@npm:5.2.0"
@@ -11376,7 +11383,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:15.8.1, prop-types@npm:^15.5.10, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:15.8.1, prop-types@npm:^15.5.10, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -11582,6 +11589,15 @@ __metadata:
     moment:
       optional: true
   checksum: 1fc559d66bf0c687c09ba9462f243051127154efb4e0e293ddbabdfe8a64523ca114c905d853a2b911626b32c2f25abdb1de39cd07e8865d8c6a970991175195
+  languageName: node
+  linkType: hard
+
+"react-native-camera@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "react-native-camera@npm:4.2.1"
+  dependencies:
+    prop-types: ^15.6.2
+  checksum: 0e84ce657774694d1cc49395c43a8f2caabc03df36aa77aacfb5c797ad8cfe0368f4807deccc54e82ff2b193e8c2d1ce7ad504eedf7a9fc4719b38e39958a804
   languageName: node
   linkType: hard
 
@@ -11931,6 +11947,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "reactCapsone@workspace:."
   dependencies:
+    "@actbase/react-daum-postcode": ^1.0.4
     "@babel/core": ^7.25.2
     "@babel/preset-env": ^7.25.3
     "@babel/runtime": ^7.25.0
@@ -11978,6 +11995,7 @@ __metadata:
     react-native-ble-plx: ^3.2.1
     react-native-bouncy-checkbox: ^4.1.2
     react-native-calendars: ^1.1307.0
+    react-native-camera: ^4.2.1
     react-native-gesture-handler: ^2.12.0
     react-native-image-picker: ^7.1.2
     react-native-linear-gradient: ^2.8.3
