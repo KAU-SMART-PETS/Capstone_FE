@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import RNBootSplash from 'react-native-smooth-bootsplash';
 import Splash from '@screens/home/Splash';
-import { typedObjectEntries, routeComponents } from '@constants/routes';
+import { typedObjectEntries, routeComponents, RootStackParamList } from '@constants/routes';
 
 const Stack = createStackNavigator<RootStackParamList>();
 

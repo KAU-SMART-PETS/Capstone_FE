@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, ScrollView, Text, Alert } from 'react-native';
-import { BannerSection } from '@components/common/Sections';
+import { BannerSection } from '@components/common/BannerSection';
 import WalkingdogIcon from '@image/icon/walkingDogIcon.png';
 import dog1 from '@image/placeholder/dog2.jpg';
 import { WalkDetailsCard } from '@components/FlatListCards';
