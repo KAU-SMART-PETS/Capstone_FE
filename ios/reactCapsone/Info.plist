@@ -2,45 +2,70 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <!-- 앱 기본 언어 설정 -->
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
+    <!-- 앱 이름 (기기에서 표시될 이름) -->
     <key>CFBundleDisplayName</key>
     <string>reactCapsone</string>
+    <!-- 실행 가능한 파일 이름 -->
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
+    <!-- 앱 번들 식별자 -->
     <key>CFBundleIdentifier</key>
     <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <!-- Info.plist 파일의 버전 -->
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
+    
+    <!-- 앱의 이름 -->
     <key>CFBundleName</key>
     <string>$(PRODUCT_NAME)</string>
+    <!-- 앱 패키지 유형 (APPL: 애플리케이션) -->
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    <!-- 마케팅 버전 -->
     <key>CFBundleShortVersionString</key>
     <string>$(MARKETING_VERSION)</string>
+    <!-- 앱 서명 -->
     <key>CFBundleSignature</key>
     <string>????</string>
+    <!-- 현재 프로젝트 버전 -->
     <key>CFBundleVersion</key>
     <string>$(CURRENT_PROJECT_VERSION)</string>
+    <!-- 앱이 iPhoneOS에서만 실행 가능함을 명시 -->
     <key>LSRequiresIPhoneOS</key>
     <true/>
+
+    <!-- 블루투스 사용 설명 -->
     <key>NSBluetoothAlwaysUsageDescription</key>
     <string>이 앱은 블루투스를 사용하여 외부 기기와 연결합니다.</string>
     <key>NSBluetoothPeripheralUsageDescription</key>
     <string>이 앱은 블루투스를 사용하여 외부 기기와 연결합니다.</string>
+    
+    <!-- 앱이 백그라운드에서 블루투스를 사용 -->
     <key>UIBackgroundModes</key>
     <array>
         <string>bluetooth-central</string>
     </array>
-	<key>NSLocationWhenInUseUsageDescription</key>
+    
+    <!-- 위치 정보 사용 설명 -->
+    <key>NSLocationWhenInUseUsageDescription</key>
     <string>이 앱은 주변 기기를 감지하기 위해 위치 접근 권한이 필요합니다.</string>
+    
+    <!-- 마이크 사용 설명 -->
     <key>NSMicrophoneUsageDescription</key>
     <string>마이크를 사용하여 음성을 녹음합니다.</string>
-	<key>NSCameraUsageDescription</key>
+    
+    <!-- 카메라 사용 설명 -->
+    <key>NSCameraUsageDescription</key>
     <string>이 앱은 촬영을 위해 카메라를 사용합니다.</string>
+    
+    <!-- 사진 라이브러리 접근 설명 -->
     <key>NSPhotoLibraryUsageDescription</key>
     <string>이 앱은 사진을 업로드하기 위해 사진 라이브러리에 접근합니다.</string>
-    <!-- 출시할 때에는 반드시 ** HTTPS ** 설정으로 전환해야함 (앱스토어 심사 거부 사유) -->
+    
+    <!-- 네트워크 보안 설정 -->
     <key>NSAppTransportSecurity</key>
     <dict>
         <!-- 모든 비보안 연결(HTTP)을 허용 -->
@@ -63,22 +88,33 @@
             </dict>
         </dict>
     </dict>
+    
+    <!-- 앱 실행 초기 화면 설정 -->
     <key>UILaunchStoryboardName</key>
     <string>BootSplash</string>
+    
+    <!-- 앱이 arm64 아키텍처를 요구 -->
     <key>UIRequiredDeviceCapabilities</key>
     <array>
         <string>arm64</string>
     </array>
+    
+    <!-- 지원되는 화면 방향 -->
     <key>UISupportedInterfaceOrientations</key>
     <array>
         <string>UIInterfaceOrientationPortrait</string>
         <string>UIInterfaceOrientationLandscapeLeft</string>
         <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
+    
+    <!-- 상태 표시줄 스타일 설정 -->
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
+    
+    <!-- 앱에서 사용하는 사용자 정의 폰트 -->
     <key>UIAppFonts</key>
     <array>
+        <!-- Pretendard 폰트 파일 -->
         <string>Pretendard-Black.otf</string>
         <string>Pretendard-Bold.otf</string>
         <string>Pretendard-ExtraBold.otf</string>
@@ -88,6 +124,8 @@
         <string>Pretendard-Regular.otf</string>
         <string>Pretendard-SemiBold.otf</string>
         <string>Pretendard-Thin.otf</string>
+        
+        <!-- React Native Vector Icons 관련 폰트 파일 -->
         <string>AntDesign.ttf</string>
         <string>Entypo.ttf</string>
         <string>EvilIcons.ttf</string>
