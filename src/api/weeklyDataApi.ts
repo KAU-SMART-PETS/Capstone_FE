@@ -1,10 +1,9 @@
 import axios from 'axios';
-import config from '@constants/config';
 import wd1 from '@data/weeklyData1.json';
 
 export const fetchWeeklyData = async (petId : number) => {
   // try {
-  //   const response = await axios.get(`${config.API_BASE_URL}/weeklyData`, {
+  //   const response = await axios.get(`${config.API_SERVER_URL}/weeklyData`, {
   //     params: {
   //       petId: petId,
   //     },

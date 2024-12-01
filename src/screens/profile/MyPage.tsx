@@ -4,8 +4,8 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { PetDetails } from '@types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { fetchUserProfile } from '@screens/API/userApi';
-import { fetchUserPets, getPetDetails } from '@screens/API/petApi';
+import { fetchUserProfile } from '@api/userApi';
+import { fetchUserPets, getPetDetails } from '@api/petApi';
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
 
@@ -13,7 +13,6 @@ interface Device {
   id: string;
   name: string;
 }
-
 
 const deviceData: Device[] = [
   { id: '1', name: 'WATCH (1)' },
@@ -83,13 +82,10 @@ const PetCard: React.FC<{ petId: string; devices: Device[] }> = ({ petId, device
     try {
 
       const petData = await AsyncStorage.getItem(`PET_${petId}`);
-
       if (petData) {
-
         const pet: PetDetails = JSON.parse(petData);
         pet.id = petId;
-
-        navigation.navigate('PetProfile', pet);
+        navigation.navigate('PetProfile', { pet });
       } else {
         Alert.alert('알림', '반려동물 정보가 없습니다.');
       }

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import config from '@constants/config';
 
 // 타입 정의
 export interface LoginInfo {
@@ -28,7 +27,7 @@ export interface PayPointRequest {
 // 포인트 내역 조회
 export const fetchPointHistory = async (memberId: number): Promise<PointHistoryResponse> => {
   try {
-    const response = await axios.get(`${config.API_BASE_URL}/api/v1/points`, {
+    const response = await axios.get(`${config.API_LOCAL_URL}/api/v1/points`, {
       params: { loginInfo: { memberId } },
     });
     return response.data as PointHistoryResponse;
@@ -41,7 +40,7 @@ export const fetchPointHistory = async (memberId: number): Promise<PointHistoryR
 // 포인트 결제
 export const payWithPoints = async (data: PayPointRequest): Promise<{ success: boolean }> => {
   try {
-    await axios.patch(`${config.API_BASE_URL}/api/v1/points/payment`, data);
+    await axios.patch(`${config.API_LOCAL_URL}/api/v1/points/payment`, data);
     return { success: true }; // 200 OK
   } catch (error) {
     console.error('Error paying with points:', error);
@@ -52,7 +51,7 @@ export const payWithPoints = async (data: PayPointRequest): Promise<{ success: b
 // 포인트 적립
 export const depositWithPoints = async (data: PayPointRequest): Promise<{ success: boolean }> => {
   try {
-    await axios.patch(`${config.API_BASE_URL}/api/v1/points/deposit`, data);
+    await axios.patch(`${config.API_LOCAL_URL}/api/v1/points/deposit`, data);
     return { success: true }; // 200 OK
   } catch (error) {
     console.error('Error depositing points:', error);

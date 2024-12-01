@@ -3398,7 +3398,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native/gradle-plugin@npm:0.76.3":
+"@react-native/gradle-plugin@npm:0.76.3, @react-native/gradle-plugin@npm:^0.76.1":
   version: 0.76.3
   resolution: "@react-native/gradle-plugin@npm:0.76.3"
   checksum: 7bde3ae9cbf21f59adc5583cfe25d245ca2921f50d50361e763a59bb02398206c93e61c935a4605609de7e1fe49450594ff56b0b9ccecc07065dbe4c9e9217c6
@@ -11935,6 +11935,7 @@ __metadata:
     "@react-native/babel-preset": 0.76.3
     "@react-native/codegen": ^0.76.3
     "@react-native/eslint-config": 0.76.3
+    "@react-native/gradle-plugin": ^0.76.1
     "@react-native/metro-config": 0.76.3
     "@react-native/typescript-config": 0.76.3
     "@react-navigation/bottom-tabs": ^6.6.1

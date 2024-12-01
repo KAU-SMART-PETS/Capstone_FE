@@ -13,7 +13,8 @@
     "typeRoots": ["./node_modules/@types", "./src/utils/constants/types"],
     "baseUrl": "./src",  
     "paths": {
-      "@root/*": ["../*"],         
+      "@root/*": ["../*"],       
+      "@src/*": ["*"],         
       "@api/*": ["api/*"],         
       "@data/*": ["api/data/*"],   
       "@components/*": ["components/*"],

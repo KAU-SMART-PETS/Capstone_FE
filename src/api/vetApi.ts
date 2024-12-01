@@ -1,5 +1,4 @@
 import axios from 'axios';
-import config from '@constants/config';
 
 // 타입 정의
 export interface MemberLocationRequest {
@@ -21,7 +20,7 @@ export interface VetsResponse {
 // 동물병원 목록 조회
 export const fetchVets = async (latitude: number, longitude: number) => {
   try {
-    const response = await axios.post(`${config.API_BASE_URL}/api/v1/vets`, {
+    const response = await axios.post(`${config.API_LOCAL_URL}/api/v1/vets`, {
       latitude,
       longitude,
     });
@@ -35,7 +34,7 @@ export const fetchVets = async (latitude: number, longitude: number) => {
 // 동물병원 세부 정보 조회
 export const fetchVetDetail = async (vetId: number, latitude: number, longitude: number) => {
   try {
-    const response = await axios.post(`${config.API_BASE_URL}/api/v1/vets/${vetId}`, {
+    const response = await axios.post(`${config.API_LOCAL_URL}/api/v1/vets/${vetId}`, {
       latitude,
       longitude,
     });
