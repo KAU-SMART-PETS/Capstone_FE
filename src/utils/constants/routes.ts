@@ -20,6 +20,7 @@ import CameraView from '@screens/health/CameraView';
 import RegisterHealthInfo from '@screens/health/RegisterHealthInfo';
 import DiseaseDetail from '@screens/health/DiseaseDetail';
 import SelectPart from '@screens/health/SelectPart';
+import HospitalInfo from '@src/screens/health/HospitalInfo';
 
 // Walk
 import WeeklySummary from '@screens/walk/WeeklySummary';
@@ -54,6 +55,7 @@ export const routesConfig: {
   RegisterHealthInfo: { component: RegisterHealthInfo, params: { id: 0 } }, // id를 number로 설정
   DiseaseDetail: { component: DiseaseDetail, params: undefined },
   SelectPart: { component: SelectPart, params: undefined },
+  HospitalInfo: {component: HospitalInfo, params: undefined}
 };
 
 export const typedObjectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => {
