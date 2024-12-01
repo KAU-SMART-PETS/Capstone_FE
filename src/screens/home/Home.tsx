@@ -21,6 +21,7 @@ const Home: React.FC<RootStackParamList> = () => {
     { id: 'ViewFeedList', title: 'BuyFeeds', screen: 'ViewFeedList' },
     { id: 'CongratulatePopUp', title: 'CongratulatePopUp', screen: 'CongratulatePopUp' },
     { id: 'MapPage', title: 'MapPage', screen: 'MapPage' },
+    { id : 'WalkStartPage', title:'WalkStartPage', screen: 'WalkStartPage'}
   ];
 
   return (

@@ -66,6 +66,7 @@
     "babel-jest": "^29.6.3",
     "babel-plugin-module-resolver": "^5.0.2",
     "eslint": "^8.19.0",
+    "husky": "^9.1.6",
     "jest": "^29.6.3",
     "metro-transform-worker": "^0.81.0",
     "postcss": "^8.4.47",

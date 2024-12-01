@@ -22,14 +22,13 @@ import DiseaseDetail from '@screens/health/DiseaseDetail';
 import SelectPart from '@screens/health/SelectPart';
 import HospitalInfo from '@src/screens/health/HospitalInfo';
 import PetUpdate from '@src/screens/profile/PetUpdate';
-
 // Walk
 import WeeklySummary from '@screens/walk/WeeklySummary';
 import TodayWalk from '@screens/walk/TodayWalk';
+import WalkStartPage from '@screens/walk/WalkStartPage'
 
 // Bluetooth
 import BTView from '@screens/bluetooth/BTView';
-
 // Reward & Point & Food(Feed)
 import ChallengeList from '@screens/reward/ChallengeList';
 import CongratulatePopUp from '@screens/reward/CongratulatePopUp';
@@ -39,6 +38,7 @@ import PaymentInformation from '@screens/reward/PaymentInformation';
 
 //walk
 import MapPage from '@screens/walk/MapPage';
+
 
 export type RouteEntry<ComponentProps = undefined> = {
   component: React.ComponentType<any>;
@@ -75,6 +75,8 @@ export const routesConfig: {
   PaymentInformation :  { component: PaymentInformation, params: undefined },
   MapPage :  { component: MapPage, params: undefined },
   Home :  { component: Home, params: undefined },
+  //산책 기능 관련 테스트 페이지
+  WalkStartPage: {component:WalkStartPage, params:undefined}
 };
 
 export const typedObjectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => {
