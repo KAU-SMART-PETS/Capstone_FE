@@ -33,32 +33,3 @@ export const fetchUserProfile = async (): Promise<UserData | null> => {
   }
 };
 
-export const handleLogout = async (): Promise<boolean> => {
-  try {
-    const jsessionid = await AsyncStorage.getItem('JSESSIONID');
-    if (!jsessionid) {
-      console.log('JSESSIONID not found');
-      return false;
-    }
-
-    const response = await fetch(`${config.API_SERVER_URL}/api/v1/oaauth2/logout`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': `JSESSIONID=${jsessionid}`,
-      },
-    });
-
-    if (response.ok) {
-      await AsyncStorage.removeItem('JSESSIONID');
-      await AsyncStorage.removeItem('USER_DATA');
-      return true;
-    } else {
-      console.log('Failed to logout:', response.status);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error logging out:', error);
-    return false;
-  }
-};

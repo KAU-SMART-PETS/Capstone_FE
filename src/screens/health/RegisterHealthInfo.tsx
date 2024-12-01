@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const RegisterHealthInfo = (id : number = 0) => {
-  const petId = id;
+  const petId = id.route.params.id;
 
   const [healthInfo, setHealthInfo] = useState([]);
   const [petName, setPetName] = useState('');
@@ -13,16 +13,18 @@ const RegisterHealthInfo = (id : number = 0) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedVaccination, setSelectedVaccination] = useState(null);
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0); 
 
   useEffect(() => {
     const fetchHealthInfo = async () => {
       try {
         const jsessionId = await AsyncStorage.getItem('JSESSIONID');
-        const response = await axios.get(`${config.API_SERVIER_URL}/api/v1/pets/${petId}/vaccination`, {
+        const response = await axios.get(`${config.API_SERVER_URL}/api/v1/pets/${petId}/vaccination`, {
           headers: {
             Cookie: `JSESSIONID=${jsessionId}`,
           },
         });
+        console.log(response.data)
 
         const { pet, vaccination } = response.data;
         setPetName(pet.name);
@@ -40,10 +42,12 @@ const RegisterHealthInfo = (id : number = 0) => {
     };
 
     fetchHealthInfo();
-  }, [petId]);
+  }, [petId, reloadKey]);
 
   const handleSaveInfo = async () => {
+    console.log(selectedVaccination)
     if (newInfo.date && newInfo.name) {
+      console.log("HERE");
       if (newInfo.date.length !== 8) {
         Alert.alert('날짜 형식 오류', '날짜는 YYYYMMDD 형식으로 8자리 숫자여야 합니다.');
         return;
@@ -54,12 +58,11 @@ const RegisterHealthInfo = (id : number = 0) => {
         const month = parseInt(newInfo.date.slice(4, 6), 10);
         const day = parseInt(newInfo.date.slice(6, 8), 10);
         const jsessionId = await AsyncStorage.getItem('JSESSIONID');
-
         if (selectedVaccination) {
-          console.log(selectedVaccination);
+
 
           await axios.put(
-            `${config.API_SERVIER_URL}/api/v1/pets/${petId}/vaccination/${selectedVaccination.id}`,
+            `${config.API_SERVER_URL}/api/v1/pets/${petId}/vaccination/${selectedVaccination.id}`,
             {
               name: newInfo.name,
               year: year,
@@ -81,11 +84,11 @@ const RegisterHealthInfo = (id : number = 0) => {
             )
           );
           Alert.alert("수정 성공", "보건 정보가 수정되었습니다.");
+          setReloadKey(prevKey => prevKey + 1);
 
         } else {
-          // 추가 (POST 요청)
           const response = await axios.post(
-            `${CONFIG.API_SERVIER_URL}/api/v1/pets/${petId}/vaccination`,
+            `${config.API_SERVER_URL}/api/v1/pets/${petId}/vaccination`,
             {
               name: newInfo.name,
               year: year,
@@ -104,6 +107,7 @@ const RegisterHealthInfo = (id : number = 0) => {
             { ...newInfo, id: response.data.id } 
           ]);
           Alert.alert("추가 성공", "새로운 보건 정보가 추가되었습니다.");
+          setReloadKey(prevKey => prevKey + 1);
         }
 
         setNewInfo({ date: '', name: '' });
@@ -120,15 +124,18 @@ const RegisterHealthInfo = (id : number = 0) => {
   };
 
   const handleDelete = async () => {
+    console.log(selectedVaccination);
     try {
       const jsessionId = await AsyncStorage.getItem('JSESSIONID');
-      await axios.delete(`${CONFIG.API_SERVIER_URL}/api/v1/pets/${petId}/vaccination/${selectedVaccination.id}`, {
+      await axios.delete(`${config.API_SERVER_URL}/api/v1/pets/${petId}/vaccination/${selectedVaccination.id}`, {
         headers: {
           Cookie: `JSESSIONID=${jsessionId}`,
         },
       });
+
       setHealthInfo(healthInfo.filter(item => item.id !== selectedVaccination.id));
       setIsDetailModalVisible(false);
+      setReloadKey(prevKey => prevKey + 1);
       Alert.alert("삭제 성공", "보건 정보가 삭제되었습니다.");
     } catch (error) {
       console.error("삭제 오류:", error);
@@ -137,6 +144,8 @@ const RegisterHealthInfo = (id : number = 0) => {
   };
 
   const handleEdit = () => {
+    console.log(selectedVaccination);
+
     setNewInfo({ date: selectedVaccination.date, name: selectedVaccination.name });
     setIsDetailModalVisible(false);
     setIsModalVisible(true);
