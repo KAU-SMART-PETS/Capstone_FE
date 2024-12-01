@@ -5,13 +5,11 @@ import config from '@constants/config';
 // 포인트 적립 및 결제 내역 조회 (GET)
 export const fetchPointHistory = async (): Promise<any | null> => {
   try {
-    /*
     const jsessionId = await AsyncStorage.getItem('JSESSIONID');
     if (!jsessionId) {
       console.log('JSESSIONID not found');
       return null;
-    }*/
-   const jsessionId = "1EAF293F00CE06990659464BE59EA3D2"
+    }
 
     const response = await fetch(`${config.API_SERVER_URL}/api/v1/points`, {
       method: 'GET',
@@ -37,13 +35,11 @@ export const fetchPointHistory = async (): Promise<any | null> => {
 // 포인트 사용 테스트 (PATCH)
 export const usePoints = async (point: number): Promise<boolean> => {
   try {
-    /*
     const jsessionId = await AsyncStorage.getItem('JSESSIONID');
     if (!jsessionId) {
       console.log('JSESSIONID not found');
       return false;
-    }*/
-   const jsessionId = "1EAF293F00CE06990659464BE59EA3D2"
+    }
 
     const response = await fetch(`${config.API_SERVER_URL}/api/v1/points/payment`, {
       method: 'PATCH',
@@ -70,13 +66,11 @@ export const usePoints = async (point: number): Promise<boolean> => {
 // 포인트 적립 테스트 (PATCH)
 export const depositPoints = async (point: number): Promise<boolean> => {
   try {
-    /*
     const jsessionId = await AsyncStorage.getItem('JSESSIONID');
     if (!jsessionId) {
       console.log('JSESSIONID not found');
       return false;
-    }*/
-   const jsessionId = "1EAF293F00CE06990659464BE59EA3D2"
+    }
 
     const response = await fetch(`${config.API_SERVER_URL}/api/v1/points/deposit`, {
       method: 'PATCH',
