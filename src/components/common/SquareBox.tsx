@@ -3,9 +3,9 @@ import { View, TouchableOpacity } from 'react-native';
 import { getBoxOutlnes, OutlinePreset } from '@common/BoxStyles';
 import { ShadowStyle } from '@common/ShadowBox';
 
-type SquareCardSize = 'xs' | 'sm' | 'md' | 'lg';
+type SquareCardSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg';
 
-type BorderRadiusSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+type BorderRadiusSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
 export type { OutlinePreset, SquareCardSize, BorderRadiusSize };
 
@@ -20,6 +20,7 @@ export interface SquareBoxProps {
 }
 
 const sizeStyles = {
+  xxs: 'w-10 h-10',
   xs: 'w-16 h-16',
   sm: 'w-24 h-24',
   md: 'w-32 h-32',
