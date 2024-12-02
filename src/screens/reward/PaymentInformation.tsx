@@ -153,13 +153,16 @@ const PaymentInformation: React.FC = () => {
       return;
     }
 
+    let isDeliveryFeeApplied = false; // 배송비가 적용되었는지 여부를 추적
+
     for (const foodId of selectedFoodIds) {
-      const result = await purchaseFood(foodId, deliveryFee);
+      const result = await purchaseFood(foodId, isDeliveryFeeApplied ? 0 : deliveryFee);
       if (!result) {
         setModalMessage(`사료 ID ${foodId} 구매 중 문제가 발생했습니다.`);
         setModalVisible(true);
         return;
       }
+      isDeliveryFeeApplied = true; // 첫 번째 사료에만 배송비를 적용
     }
 
     navigation.navigate('OrderReceived', { product: '사료' });
