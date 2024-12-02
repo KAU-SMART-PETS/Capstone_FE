@@ -79,30 +79,6 @@ export interface UserData{
   smsOptIn: boolean;
   emailOptIn: boolean;
 }
-// // 각 페이지 관련 매개변수타입
-// export type RootStackParamList = {
-//     MainTab: undefined;
-//     Home: undefined;
-//     Login: undefined;
-//     EditProfile: undefined;
-//     MyPage: undefined;
-//     PetRegister: undefined;
-//     PetProfile: PetDetails;
-//     Analysis: undefined;
-//     DiseaseDetail: {        // Params for DiseaseDetail
-//         disease: Disease;
-//         petName: string;
-//         diseaseDetail: DiseaseDetails;
-//     };
-//     RegisterHealthInfo: string;
-//     CameraView: undefined;
-//     HospitalList: undefined;
-//     SelectPart: undefined;
-//     BTView: undefined;
-//     WeeklySummary: WeeklySummaryProps;
-//     TodayWalk: WeeklySummaryProps;
-//     Example: undefined;
-// };
 
 // 
 // COMPONENTS

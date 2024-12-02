@@ -2,8 +2,9 @@
 
 import React from 'react';
 import {PetDetails} from '@constants/types';
-import MainTab from '@components/layout/MainTab';
 
+// Home
+import MainTab from '@screens/home/MainTab';
 import Home from '@screens/home/Home';
 import Splash from '@screens/home/Splash';
 
