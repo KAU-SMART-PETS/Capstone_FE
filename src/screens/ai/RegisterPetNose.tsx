@@ -89,9 +89,6 @@ const RegisterNose = () => {
         <StylizedText type="header1" styleClass="text-black mb-4">
            비문 등록을 위한{"\n"}반려동물을 선택해주세요.
         </StylizedText>
-        <StylizedText type="body2" styleClass="text-gray mb-6">
-           최초 1회만 등록하면 됩니다.
-        </StylizedText>
        </View>
 
       <View style={styles.petListContainer}>
@@ -112,7 +109,6 @@ const RegisterNose = () => {
       <View style={styles.bottomButtonContainer}>
         <RoundedTextButton content="등록하기" widthOption="xl" onPress={handleRegisterButtonPress} />
       </View>
-
       <CustomAlert
         visible={isAlertVisible}
         message={alertMessage}
@@ -136,8 +132,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   backIcon: {
-    width: 30,
-    height: 30,
+    width: 20,
+    height: 20,
   },
   bottomButtonContainer: {
       position: 'absolute',

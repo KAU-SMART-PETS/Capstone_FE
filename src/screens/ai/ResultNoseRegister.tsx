@@ -2,10 +2,17 @@ import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import StylizedText from '@components/common/StylizedText';
+import { RoundedTextButton } from '@components/common/RoundedButton';
+import { useNavigation } from '@react-navigation/native';
 
 const ResultNoseRegister = () => {
   const route = useRoute();
+  const navigation = useNavigation();
   const { imageUri, petName = '' } = route.params || {};
+
+const handleBackButtonPress = () => {
+      navigation.navigate('RegisterPetNose');
+  };
 
   if (!imageUri || !petName) {
     console.error("Missing imageUri or petName in route params");
@@ -35,6 +42,9 @@ const ResultNoseRegister = () => {
         </StylizedText>
         의 비문 이미지
       </StylizedText>
+      <View style={styles.bottomButtonContainer}>
+         <RoundedTextButton content="확인" widthOption="xl" onPress={handleBackButtonPress} />
+      </View>
     </View>
   );
 };
@@ -71,6 +81,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 16,
   },
+  bottomButtonContainer: {
+        position: 'absolute',
+        bottom: 16,
+        left: 0,
+        right: 0,
+        alignItems: 'center',
+      },
 });
 
 export default ResultNoseRegister;

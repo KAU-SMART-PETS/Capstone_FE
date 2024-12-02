@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   backIcon: {
-    width: 30,
-    height: 30,
+    width: 20,
+    height: 20,
   },
   headerContainer: {
     paddingHorizontal: 30,

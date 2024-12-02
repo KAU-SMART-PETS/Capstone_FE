@@ -88,7 +88,7 @@ const ReadyToScan = () => {
         message={alertMessage}
         onClose={() => {
           setAlertVisible(false);
-          navigation.navigate('AlertScan', { petId, petType, petName });
+          navigation.navigate('SelectPetToScan', { petId, petType, petName });
         }}
       />
     </View>

@@ -65,7 +65,7 @@ const ReadyToRegisterNose = () => {
         if (errorText.includes("이미 등록된 비문입니다")) {
           showAlert("이미 등록된 비문입니다. 새로운 비문 이미지를 선택해주세요.");
         } else {
-          showAlert(`비문 등록 중 문제가 발생했습니다.\n(상태 코드: ${response.status})`);
+          showAlert("이미지에서 코가 인식되지 않았습니다.");
         }
       }
     } catch (error) {
@@ -91,7 +91,7 @@ const ReadyToRegisterNose = () => {
         message={alertMessage}
         onClose={() => {
           setAlertVisible(false);
-          navigation.navigate('ResultNoseRegister'); // 비문 등록 완료 후 이동할 페이지
+          navigation.navigate('RegisterPetNose'); // 비문 등록 완료 후 이동할 페이지
         }}
       />
     </View>
