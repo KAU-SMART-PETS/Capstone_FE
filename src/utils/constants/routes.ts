@@ -111,8 +111,6 @@ export const routesConfig: {
   AlertNoseRegister: {component: AlertNoseRegister, params: undefined},
   ReadyToRegisterNose: {component: ReadyToRegisterNose, params: undefined},
   ResultNoseRegister: {component: ResultNoseRegister, params: undefined},
-  PetUpdate: { component: PetUpdate, params: { petId: '' } },
-  HospitalInfo: {component: HospitalInfo, params: undefined},
   Offline: {component: Offline, params: undefined},
   // reward pages
   ChallengeList :  { component: ChallengeList, params: undefined },
