@@ -95,21 +95,22 @@ export const getBoxOutlnes = (outline: OutlinePreset) : ViewStyle => {
       case 'flatcard': 
         return {
           backgroundColor: 'bg-white',
-          borderStyle: 'rounded-3xl',
-          containerLayout: 'my-1 p-6 max-h-28 max-w-full min-w-80',
+          borderStyle: 'rounded-3xl', // overflow-hidden 제거
+          containerLayout: 'flex-shrink p-6 max-w-full max-h-full my-2', // 부모 크기를 초과하려 할 때 축소
         };
       case 'flatcard-fit': 
         return {
           backgroundColor: 'bg-white',
           borderStyle: 'rounded-3xl',
-          containerLayout: 'my-1 p-6 py-3.5 max-h-28 max-w-full min-w-80',
+          containerLayout: 'flex-shrink my-4 p-6 py-3.5 max-h-28 max-w-full min-w-80', // 부모 크기를 초과하려 할 때 축소
         };
       case 'flatcard2': 
-      return {
-        backgroundColor: 'bg-white',
-        borderStyle: 'rounded-2xl',
-        containerLayout: 'py-4 pl-1 pr-4 h-24 justify-center',
-      };
+        return {
+          backgroundColor: 'bg-white',
+          borderStyle: 'rounded-2xl',
+          containerLayout: 'flex-shrink py-4 pl-1 pr-4 h-24 justify-center my-2', // 부모 크기를 초과하려 할 때 축소
+        };
+    
       case 'opaque-panel': 
         return {
           backgroundColor: `bg-white/50`,

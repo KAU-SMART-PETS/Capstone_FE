@@ -65,8 +65,16 @@ export const WalkDetailsCard: React.FC<WalkDetailsCardProps> = ({ title, details
       <View className="text-left">
         {details.map((detail, index) => (
           <View key={index} className="flex-row mb-1">
-            <StylizedText type="body2" styleClass="w-16">{detail.label}</StylizedText>
-            <StylizedText type="body2" styleClass="text-black">{detail.value}</StylizedText>
+            <StylizedText type="body2" 
+            styleClass="w-16"
+            numberOfLines={1} // 줄 수 제한
+            ellipsizeMode="tail"
+            >{detail.label}</StylizedText>
+            <StylizedText type="body2" 
+              styleClass="text-black"
+              numberOfLines={1} // 줄 수 제한
+              ellipsizeMode="tail"
+            >{detail.value}</StylizedText>
           </View>
         ))}
       </View>
@@ -89,8 +97,14 @@ export const VeterinaryCard: React.FC<VeterinaryCardProps> = ({ title, contact, 
     onPress={onPress}   
     content={
       <View className="ml-0.5 mb-1">
-        <StylizedText type="label" styleClass="text-black">{contact}</StylizedText>
-        <StylizedText type="label" styleClass="text-black">{address}</StylizedText>
+        <StylizedText type="label"
+         styleClass="text-black"
+        >{contact}</StylizedText>
+        <StylizedText type="label"
+          styleClass="text-black"
+          numberOfLines={2} // 줄 수 제한
+          ellipsizeMode="tail"  
+        >{address}</StylizedText>
       </View>
     }
   />
@@ -136,8 +150,8 @@ export const ProductPurchaseCard: React.FC<ProductPurchaseCardProps> = ({ title,
     avatar={bagImg}
     reverse={reverse}
     onPress={onPress}
-    title={<StylizedText type="header7" styleClass="text-black mt-1 ml-0.5">{title}</StylizedText>}
-    content={<StylizedText type="body2" styleClass="text-black">{content}</StylizedText>}
+    title={<StylizedText type="header7" styleClass="text-black mt-1 ml-0.5" numberOfLines={2} ellipsizeMode="tail">{title}</StylizedText>}
+    content={<StylizedText type="body2" styleClass="text-black" numberOfLines={2} ellipsizeMode="tail">{content}</StylizedText>}
   />
 );
 
@@ -160,7 +174,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ reviewer, rating, commen
         <StylizedText type="header5" styleClass="text-primary">{reviewer}</StylizedText>
       }
       badge={ratingBadge}
-      content={<StylizedText type="body2" styleClass="text-black -mt-1 mb-2">{comment}</StylizedText>}
+      content={<StylizedText type="body2" styleClass="text-black -mt-1 mb-2" numberOfLines={2} ellipsizeMode="tail">{comment}</StylizedText>}
     />
   );
 };

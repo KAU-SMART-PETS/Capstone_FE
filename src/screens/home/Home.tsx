@@ -1,9 +1,11 @@
 import React from 'react';
-import { Image, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { Image, View, Text, TouchableOpacity, ScrollView, Linking } from 'react-native';
 import ListCard from '@components/common/ListCard';
 import StylizedText from '@components/common/StylizedText';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import CarouselBanner from '@common/CarouselBanner';
+import { Alert } from 'react-native';
 
 // ProductPurchaseCard 컴포넌트 복사
 interface ProductPurchaseCardProps {
@@ -23,6 +25,27 @@ const ProductPurchaseCard: React.FC<ProductPurchaseCardProps> = ({ title, avatar
     content={<StylizedText type="body2" styleClass="text-black">{content}</StylizedText>}
   />
 );
+
+const HomeCarousel: React.FC = () => {
+  const navigation = useNavigation();
+
+  const banners = [
+    {
+      imageUri: 'https://media.istockphoto.com/id/1873560397/ko/%EC%82%AC%EC%A7%84/%EB%AA%A8%ED%94%BC-%EC%B9%9C%EA%B5%AC.jpg?s=612x612&w=is&k=20&c=ERV1dipmGtRWAHMYt2vWePzDJD2Fu6XdKjd2N9NjhLI=',
+      onPressAction: () => Alert.alert('Mountain Banner', 'Clicked!'),
+    },
+    {
+      imageUri: 'https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      onPressAction: () => navigation.navigate('Offline' as never), // 네비게이션 이동
+    },
+    {
+      imageUri: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      onPressAction: () => Linking.openURL('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'), // 웹 링크
+    },
+  ];
+
+  return <CarouselBanner banners={banners} />;
+};
 
 type HomeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -103,11 +126,7 @@ const HomeScreen: React.FC = () => {
 
       <ScrollView className="flex-1">
       {/* 배너 섹션 */}
-      <View className="mt-6 mb-4 px-4">
-        <View className="w-full h-40 bg-gray-200 rounded-lg shadow-md flex items-center justify-center">
-          <Text className="text-lg font-bold text-gray-700">배너</Text>
-        </View>
-      </View>
+        <HomeCarousel />
         <View className="space-y-4 mt-4 px-4">
           {productCards.map((card) => (
             <ProductPurchaseCard

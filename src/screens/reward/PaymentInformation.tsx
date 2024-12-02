@@ -173,11 +173,11 @@ const PaymentInformation: React.FC = () => {
 
   return (
     <View className="flex-1 bg-white">
-      <ScrollView contentContainerStyle={{ paddingBottom: 80 }} className="px-5">
+      <ScrollView contentContainerStyle={{
+    paddingBottom: 80 }} className="px-5 mx-auto">
         <StylizedText type="header1" styleClass="text-black mb-4 mx-2 mt-6">
           제품을 선택하고 주문 정보를 입력해주세요.
         </StylizedText>
-
         <RadioButtonGroup
           ref={radioButtonGroupRef}
           maxChoice={foods.length}
@@ -191,7 +191,7 @@ const PaymentInformation: React.FC = () => {
             setSelectedFoodIds(selectedIds);
             console.log('현재 선택된 food ID 배열 (onSelect):', selectedIds);
           }}
-          containerStyle="flex-row flex-wrap justify-around mb-2"
+          containerStyle="flex flex-row flex-wrap justify-center"
         >
           {foods.map((food) => (
             <RadioButton key={food.id}>
@@ -200,7 +200,7 @@ const PaymentInformation: React.FC = () => {
             </RadioButton>
           ))}
         </RadioButtonGroup>
-
+        <View className='flex-1 flex justify-center items-center'>
         <CustomTextInput
           label="주문자명"
           value={userData.name}
@@ -214,18 +214,18 @@ const PaymentInformation: React.FC = () => {
           keyboardType="email-address"
           type="freeText"
         />
-        <View className="flex-row items-center w-full">
-          <View className="flex-1">
+        <View className="flex-1">
+        <View className="flex flex-row items-center">
+          <View className='w-[70%]'>
             <CustomTextInput
-              label="우편 번호"
-              placeholder="우편번호를 검색해주세요."
-              value={postalCode}
-              type="readOnly"
-              keyboardType="default"
-            />
+                label="우편 번호"
+                placeholder="우편번호를 검색해주세요."
+                value={postalCode}
+                type="readOnly"
+                keyboardType="default"
+              />
           </View>
-          <View className="w-1/3">
-            <RoundedTextButton content="주소 검색" widthOption="sm" onPress={() => navigation.navigate('SearchAddress', { returnTo: 'PaymentInformation' })} />
+          <RoundedTextButton content="주소 검색" widthOption="xs" onPress={() => navigation.navigate('SearchAddress', { returnTo: 'PaymentInformation' })} />
           </View>
         </View>
         <CustomTextInput
@@ -252,8 +252,8 @@ const PaymentInformation: React.FC = () => {
           type={inputType} // 동적으로 변경되지 않는 상태를 사용
           keyboardType="phone-pad"
         />
-
-        <View className="mt-6">
+        </View>
+        <View className="mt-6 mx-2">
           <StylizedText type="header2" styleClass="text-black mb-2">
             결제 수단
           </StylizedText>
@@ -275,7 +275,7 @@ const PaymentInformation: React.FC = () => {
           </StylizedText>
         </View>
 
-        <View className="mt-6 border-t border-grey pt-4">
+        <View className="mt-6 border-t border-grey pt-4 mx-2">
           <StylizedText type="header2" styleClass="text-black mb-2">
             결제 정보
           </StylizedText>

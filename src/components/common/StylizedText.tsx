@@ -1,13 +1,23 @@
 import React from 'react';
 import { Text } from 'react-native';
-// import { TextProps, HeaderTextProps } from '@types';
+import { Dimensions } from 'react-native';
 
-// NOTE : HeaderText 에 type 속성 추가
+const { width } = Dimensions.get('window');
+
+// 기준 크기
+const baseWidth = 400; // 휴대폰 너비 기준
+
+// 비율 계산
+const responsiveFontSize = (fontSize: number) => {
+  return (fontSize * width) / baseWidth;
+};
 
 type TextProps = {
   type?: string;
   children?: React.ReactNode;
   styleClass?: string;  
+  numberOfLines?: number; // 추가
+  ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip'; // 추가
 };
 
 interface HeaderTextProps {
@@ -16,10 +26,23 @@ interface HeaderTextProps {
   type?: string;
 }
 
-const StylizedText: React.FC<TextProps> = ({ type = 'body1', children, styleClass }) => {
+const StylizedText: React.FC<TextProps> = ({ 
+  type = 'body1', 
+  children, 
+  styleClass, 
+  numberOfLines, 
+  ellipsizeMode 
+}) => {
   const styles = getStyles(type);
   return (
-    <Text className={styleClass} style={styles}>{children}</Text>
+    <Text
+      className={styleClass}
+      style={styles}
+      numberOfLines={numberOfLines} // 줄 수 제한
+      ellipsizeMode={ellipsizeMode} // 잘림 방식
+    >
+      {children}
+    </Text>
   );
 };
 
@@ -55,107 +78,107 @@ export const getStyles = (type: string) : StyledTextStyle => {
     case 'header0':
         return {
             fontFamily: 'Pretendard-ExtraBold',
-            fontSize: 30,
+            fontSize:  responsiveFontSize(30),
             };
     case 'header1':
       return {
         fontFamily: 'Pretendard-Bold',
-        fontSize: 22,
+        fontSize:  responsiveFontSize(22),
       };
     case 'header2':
       return {
         fontFamily: 'Pretendard-Bold',
-        fontSize: 16,
+        fontSize:  responsiveFontSize(16),
       };
     case 'header3':
       return {
         fontFamily: 'Pretendard-Medium',
-        fontSize: 12,
+        fontSize:  responsiveFontSize(12),
       };
     case 'header4': // 질병정보카드의 제목
       return {
         fontFamily: 'Pretendard-Black',
-        fontSize: 18,
+        fontSize:  responsiveFontSize(18),
       };
     case 'header5': // 질병정보카드의 두꺼운 퍼센트숫자
       return {
         fontFamily: 'Pretendard-SemiBold',
-        fontSize: 18,
+        fontSize:  responsiveFontSize(18),
       };
       case 'header6': 
       return {
         fontFamily: 'Pretendard-Bold',
-        fontSize: 18,
+        fontSize:  responsiveFontSize(18),
       };
       case 'header7':
       return {
         fontFamily: 'Pretendard-ExtraBold',
-        fontSize: 18,
+        fontSize:  responsiveFontSize(18),
       };
     case 'body1':
       return {
         fontFamily: 'Pretendard-Medium',
-        fontSize: 14,
+        fontSize:  responsiveFontSize(14),
       };
     case 'body2':
       return {
         fontFamily: 'Pretendard-Medium',
-        fontSize: 12,
+        fontSize:  responsiveFontSize(12),
       };
     case 'body3':
       return {
         fontFamily: 'Pretendard-Medium',
-        fontSize: 10,
+        fontSize:  responsiveFontSize(10),
     };
     case 'caption-title':
       return {
         fontFamily: 'Pretendard-Medium',
-        fontSize: 15,
+        fontSize:  responsiveFontSize(15),
     };
     case 'caption-label':
       return {
         fontFamily: 'Pretendard-Regular',
-        fontSize: 10.5,
+        fontSize:  responsiveFontSize(10.5),
     };
     case 'label':
         return {
         fontFamily: 'Pretendard-Regular',
-        fontSize: 9,
+        fontSize:  responsiveFontSize(9,)
       };
     case 'label1':
       return {
       fontFamily: 'Pretendard-Bold',
-      fontSize: 9,
+      fontSize:  responsiveFontSize(9,)
     };
     case 'label2':
       return {
       fontFamily: 'Pretendard-Medium',
-      fontSize: 11,
+      fontSize:  responsiveFontSize(11),
     };
     case 'label3': // 질병정보카드 - 퍼센트
       return {
       fontFamily: 'Pretendard-Bold',
-      fontSize: 11,
+      fontSize:  responsiveFontSize(11),
     };
     case 'label4': // 질병정보카드 - 퍼센트라는 텍스트라벨
       return {
       fontFamily: 'Pretendard-Bold',
-      fontSize: 6,
+      fontSize:  responsiveFontSize(6,)
     };
     case 'record1':
       return {
       fontFamily: 'Pretendard-Bold',
-      fontSize: 13,
+      fontSize:  responsiveFontSize(13),
     };
     case 'record2':
       return {
       fontFamily: 'Pretendard-Medium',
-      fontSize: 13,
+      fontSize:  responsiveFontSize(13),
     };
     default:
       return {
         fontFamily: 'Pretendard-Regular',
-        fontSize: 14,
+        fontSize:  responsiveFontSize(14),
       };
   }
 };

@@ -14,6 +14,8 @@ import RegisterHealthInfo from '@screens/health/RegisterHealthInfo';
 import Home from '@screens/home/Home';
 
 const Tab = createBottomTabNavigator();
+const tabCount = 4;
+const initTabIdx = 2;
 
 const tabScreens: TabScreen[] = [
   // 하단 탭 페이지 구성
@@ -111,8 +113,6 @@ type TabScreen = {
 
 
 // Constants for tab animations and styles
-const tabCount = 5;
-const initTabIdx = 2;
 const marginHorizontal = 5;
 const totalWidth = Dimensions.get('window').width - marginHorizontal * 2;
 const totalContentWidth = totalWidth * 0.78;
