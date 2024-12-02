@@ -104,7 +104,7 @@ const HomeScreen: React.FC = () => {
           //{ id: 'Camera', title: 'Camera', screen: 'CameraView' },
           //{ id : 'SelectPetToScan', title:'ScanEye', screen: 'SelectPetToScan'},
           //{ id : 'RegisterPetNose', title:'RegisterNose', screen: 'RegisterPetNose'},
-          //{ id: 'PetHealthInfo', title: 'Pet Health Info', screen: 'Analysis' },
+          { id: 'PetHealthInfo', title: 'Pet Health Info', screen: 'Analysis' },
           //{ id: 'ChallengeList', title: 'ChallengeList', screen: 'ChallengeList' },
           //{ id: 'ViewFeedList', title: 'BuyFeeds', screen: 'ViewFeedList' },
           //{ id: 'Offline', title: 'Offline', screen: 'Offline' },
