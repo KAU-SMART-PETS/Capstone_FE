@@ -47,7 +47,7 @@ import PaymentSampleInformation from '@screens/reward/PaymentSampleInformation';
 // Ai
 import ReadyToScan from '@screens/ai/ReadyToScan';
 import SelectPetToScan from '@screens/ai/SelectPetToScan';
-import TakePicture from '@screens/ai/TakePicture';
+//import TakePicture from '@screens/ai/TakePicture';
 import ResultEyeScan from '@screens/ai/ResultEyeScan';
 
 
@@ -107,7 +107,7 @@ export const routesConfig: {
   PetUpdate: { component: PetUpdate, params: { petId: '' } },
   SelectPetToScan: { component: SelectPetToScan, params: undefined },
     ReadyToScan: { component: ReadyToScan, params: undefined },
-    TakePicture: { component: TakePicture, params: undefined },
+    //TakePicture: { component: TakePicture, params: undefined },
     ResultEyeScan: { component: ResultEyeScan, params: undefined },
   
   //TESTING PAGES

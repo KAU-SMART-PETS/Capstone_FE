@@ -1,8 +1,7 @@
 //자꾸 오류나서 일단 walkweeklyrecord 써둠
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { fetchWeeklyData } from '@api/weeklyDataApi'; // 주간 데이터 가져오기
-// import { fetchPetInfo } from '@api/petApi'; // 반려동물 정보 가져오기
+import { fetchWeeklyData } from '@api/weeklyDataApi';
 import { VBarChart } from '@components/common/BarChart';
 import Loading from '@components/common/Loading';
 import { HeaderText } from '@components/common/StylizedText';
