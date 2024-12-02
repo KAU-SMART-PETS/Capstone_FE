@@ -11853,7 +11853,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-gesture-handler@npm:^2.12.0":
+"react-native-gesture-handler@npm:^2.21.2":
   version: 2.21.2
   resolution: "react-native-gesture-handler@npm:2.21.2"
   dependencies:
@@ -11943,19 +11943,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-reanimated-carousel@npm:^3.5.1":
-  version: 3.5.1
-  resolution: "react-native-reanimated-carousel@npm:3.5.1"
+"react-native-reanimated-carousel@npm:4.0.0-alpha.12":
+  version: 4.0.0-alpha.12
+  resolution: "react-native-reanimated-carousel@npm:4.0.0-alpha.12"
   peerDependencies:
-    react: ">=16.8.0"
-    react-native: ">=0.6.0"
-    react-native-gesture-handler: ">=2.0.0"
+    "@types/react": "*"
+    "@types/react-native": "*"
+    react: ">=18.0.0"
+    react-native: ">=0.70.3"
+    react-native-gesture-handler: ">=2.9.0"
     react-native-reanimated: ">=3.0.0"
-  checksum: a2eb640453fa35f659c1fb5575f903364d513fb7f621104afa14fee2284132674dfaf0d87cb29e8c119f7513094a5967d5193f3dfa24043af167c6f26abcfe73
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-native":
+      optional: true
+  checksum: 4df3896ab56b366d295fa1a77375c98fe10a304ae5f6b0116e71c58b0f4d0b1c5af61ac332abd66d3dfd9e8051343249f165678820bbd27dfb46993ecfd1d23e
   languageName: node
   linkType: hard
 
-"react-native-reanimated@npm:^3.2.0":
+"react-native-reanimated@npm:^3.16.3":
   version: 3.16.3
   resolution: "react-native-reanimated@npm:3.16.3"
   dependencies:
@@ -12264,15 +12271,15 @@ __metadata:
     react-native-bouncy-checkbox: ^4.1.2
     react-native-calendars: ^1.1307.0
     react-native-camera: ^4.2.1
-    react-native-gesture-handler: ^2.12.0
+    react-native-gesture-handler: ^2.21.2
     react-native-image-picker: ^7.1.2
     react-native-linear-gradient: ^2.8.3
     react-native-maps: ^1.19.0
     react-native-masked-view: ^0.2.0
     react-native-paper: ^5.12.5
     react-native-permissions: ^4.1.5
-    react-native-reanimated: ^3.2.0
-    react-native-reanimated-carousel: ^3.5.1
+    react-native-reanimated: ^3.16.3
+    react-native-reanimated-carousel: 4.0.0-alpha.12
     react-native-safe-area-context: ^4.11.0
     react-native-screens: ^3.34.0
     react-native-smooth-bootsplash: ^4.5.2
