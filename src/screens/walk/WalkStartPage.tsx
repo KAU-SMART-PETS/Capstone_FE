@@ -118,13 +118,13 @@ const WalkStartPage: React.FC = () => {
         </View>
 
    
-        <View className="p-4">
+        <View className="p-4 items-center">
           <RoundedTextButton
             color="bg-primary"
             textColor="text-white"
             content="산책 시작하기"
             borderRadius="rounded-3xl"
-            widthOption="full"
+            widthOption="xl"
             shadow={true}
             onPress={() => setIsModalVisible(true)}
           />
@@ -158,21 +158,22 @@ const WalkStartPage: React.FC = () => {
                   </TouchableOpacity>
                 ))
               )}
-
-              <RoundedTextButton
-                content="산책 시작하기"
-                widthOption="full"
-                onPress={handleSubmit}
-                color="bg-primary"
-                textColor="text-white"
-              />
-              <RoundedTextButton
-                content="취소"
-                widthOption="full"
-                onPress={() => setIsModalVisible(false)}
-                color="bg-gray-300"
-                textColor="text-black"
-              />
+              <View className="items-center">
+                <RoundedTextButton
+                  content="산책 시작하기"
+                  widthOption="xl"
+                  onPress={handleSubmit}
+                  color="bg-primary"
+                  textColor="text-white"
+                />
+                <RoundedTextButton
+                  content="취소"
+                  widthOption="xl"
+                  onPress={() => setIsModalVisible(false)}
+                  color="bg-gray-300"
+                  textColor="text-black"
+                />
+              </View>
             </View>
           </View>
         </Modal>

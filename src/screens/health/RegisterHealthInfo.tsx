@@ -146,13 +146,14 @@ const RegisterHealthInfo = (id = 0) => {
           contentContainerStyle={{ flexGrow: 1 }}
         />
       )}
-
-      <RoundedTextButton 
-        color="bg-primary" 
-        icon={<MCIcon name="note-plus" color="black" size={20} />} 
-        textColor="text-white" content="보건정보 추가하기" 
-        widthOption='full'
-        onPress={() => setIsModalVisible(true)}/>
+      <View className="items-center">
+        <RoundedTextButton 
+          color="bg-primary" 
+          icon={<MCIcon name="note-plus" color="black" size={20} />} 
+          textColor="text-white" content="보건정보 추가하기" 
+          widthOption="full"
+          onPress={() => setIsModalVisible(true)}/>
+      </View>
         
       {/* 보건정보 추가/수정 모달 */}
       <ModalLayout

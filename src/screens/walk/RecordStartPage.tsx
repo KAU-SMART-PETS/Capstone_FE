@@ -67,25 +67,27 @@ const RecordStartPage: React.FC = () => {
         <Text>등록된 반려동물이 없습니다.</Text>
       )}
 
-      <RoundedTextButton
-        content="새로고침"
-        widthOption="full"
-        onPress={() => {
-          setLoadingPets(true);
-          fetchPetList()
-            .then((petData) => {
-              if (petData && Array.isArray(petData.pets)) {
-                setPets(petData.pets);
-              } else {
-                Alert.alert('오류', '반려동물 목록을 다시 불러올 수 없습니다.');
-              }
-            })
-            .catch((error) => console.error('Error refreshing pet list:', error))
-            .finally(() => setLoadingPets(false));
-        }}
-        color="bg-gray-300"
-        textColor="text-black"
-      />
+      <View className="items-center">
+        <RoundedTextButton
+          content="새로고침"
+          widthOption="xl"
+          onPress={() => {
+            setLoadingPets(true);
+            fetchPetList()
+              .then((petData) => {
+                if (petData && Array.isArray(petData.pets)) {
+                  setPets(petData.pets);
+                } else {
+                  Alert.alert('오류', '반려동물 목록을 다시 불러올 수 없습니다.');
+                }
+              })
+              .catch((error) => console.error('Error refreshing pet list:', error))
+              .finally(() => setLoadingPets(false));
+          }}
+          color="bg-gray-300"
+          textColor="text-black"
+        />
+      </View>
     </View>
   );
 };
