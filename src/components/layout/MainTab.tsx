@@ -11,12 +11,13 @@ import Analysis from '@screens/health/Analysis';
 import PetProfile from '@screens/profile/PetProfile';
 import RegisterHealthInfo from '@screens/health/RegisterHealthInfo';
 import Home from '@screens/home/Home';
+import WalkStartPage from '@src/screens/walk/WalkStartPage';
 
 const Tab = createBottomTabNavigator();
 
 const tabScreens: TabScreen[] = [
   // 하단 탭 페이지 구성
-  { id: 'walkTab', name: '산책', iconName: 'paw', iconType: 'mc', component: Analysis },
+  { id: 'walkTab', name: '산책', iconName: 'paw', iconType: 'mc', component: WalkStartPage },
   { id: 'infoTab', name: '기록', iconName: 'calendar', iconType: 'mc', component: PetProfile },
   { id: 'homeTab', name: '홈', iconName: 'home', iconType: 'fa', component: Home },
   { id: 'healthTab', name: '건강', iconName: 'heartbeat', iconType: 'fa', component: RegisterHealthInfo },
