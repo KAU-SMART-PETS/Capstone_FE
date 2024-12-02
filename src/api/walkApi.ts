@@ -20,28 +20,28 @@ export const registerWalkRecord = async (
     walkData: WalkRecordRequest
   ): Promise<boolean> => {
     try {
-      // AsyncStorage에서 JSESSIONID 가져오기
+      
       const jsessionid = await AsyncStorage.getItem('JSESSIONID');
       if (!jsessionid) {
         Alert.alert('오류', '로그인이 필요합니다.');
         return false;
       }
   
-      // API URL 설정
+     
       const apiUrl = `http://52.79.140.133:8080/api/v1/walk/register/${petId}`;
   
-      // 디버깅 로그
+     
       console.log('POST 요청 URL:', apiUrl);
       console.log('요청 바디:', walkData);
   
-      // POST 요청 보내기
+     
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // JSON 형태
-          'Cookie': `JSESSIONID=${jsessionid}`, // JSESSIONID를 쿠키에 포함
+          'Content-Type': 'application/json', 
+          'Cookie': `JSESSIONID=${jsessionid}`, 
         },
-        body: JSON.stringify(walkData), // JSON 형태로 데이터 변환
+        body: JSON.stringify(walkData), 
       });
   
       // 응답 처리
@@ -50,7 +50,6 @@ export const registerWalkRecord = async (
   
         console.log('산책 기록 저장 성공:', responseData);
   
-        // 필요한 데이터 예시: 거리와 칼로리
         const { distance, calories } = responseData;
         Alert.alert(
           '성공',
@@ -71,34 +70,34 @@ export const registerWalkRecord = async (
     }
   };
   
-// 산책 기록 GET 함수
+
 export const fetchRecentWalkRecords = async (): Promise<any | null> => {
   try {
-    // Retrieve JSESSIONID from AsyncStorage
+  
     const jsessionid = await AsyncStorage.getItem('JSESSIONID');
     if (!jsessionid) {
       console.error('JSESSIONID not found');
       return null;
     }
 
-    // API URL for fetching recent walk records
+ 
     const apiUrl = `http://52.79.140.133:8080/api/v1/walk/recent`;
 
-    // Log debug information
+ 
     console.log('Fetching recent walk records from:', apiUrl);
 
-    // Make the GET request
+
     const response = await axios.get(apiUrl, {
       headers: {
-        'Content-Type': 'application/json', // Specify JSON content type
-        'Cookie': `JSESSIONID=${jsessionid}`, // Attach JSESSIONID in the Cookie header
+        'Content-Type': 'application/json', 
+        'Cookie': `JSESSIONID=${jsessionid}`, 
       },
     });
 
-    // Handle the response
+    
     if (response.status === 200) {
       console.log('Fetched recent walk records successfully:', response.data);
-      return response.data; // Return the fetched data
+      return response.data; 
     } else {
       console.error(`Failed to fetch recent walk records: ${response.status}`);
       return null;
@@ -113,31 +112,31 @@ export const fetchRecentWalkRecords = async (): Promise<any | null> => {
 // 반려동물 목록 GET 함수
 export const fetchPetList = async (): Promise<any | null> => {
     try {
-      // Retrieve JSESSIONID from AsyncStorage
+      
       const jsessionid = await AsyncStorage.getItem('JSESSIONID');
       if (!jsessionid) {
         console.error('JSESSIONID not found');
         return null;
       }
   
-      // API URL for fetching recent walk records
+     
       const apiUrl = `http://52.79.140.133:8080/api/v1/users/pets`;
   
-      // Log debug information
+     
       console.log('반려동물 목록 불러오는 api:', apiUrl);
   
-      // Make the GET request
+      
       const response = await axios.get(apiUrl, {
         headers: {
-          'Content-Type': 'application/json', // Specify JSON content type
-          'Cookie': `JSESSIONID=${jsessionid}`, // Attach JSESSIONID in the Cookie header
+          'Content-Type': 'application/json', 
+          'Cookie': `JSESSIONID=${jsessionid}`, 
         },
       });
   
-      // Handle the response
+     
       if (response.status === 200) {
         console.log('반려동물 목록 불러오기 성공:', response.data);
-        return response.data; // Return the fetched data
+        return response.data; 
       } else {
         console.error(`반려동물 목록 불러오기 실패: ${response.status}`);
         return null;

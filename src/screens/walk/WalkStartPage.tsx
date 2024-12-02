@@ -19,7 +19,7 @@ const WalkStartPage: React.FC = () => {
   const [loadingWalks, setLoadingWalks] = useState(false);
   const [selectedPetId, setSelectedPetId] = useState<string | null>(null);
 
-  // Fetch recent walk records
+
   useEffect(() => {
     const fetchWalkRecords = async () => {
       try {
@@ -41,7 +41,7 @@ const WalkStartPage: React.FC = () => {
     fetchWalkRecords();
   }, []);
 
-  // Fetch pet list when modal is opened
+
   useEffect(() => {
     const fetchPets = async () => {
       if (isModalVisible) {
@@ -67,13 +67,13 @@ const WalkStartPage: React.FC = () => {
     fetchPets();
   }, [isModalVisible]);
 
-  // Handle pet selection submission
+
   const handleSubmit = () => {
     if (selectedPetId) {
       const selectedPet = pets.find((pet) => pet.id === selectedPetId);
       if (selectedPet) {
         setIsModalVisible(false);
-        navigation.navigate('MapPage', { petId: selectedPetId }); // Navigate with petId
+        navigation.navigate('MapPage', { petId: selectedPetId }); 
       } else {
         Alert.alert('오류', '반려동물을 선택해주세요.');
       }
@@ -85,7 +85,7 @@ const WalkStartPage: React.FC = () => {
   return (
     <PaperProvider>
       <ScrollView className="flex-1 bg-white">
-        {/* Banner Section */}
+     
         <View className="mb-2 mt-10">
           <BannerSection
             row1="오늘도 즐겁게"
@@ -97,7 +97,7 @@ const WalkStartPage: React.FC = () => {
             <Text className="text-lg font-bold text-gray-800">최근 산책</Text>
           </View>
 
-          {/* Recent Walk Records */}
+     
           {loadingWalks ? (
             <ActivityIndicator size="large" color="#0000ff" />
           ) : recentWalks.length > 0 ? (
@@ -107,7 +107,7 @@ const WalkStartPage: React.FC = () => {
                 title={walk.petName}
                 details={[
                   { label: '산책일시', value: walk.walkDate },
-                  { label: '산책 시간', value: walk.walkTime },
+                  { label: '산책 시간', value: `${Math.floor(walk.walkTime / 60)}분` },
                   { label: '이동 거리', value: `${(walk.distance / 1000).toFixed(2)} km` },
                 ]}
               />
@@ -117,7 +117,7 @@ const WalkStartPage: React.FC = () => {
           )}
         </View>
 
-        {/* Start Walk Button */}
+   
         <View className="p-4">
           <RoundedTextButton
             color="bg-primary"
@@ -130,7 +130,7 @@ const WalkStartPage: React.FC = () => {
           />
         </View>
 
-        {/* Pet Selection Modal */}
+  
         <Modal visible={isModalVisible} transparent animationType="slide">
           <View className="flex-1 justify-end bg-black bg-opacity-50">
             <View className="bg-white rounded-t-lg p-6">

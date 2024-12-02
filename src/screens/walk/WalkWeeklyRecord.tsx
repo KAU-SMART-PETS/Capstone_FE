@@ -1,3 +1,4 @@
+//최종 사용
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, Alert } from 'react-native';
 import { VBarChart } from '@common/BarChart';
@@ -10,24 +11,23 @@ import dayjs from 'dayjs';
 interface WeeklySummary {
   label: string;
   color: string;
-  percentages: number[]; // 일주일 동안의 데이터
+  percentages: number[]; 
 }
 
 const WalkWeeklyRecord: React.FC = () => {
   const route = useRoute();
-  const { date } = route.params as { date: string };
-  const petId = '1';
+  const { date, petId, petName } = route.params as { date: string; petId: string; petName: string }; 
   const [weeklyData, setWeeklyData] = useState<WeeklySummary[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchWeeklyWalkRecord(petId, date);
+        const response = await fetchWeeklyWalkRecord(petId, date); 
         if (response && response.dailySummaries) {
           const dailySummaries = response.dailySummaries;
 
-          // 항목별 데이터 구성
+        
           const transformedData: WeeklySummary[] = [
             {
               label: '일일 산책량',
@@ -74,7 +74,7 @@ const WalkWeeklyRecord: React.FC = () => {
     };
 
     fetchData();
-  }, [date]);
+  }, [petId, date]); 
 
   if (loading) {
     return (
@@ -86,7 +86,8 @@ const WalkWeeklyRecord: React.FC = () => {
 
   return (
     <ScrollView contentContainerStyle={{ padding: 16 }}>
-      <HeaderText text="바둑이의 일주일은 어땠을까요?" highlight="바둑이" />
+  
+      <HeaderText text={`${petName}의 일주일은 어땠을까요?`} highlight={petName} />
       
       {weeklyData.map((item, index) => (
         <View key={index} style={{ marginBottom: 20 }}>
