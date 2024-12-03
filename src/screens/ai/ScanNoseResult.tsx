@@ -1,44 +1,39 @@
 import React from 'react';
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity, useEffect } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import StylizedText from '@components/common/StylizedText';
+import StylizedText, { HeaderText } from '@components/common/StylizedText';
 
-const backIcon = require('../../assets/image/icon/arrow_back.png'); // 뒤로가기 아이콘
+const backIcon = require('../../assets/image/icon/arrow_back.png');
 
 const ScanNoseResult = ({ route }) => {
   const navigation = useNavigation();
-  const { imageUri, result } = route.params;
+  const { imageUri, result, petName } = route.params;
 
   return (
     <View style={styles.container}>
-      {/* 헤더 컨테이너 */}
+      {/* 결과 메시지 */}
       <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Image source={backIcon} style={styles.backIcon} />
-        </TouchableOpacity>
+        <HeaderText
+          highlight={petName}
+          text={`비문 조회 결과입니다.\n조회된 반려동물이 ${petName} 맞나요?`}
+        />
+      </View>
 
-        <StylizedText type="header1" styleClass="text-black mb-4 mt-6" style={styles.headerText}>
-          비문 조회 결과입니다.
+      {/* 안내 메시지 */}
+      <View style={styles.infoContainer}>
+        <StylizedText
+          type="body1"
+          styleClass="text-gray"
+          style={styles.infoMessage}
+        >
+          이미지를 분석 결과{"\n"}가장 유사한 반려동물을 조회했습니다.{"\n"}
+          정확하지 않다면 이미지를 다시 업로드해주세요.
         </StylizedText>
       </View>
 
-      {/* 이미지 */}
+      {/* 비문 이미지 */}
       <View style={styles.imageContainer}>
         <Image source={{ uri: imageUri }} style={styles.image} />
-      </View>
-
-      {/* 결과 컨테이너 */}
-      <View style={styles.resultContainer}>
-        <StylizedText type="body1" styleClass="text-black mt-2">
-          {result.closest_class
-            ? `가장 가까운 클래스: ${result.closest_class}`
-            : "결과를 불러올 수 없습니다."}
-        </StylizedText>
-        <StylizedText type="body1" styleClass="text-black mt-2">
-          {result.min_distance !== undefined
-            ? `유사도: ${result.min_distance}`
-            : ""}
-        </StylizedText>
       </View>
     </View>
   );
@@ -47,44 +42,36 @@ const ScanNoseResult = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
-  },
-  backButton: {
-    position: 'absolute',
-    top: 30,
-    left: 10,
-    padding: 10,
-  },
-  backIcon: {
-    width: 20,
-    height: 20,
+    backgroundColor: '#F8F9FA',
+    alignItems: 'center',
+    paddingHorizontal: 30,
+    paddingTop: 50,
   },
   headerContainer: {
-      paddingHorizontal: 30,
-      paddingVertical: 60,
-    },
-  headerText: {
-    marginTop: 10,
-    textAlign: 'center',
+    marginBottom: 10, // 안내 메시지와 이미지 사이 간격
+    alignItems: 'flex-start', // 왼쪽 정렬
+    width: '100%',
+    paddingLeft: 20, // 왼쪽 여백 추가
   },
+  infoContainer: {
+      marginBottom: 70, // 안내 메시지와 이미지 사이 간격
+      alignItems: 'flex-start', // 왼쪽 정렬
+      width: '100%',
+      paddingLeft: 30, // 왼쪽 여백 추가
+    },
   imageContainer: {
     alignItems: 'center',
-    marginVertical: 20, // 이미지와 결과 박스 사이 여백
+    width: '100%',
+  },
+  infoMessage: {
+    textAlign: 'left',
   },
   image: {
-    width: 200,
-    height: 200,
-    borderRadius: 20,
-  },
-  resultContainer: {
-    marginHorizontal: 20,
-    paddingVertical: 20,
-    paddingHorizontal: 15, // 내부 텍스트와 박스 간격 조정
-    backgroundColor: '#F9F9F9',
-    borderRadius: 20,
-    borderWidth: 1,
+    width: 270,
+    height: 270,
+    borderRadius: 30,
     borderColor: '#DDDDDD',
-    alignItems: 'center',
+    backgroundColor: '#F2F2F2',
   },
 });
 
