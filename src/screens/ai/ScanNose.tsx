@@ -21,11 +21,12 @@ const ScanNose = () => {
     const formData = new FormData();
     formData.append('animalImage', {
       uri: imageUri,
-      type: 'image/jpeg', // 또는 image/png
+      type: 'image/jpeg',
       name: 'animal_nose.jpg',
     });
 
     try {
+      // 비문 이미지 서버 전송
       const response = await fetch('http://52.79.140.133:8080/api/v1/ai/nose/test', {
         method: 'POST',
         headers: {
@@ -35,18 +36,35 @@ const ScanNose = () => {
       });
 
       if (response.ok) {
-              const data = await response.json();
-              navigation.navigate('ScanNoseResult', {
-                imageUri,
-                result: data,
-              });
-            } else {
-              console.error('비문 전송 실패');
-            }
-          } catch (error) {
-            console.error('POST 요청 오류:', error);
-          }
-        };
+        const data = await response.json();
+        const closestPetId = data.closest_class;
+
+        // closest_class(반려동물 ID)로 반려동물 정보 가져오기
+        const petResponse = await fetch(`http://52.79.140.133:8080/api/v1/pets/${closestPetId}`);
+        if (petResponse.ok) {
+          const petData = await petResponse.json();
+
+          // 결과 화면으로 이동하면서 반려동물 이름 전달
+          navigation.navigate('ScanNoseResult', {
+            imageUri,
+            result: data,
+            petName: petData.name, // 가져온 이름 전달
+          });
+        } else {
+          console.error('반려동물 정보를 불러오지 못했습니다.');
+          navigation.navigate('ScanNoseResult', {
+            imageUri,
+            result: data,
+            petName: '알 수 없는 이름', // 기본 메시지
+          });
+        }
+      } else {
+        console.error('비문 전송 실패');
+      }
+    } catch (error) {
+      console.error('POST 요청 오류:', error);
+    }
+  };
 
   // 갤러리에서 이미지를 선택
   const handleGallerySelect = () => {
