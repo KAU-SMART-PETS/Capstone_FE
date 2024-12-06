@@ -31,15 +31,19 @@ const HomeCarousel: React.FC = () => {
 
   const banners = [
     {
-      imageUri: 'https://media.istockphoto.com/id/1873560397/ko/%EC%82%AC%EC%A7%84/%EB%AA%A8%ED%94%BC-%EC%B9%9C%EA%B5%AC.jpg?s=612x612&w=is&k=20&c=ERV1dipmGtRWAHMYt2vWePzDJD2Fu6XdKjd2N9NjhLI=',
+      imageSource: 'https://media.istockphoto.com/id/1873560397/ko/%EC%82%AC%EC%A7%84/%EB%AA%A8%ED%94%BC-%EC%B9%9C%EA%B5%AC.jpg?s=612x612&w=is&k=20&c=ERV1dipmGtRWAHMYt2vWePzDJD2Fu6XdKjd2N9NjhLI=',
       onPressAction: () => Alert.alert('Mountain Banner', 'Clicked!'),
     },
     {
-      imageUri: 'https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      imageSource: 'https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       onPressAction: () => navigation.navigate('Offline' as never), // 네비게이션 이동
     },
     {
-      imageUri: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      imageSource: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      onPressAction: () => Linking.openURL('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'), // 웹 링크
+    },
+    {
+      imageSource: require('@assets/image/example1.png'),
       onPressAction: () => Linking.openURL('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'), // 웹 링크
     },
   ];
