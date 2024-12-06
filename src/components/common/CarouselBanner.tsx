@@ -2,7 +2,7 @@ import * as React from "react";
 import { Dimensions, View, TouchableOpacity, Image } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Carousel, { Pagination, ICarouselInstance } from "react-native-reanimated-carousel";
-import { useSharedValue } from "react-native-reanimated";
+import { useSharedValue, runOnJS } from "react-native-reanimated";
 
 interface CarouselBannerProps {
   banners: Array<{
@@ -17,7 +17,7 @@ const CarouselBanner: React.FC<CarouselBannerProps> = ({ banners }) => {
   const progress = useSharedValue<number>(0);
 
   const onPressPagination = (index: number) => {
-    ref.current?.scrollTo({ count: index - progress.value, animated: true });
+    runOnJS(ref.current?.scrollTo)({ count: index - progress.value, animated: true });
   };
 
   return (
