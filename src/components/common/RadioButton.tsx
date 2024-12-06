@@ -26,15 +26,17 @@ const RadioButton: React.FC<RadioButtonProps> = ({
 
   if (variant === 'box') {
     // box 스타일의 라디오 버튼
-    return (
-      <SquareBox
-        shadow={false}
-        size={boxsize}
-        outline={outlineStyle}
-        onPress={onPress}
-      >
-        {children}
-      </SquareBox>
+    return ( 
+      <View className='m-2'>
+        <SquareBox
+          shadow={false}
+          size={boxsize}
+          outline={outlineStyle}
+          onPress={onPress}
+        >
+          {children}
+        </SquareBox>
+      </View>
     );
   }
   // 텍스트형 라디오 버튼 (일반적인 모양 = 원형버튼 + 레이블)

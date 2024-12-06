@@ -3,16 +3,14 @@ import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, FlatList, 
 import { useNavigation, NavigationProp, CommonActions, useFocusEffect } from '@react-navigation/native';
 import { PetDetails } from '@types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { RoundedSquareButton, RoundedTextButton } from '@src/components/common/RoundedButton';
+import { RoundedCircleButton, RoundedSquareButton, RoundedTextButton } from '@common/RoundedButton';
 import { fetchUserProfile } from '@api/userApi';
 import { fetchUserPets, getPetDetails } from '@api/petApi';
 import { handleLogout } from '@api/loginApi';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import StylizedText, { HeaderText } from '@src/components/common/StylizedText';
+import StylizedText, { HeaderText } from '@components/common/StylizedText';
 import { PetCard as NewPetCard } from '@components/MyPetCard';
-import Avatar from '@src/components/common/Avatar';
-import redirectIfNoSession from '@src/redirectionIfNoSession';
-import { PillBadgeButton } from '@src/components/common/Badge';
+import Avatar from '@common/Avatar';
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
 
@@ -88,61 +86,55 @@ const PetCardContainer: React.FC<PetCardContainerProps> = ({ petId, devices }) =
 
 const AddPetButton: React.FC = () => {
   const navigation = useNavigation<MyPageNavigationProp>();
-  redirectIfNoSession();
 
   const handleAddPetPress = () => {
     navigation.navigate('PetRegister');
   };
 
   return (
-    <View className='pt-5 pl-5'>
-      <RoundedSquareButton
-        size="xs"
-        backgroundColor="bg-white"
-        outline='dotted'
+    <View className='ml-4 my-auto h-24 flex justify-center'>
+      <TouchableOpacity
         onPress={handleAddPetPress}
       >
-        <Avatar source={require('@src/assets/image/frame/addPet.png')} size={40} />
-      </RoundedSquareButton>
-      {/* <Text style={{ textAlign: 'center', color: 'black', marginTop: 8 }}>반려동물 추가</Text> */}
+        <Image source={require('@image/frame/addPet.png')} width={40} height={40} />
+      </TouchableOpacity>
     </View>
   );
 };
 
-const DeviceCard: React.FC<{ device: Device }> = ({ device }) => (
-  <View className="pt-4 mx-2">
+const DeviceCardLayout: React.FC<any> = ({children, onPress}) => (
+  <View className="mx-2">
     <RoundedSquareButton 
       size="sm" 
-      rounded="lg" 
-      outline="dotted" 
+      rounded="2xl" 
+      outline="inactive-solid" 
       backgroundColor="bg-white"
-      onPress={() => console.log(device.id)}
+      onPress={onPress}
     >
-      <MCIcon name="devices" color="black" size={30} />
-      <StylizedText type="label" styleClass="text-black">
-        {device.name}
-      </StylizedText>
+      {children}
     </RoundedSquareButton>
   </View>
+);
+
+const DeviceCard: React.FC<{ device: Device }> = ({ device }) => (
+  <DeviceCardLayout
+    onPress={() => console.log(device.id)}>
+    <MCIcon name="devices" color="black" size={30} />
+    <StylizedText type="label" styleClass="text-black">
+      {device.name}
+    </StylizedText>
+  </DeviceCardLayout>
 );
 
 const AddDeviceButton: React.FC = () => (
-  <View className="pt-4 mx-2">
-    <RoundedSquareButton 
-      size="sm" 
-      rounded="lg" 
-      outline="dotted" 
-      backgroundColor="bg-white"
-      onPress={() => console.log("기기 추가")}
-    >
-      <MCIcon name="devices" color="black" size={30} />
-      <StylizedText type="label" styleClass="text-black">
-        {"기기 추가"}
-      </StylizedText>
-    </RoundedSquareButton>
-  </View>
+  <DeviceCardLayout
+  onPress={() => console.log("기기 추가")}>
+  <MCIcon name="devices" color="black" size={30} />
+  <StylizedText type="label" styleClass="text-black">
+    {"기기 추가"}
+  </StylizedText>
+</DeviceCardLayout>
 );
-
 
 const MyPage: React.FC = () => {
   const navigation = useNavigation<MyPageNavigationProp>();
@@ -150,10 +142,6 @@ const MyPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
   const [petIds, setPetIds] = useState<string[]>([]);
-
-  const TempAddPet = () => {
-    navigation.navigate('PetRegister');
-  };
 
   const fetchData = async () => {
     const userData = await fetchUserProfile();
@@ -218,9 +206,7 @@ const MyPage: React.FC = () => {
             text={`${username}의 반려동물`}
             type='header2'
           />
-          <PillBadgeButton onPress={TempAddPet}/>
         </View>
-
         <FlatList
           data={petIds}
           renderItem={renderPetItem}
@@ -228,7 +214,6 @@ const MyPage: React.FC = () => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           ListFooterComponent={AddPetButton}
-          contentContainerStyle={{ justifyContent: 'center', flexGrow: 1 }} 
         />
       </View>
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import dog1 from '@image/placeholder/dog.jpg';
-import { RoundedTextButton, RoundedSquareButton } from '@common/RoundedButton';
+import { RoundedTextButton, RoundedSquareButton, RoundedCircleButton } from '@common/RoundedButton';
 import ModalLayout from '@components/ModalLayout';
 import ListCard from '@common/ListCard';
 import StylizedText from '@common/StylizedText';
@@ -15,7 +15,7 @@ interface Device {
 interface PetCardProps {
   name: string;
   details: string;
-  avatarPath?: string;
+  avatarPath?: string | null;
   devices: Device[];
   selectedDeviceId: string;
   onSelectDevice: (deviceId: string) => void;
@@ -75,8 +75,10 @@ export const PetCard: React.FC<PetCardProps> = ({
     ];
   return (
     <ListCard
-    avatar={ imageSrc
-    }
+    preset='flatcard2'
+    outline='inactive-solid'
+    shadow={false}
+    avatar={ imageSrc }
       title={
         <View className="flex-row items-start">
           <View className="flex-col mr-3">
@@ -87,19 +89,16 @@ export const PetCard: React.FC<PetCardProps> = ({
               {details}
             </StylizedText>
           </View>
-          <RoundedSquareButton
-            size="xxs"
-            rounded="lg"
-            outline="dotted"
-            backgroundColor="bg-white"
+          <RoundedCircleButton
+            size={40}
             onPress={() => setIsModalVisible(true)}
-            className="ml-2"
+            color={`border-2 ${selectedDevice ? 'bg-skyblue border-primary' : 'bg-lightgrey border-silver'}`}
           >
-            <MCIcon name={selectedDevice ? selectedDevice.name : 'devices'} color="black" size={20} />
-            <StylizedText type="label" styleClass="text-black">
+            <MCIcon name='devices' color="black" size={14} />
+            <StylizedText type="label4" styleClass="text-black">
               {selectedDevice ? selectedDevice.name : '기기 선택'}
             </StylizedText>
-          </RoundedSquareButton>
+          </RoundedCircleButton>
         </View>
       }
       onPress={onPress}

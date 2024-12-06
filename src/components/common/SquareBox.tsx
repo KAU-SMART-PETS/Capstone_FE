@@ -42,7 +42,7 @@ const SquareBox: React.FC<SquareBoxProps> = ({
     <Container
       onPress={onPress}
       style={[outlines, shadow && ShadowStyle]}
-      className={`rounded-${rounded} ${sizeStyles[size]} flex items-center justify-center ${backgroundColor} m-2`}
+      className={`rounded-${rounded} ${sizeStyles[size]} flex items-center justify-center ${backgroundColor}`}
     >
       {children}
     </Container>
