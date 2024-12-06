@@ -61,6 +61,7 @@ import ReadyToRegisterNose from '@screens/ai/ReadyToRegisterNose';
 import ResultNoseRegister from '@screens/ai/ResultNoseRegister';
 import ScanNose from '@screens/ai/ScanNose';
 import ScanNoseResult from '@screens/ai/ScanNoseResult';
+import ResultPetDetails from '@screens/ai/ResultPetDetails';
 
 //System
 import Offline from '@screens/system/Offline';
@@ -88,8 +89,8 @@ export const routesConfig: {
   EditProfile: { component: EditProfile, params: undefined },
   MyPage: { component: MyPage, params: undefined },
   PetRegister: { component: PetRegister, params: undefined },
-  PetProfile: { 
-    component: PetProfile, 
+  PetProfile: {
+    component: PetProfile,
     params: undefined ,
   }, // PetProfile에 필요한 params 설정
   Analysis: { component: Analysis, params: undefined },
@@ -112,6 +113,7 @@ export const routesConfig: {
   AlertNoseRegister: {component: AlertNoseRegister, params: undefined},
   ReadyToRegisterNose: {component: ReadyToRegisterNose, params: undefined},
   ResultNoseRegister: {component: ResultNoseRegister, params: undefined},
+  ResultPetDetails: {component: ResultPetDetails, params: undefined},
   Offline: {component: Offline, params: undefined},
   // reward pages
   ChallengeList :  { component: ChallengeList, params: undefined },
