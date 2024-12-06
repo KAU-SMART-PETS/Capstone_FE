@@ -6,6 +6,7 @@ import { fetchHospitalInfo } from '@src/api/hospitalApi';
 import KakaoMap from './kakaoMap';
 import StylizedText from '@common/StylizedText';
 import { HospitalRecord } from '@components/Records';
+import HeaderBar from '@src/components/HeaderBar';
 
 const HospitalInfo = () => {
   const navigation = useNavigation();
@@ -26,10 +27,6 @@ const HospitalInfo = () => {
     loadHospitalInfo();
   }, [vetId, latitude, longitude]);
 
-  const handleBackButton = () => {
-    navigation.goBack();
-  };
-
   if (!hospital) {
     return (
       <SafeAreaView className="flex-1 bg-white">
@@ -40,11 +37,8 @@ const HospitalInfo = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      {/* 뒤로 가기 버튼 */}
-      <TouchableOpacity onPress={handleBackButton} className="p-2">
-        <Text className="text-2xl text-gray-500">{'<'}</Text>
-      </TouchableOpacity>
-
+      {/* 뒤로가기 버튼 */}
+      <HeaderBar showBackButton />
       {/* 병원 정보 표시 */}
       <View className="p-5">
         <HospitalRecord

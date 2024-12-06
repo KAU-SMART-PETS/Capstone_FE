@@ -8,9 +8,13 @@ import { fetchUserProfile } from '@api/userApi';
 import { fetchUserPets, getPetDetails } from '@api/petApi';
 import { handleLogout } from '@api/loginApi';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MTIcon from 'react-native-vector-icons/MaterialIcons';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 import StylizedText, { HeaderText } from '@components/common/StylizedText';
 import { PetCard as NewPetCard } from '@components/MyPetCard';
 import Avatar from '@common/Avatar';
+import HeaderBar from '@components/HeaderBar';
+import { Divider } from 'react-native-paper';
 
 type MyPageNavigationProp = NavigationProp<RootStackParamList, 'MyPage'>;
 
@@ -177,72 +181,74 @@ const MyPage: React.FC = () => {
       );
     }
   };
+  const handleHelpPress = async () => {
+    console.log('미구현 : 고객센터 관련 문의')
+  };
 
   return (
-    <ScrollView className="flex-1 bg-gray-100">
-      <View className="items-center mb-2 bg-white">
-        <View className='pt-10'>
-          <Avatar source={{ uri: 'https://via.placeholder.com/80' }} size={130} />
-        </View>
+    <ScrollView className="flex-1 bg-white" stickyHeaderIndices={[0, 2]}>
+      <HeaderBar
+        showBackButton={false}
+        iconButtons={[
+          { icon : <FeatherIcon size={22} name='help-circle' color='#00000' opacity={0.3} />, onPress: handleHelpPress},
+          { icon: <MTIcon size={22} name='logout' />, onPress: handleLogoutPress },
+        ]}
+        />
+      <View className="flex items-center mb-1">
+        <Avatar source={{ uri: 'https://via.placeholder.com/80' }} size={115} />
         <HeaderText
           highlight={username}
           text={`안녕하세요 ${username}!`}
         />
-        <View className='mb-2'>
+        <View className='mb-3'>
           <RoundedTextButton 
           content="내 정보 관리하기" 
           color="bg-secondary" 
           widthOption="md" 
           onPress={() => navigation.navigate('EditProfile')} 
-          className='mb-2'
           />
         </View>
       </View>
-
-      <View className="bg-white rounded-lg p-4 mb-2">
-        <View className="flex-row justify-between items-center mb-2">
+      <Divider className='h-1 bg-gray-100'/>
+      <View className="p-4">
+        <View className="mb-3">
           <HeaderText 
-            highlight={username}
-            text={`${username}의 반려동물`}
-            type='header2'
+              highlight={username}
+              text={`${username}의 반려동물`}
+              type='header2'
+            />
+          <FlatList
+            data={petIds}
+            renderItem={renderPetItem}
+            keyExtractor={item => item}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            ListFooterComponent={AddPetButton}
           />
         </View>
-        <FlatList
-          data={petIds}
-          renderItem={renderPetItem}
-          keyExtractor={item => item}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          ListFooterComponent={AddPetButton}
-        />
-      </View>
-
-      <View className="bg-white rounded-lg p-4 mb-2">
-        <View className="flex-row justify-between items-center mb-2">
+        <View className="mb-3">
           <HeaderText 
             highlight={username}
             text={`${username}의 기기`}
             type='header2'
           />
-
+          <FlatList
+            data={deviceData}
+            renderItem={renderDeviceItem}
+            keyExtractor={item => item.id}
+            horizontal={true}
+            ListFooterComponent={AddDeviceButton}
+            showsHorizontalScrollIndicator={false}
+          />
         </View>
-        <FlatList
-          data={deviceData}
-          renderItem={renderDeviceItem}
-          keyExtractor={item => item.id}
-          horizontal={true}
-          ListFooterComponent={AddDeviceButton}
-          showsHorizontalScrollIndicator={false}
-        />
       </View>
-
-      <View className="flex-row justify-around items-center p-4 bg-white rounded-lg">
-        <TouchableOpacity className="items-center p-4 bg-white rounded-lg">
-          <StylizedText type='body1' className='text-black'>고객센터</StylizedText>
-        </TouchableOpacity>
-        <TouchableOpacity className="items-center p-4 bg-white rounded-lg" onPress={handleLogoutPress}>
-          <StylizedText type='body1' className='text-black'>로그아웃</StylizedText>
-        </TouchableOpacity>
+      <View className="flex-1 mt-1 py-6 bg-gray-100">
+        <View className='flex-row items-top justify-center'>
+          <MCIcon name='copyright'/>
+          <StylizedText type='body2' styleClass='ml-1 text-gray-600'>
+            JM smart, INC.
+          </StylizedText>
+        </View>
       </View>
     </ScrollView>
   );

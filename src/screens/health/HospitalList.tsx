@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import config from '@constants/config';
-import { TouchableOpacity, View, Text, StyleSheet, FlatList, SafeAreaView, Alert } from 'react-native';
+import {  View, FlatList, SafeAreaView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { fetchHospitals } from '@src/api/hospitalApi';
 import Geolocation from '@react-native-community/geolocation';
-import axios from 'axios';
 import { VeterinaryCard } from '@src/components/FlatListCards';
 import StylizedText from '@src/components/common/StylizedText';
+import HeaderBar from '@src/components/HeaderBar';
 
 const HospitalCard = ({ item, onPress }) => (
     <VeterinaryCard 
@@ -61,19 +61,14 @@ const FindHospital = () => {
     requestLocationPermission(); 
   }, []);
 
-  const handleBackButton = () => {
-    navigation.goBack();
-  };
-  
   const handleHospitalPress = (item) => {
     navigation.navigate('HospitalInfo', { vetId: item.id, latitude, longitude });
   };
   
   return (
   <SafeAreaView className="flex-1 bg-white">
-    <TouchableOpacity onPress={handleBackButton} className="p-5">
-      <Text className="text-2xl text-black">{'<'}</Text>
-    </TouchableOpacity>
+    {/* 뒤로가기 버튼 */}
+    <HeaderBar showBackButton />
     <View className='items-center'>
       <StylizedText type='header1'>내 주변 동물병원 검색 결과입니다.</StylizedText>
     </View>

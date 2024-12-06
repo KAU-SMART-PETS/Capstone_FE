@@ -6,6 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import CarouselBanner from '@common/CarouselBanner';
 import { Alert } from 'react-native';
+import HeaderBar from '@src/components/HeaderBar';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 
 // ProductPurchaseCard 컴포넌트 복사
 interface ProductPurchaseCardProps {
@@ -118,17 +120,14 @@ const HomeScreen: React.FC = () => {
 
   return (
     <View className="flex-1 bg-white">
-      {/* 상단 알람 아이콘 */}
-      <View className="flex-row justify-end items-center px-4 py-2" style={{ paddingTop: 20 }}>
-        <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
-          <Image
-            source={require('../../assets/image/icon/alarm.png')}
-            style={{ width: 15, height: 15 }}
-          />
-        </TouchableOpacity>
-      </View>
-
       <ScrollView className="flex-1">
+      {/* 상단 알람 아이콘 */}
+      <HeaderBar 
+        iconButtons={[{
+          icon: <Fontisto name='bell' size={22}/>, 
+          onPress: () => navigation.navigate('Notification')
+        }]}
+      />
       {/* 배너 섹션 */}
         <HomeCarousel />
         <View className="space-y-4 mt-4 px-4">

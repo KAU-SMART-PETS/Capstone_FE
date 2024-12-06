@@ -41,13 +41,13 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   }
   // 텍스트형 라디오 버튼 (일반적인 모양 = 원형버튼 + 레이블)
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.7} className="flex-row items-center mb-2">
+    <TouchableOpacity onPress={onPress} activeOpacity={0.7} className="flex-row items-center">
       <View
         className={`w-3.5 h-3.5 mr-2 border-2 ${
           isSelected ? 'border-primary bg-transparent' : 'border-secondary'
         } rounded-full`}
       />
-      <StylizedText type='header3' styleClass={`${isSelected ? 'text-primary' : 'text-black/60'}`}>{label}</StylizedText>
+      <StylizedText type='header2' styleClass={`${isSelected ? 'text-primary' : 'text-black/60'}`}>{label}</StylizedText>
     </TouchableOpacity>
   );
 };

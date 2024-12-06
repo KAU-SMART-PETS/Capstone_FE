@@ -43,7 +43,7 @@ export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
     onPress,
   }) => {
     const widthMap = {
-      full: 'w-96',
+      full: 'w-full',
       xxs: 'w-10',
       xs: 'w-20',
       sm: 'w-24',  // Example: small width
@@ -61,7 +61,7 @@ export const RoundedTextButton: React.FC<RoundedTextButtonProps> = ({
       </View>
     );
     return (
-      <TouchableOpacity onPress={onPress} style={shadow && ShadowStyle} className={`${borderRadius} ${widthClass} my-1`}>
+      <TouchableOpacity onPress={onPress} style={shadow && ShadowStyle} className={`${borderRadius} ${widthClass} m-1`}>
         {ContentBox}
       </TouchableOpacity>
     );

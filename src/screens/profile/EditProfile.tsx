@@ -1,20 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
-  View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { fetchUserProfile, updateUserProfile } from '@src/api/userApi';
-import { UserData } from '@src/utils/constants/types';
-import CustomTextInput from '@src/components/common/CustomTextInput';
-import StylizedText from '@src/components/common/StylizedText';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { RoundedTextButton } from '@src/components/common/RoundedButton';
+  View,
+  Text,
+  ScrollView,
+  Alert,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { fetchUserProfile, updateUserProfile } from "@src/api/userApi";
+import { UserData } from "@src/utils/constants/types";
+import CustomTextInput from "@src/components/common/CustomTextInput";
+import StylizedText from "@src/components/common/StylizedText";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { RoundedTextButton } from "@src/components/common/RoundedButton";
+import HeaderBar from "@src/components/HeaderBar";
 
-type EditableField = keyof UserData | 'consent' | null;
+type EditableField = keyof UserData | "consent" | null;
+
 const EditProfile: React.FC = () => {
   const [editingField, setEditingField] = useState<EditableField>(null);
   const [userInfo, setUserInfo] = useState<UserData | null>(null);
-
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -22,149 +26,106 @@ const EditProfile: React.FC = () => {
       const userData = await fetchUserProfile();
       if (userData) setUserInfo(userData);
     };
-
     loadUserData();
   }, []);
 
   const handleSave = async () => {
-    if (userInfo) {
-      const success = await updateUserProfile(userInfo);
-      if (success) {
-        setEditingField(null);
-        Alert.alert('알림', '정보가 성공적으로 업데이트되었습니다.');
-      }
+    if (!userInfo) return;
+    const success = await updateUserProfile(userInfo);
+    if (success) {
+      setEditingField(null);
+      Alert.alert("알림", "정보가 성공적으로 업데이트되었습니다.");
     }
   };
 
   const handleChange = (key: keyof UserData, value: string | boolean) => {
-    setEditingField('consent');
-    setUserInfo(prevInfo => {
-      if (prevInfo) {
-        return {
-          ...prevInfo,
-          [key]: value,
-        };
-      }
-      return prevInfo;
-    });
-  };
-
-  const handleFieldEdit = (field: EditableField) => {
-    setEditingField(field);
-  };
-
-  const handleBackButton = () => {
-    navigation.goBack();
+    setUserInfo((prevInfo) => prevInfo && { ...prevInfo, [key]: value });
+    setEditingField(key);
   };
 
   const renderInput = (
     label: string,
     key: keyof UserData,
-    keyboardType: 'default' | 'email-address' | 'phone-pad' = 'default',
+    keyboardType: "default" | "email-address" | "phone-pad" = "default"
   ) => (
-      <CustomTextInput
-        label={key}
-        placeholder={key}
-        value={userInfo ? String(userInfo[key] ?? '') : ''}
-        onChangeText={(text) => handleChange(key, text)}
-        keyboardType={keyboardType}
-        isEditableInitially={editingField === key}
-        type={(key === 'email' || key === 'phoneNumber') ? 'editableWithButton' : 'readOnly'}
-      />
-
+    <CustomTextInput
+      label={label}
+      placeholder={label}
+      value={userInfo?.[key]?.toString() || ""}
+      onChangeText={(text) => handleChange(key, text)}
+      keyboardType={keyboardType}
+      isEditableInitially={editingField === key}
+      type={["email", "phoneNumber"].includes(key) ? "editableWithButton" : "readOnly"}
+    />
   );
 
-  const handleConsentChange = (key: 'smsOptIn' | 'emailOptIn', value: boolean) => {
-    setUserInfo(prevInfo => {
-      if (prevInfo) {
-        return {
-          ...prevInfo,
-          [key]: value,
-        };
-      }
-      return prevInfo;
-    });
-    setEditingField('consent');
+  const renderConsentButtons = (type: "smsOptIn" | "emailOptIn") => {
+    const isOptedIn = userInfo?.[type];
+    return (
+      <View className="flex-row">
+        {["동의", "비동의"].map((label, idx) => {
+          const selected = idx === 0 ? isOptedIn : !isOptedIn;
+          return (
+            <RoundedTextButton
+              key={label}
+              color={selected ? "bg-primary" : "bg-skyblue"}
+              extraStyleClass="px-1 py-1.5"
+              textColor="text-white"
+              content={label}
+              shadow={false}
+              widthOption="xs"
+              onPress={() => handleChange(type, idx === 0)}
+            />
+          );
+        })}
+      </View>
+    );
   };
 
-  const renderConsentButtons = (type: 'smsOptIn' | 'emailOptIn') => (
-    <View className="flex-row justify-between w-[150px]">
-      <View className='mr-1'>
-        <RoundedTextButton
-          color={`${userInfo && userInfo[type] ?  'bg-blue': 'bg-skyblue'}`}
-          textColor='text-white'
-          textType='body2'
-          content="동의"
-          borderRadius='rounded-3xl'
-          shadow={false}
-          widthOption='xs'
-          onPress={() => handleConsentChange(type,true)}
-        />
-      </View>
-
-      <RoundedTextButton
-        color={`${userInfo && !userInfo[type] ?  'bg-blue': 'bg-skyblue'}`}
-        textColor='text-white'
-        textType='body2'
-        content="비동의"
-        borderRadius='rounded-3xl'
-        shadow={false}
-        widthOption='xs'
-        onPress={() => handleConsentChange(type,false)}
-      />
-    </View>
-  );
   if (!userInfo) {
     return (
       <View className="flex-1 justify-center items-center">
         <Text>로딩 중...</Text>
       </View>
-
     );
   }
 
   return (
-    <SafeAreaView className="flex-1 fixed bg-white">
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="p-5">
-    <TouchableOpacity onPress={handleBackButton} className="pb-5">
-      <Text className="text-2xl text-black">{'<'}</Text>
-    </TouchableOpacity>
-
-
-      <StylizedText type='header1'> 회원 기본 정보</StylizedText>
-
-      <View className="w-full bg-white flex items-center py-10">
-        {renderInput('이름', 'name')}
-        {renderInput('이메일', 'email', 'email-address')}
-        {renderInput('소셜 사이트', 'socialSite')}
-        {renderInput('휴대폰 번호', 'phoneNumber', 'phone-pad')}
-        {renderInput('포인트', 'point')}
-      </View>
-
-      <StylizedText type='header2'>광고성 정보 수신</StylizedText>
-      
-      <View className="flex-row justify-between items-center mb-2.5">
-        <StylizedText type="body1">SMS 수신</StylizedText>
-        {renderConsentButtons('smsOptIn')}
-      </View>
-
-      <View className="flex-row justify-between items-center mb-2.5">
-        <StylizedText type="body1">이메일 수신</StylizedText>
-        {renderConsentButtons('emailOptIn')}
-      </View>
-
-      <View className='pt-10 items-center'>
-        {(editingField || editingField === 'consent') && (
-
-          <RoundedTextButton 
-            color='bg-blue' 
-            content="저장하기" 
-            widthOption="xl" 
-            onPress={handleSave} />
-        )}
-      </View>
-
-    </ScrollView>
+    <SafeAreaView className="flex-1 bg-white pb-4">
+      <HeaderBar showBackButton title="내 기본 정보" />
+      <ScrollView className="flex-1 w-full p-4">
+        <View className="items-center mt-4">
+          {renderInput("이름", "name")}
+          {renderInput("이메일", "email", "email-address")}
+          {renderInput("소셜 사이트", "socialSite")}
+          {renderInput("휴대폰 번호", "phoneNumber", "phone-pad")}
+          {renderInput("포인트", "point")}
+        </View>
+        <View className="p-6">
+          <StylizedText type="header2" styleClass="mb-3">광고성 정보 수신</StylizedText>
+          {["smsOptIn", "emailOptIn"].map((type) => (
+            <View
+              key={type}
+              className="flex-row justify-between items-center mb-1"
+            >
+              <StylizedText type="body1">
+                {type === "smsOptIn" ? "SMS 수신" : "이메일 수신"}
+              </StylizedText>
+              {renderConsentButtons(type as "smsOptIn" | "emailOptIn")}
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+      {editingField && (
+        <View className="pt-10 items-center p-6">
+          <RoundedTextButton
+            color="bg-primary"
+            content="저장하기"
+            widthOption="full"
+            onPress={handleSave}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

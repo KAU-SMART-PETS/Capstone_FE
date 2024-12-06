@@ -26,10 +26,6 @@ const SelectPart = () => {
     setModalVisible(true);
   };
 
-  const handleBackButton = () => {
-    navigation.goBack();
-  };
-
   const handleGallery = () => {
     setModalVisible(false);
     launchImageLibrary({ mediaType: 'photo' }, (response) => {
@@ -51,10 +47,9 @@ const SelectPart = () => {
 
   return (
     <View style={styles.container}>
+      {/* 뒤로가기 버튼 */}
+      <HeaderBar showBackButton />
       <View style={styles.header}>
-        <TouchableOpacity onPress={handleBackButton} style={styles.backButton}>
-          <Text style={styles.backButtonText}>{'<'}</Text>
-        </TouchableOpacity>
         <Text style={styles.headerText}>촬영 시</Text>
       </View>
       
