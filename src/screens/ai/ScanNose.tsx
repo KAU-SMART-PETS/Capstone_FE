@@ -6,6 +6,7 @@ import { RNCamera } from 'react-native-camera';
 import StylizedText from '@components/common/StylizedText';
 import { RoundedTextButton } from '@components/common/RoundedButton';
 import ModalLayout from '@components/ModalLayout';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ScanNose = () => {
   const navigation = useNavigation();
@@ -26,11 +27,18 @@ const ScanNose = () => {
     });
 
     try {
+      const jsessionid = await AsyncStorage.getItem('JSESSIONID');
+      if (!jsessionid) {
+        Alert.alert('오류', '로그인이 필요합니다.');
+        return;
+      }
+
       // 비문 이미지 서버 전송
-      const response = await fetch('http://52.79.140.133:8080/api/v1/ai/nose/test', {
+      const response = await fetch(`${config.API_SERVER_URL}/api/v1/ai/nose/test`, {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
+          'Cookie': `JSESSIONID=${jsessionid}`,
         },
         body: formData,
       });
@@ -39,32 +47,53 @@ const ScanNose = () => {
         const data = await response.json();
         const closestPetId = data.closest_class;
 
-        // closest_class(반려동물 ID)로 반려동물 정보 가져오기
-        const petResponse = await fetch(`http://52.79.140.133:8080/api/v1/pets/${closestPetId}`);
-        if (petResponse.ok) {
-          const petData = await petResponse.json();
+        // 사용자 소유 반려동물 목록 가져오기
+        const petsResponse = await fetch(`${config.API_SERVER_URL}/api/v1/users/pets`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': `JSESSIONID=${jsessionid}`,
+          },
+        });
 
-          // 결과 화면으로 이동하면서 반려동물 이름 전달
-          navigation.navigate('ScanNoseResult', {
-            imageUri,
-            result: data,
-            petName: petData.name, // 가져온 이름 전달
-          });
+        if (petsResponse.ok) {
+          const petsData = await petsResponse.json();
+          const userPets = petsData.pets;
+
+          // closest_class ID와 사용자 소유 반려동물 ID 비교
+          const matchedPet = userPets.find((pet) => String(pet.id) === String(closestPetId));
+
+          if (matchedPet) {
+            // 사용자 소유 반려동물과 일치
+            navigation.navigate('ScanNoseResult', {
+              petDetails: matchedPet,
+              isOwner: true,
+            });
+          } else {
+            // 사용자 소유 반려동물이 아닌 경우
+            const petResponse = await fetch(`${config.API_SERVER_URL}/api/v1/pets/${closestPetId}`);
+            if (petResponse.ok) {
+              const petData = await petResponse.json();
+              navigation.navigate('ScanNoseResult', {
+                petDetails: petData,
+                isOwner: false,
+              });
+            } else {
+              console.error('비문 조회 반려동물 정보 가져오기 실패');
+            }
+          }
         } else {
-          console.error('반려동물 정보를 불러오지 못했습니다.');
-          navigation.navigate('ScanNoseResult', {
-            imageUri,
-            result: data,
-            petName: '알 수 없는 이름', // 기본 메시지
-          });
+          console.error('사용자 반려동물 목록 조회 실패');
         }
       } else {
-        console.error('비문 전송 실패');
+        Alert.alert('오류', '비문 비교에 실패했습니다.');
       }
     } catch (error) {
       console.error('POST 요청 오류:', error);
+      Alert.alert('오류', '비문 비교 중 오류가 발생했습니다.');
     }
   };
+
 
   // 갤러리에서 이미지를 선택
   const handleGallerySelect = () => {
