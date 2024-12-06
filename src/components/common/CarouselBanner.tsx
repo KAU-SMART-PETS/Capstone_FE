@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
-import { View, TouchableOpacity, Image, useWindowDimensions } from 'react-native';
-import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
-import { LinearGradient } from 'react-native-linear-gradient';
+import * as React from "react";
+import { Dimensions, View, TouchableOpacity, Image } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
+import Carousel, { Pagination, ICarouselInstance } from "react-native-reanimated-carousel";
+import { useSharedValue } from "react-native-reanimated";
 
 interface CarouselBannerProps {
   banners: Array<{
@@ -11,63 +12,79 @@ interface CarouselBannerProps {
 }
 
 const CarouselBanner: React.FC<CarouselBannerProps> = ({ banners }) => {
-  const { width } = useWindowDimensions();
-  const [activeIndex, setActiveIndex] = useState(0); // 활성화된 페이지
-  const carouselRef = useRef<ICarouselInstance>(null);
+  const width = Dimensions.get("window").width;
+  const ref = React.useRef<ICarouselInstance>(null);
+  const progress = useSharedValue<number>(0);
 
   const onPressPagination = (index: number) => {
-    carouselRef.current?.scrollTo({
-      index, // 해당 인덱스로 이동
-      animated: true,
-    });
-    setActiveIndex(index); // 클릭한 인덱스를 상태로 업데이트
+    ref.current?.scrollTo({ count: index - progress.value, animated: true });
   };
 
   return (
     <View className="flex-1 bg-transparent items-center justify-center">
       <View>
         <Carousel
-          ref={carouselRef} // ref 연결
           loop
-          width={width}
-          height={200}
           autoPlay
-          autoPlayInterval={3000}
-          scrollAnimationDuration={1000}
+          autoPlayInterval={2000}
+          ref={ref}
+          width={width}
+          height={width / 2}
           data={banners}
-          onSnapToItem={(index) => setActiveIndex(index)} // 현재 페이지 인덱스 업데이트
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={item.onPressAction} className="flex-1">
-              <LinearGradient
-                colors={['rgba(0,0,0,1.0)', 'rgba(0,0,0,1.0)']}
-                className="absolute bottom-0 w-full h-full"
-              />
-              <Image
-                source={
-                  typeof item.imageSource === 'string'
-                    ? { uri: item.imageSource } // URL 이미지
-                    : item.imageSource // 로컬 이미지(require)
-                }
-                className="w-full h-full rounded-lg"
-                resizeMode="cover"
-              />
-            </TouchableOpacity>
-          )}
-        />
+          onProgressChange={progress}
+          renderItem={({ index }) => {
+            const banner = banners[index]; // 현재 배너 가져오기
+            if (!banner) {
+              // 방어 코드: undefined 방지
+              return <View style={{ width, height: width / 2 }} />;
+            }
+        
+            return (
+              <TouchableOpacity
+                onPress={banner.onPressAction}
+                className="flex-1"
+                activeOpacity={0.7}
+              >
+                <LinearGradient
+                  colors={["rgba(0,0,0,1.0)", "rgba(0,0,0,1.0)"]}
+                  className="absolute bottom-0 w-full h-full"
+                />
+                <Image
+                  source={
+                    typeof banner.imageSource === "string"
+                      ? { uri: banner.imageSource }
+                      : banner.imageSource
+                  }
+                  className="w-full h-full rounded-lg"
+                  resizeMode="cover"
+                />
+              </TouchableOpacity>
+            );
+          }}
+        /> 
       </View>
-
-      {/* 페이지네이션 */}
-      <View className="flex-row space-x-2 mb-4">
-        {banners.map((_, index) => (
-          <TouchableOpacity key={index} onPress={() => onPressPagination(index)}>
-            <View
-              className={`w-8 h-[5px] rounded ${
-                index === activeIndex ? 'bg-black/80' : 'bg-black/20'
-              }`}
-            />
-          </TouchableOpacity>
-        ))}
-      </View>
+      <Pagination.Basic
+				progress={progress}
+				data={banners}
+				dotStyle={{
+					width: 25,
+					height: 5,
+					backgroundColor: "#D9D9D9",
+          borderRadius: 5,
+				}}
+				activeDotStyle={{
+          width: 25,
+					height: 5,
+					overflow: "hidden",
+					backgroundColor: "#262626",
+				}}
+				containerStyle={{
+					gap: 12,
+					marginBottom: 10,
+				}}
+				horizontal
+				onPress={onPressPagination}
+			/>
     </View>
   );
 };
