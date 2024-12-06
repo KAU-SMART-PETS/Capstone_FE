@@ -1,12 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { View, TouchableOpacity, Image, useWindowDimensions } from 'react-native';
-import { LinearGradient } from 'react-native-linear-gradient'; // 그라데이션 효과
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
-import { useSharedValue } from 'react-native-reanimated';
+import { LinearGradient } from 'react-native-linear-gradient';
 
 interface CarouselBannerProps {
   banners: Array<{
-    imageUri: string;
+    imageSource: any; // 로컬 이미지(require) 또는 URL 이미지(string)
     onPressAction: () => void; // 클릭 시 동작
   }>;
 }
@@ -38,16 +37,17 @@ const CarouselBanner: React.FC<CarouselBannerProps> = ({ banners }) => {
           data={banners}
           onSnapToItem={(index) => setActiveIndex(index)} // 현재 페이지 인덱스 업데이트
           renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={item.onPressAction}
-              className="flex-1"
-            >
+            <TouchableOpacity onPress={item.onPressAction} className="flex-1">
               <LinearGradient
                 colors={['rgba(0,0,0,1.0)', 'rgba(0,0,0,1.0)']}
                 className="absolute bottom-0 w-full h-full"
               />
               <Image
-                source={{ uri: item.imageUri }}
+                source={
+                  typeof item.imageSource === 'string'
+                    ? { uri: item.imageSource } // URL 이미지
+                    : item.imageSource // 로컬 이미지(require)
+                }
                 className="w-full h-full rounded-lg"
                 resizeMode="cover"
               />
@@ -59,10 +59,7 @@ const CarouselBanner: React.FC<CarouselBannerProps> = ({ banners }) => {
       {/* 페이지네이션 */}
       <View className="flex-row space-x-2 mb-4">
         {banners.map((_, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => onPressPagination(index)} // 버튼 클릭 시 상태 변경
-          >
+          <TouchableOpacity key={index} onPress={() => onPressPagination(index)}>
             <View
               className={`w-8 h-[5px] rounded ${
                 index === activeIndex ? 'bg-black/80' : 'bg-black/20'
