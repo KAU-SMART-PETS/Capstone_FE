@@ -1,7 +1,7 @@
 // routes.ts
 
 import React from 'react';
-import {PetDetails} from '@constants/types';
+import {PetData, PetDetails} from '@constants/types';
 
 // Home
 import MainTab from '@screens/home/MainTab';
@@ -81,7 +81,8 @@ export const routesConfig: {
   [key: string]: RouteEntry<any>;
 } & {
   RegisterHealthInfo: RouteEntry<{ id: number }>;
-  PetProfile: RouteEntry<{pet?: PetDetails}>;
+  PetProfile: RouteEntry<{id: string}>; // 주의!
+  PetUpdate: RouteEntry<{id: string, data: PetDetails}>;
   OrderReceived: RouteEntry<OrderReceivedParams>;
 } = {
   MainTab: { component: MainTab, params: undefined },
@@ -91,7 +92,7 @@ export const routesConfig: {
   PetRegister: { component: PetRegister, params: undefined },
   PetProfile: {
     component: PetProfile,
-    params: undefined ,
+    params: { id : "" }
   }, // PetProfile에 필요한 params 설정
   Analysis: { component: Analysis, params: undefined },
   HospitalList: { component: HospitalList, params: undefined },
@@ -100,7 +101,7 @@ export const routesConfig: {
   DiseaseDetail: { component: DiseaseDetail, params: undefined },
   SelectPart: { component: SelectPart, params: undefined },
   HospitalInfo: {component: HospitalInfo, params: undefined},
-  PetUpdate: { component: PetUpdate, params: { petId: '' } },
+  PetUpdate: { component: PetUpdate, params: undefined },
   SelectPetToScan: { component: SelectPetToScan, params: undefined },
   ReadyToScan: { component: ReadyToScan, params: undefined },
   ResultEyeScan: { component: ResultEyeScan, params: undefined },

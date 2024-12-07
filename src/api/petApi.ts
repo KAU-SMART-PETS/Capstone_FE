@@ -92,7 +92,6 @@ export const deletePet =  async (petId: string): Promise<boolean> => {
 
     if (response.ok) {
       console.log(`Pet ${petId} 삭제에 성공했습니다.`);
-
       await AsyncStorage.removeItem(`PET_${petId}`);
       console.log(`Pet ${petId} 캐시 삭제`);
       
@@ -176,7 +175,6 @@ export const updatePetRegistration = async (
     Alert.alert('오류', '모든 필수 정보를 입력해주세요.');
     return;
   }
-
   try {
     const jsessionid = await AsyncStorage.getItem('JSESSIONID');
     if (!jsessionid) {
@@ -210,6 +208,15 @@ export const updatePetRegistration = async (
 
     if (response.ok) {
       Alert.alert('성공', '반려동물 정보가 수정되었습니다.');
+      const newData = {
+        name: petData.name,
+        petType: petData.petType === 2 ? "DOG" : "CAT",
+        gender: petData.gender === 2 ? "FEMALE" : "MALE",
+        weight: petData.weight,
+        age: petData.age,
+        imageUrl: petData.image,
+      };
+      await AsyncStorage.setItem(`PET_${petId}`, JSON.stringify(newData));
       navigation.goBack();
     } else {
       const errorData = await response.text();

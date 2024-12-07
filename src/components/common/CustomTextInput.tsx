@@ -183,13 +183,12 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
       <View
         className={`
           h-[54px] border-[1.5px] rounded-[16px] px-3 flex-row items-center justify-between
-          ${hasError ? 'border-red' : isFocused ? 'border-primary border-opacity-30' : 'border-secondary'} 
+          ${hasError ? 'border-2 border-red' : isFocused ? 'border-2 border-primary border-opacity-30' : 'border-secondary'} 
         `}
       >
         <View className="flex-1">
           {label && (
             <View className="pl-1 mt-1.5 absolute"> 
-            {/* NOTE : 앱배포 전달하여 받은 피드백에 따라 여백 조정했으나 실제 디바이스에서 알맞은 지 체크하는 게 필요함 */}
               <StylizedText type="label" styleClass="text-secondary">
                 {label}
               </StylizedText>

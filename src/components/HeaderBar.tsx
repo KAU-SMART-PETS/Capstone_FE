@@ -26,7 +26,7 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
     <View
       className={`${position === "absolute" ? "absolute" : "relative"} 
         w-full flex-row items-center justify-between
-        p-5 bg-white
+        p-5 bg-opacity-0
         z-10
       `}
     >
@@ -48,6 +48,24 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
           </TouchableOpacity>
         ))}
       </View>
+    </View>
+  );
+};
+
+export const BackArrowHeader: React.FC = ({
+}) => {
+  const navigation = useNavigation();
+  const handleBackButton = () => {
+    navigation.goBack();
+  };
+  return (
+    <View
+      className={`absolute w-full flex-row items-center justify-between p-5 bg-opacity-0 bg-transparent z-10`}
+    >
+      {/* 왼쪽 영역: 뒤로가기 버튼 및 제목 */}
+      <TouchableOpacity onPress={handleBackButton} style={{ marginRight: 8 }}>
+        <Ionicons size={22} name="chevron-back-outline" />
+      </TouchableOpacity>
     </View>
   );
 };

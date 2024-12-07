@@ -1,7 +1,7 @@
 import ColorMap, { OpacityMap } from '@common/ColorMap';
 import { ViewStyle } from 'react-native';
 
-export type DesignPreset = 'A' | 'B' | 'C' | 'D' | 'modalC' | 'modalB' |
+export type DesignPreset = 'A' | 'B' | 'C' | 'D' | 'FullBox' | 'modalC' | 'modalB' |
                             'greycard' | 'dashedcard' | 'squarecard' | 'A-yellow-20' |
                             'opaque-panel' | 'flatcard' | 'flatcard-fit' | 'flatcard2'; 
 // 파일 하단에 각 옵션에 따른 스타일 설명
@@ -68,6 +68,12 @@ export const getBoxOutlnes = (outline: OutlinePreset) : ViewStyle => {
           borderStyle: 'border border-3',
           containerLayout: 'py-4 px-3 flex items-center justify-center',
         };
+      case 'FullBox': // 그냥 안쪽에 요소 정렬. 각이 좀더 살아있음.
+        return {
+        backgroundColor: 'bg-white/80',
+        borderStyle: 'rounded-[12px]',
+        containerLayout: 'w-full mx-auto p-4 px-2 flex items-center justify-center',
+      };
       case 'modalC': // 센터모달 (중앙 모달) - 하얀박스, 내부요소 중앙정렬
         return {
         backgroundColor: 'bg-white',
