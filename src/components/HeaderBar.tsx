@@ -31,15 +31,16 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
       `}
     >
       {/* 왼쪽 영역: 뒤로가기 버튼 및 제목 */}
-      <View className="flex-row items-center">
-        {showBackButton && (
-          <TouchableOpacity onPress={handleBackButton} style={{ marginRight: 8 }}>
-            <Ionicons size={22} name="chevron-back-outline" />
-          </TouchableOpacity>
-        )}
-        <StylizedText type='header5'>{title}</StylizedText>
+      <View className="items-center">
+        <TouchableOpacity onPress={handleBackButton} className="flex-row">
+          {showBackButton && (
+            <View className="mr-3">
+              <Ionicons size={22} name="chevron-back-outline" />
+            </View>
+          )}
+          <StylizedText type='header5'>{title}</StylizedText>
+        </TouchableOpacity>
       </View>
-
       {/* 오른쪽 영역: 아이콘 버튼들 */}
       <View className="flex-row items-center">
         {iconButtons.map((button, index) => (
@@ -63,7 +64,7 @@ export const BackArrowHeader: React.FC = ({
       className={`absolute w-full flex-row items-center justify-between p-5 bg-opacity-0 bg-transparent z-10`}
     >
       {/* 왼쪽 영역: 뒤로가기 버튼 및 제목 */}
-      <TouchableOpacity onPress={handleBackButton} style={{ marginRight: 8 }}>
+      <TouchableOpacity onPress={handleBackButton} className="w-1/3">
         <Ionicons size={22} name="chevron-back-outline" />
       </TouchableOpacity>
     </View>
