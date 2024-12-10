@@ -39,12 +39,13 @@ import BTView from '@screens/bluetooth/BTView';
 // Reward & Point & Food(Feed)
 import ChallengeList from '@screens/reward/ChallengeList';
 import CongratulatePopUp from '@screens/reward/CongratulatePopUp';
-import OrderReceived from '@screens/reward/OrderReceived';
-import { OrderReceivedParams } from '@screens/reward/OrderReceived';
-import ViewFeedList from '@screens/reward/ViewFeedList';
-import PaymentInformation from '@screens/reward/PaymentInformation';
-import PaymentSampleInformation from '@screens/reward/PaymentSampleInformation';
-import SearchAddress from '@screens/reward/SearchAddress';
+
+import OrderReceived from '@screens/feed/OrderReceived';
+import { OrderReceivedParams } from '@screens/feed/OrderReceived';
+import ViewFeedList from '@screens/feed/ViewFeedList';
+import PaymentInformation from '@screens/feed/PaymentInformation';
+import PaymentSampleInformation from '@screens/feed/PaymentSampleInformation';
+import SearchAddress from '@screens/feed/SearchAddress';
 
 // AiEye
 import ReadyToScan from '@screens/ai/ReadyToScan';
