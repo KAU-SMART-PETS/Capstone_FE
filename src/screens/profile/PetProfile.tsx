@@ -12,7 +12,7 @@ import MCIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import FA5Icon from 'react-native-vector-icons/FontAwesome5'
 import RoundedBox from "@src/components/common/RoundedBox";
 import { RoundedCircleButton } from "@common/RoundedButton";
-import { Shapes } from "react-native-background-shapes";
+//import { Shapes } from "react-native-background-shapes";
 import ColorMap, { OpacityMap } from "@src/components/common/ColorMap";
 import { PetDetails } from "@src/utils/constants/types";
 

@@ -86,7 +86,7 @@ const SelectPetToScan = () => {
       </TouchableOpacity>
 
       <StylizedText type="header1" styleClass="text-black mb-4 mt-6">
-        촬영 시 {"\n"}반려동물의 동공이 {"\n"}잘 보일 수 있도록 찍어주세요.
+        촬영 시 {"\n"}반려동물의 홍채가 {"\n"}잘 보일 수 있도록 찍어주세요.
       </StylizedText>
 
       <View style={styles.petListContainer}>

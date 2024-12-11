@@ -99,8 +99,8 @@ const HomeScreen: React.FC = () => {
     },
     {
       id: 'scan-nose',
-      title: '비문 스캔하기',
-      content: '반려동물의 비문을 스캔하여\n주인 정보를 확인해보세요!',
+      title: '비문 조회하기',
+      content: '반려동물의 비문을 조회하여\n주인 정보를 확인해보세요!',
       avatar: require('../../assets/image/scan_nose.png'),
       onPress: () => navigation.navigate('ScanNose'),
     },
