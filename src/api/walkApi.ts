@@ -53,7 +53,7 @@ export const registerWalkRecord = async (
         const { distance, calories } = responseData;
         Alert.alert(
           '성공',
-          `산책 기록이 저장되었습니다.\n거리: ${distance}km\n소모 칼로리: ${calories}kcal`
+          `산책 기록이 저장되었습니다.`
         );
   
         return responseData;

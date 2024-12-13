@@ -170,7 +170,7 @@ const MapPage: React.FC = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <WalkRecordingPanel distanceInMeters={distance*1000} timeInSeconds={time} />
+      <WalkRecordingPanel distanceInMeters={distance} timeInSeconds={time} />
 
       <MapView
         ref={mapRef}
@@ -289,7 +289,9 @@ const MapPage: React.FC = () => {
                   }
                   distance={
                     walkResponse?.distance !== undefined
-                      ? `${walkResponse.distance.toFixed(3)} km`
+                      ? walkResponse.distance < 1000
+                        ? `${walkResponse.distance.toFixed(0)} m` // 1000m 미만이면 m 단위로 표시
+                        : `${(walkResponse.distance / 1000).toFixed(2)} km` // 1000m 이상이면 km 단위로 표시
                       : '거리 없음'
                   }
                   calories={
