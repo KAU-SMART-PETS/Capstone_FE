@@ -56,7 +56,7 @@ export const registerWalkRecord = async (
           `산책 기록이 저장되었습니다.\n거리: ${distance}km\n소모 칼로리: ${calories}kcal`
         );
   
-        return true;
+        return responseData;
       } else {
         const errorData = await response.text();
         console.error(`산책 기록 저장 실패: ${response.status}`, errorData);

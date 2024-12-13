@@ -14,7 +14,7 @@ import LottieView from 'lottie-react-native';
 import { WalkingDog } from '@common/Loading';
 
 const haversine = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
-  const R = 6371;
+  const R = 6371; // 지구 반지름 (킬로미터)
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLon = ((lon2 - lon1) * Math.PI) / 180;
   const a =
@@ -62,10 +62,10 @@ const MapPage: React.FC = () => {
       if (Platform.OS === 'android') {
         const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          watchId = startWatchingLocation();
+          startWatchingLocation();
         }
       } else {
-        watchId = startWatchingLocation();
+        startWatchingLocation();
       }
     };
     requestLocationPermission();
@@ -78,8 +78,8 @@ const MapPage: React.FC = () => {
     };
   }, []);
 
-  const startWatchingLocation = (): number | null => {
-    const id = Geolocation.watchPosition(
+  const startWatchingLocation = (): void => {
+    watchId = Geolocation.watchPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
         setLocation({ latitude, longitude });
@@ -93,7 +93,7 @@ const MapPage: React.FC = () => {
 
         setPrevLocation({ latitude, longitude });
       },
-      (error) => console.log('위치 추적 오류:', error),
+      (error) => console.error('위치 추적 오류:', error),
       {
         enableHighAccuracy: true,
         distanceFilter: 1,
@@ -101,8 +101,6 @@ const MapPage: React.FC = () => {
         fastestInterval: 2000,
       }
     );
-
-    return id;
   };
 
   const handleStartPress = () => {
@@ -178,10 +176,8 @@ const MapPage: React.FC = () => {
   };
   return (
     <View style={{ flex: 1 }}>
-      {!isMapReady && (
-          <WalkingDog />
-        )}
-      {isMapReady && <WalkRecordingPanel distanceInMeters={distance * 1000} timeInSeconds={time} />}
+      <WalkRecordingPanel distanceInMeters={distance*1000} timeInSeconds={time} />
+
       <MapView
         ref={mapRef}
         provider={PROVIDER_GOOGLE}
@@ -190,24 +186,15 @@ const MapPage: React.FC = () => {
         region={region}
         onMapReady={handleMapReady}
         showsUserLocation
+        onRegionChangeComplete={(region) => setRegion(region)}
       >
-        {location && 
-          <MapMarker coordinate={location}
-            anchor={{x: 0.5, y:1.0}}
-            >
-            <LottieView
-              source={require('@assets/lottie/MapPin.json')}
-              autoPlay
-              loop
-              style={{
-                position: `absolute`,
-                height: 35,
-                width: 35,
-              }}
-              resizeMode={'contain'}
-            />
-          </MapMarker>
-        }
+        {location && (
+          <Marker
+            coordinate={location}
+            title="내 위치"
+            description="현재 위치입니다."
+          />
+        )}
       </MapView>
 
       <View className="absolute bottom-5 left-0 right-0 items-center">
@@ -273,8 +260,7 @@ const MapPage: React.FC = () => {
           ]}
         />
       )}
-      
-      
+
       {isBottomModalVisible && walkResponse && (
         <ModalLayout
           visible={isBottomModalVisible}
@@ -298,7 +284,7 @@ const MapPage: React.FC = () => {
             },
             {
               content: [
-                <WalkingRecord //없음이라고 뜸. 수정필요
+                <WalkingRecord
                   walkDate={
                     walkResponse?.startDate
                       ? walkResponse.startDate.split(' ')[0]
