@@ -20,9 +20,12 @@ const formatTime = (seconds: number): string => {
     .join(':');
 };
 
-// 거리를 km로 변환하는 함수
+// 거리를 표시 형식에 맞게 변환하는 함수
 const formatDistance = (meters: number): string => {
-  return (meters / 1000).toFixed(2); // km 단위로 변환 후 소수점 1자리까지 표시
+  if (meters < 1000) {
+    return `${meters.toFixed(0)} m`; // 1000m 미만일 경우 m 단위로 표시
+  }
+  return `${(meters / 1000).toFixed(2)} km`; // 1000m 이상일 경우 km 단위로 표시
 };
 
 const WalkRecordingPanel: React.FC<WalkRecordingPanelProps> = ({ distanceInMeters, timeInSeconds }) => {
@@ -34,7 +37,7 @@ const WalkRecordingPanel: React.FC<WalkRecordingPanelProps> = ({ distanceInMeter
       <RoundedBox preset="opaque-panel" shadow={false} className="w-[85%]">
         <View className="flex-row items-center">
           <FeatherIcon name="compass" size={20} color="black" />
-          <StylizedText type="header2" styleClass="ml-3 text-black">{formattedDistance} km</StylizedText>
+          <StylizedText type="header2" styleClass="ml-3 text-black">{formattedDistance}</StylizedText>
         </View>
         <View className="flex-row items-center">
           <FontistoIcon name="stopwatch" size={20} color="black" />
