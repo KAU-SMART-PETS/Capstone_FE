@@ -12,7 +12,7 @@ import { registerWalkRecord } from '@src/api/walkApi';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
 const haversine = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
-  const R = 6371;
+  const R = 6371; // 지구 반지름 (킬로미터)
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLon = ((lon2 - lon1) * Math.PI) / 180;
   const a =
@@ -53,10 +53,10 @@ const MapPage: React.FC = () => {
       if (Platform.OS === 'android') {
         const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          watchId = startWatchingLocation();
+          startWatchingLocation();
         }
       } else {
-        watchId = startWatchingLocation();
+        startWatchingLocation();
       }
     };
 
@@ -71,8 +71,8 @@ const MapPage: React.FC = () => {
     };
   }, []);
 
-  const startWatchingLocation = (): number | null => {
-    const id = Geolocation.watchPosition(
+  const startWatchingLocation = (): void => {
+    watchId = Geolocation.watchPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
         setLocation({ latitude, longitude });
@@ -86,7 +86,7 @@ const MapPage: React.FC = () => {
 
         setPrevLocation({ latitude, longitude });
       },
-      (error) => console.log('위치 추적 오류:', error),
+      (error) => console.error('위치 추적 오류:', error),
       {
         enableHighAccuracy: true,
         distanceFilter: 1,
@@ -94,8 +94,6 @@ const MapPage: React.FC = () => {
         fastestInterval: 2000,
       }
     );
-
-    return id;
   };
 
   const handleStartPress = () => {
@@ -172,7 +170,7 @@ const MapPage: React.FC = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <WalkRecordingPanel distanceInMeters={distance * 1000} timeInSeconds={time} />
+      <WalkRecordingPanel distanceInMeters={distance*1000} timeInSeconds={time} />
 
       <MapView
         ref={mapRef}
@@ -180,6 +178,7 @@ const MapPage: React.FC = () => {
         style={{ flex: 1 }}
         region={region}
         showsUserLocation
+        onRegionChangeComplete={(region) => setRegion(region)}
       >
         {location && (
           <Marker
@@ -253,8 +252,7 @@ const MapPage: React.FC = () => {
           ]}
         />
       )}
-      
-      
+
       {isBottomModalVisible && walkResponse && (
         <ModalLayout
           visible={isBottomModalVisible}
@@ -278,7 +276,7 @@ const MapPage: React.FC = () => {
             },
             {
               content: [
-                <WalkingRecord //없음이라고 뜸. 수정필요
+                <WalkingRecord
                   walkDate={
                     walkResponse?.startDate
                       ? walkResponse.startDate.split(' ')[0]
