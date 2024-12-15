@@ -12,7 +12,7 @@
     "android:clean": "cd android && ./gradlew clean",
     "ios:pods": "cd ios && pod install",
     "ios:fastlane": "cd ios && bundle exec fastlane ios beta",
-    "start:script": "cd scripts && ./run_scripts.sh && cd ../"
+    "script": "cd $(git rev-parse --show-toplevel) && cd scripts && ./run_scripts.sh"
   },
   "dependencies": {
     "@actbase/react-daum-postcode": "^1.0.4",

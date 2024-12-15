@@ -73,6 +73,7 @@ gradle_clean_and_build() {
   header "Gradle 클린 및 Android 빌드 실행"
   info "Gradle 클린 및 Android 빌드를 실행합니다..."
   cd "${ANDROID_DIR}" || exit
+  ./gradlew --stop
   ./gradlew clean
   # if ./gradlew build -PreactNativeArchitectures="${TARGET_ARCH}" --stacktrace --info; then
   #   success "Gradle 클린 및 빌드가 완료되었습니다!"
