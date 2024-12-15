@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { View, ScrollView, SafeAreaView, Alert, TouchableOpacity } from "react-native";
 import { launchImageLibrary } from "react-native-image-picker";
-import { RoundedTextButton } from "@src/components/common/RoundedButton";
-import CustomTextInput from "@src/components/common/CustomTextInput";
-import StylizedText from "@src/components/common/StylizedText";
-import Avatar from "@src/components/common/Avatar";
+import { RoundedTextButton } from "@common/RoundedButton";
+import CustomTextInput from "@common/CustomTextInput";
+import StylizedText from "@common/StylizedText";
+import Avatar from "@common/Avatar";
 import HeaderBar from "@src/components/HeaderBar";
 import RadioButton from "@common/RadioButton";
 import emptyCircleFrame from "@image/frame/addPetCircle.png";

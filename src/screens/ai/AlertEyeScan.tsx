@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import StylizedText from '@components/common/StylizedText';
-import { RoundedTextButton } from '@components/common/RoundedButton';
-import ModalLayout from '@components/ModalLayout';
 import { launchImageLibrary } from 'react-native-image-picker';
+// 컴포넌트
+import ModalLayout from '@components/ModalLayout';
+// 공통 컴포넌트
+import StylizedText from '@common/StylizedText';
+import { RoundedTextButton } from '@common/RoundedButton';
 
 const AlertScan = () => {
   const navigation = useNavigation();

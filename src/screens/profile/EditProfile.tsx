@@ -8,10 +8,10 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { fetchUserProfile, updateUserProfile } from "@src/api/userApi";
 import { UserData } from "@src/utils/constants/types";
-import CustomTextInput from "@src/components/common/CustomTextInput";
-import StylizedText from "@src/components/common/StylizedText";
+import CustomTextInput from "@common/CustomTextInput";
+import StylizedText from "@common/StylizedText";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { RoundedTextButton } from "@src/components/common/RoundedButton";
+import { RoundedTextButton } from "@common/RoundedButton";
 import HeaderBar from "@src/components/HeaderBar";
 
 type EditableField = keyof UserData | "consent" | null;

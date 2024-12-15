@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { View, TouchableWithoutFeedback, BackHandler } from 'react-native';
 import Animated, { FadeInUp, FadeOut } from 'react-native-reanimated';
-import Avatar from '@components/common/Avatar';
-import StylizedText from '@components/common/StylizedText';
+import Avatar from '@common/Avatar';
+import StylizedText from '@common/StylizedText';
 import { useNavigation, useFocusEffect, useRoute } from '@react-navigation/native';
 
 type OrderReceivedParams = {

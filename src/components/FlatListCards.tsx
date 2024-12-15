@@ -2,14 +2,14 @@ import React from 'react';
 import { View , ImageSourcePropType, Image } from 'react-native';
 import { PillBadge, RatingBadge } from '@common/Badge';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import StylizedText from '@components/common/StylizedText';
-import ListCard from '@components/common/ListCard';
+import StylizedText from '@common/StylizedText';
+import ListCard from '@common/ListCard';
 import bagImg from '@image/icon/bag.png';
 import dog1 from '@image/placeholder/dog.jpg';
-import ModalLayout from './ModalLayout';
+import ModalLayout from '@components/ModalLayout';
 import { TouchableOpacity } from 'react-native';
 import { useState } from 'react';
-import { RoundedTextButton, RoundedSquareButton } from './common/RoundedButton';
+import { RoundedTextButton, RoundedSquareButton } from '@common/RoundedButton';
 
 // 리워드 관련
 interface RewardCardProps {

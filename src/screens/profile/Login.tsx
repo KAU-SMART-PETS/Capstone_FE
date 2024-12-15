@@ -7,7 +7,8 @@ import LoginCat from '@image/login_cat.png';
 import LoginDog from '@image/login_dog.png';
 import { WebView, WebViewNavigation } from 'react-native-webview';
 import { handleLoginPress, handleWebViewNavigationStateChange } from '@api/loginApi';
-import StylizedText from '@components/common/StylizedText';
+import StylizedText from '@common/StylizedText';
+import ColorMap from '@common/ColorMap';
 
 const Login = () => {
   const navigation = useNavigation<NavigationProp<any>>();
@@ -79,7 +80,7 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#73A8BA',
+    backgroundColor: ColorMap['primary'],
   },
   topHalf: {
     flex: 1,

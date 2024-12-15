@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, View, Text, TouchableOpacity, ScrollView, Linking } from 'react-native';
-import ListCard from '@components/common/ListCard';
-import StylizedText from '@components/common/StylizedText';
+import ListCard from '@common/ListCard';
+import StylizedText from '@common/StylizedText';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import CarouselBanner from '@common/CarouselBanner';
@@ -73,35 +73,35 @@ const HomeScreen: React.FC = () => {
       id: 'reward-check',
       title: '리워드 확인하기',
       content: '다양한 리워드를\n달성하며 혜택을 받아보세요!',
-      avatar: require('../../assets/image/reward.png'),
+      avatar: require('@assets/image/reward.png'),
       onPress: () => navigation.navigate('ChallengeList'),
     },
     {
       id: 'product-buy',
       title: '제품 구매하기',
       content: '누적된 포인트로 제품을 구매해보세요!',
-      avatar: require('../../assets/image/bag.png'),
+      avatar: require('@assets/image/bag.png'),
       onPress: () => navigation.navigate('ViewFeedList'),
     },
     {
       id: 'scan-iris',
       title: '질병 분석하기',
       content: '반려동물의 홍채를 스캔하여\n건강 상태를 확인해보세요!',
-      avatar: require('../../assets/image/scan.png'),
+      avatar: require('@assets/image/scan.png'),
       onPress: () => navigation.navigate('SelectPetToScan'),
     },
     {
       id: 'register-nose',
       title: '비문 등록하기',
       content: '반려동물의 안전을 위한\n비문을 등록해보세요!',
-      avatar: require('../../assets/image/nose.png'),
+      avatar: require('@assets/image/nose.png'),
       onPress: () => navigation.navigate('RegisterPetNose'),
     },
     {
       id: 'scan-nose',
       title: '비문 조회하기',
       content: '반려동물의 비문을 조회하여\n주인 정보를 확인해보세요!',
-      avatar: require('../../assets/image/scan_nose.png'),
+      avatar: require('@assets/image/scan_nose.png'),
       onPress: () => navigation.navigate('ScanNose'),
     },
   ];
@@ -117,7 +117,7 @@ const HomeScreen: React.FC = () => {
           //{ id: 'WalkWeeklyRecord', title: 'WalkWeeklyRecord', screen: 'WalkWeeklyRecord' },
           // { id: 'TodayWalk', title: 'Today Walk', screen: 'TodayWalk' },
           //{ id: 'WalkStartPage', title: 'WalkStartPage', screen: 'WalkStartPage' },
-          //{ id: 'Camera', title: 'Camera', screen: 'CameraView' },
+          { id: 'Camera', title: 'Camera', screen: 'CameraView' },
           //{ id : 'SelectPetToScan', title:'ScanEye', screen: 'SelectPetToScan'},
           //{ id : 'RegisterPetNose', title:'RegisterNose', screen: 'RegisterPetNose'},
           //{ id: 'PetHealthInfo', title: 'Pet Health Info', screen: 'Analysis' },

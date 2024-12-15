@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, ScrollView, Image, StyleSheet } from 'react-native';
-import HealthCards from '../../components/common/HealthCards';
+import HealthCards from '@common/HealthCards';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import StylizedText, { HeaderText } from '@components/common/StylizedText';
-import { RoundedTextButton } from '../../components/common/RoundedButton';
+import StylizedText, { HeaderText } from '@common/StylizedText';
+import { RoundedTextButton } from '@common/RoundedButton';
 
 const ResultEyeScan = () => {
   const route = useRoute();

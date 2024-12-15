@@ -2,18 +2,18 @@ import React, { useState, useCallback } from "react";
 import { View, ScrollView, SafeAreaView, Alert } from "react-native";
 import { useNavigation, RouteProp, useFocusEffect } from "@react-navigation/native";
 import { deletePet, getPetDetails } from "@src/api/petApi";
-import StylizedText from "@src/components/common/StylizedText";
-import Avatar from "@src/components/common/Avatar";
+import StylizedText from "@common/StylizedText";
+import Avatar from "@common/Avatar";
 import AvatarPlaceholder from "@image/placeholder/dog.jpg";
 import { HBarChart } from '@common/BarChart';
 import { BackArrowHeader } from "@src/components/HeaderBar";
 import Icon from "react-native-vector-icons/Ionicons";
 import MCIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import FA5Icon from 'react-native-vector-icons/FontAwesome5'
-import RoundedBox from "@src/components/common/RoundedBox";
+import RoundedBox from "@common/RoundedBox";
 import { RoundedCircleButton } from "@common/RoundedButton";
 //import { Shapes } from "react-native-background-shapes";
-import ColorMap, { OpacityMap } from "@src/components/common/ColorMap";
+import ColorMap, { OpacityMap } from "@common/ColorMap";
 import { PetDetails } from "@src/utils/constants/types";
 
 // Mock 데이터

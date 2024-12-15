@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { fetchWeeklyData } from '@api/weeklyDataApi';
-import { VBarChart } from '@components/common/BarChart';
-import Loading from '@components/common/Loading';
-import { HeaderText } from '@components/common/StylizedText';
+import { VBarChart } from '@common/BarChart';
+import Loading from '@common/Loading';
+import { HeaderText } from '@common/StylizedText';
 import { WeeklySummaryProps, WeeklyDataType, Metrics } from '@types';
-import { BarGroupColor } from '@components/common/ColorMap';
-import { RoundedFrame } from '@components/common/RoundedBox';
+import { BarGroupColor } from '@common/ColorMap';
+import { RoundedFrame } from '@common/RoundedBox';
 
 const WeeklySummary: React.FC<WeeklySummaryProps> = ({ petId = 1 }) => {
   const [weeklyData, setWeeklyData] = useState<WeeklyDataType[] | null>(null);

@@ -1,6 +1,5 @@
 // App.tsx
 import React, { useEffect, useRef } from 'react';
-import { Alert } from 'react-native';
 import { Camera } from 'react-native-vision-camera';
 import { PaperProvider } from 'react-native-paper';
 import AppNavigator from './navigation'; // 네비게이션을 분리한 파일에서 import

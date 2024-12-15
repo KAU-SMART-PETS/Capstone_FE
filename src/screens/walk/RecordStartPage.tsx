@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Alert, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { RoundedTextButton } from '@components/common/RoundedButton';
+import { RoundedTextButton } from '@common/RoundedButton';
 import StylizedText from '@common/StylizedText';
 import Avatar from '@common/Avatar';
 import { fetchPetList } from '@api/walkApi';

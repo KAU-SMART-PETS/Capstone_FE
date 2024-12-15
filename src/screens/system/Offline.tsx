@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'; 
 import { View, BackHandler } from 'react-native';
-import StylizedText from '@components/common/StylizedText';
-import { RoundedTextButton } from '@components/common/RoundedButton';
+import StylizedText from '@common/StylizedText';
+import { RoundedTextButton } from '@common/RoundedButton';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo'; // 네트워크 상태 확인을 위한 import
 

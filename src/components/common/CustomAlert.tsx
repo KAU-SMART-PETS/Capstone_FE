@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Modal } from 'react-native';
-import StylizedText from '@components/common/StylizedText';
+import StylizedText from '@common/StylizedText';
+import ColorMap from '@common/ColorMap';
 
 const CustomAlert = ({ visible, onClose, message }) => {
   return (
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     right: 10,
-    backgroundColor: '#73A8BA',
+    backgroundColor: ColorMap['primary'],
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 8,

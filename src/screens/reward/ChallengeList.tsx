@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ModalLayout from '@components/ModalLayout'; // ModalLayout import
-import StylizedText, { HeaderText } from '@components/common/StylizedText';
+import StylizedText, { HeaderText } from '@common/StylizedText';
 import { RewardCard } from '@components/FlatListCards';
 import { rewardsList, depositRewardPoints } from '@api/rewardApi';
 import { depositPoints } from '@api/pointApi';
 import { fetchUserProfile } from '@api/userApi';
-import { RoundedTextButton } from '@components/common/RoundedButton';
+import { RoundedTextButton } from '@common/RoundedButton';
 
 const ChallengeList: React.FC = () => {
   const navigation = useNavigation();

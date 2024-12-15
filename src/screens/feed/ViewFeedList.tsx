@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Text } from 'react-native'; 
 import StylizedText from '@common/StylizedText'; 
 import Avatar from '@common/Avatar'; 
-import { RoundedTextButton } from '@components/common/RoundedButton'; 
+import { RoundedTextButton } from '@common/RoundedButton'; 
 import RoundedBox from '@common/RoundedBox';
 import { useNavigation } from '@react-navigation/native'; 
 import { foodsList } from '@api/foodApi'; 

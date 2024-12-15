@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import StylizedText, { HeaderText } from '@components/common/StylizedText';
-import { RoundedTextButton } from '@components/common/RoundedButton';
+import StylizedText, { HeaderText } from '@common/StylizedText';
+import { RoundedTextButton } from '@common/RoundedButton';
 
 const ResultNoseRegister = () => {
   const route = useRoute();

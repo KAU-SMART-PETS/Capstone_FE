@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { BannerSection } from '@common/BannerSection';
 import WalkingdogIcon from '@image/icon/walkingDogIcon.png';
 import { WalkDetailsCard } from '@components/FlatListCards';
-import { RoundedTextButton } from '@components/common/RoundedButton';
+import { RoundedTextButton } from '@common/RoundedButton';
 import StylizedText from '@common/StylizedText';
 import Avatar from '@common/Avatar';
 import { Provider as PaperProvider } from 'react-native-paper';

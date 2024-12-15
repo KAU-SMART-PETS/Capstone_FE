@@ -5,7 +5,7 @@ import CustomTextInput from '@common/CustomTextInput';
 import RadioButtonGroup from '@common/RadioButtonGroup';
 import RadioButton from '@common/RadioButton';
 import Avatar from '@common/Avatar';
-import { RoundedTextButton } from '@components/common/RoundedButton';
+import { RoundedTextButton } from '@common/RoundedButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import ModalLayout from '@components/ModalLayout';
 import { ProgressDots } from '@common/Loading';

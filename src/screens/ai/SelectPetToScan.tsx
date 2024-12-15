@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { fetchUserPets, getPetDetails } from '@api/petApi';
-import StylizedText from '../../components/common/StylizedText';
-import Avatar from '@components/common/Avatar';
-import { RoundedTextButton } from '@components/common/RoundedButton';
-import CustomAlert from '@components/common/CustomAlert';
+import StylizedText from '@common/StylizedText';
+import Avatar from '@common/Avatar';
+import { RoundedTextButton } from '@common/RoundedButton';
+import CustomAlert from '@common/CustomAlert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import ColorMap from '@common/ColorMap';
 
 const defaultImage = require('../../assets/image/icon/pawprint.png');
 const backIcon = require('../../assets/image/icon/arrow_back.png');
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   selectedPetButton: {
-    borderColor: '#73A8BA',
+    borderColor: ColorMap['primary'],
     borderWidth: 2,
   },
   unselectedPetButton: {

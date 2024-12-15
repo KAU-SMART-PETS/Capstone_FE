@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
-import StylizedText from '@components/common/StylizedText';
-import { RoundedTextButton } from '@components/common/RoundedButton';
+import StylizedText from '@common/StylizedText';
+import { RoundedTextButton } from '@common/RoundedButton';
 import ModalLayout from '@components/ModalLayout';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

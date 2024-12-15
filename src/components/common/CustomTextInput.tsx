@@ -1,7 +1,7 @@
 import React, { useState, ReactNode } from 'react';
 import { View, TextInput, Pressable, Keyboard } from 'react-native';
 import StylizedText, { getStyles } from './StylizedText';
-import { ColorMap, OpacityMap } from './ColorMap';
+import { ColorMap, OpacityMap } from '@common/ColorMap';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import { Picker } from '@react-native-picker/picker';

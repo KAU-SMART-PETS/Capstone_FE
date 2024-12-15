@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, Alert, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import StylizedText, { HeaderText } from '@components/common/StylizedText';
+import StylizedText, { HeaderText } from '@common/StylizedText';
 import RoundedBox from '@common/RoundedBox';
-import { RoundedTextButton } from '@components/common/RoundedButton';
-import Avatar from '@components/common/Avatar';
+import { RoundedTextButton } from '@common/RoundedButton';
+import Avatar from '@common/Avatar';
 import { fetchUserProfile } from '@api/userApi';
 import { rewardsList } from '@api/rewardApi';
 

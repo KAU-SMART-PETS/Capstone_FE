@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Animated } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
-import ColorMap from './ColorMap';
-import StylizedText from './StylizedText';
+import ColorMap from '@common/ColorMap';
+import StylizedText from '@common/StylizedText';
 
 const CenterContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // absolute center에 위치하게 함.

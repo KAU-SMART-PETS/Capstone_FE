@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import StylizedText, { HeaderText } from '@components/common/StylizedText';
-import CustomAlert from '@components/common/CustomAlert';
-import { RoundedTextButton } from '@components/common/RoundedButton';
+import StylizedText, { HeaderText } from '@common/StylizedText';
+import CustomAlert from '@common/CustomAlert';
+import { RoundedTextButton } from '@common/RoundedButton';
 
 const ScanNoseResult = ({ route }) => {
   const navigation = useNavigation();

@@ -6,10 +6,10 @@ import {
   fetchHealthInfo, addVaccination, updateVaccination, deleteVaccination
 } from '@src/api/vaccinationApi2';
 import CustomTextInput from '@common/CustomTextInput';
-import { RoundedTextButton } from '@src/components/common/RoundedButton';
+import { RoundedTextButton } from '@common/RoundedButton';
 import ModalLayout from '@src/components/ModalLayout';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import StylizedText, { HeaderText } from '@src/components/common/StylizedText';
+import StylizedText, { HeaderText } from '@common/StylizedText';
 import { VaccinationCard } from '@src/components/InfoCards';
 
 

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Image, ActivityIndicator, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import StylizedText, { HeaderText } from '@components/common/StylizedText';
-import { RoundedTextButton } from '@components/common/RoundedButton';
+import StylizedText, { HeaderText } from '@common/StylizedText';
+import { RoundedTextButton } from '@common/RoundedButton';
 import CustomTextInput from '@common/CustomTextInput';
 
 const ResultOwnerDetails = ({ route }) => {

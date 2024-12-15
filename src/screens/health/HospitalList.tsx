@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { fetchHospitals } from '@src/api/hospitalApi';
 import Geolocation from '@react-native-community/geolocation';
 import { VeterinaryCard } from '@src/components/FlatListCards';
-import StylizedText from '@src/components/common/StylizedText';
+import StylizedText from '@common/StylizedText';
 import HeaderBar from '@src/components/HeaderBar';
 
 const HospitalCard = ({ item, onPress }) => (

@@ -1,8 +1,8 @@
 import React from 'react';
 import ModalLayout from '@src/components/ModalLayout';
-import { RoundedTextButton } from '@src/components/common/RoundedButton';
-import StylizedText from '@src/components/common/StylizedText';
-import CustomTextInput from '@src/components/common/CustomTextInput';
+import { RoundedTextButton } from '@common/RoundedButton';
+import StylizedText from '@common/StylizedText';
+import CustomTextInput from '@common/CustomTextInput';
 import { Avatar } from 'react-native-paper';
 
 interface ModalWindowProps {

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Disease, DiseaseDetails, PetData } from '@types';
-import RoundedBox from '@components/common/RoundedBox'; // RoundedBox 컴포넌트 import
+import RoundedBox from '@common/RoundedBox'; // RoundedBox 컴포넌트 import
 import AvatarPlaceholder from '@image/placeholder/dog.jpg';
 
 

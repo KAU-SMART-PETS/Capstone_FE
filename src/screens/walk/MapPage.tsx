@@ -2,12 +2,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import { View, PermissionsAndroid, Platform, Alert } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
-import { RoundedTextButton } from '@src/components/common/RoundedButton';
+import { RoundedTextButton } from '@common/RoundedButton';
 import ModalLayout from '@components/ModalLayout';
 import { WalkingRecord } from '@components/Records';
 import WalkRecordingPanel from '@src/components/WalkingRecordPanel';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { RoundedCircleButton } from '@src/components/common/RoundedButton';
+import { RoundedCircleButton } from '@common/RoundedButton';
 import { registerWalkRecord } from '@src/api/walkApi';
 import { useRoute, useNavigation } from '@react-navigation/native';
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { View, StyleSheet } from 'react-native';
-import { ProgressDots } from '../../components/common/Loading';
-import StylizedText from '@components/common/StylizedText';
-import CustomAlert from '@components/common/CustomAlert';
+import { ProgressDots } from '@common/Loading';
+import StylizedText from '@common/StylizedText';
+import CustomAlert from '@common/CustomAlert';
 
 const ReadyToRegisterNose = () => {
   const route = useRoute();

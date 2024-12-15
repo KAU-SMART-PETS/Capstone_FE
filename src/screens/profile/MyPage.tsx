@@ -11,7 +11,7 @@ import { Divider } from 'react-native-paper';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MTIcon from 'react-native-vector-icons/MaterialIcons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import StylizedText, { HeaderText } from '@components/common/StylizedText';
+import StylizedText, { HeaderText } from '@common/StylizedText';
 import { PetCard as NewPetCard } from '@components/MyPetCard';
 import Avatar from '@common/Avatar';
 import HeaderBar from '@components/HeaderBar';
