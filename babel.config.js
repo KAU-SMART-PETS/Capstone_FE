@@ -26,8 +26,8 @@ module.exports = function (api) {
           },
         },
       ],
-      'react-native-reanimated/plugin',
       'nativewind/babel',
+      'react-native-reanimated/plugin', // <<중요>> 무조건 맨 아래에 위치해야 함!
     ],
   };
 };
