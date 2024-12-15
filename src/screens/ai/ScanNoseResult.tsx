@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import StylizedText, { HeaderText } from '@components/common/StylizedText';
@@ -16,7 +16,7 @@ const ScanNoseResult = ({ route }) => {
 
   const handleViewDetails = () => {
     if (isOwner) {
-      navigation.navigate('ResultPetDetails', {
+      navigation.navigate('ResultOwnerDetails', {
         petName: petDetails.name, // 반려동물 이름 전달
         petDetails: petDetails,   // 반려동물 세부 정보 전달
       });
@@ -36,10 +36,23 @@ const ScanNoseResult = ({ route }) => {
       </View>
 
       <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: petDetails.pet_image || petDetails.imageUrl }}
-          style={styles.image}
-        />
+        {petDetails.pet_image || petDetails.imageUrl ? (
+          <Image
+            source={{ uri: petDetails.pet_image || petDetails.imageUrl }}
+            style={styles.image}
+          />
+        ) : (
+          <View style={styles.placeholderContainer}>
+            <Image
+              source={require('@image/icon/example_cat.png')}
+              style={styles.placeholderImage}
+            />
+            <Image
+              source={require('@image/icon/example_cat1.png')}
+              style={styles.placeholderImage}
+            />
+          </View>
+        )}
       </View>
 
       <View style={styles.bottomButtonContainer}>
@@ -80,6 +93,16 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 100,
   },
+  placeholderContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  placeholderImage: {
+    width: 100,
+    height: 100,
+    marginHorizontal: 8,
+  },
   bottomButtonContainer: {
     position: 'absolute',
     bottom: 16,
@@ -90,3 +113,4 @@ const styles = StyleSheet.create({
 });
 
 export default ScanNoseResult;
+

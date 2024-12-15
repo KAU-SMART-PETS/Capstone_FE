@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ScrollView, Image, StyleSheet } from 'react-native';
 import HealthCards from '../../components/common/HealthCards';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import StylizedText from '@components/common/StylizedText';
+import StylizedText, { HeaderText } from '@components/common/StylizedText';
 import { RoundedTextButton } from '../../components/common/RoundedButton';
 
 const ResultEyeScan = () => {
@@ -11,7 +11,7 @@ const ResultEyeScan = () => {
   const { diagnosis = {}, imageUri, petName = '' } = route.params || {};
 
   const handleRetestButtonPress = () => {
-      navigation.navigate('SelectPetToScan');
+    navigation.navigate('SelectPetToScan');
   };
 
   const handleHospitalButtonPress = () => {
@@ -21,14 +21,18 @@ const ResultEyeScan = () => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <StylizedText type="header1" styleClass="text-black mb-4 mt-6">
-          <StylizedText type="header1" style={{ color: '#73A8BA' }}>
-            {petName}
-          </StylizedText>
-          의 진단 리포트
-        </StylizedText>
+        {/* Header Section */}
+        <View style={styles.headerContainer}>
+          <HeaderText
+            highlight={petName}
+            text={`${petName} 진단 리포트`}
+          />
+        </View>
+
         <Image source={{ uri: imageUri }} style={styles.image} />
+
         <HealthCards diagnosisData={diagnosis} />
+
       <View style={styles.bottomButtonContainer}>
         <RoundedTextButton
           content="다시 검사하기"
@@ -54,28 +58,32 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   scrollContent: {
-    padding: 16,
+    paddingHorizontal: 16,
     alignItems: 'center',
     paddingBottom: 80,
+  },
+  headerContainer: {
+    marginTop: 30,
+    marginBottom: 20,
+    paddingHorizontal: 16,
   },
   image: {
     width: 200,
     height: 200,
-    borderRadius: 40,
+    borderRadius: 20,
     marginBottom: 30,
-    marginTop: 30,
   },
   bottomButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     position: 'absolute',
     bottom: 16,
-    left: 32,
-    right: 32,
+    left: 16,
+    right: 16,
   },
   button: {
     flex: 1,
-    marginHorizontal: 4,
+    marginHorizontal: 8,
   },
 });
 

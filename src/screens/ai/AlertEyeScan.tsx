@@ -30,16 +30,6 @@ const AlertScan = () => {
     });
   };
 
-  // 촬영하기 버튼 동작
-  const handleTakePhoto = () => {
-    navigation.navigate('EyeCamera', {
-      petId,
-      petType,
-      petName,
-    });
-    setModalVisible(false); // 모달 닫기
-  };
-
   // 준비 완료 버튼 클릭
   const handleReadyButtonPress = () => {
     setModalVisible(true); // 모달창 띄우기
@@ -100,7 +90,7 @@ const AlertScan = () => {
 
       {/* "준비 완료" 버튼 */}
       <View style={styles.bottomButtonContainer}>
-         <RoundedTextButton content="준비 완료" widthOption="xl" onPress={handleReadyButtonPress} />
+        <RoundedTextButton content="준비 완료" widthOption="xl" onPress={handleReadyButtonPress} />
       </View>
 
       {/* ModalLayout */}
@@ -116,13 +106,6 @@ const AlertScan = () => {
                 color="bg-primary"
                 onPress={handleGallerySelect}
                 key="gallery"
-              />,
-              <RoundedTextButton
-                content="촬영하기"
-                widthOption="lg"
-                color="bg-primary"
-                onPress={handleTakePhoto}
-                key="camera"
               />,
             ],
             layout: 'col',
@@ -190,13 +173,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   bottomButtonContainer: {
-      position: 'absolute',
-      bottom: 16,
-      left: 0,
-      right: 0,
-      alignItems: 'center',
-    },
+    position: 'absolute',
+    bottom: 16,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
 });
-
 
 export default AlertScan;

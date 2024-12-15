@@ -1,21 +1,20 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { useRoute } from '@react-navigation/native';
-import StylizedText from '@components/common/StylizedText';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import StylizedText, { HeaderText } from '@components/common/StylizedText';
 import { RoundedTextButton } from '@components/common/RoundedButton';
-import { useNavigation } from '@react-navigation/native';
 
 const ResultNoseRegister = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const { imageUri, petName = '' } = route.params || {};
 
-const handleBackButtonPress = () => {
-      navigation.navigate('RegisterPetNose');
+  const handleBackButtonPress = () => {
+    navigation.navigate('RegisterPetNose');
   };
 
   if (!imageUri || !petName) {
-    console.error("Missing imageUri or petName in route params");
+    console.error('Missing imageUri or petName in route params');
     return (
       <View style={styles.errorContainer}>
         <StylizedText type="header1" styleClass="text-black">
@@ -28,22 +27,25 @@ const handleBackButtonPress = () => {
   return (
     <View style={styles.container}>
       {/* 성공 메시지 */}
-      <StylizedText type="header1" styleClass="text-black mb-6" style={styles.successMessage}>
-        비문 등록에 성공했습니다!
-      </StylizedText>
+      <View style={styles.headerContainer}>
+        <HeaderText
+          highlight={petName}
+          text={`비문 이미지 등록에 성공했습니다!`}
+        />
+      </View>
 
       {/* 비문 이미지 */}
-      <Image source={{ uri: imageUri }} style={styles.image} />
+      <View style={styles.imageContainer}>
+        <Image source={{ uri: imageUri }} style={styles.image} />
+      </View>
 
-      {/* 반려동물 이름 */}
-      <StylizedText type="header2" styleClass="text-black mt-6" style={styles.petName}>
-        <StylizedText type="header2" style={{ color: '#73A8BA' }}>
-          {petName}
-        </StylizedText>
-        의 비문 이미지
-      </StylizedText>
+      {/* 확인 버튼 */}
       <View style={styles.bottomButtonContainer}>
-         <RoundedTextButton content="확인" widthOption="xl" onPress={handleBackButtonPress} />
+        <RoundedTextButton
+          content="확인"
+          widthOption="xl"
+          onPress={handleBackButtonPress}
+        />
       </View>
     </View>
   );
@@ -53,26 +55,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 40,
   },
-  successMessage: {
-    textAlign: 'center',
-    fontSize: 20,
-    marginBottom: 20,
+  headerContainer: {
+    paddingHorizontal: 30,
+    paddingVertical: 60,
+  },
+  imageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
-    width: 200,
-    height: 200,
-    borderRadius: 100, // 원형 이미지
-    marginVertical: 20,
-  },
-  petName: {
-    textAlign: 'center',
-    fontSize: 18,
-    marginTop: 10,
+    width: 250,
+    height: 250,
+    borderRadius: 50,
   },
   errorContainer: {
     flex: 1,
@@ -82,12 +77,12 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   bottomButtonContainer: {
-        position: 'absolute',
-        bottom: 16,
-        left: 0,
-        right: 0,
-        alignItems: 'center',
-      },
+    position: 'absolute',
+    bottom: 16,
+    left: 16,
+    right: 16,
+    alignItems: 'center',
+  },
 });
 
 export default ResultNoseRegister;

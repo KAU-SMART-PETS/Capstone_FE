@@ -30,16 +30,6 @@ const AlertNose = () => {
     });
   };
 
-  // 촬영하기 버튼 동작
-  const handleTakePhoto = () => {
-    navigation.navigate('NoseCamera', {
-      petId,
-      petType,
-      petName,
-    });
-    setModalVisible(false); // 모달 닫기
-  };
-
   // 준비 완료 버튼 클릭
   const handleReadyButtonPress = () => {
     setModalVisible(true); // 모달창 띄우기
@@ -47,9 +37,9 @@ const AlertNose = () => {
 
   return (
     <View style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-            <Image source={backIcon} style={styles.backIcon} />
-         </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <Image source={backIcon} style={styles.backIcon} />
+      </TouchableOpacity>
       <View style={styles.headerContainer}>
         <StylizedText type="header1" styleClass="text-black mb-4">
           코의 전체 모양이{"\n"}잘 보이는 사진을 준비해주세요.
@@ -117,13 +107,6 @@ const AlertNose = () => {
                 onPress={handleGallerySelect}
                 key="gallery"
               />,
-              <RoundedTextButton
-                content="촬영하기"
-                widthOption="lg"
-                color="bg-primary"
-                onPress={handleTakePhoto}
-                key="camera"
-              />,
             ],
             layout: 'col',
           },
@@ -139,11 +122,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   backButton: {
-      position: 'absolute',
-      top: 30,
-      left: 10,
-      padding: 10,
-    },
+    position: 'absolute',
+    top: 30,
+    left: 10,
+    padding: 10,
+  },
   backIcon: {
     width: 20,
     height: 20,
@@ -190,12 +173,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   bottomButtonContainer: {
-      position: 'absolute',
-      bottom: 16,
-      left: 0,
-      right: 0,
-      alignItems: 'center',
-    },
+    position: 'absolute',
+    bottom: 16,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
 });
 
 export default AlertNose;

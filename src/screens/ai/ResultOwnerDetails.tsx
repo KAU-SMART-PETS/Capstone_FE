@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, Image, ActivityIndicator, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import StylizedText, { HeaderText } from '@components/common/StylizedText';
 import { RoundedTextButton } from '@components/common/RoundedButton';
+import CustomTextInput from '@common/CustomTextInput';
 
-const ResultPetDetails = ({ route }) => {
+const ResultOwnerDetails = ({ route }) => {
   const navigation = useNavigation();
   const { petName } = route.params;
   const [ownerInfo, setOwnerInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchOwnerInfo = async () => {
@@ -36,49 +38,67 @@ const ResultPetDetails = ({ route }) => {
       } catch (error) {
         console.error('사용자 정보 요청 오류:', error);
         Alert.alert('오류', '사용자 정보를 가져오는 중 오류가 발생했습니다.');
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchOwnerInfo();
   }, []);
 
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#007AFF" />
+        <StylizedText type="body2" styleClass="text-gray">
+          데이터를 불러오는 중입니다...
+        </StylizedText>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
+      {/* 헤더 */}
       <View style={styles.headerContainer}>
         <HeaderText
           highlight={petName}
-          text={`${petName} 주인 정보입니다.`}
+          text={`${petName}의 주인 정보입니다.`}
         />
       </View>
 
-      <View style={styles.detailsContainer}>
-        <View style={styles.detailRow}>
-          <StylizedText type="label" styleClass="text-secondary">
-            이름:
-          </StylizedText>
-          <StylizedText type="body2" styleClass="text-black">
-            {ownerInfo?.name || '정보 없음'}
-          </StylizedText>
-        </View>
-        <View style={styles.detailRow}>
-          <StylizedText type="label" styleClass="text-secondary">
-            이메일:
-          </StylizedText>
-          <StylizedText type="body2" styleClass="text-black">
-            {ownerInfo?.email || '정보 없음'}
-          </StylizedText>
-        </View>
-        <View style={styles.detailRow}>
-          <StylizedText type="label" styleClass="text-secondary">
-            전화번호:
-          </StylizedText>
-          <StylizedText type="body2" styleClass="text-black">
-            {ownerInfo?.phoneNumber || '정보 없음'}
-          </StylizedText>
-        </View>
+      {/* 사용자 정보 */}
+      <View style={styles.infoContainer}>
+        <CustomTextInput
+          label="이름"
+          value={ownerInfo?.name || '정보 없음'}
+          isEditableInitially={false}
+          type="readOnly"
+          style={styles.inputStyle}
+        />
+        <CustomTextInput
+          label="이메일"
+          value={ownerInfo?.email || '정보 없음'}
+          isEditableInitially={false}
+          type="readOnly"
+          style={styles.inputStyle}
+        />
+        <CustomTextInput
+          label="전화번호"
+          value={ownerInfo?.phoneNumber || '정보 없음'}
+          isEditableInitially={false}
+          type="readOnly"
+          style={styles.inputStyle}
+        />
       </View>
 
-      {/* 하단 버튼 */}
+      {/* 이미지 */}
+      <Image
+        source={require('@assets/image/icon/people_dog.png')}
+        style={styles.image}
+      />
+
+      {/* 확인 버튼 */}
       <View style={styles.bottomButtonContainer}>
         <RoundedTextButton
           content="확인"
@@ -94,33 +114,39 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+    paddingHorizontal: 20,
+    paddingTop: 40,
     justifyContent: 'space-between',
   },
   headerContainer: {
-    paddingTop: 80,
-    paddingHorizontal: 20,
+    alignItems: 'center',
+    marginRight: 80,
+    marginBottom: 10,
   },
-  detailsContainer: {
-    backgroundColor: '#f9f9f9',
-    borderRadius: 10,
-    padding: 16,
-    marginHorizontal: 20,
-    paddingVertical: 50,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 7,
+  infoContainer: {
+    alignItems: 'center',
+    marginTop: 10,
   },
-  detailRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 24,
+  inputStyle: {
+    borderWidth: 0,
+    backgroundColor: 'transparent',
+    marginBottom: 20,
+    width: '100%',
+  },
+  imageContainer: {
+    alignItems: 'center',
+    marginVertical: 40,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
   },
   bottomButtonContainer: {
-    padding: 16,
     alignItems: 'center',
+    marginTop: -10,
+    marginBottom: 16,
   },
 });
 
-export default ResultPetDetails;
+export default ResultOwnerDetails;
