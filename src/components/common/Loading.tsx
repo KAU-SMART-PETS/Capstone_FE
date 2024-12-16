@@ -3,6 +3,7 @@ import { View, Animated } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import ColorMap from '@common/ColorMap';
 import StylizedText from '@common/StylizedText';
+import LottieView from 'lottie-react-native'; 
 
 const CenterContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // absolute center에 위치하게 함.
@@ -102,5 +103,48 @@ export const ProgressDots: React.FC = () => {
     <CenterContainer>
       {renderDots()}
     </CenterContainer>
+  );
+};
+
+export const LoadingDots: React.FC = () => {
+  const animationRef = useRef<LottieView>(null);
+  return (
+    <View className='flex-1 w-full justify-center items-center my-8'>
+      <View>
+        <LottieView
+          ref={animationRef}
+          source={require('@assets/lottie/LoadingDots.json')} // 플랫폼에 따라 다른 파일 사용
+          autoPlay
+          loop
+          style={{ width: "50%", height: "50%" }} // 애니메이션 크기
+          resizeMode="cover" // 크기 조정 모드 (cover, contain, center 등)
+        />
+        <StylizedText type='label3' styleClass='mt-3 text-secondary'>
+          잠시만 기다려 주세요.
+        </StylizedText>
+      </View>
+    </View>
+  );
+};
+
+export const WalkingDog: React.FC = () => {
+  const animationRef = useRef<LottieView>(null);
+  return (
+    <View className='flex-1 w-full h-full justify-center items-center z-10 absolute bg-white'>
+      <View className='absolute'>
+        <LottieView
+          ref={animationRef}
+          source={require('@assets/lottie/MapLoading.json')} // 플랫폼에 따라 다른 파일 사용
+          autoPlay
+          loop
+          className='w-60 h-60 ml-4'
+          // style={{ width: "120%", height: "120%" }} // 애니메이션 크기
+          resizeMode="contain" // 크기 조정 모드 (cover, contain, center 등)
+        />
+        <StylizedText type='body1' styleClass='text-secondary text-center'>
+          잠시만 기다려 주세요
+        </StylizedText>
+      </View>
+    </View>
   );
 };

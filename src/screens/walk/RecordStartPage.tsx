@@ -10,7 +10,6 @@ const RecordStartPage: React.FC = () => {
   const navigation = useNavigation();
   const [pets, setPets] = useState<any[]>([]);
   const [loadingPets, setLoadingPets] = useState(false);
-
  
   useEffect(() => {
     const fetchPets = async () => {

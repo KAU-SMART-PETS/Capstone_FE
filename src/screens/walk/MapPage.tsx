@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, PermissionsAndroid, Platform, Alert } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import MapView, { MapMarker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import { RoundedTextButton } from '@common/RoundedButton';
 import ModalLayout from '@components/ModalLayout';
@@ -10,6 +10,8 @@ import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RoundedCircleButton } from '@common/RoundedButton';
 import { registerWalkRecord } from '@src/api/walkApi';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
+import { WalkingDog } from '@common/Loading';
 
 const haversine = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
   const R = 6371;
@@ -48,6 +50,13 @@ const MapPage: React.FC = () => {
   const [walkResponse, setWalkResponse] = useState<any | null>(null);
   let watchId: number | null = null;
 
+  const [isMapReady, setIsMapReady] = useState(false);
+
+  const handleMapReady = () => {
+    setTimeout(() => {
+      setIsMapReady(true);
+    }, 2500); // 맵이 로드되고 난 뒤에도 2초 대기 (강아지 애니메이션 보여주기 용)
+  };  
   useEffect(() => {
     const requestLocationPermission = async () => {
       if (Platform.OS === 'android') {
@@ -59,9 +68,7 @@ const MapPage: React.FC = () => {
         watchId = startWatchingLocation();
       }
     };
-
     requestLocationPermission();
-
     return () => {
       if (watchId !== null) {
         Geolocation.clearWatch(watchId);
@@ -169,25 +176,38 @@ const MapPage: React.FC = () => {
     setIsThankYouModalVisible(false);
     navigation.navigate('WalkStartPage');
   };
-
   return (
     <View style={{ flex: 1 }}>
-      <WalkRecordingPanel distanceInMeters={distance * 1000} timeInSeconds={time} />
-
+      {!isMapReady && (
+          <WalkingDog />
+        )}
+      {isMapReady && <WalkRecordingPanel distanceInMeters={distance * 1000} timeInSeconds={time} />}
       <MapView
         ref={mapRef}
         provider={PROVIDER_GOOGLE}
         style={{ flex: 1 }}
+        className='z-0'
         region={region}
+        onMapReady={handleMapReady}
         showsUserLocation
       >
-        {location && (
-          <Marker
-            coordinate={location}
-            title="내 위치"
-            description="현재 위치입니다."
-          />
-        )}
+        {location && 
+          <MapMarker coordinate={location}
+            anchor={{x: 0.5, y:1.0}}
+            >
+            <LottieView
+              source={require('@assets/lottie/MapPin.json')}
+              autoPlay
+              loop
+              style={{
+                position: `absolute`,
+                height: 35,
+                width: 35,
+              }}
+              resizeMode={'contain'}
+            />
+          </MapMarker>
+        }
       </MapView>
 
       <View className="absolute bottom-5 left-0 right-0 items-center">

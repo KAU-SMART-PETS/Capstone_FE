@@ -16,7 +16,7 @@
 		2D1C93483FAB42BA806290BB /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0394E672059413F8BFFAC0A /* Pretendard-Bold.otf */; };
 		30E1DA60731F4379AE174288 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B50495B1958241BB996F2C0E /* Pretendard-Medium.otf */; };
 		3F621668841C4354844A9D46 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 90287CCE86664666B4C69A9D /* Pretendard-Thin.otf */; };
-		4D1DD105AB8166A1EF9DBF55 /* Pods_reactCapsone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06C6B5D7103AA1E75B48D1F1 /* Pods_reactCapsone.framework */; };
+		44F28C1B8D9159FB08CCDA38 /* Pods_reactCapsone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2847109052F0F6027CBC9CC2 /* Pods_reactCapsone.framework */; };
 		681D829E2CED002D008EA52A /* FontAwesome6_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 681D82932CED002D008EA52A /* FontAwesome6_Brands.ttf */; };
 		681D829F2CED002D008EA52A /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 681D829B2CED002D008EA52A /* Octicons.ttf */; };
 		681D82A02CED002D008EA52A /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 681D828D2CED002D008EA52A /* EvilIcons.ttf */; };
@@ -60,7 +60,6 @@
 		00E356EE1AD99517003FC87E /* reactCapsoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = reactCapsoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* reactCapsoneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = reactCapsoneTests.m; sourceTree = "<group>"; };
-		06C6B5D7103AA1E75B48D1F1 /* Pods_reactCapsone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_reactCapsone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D811C99F28E489CB0D15ED3 /* Pretendard-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Black.otf"; path = "../src/assets/fonts/Pretendard-Black.otf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* reactCapsone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reactCapsone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = reactCapsone/AppDelegate.h; sourceTree = "<group>"; };
@@ -74,8 +73,7 @@
 		230EC077AC064EB5BFB07B97 /* Colors.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = reactCapsone/Colors.xcassets; sourceTree = "<group>"; };
 		2549910F7CCEFFE9A4BA48EE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = reactCapsone/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		27D08CDB6C3F4D93A22E6578 /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = reactCapsone/BootSplash.storyboard; sourceTree = "<group>"; };
-		358FE4B8624D4382D71AF1CD /* Pods-reactCapsone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsone.release.xcconfig"; path = "Target Support Files/Pods-reactCapsone/Pods-reactCapsone.release.xcconfig"; sourceTree = "<group>"; };
-		60530331C7522F4FF070E6B0 /* Pods-reactCapsone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsone.debug.xcconfig"; path = "Target Support Files/Pods-reactCapsone/Pods-reactCapsone.debug.xcconfig"; sourceTree = "<group>"; };
+		2847109052F0F6027CBC9CC2 /* Pods_reactCapsone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_reactCapsone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		681D828B2CED002D008EA52A /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntDesign.ttf; sourceTree = "<group>"; };
 		681D828C2CED002D008EA52A /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		681D828D2CED002D008EA52A /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
@@ -100,9 +98,11 @@
 		80B0BDF834194455812702C2 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Regular.otf"; path = "../src/assets/fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = reactCapsone/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90287CCE86664666B4C69A9D /* Pretendard-Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Thin.otf"; path = "../src/assets/fonts/Pretendard-Thin.otf"; sourceTree = "<group>"; };
+		9CCCF17D58FF8662EBDEEA76 /* Pods-reactCapsone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsone.release.xcconfig"; path = "Target Support Files/Pods-reactCapsone/Pods-reactCapsone.release.xcconfig"; sourceTree = "<group>"; };
 		B50495B1958241BB996F2C0E /* Pretendard-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Medium.otf"; path = "../src/assets/fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		D0394E672059413F8BFFAC0A /* Pretendard-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Bold.otf"; path = "../src/assets/fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		ED446445C2B505A8605797B1 /* Pods-reactCapsone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactCapsone.debug.xcconfig"; path = "Target Support Files/Pods-reactCapsone/Pods-reactCapsone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D1DD105AB8166A1EF9DBF55 /* Pods_reactCapsone.framework in Frameworks */,
+				44F28C1B8D9159FB08CCDA38 /* Pods_reactCapsone.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				06C6B5D7103AA1E75B48D1F1 /* Pods_reactCapsone.framework */,
+				2847109052F0F6027CBC9CC2 /* Pods_reactCapsone.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -245,8 +245,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				60530331C7522F4FF070E6B0 /* Pods-reactCapsone.debug.xcconfig */,
-				358FE4B8624D4382D71AF1CD /* Pods-reactCapsone.release.xcconfig */,
+				ED446445C2B505A8605797B1 /* Pods-reactCapsone.debug.xcconfig */,
+				9CCCF17D58FF8662EBDEEA76 /* Pods-reactCapsone.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -276,12 +276,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "reactCapsone" */;
 			buildPhases = (
-				66D238F2B80894E62DA1A6F4 /* [CP] Check Pods Manifest.lock */,
+				5AE8CD882C6F6BEEB9E1E818 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				5A60DD1C3ACBFA99BF1E7BD2 /* [CP] Copy Pods Resources */,
+				8B53A97B7BFBDCB2911CBB0D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -396,24 +396,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		5A60DD1C3ACBFA99BF1E7BD2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-reactCapsone/Pods-reactCapsone-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-reactCapsone/Pods-reactCapsone-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-reactCapsone/Pods-reactCapsone-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		66D238F2B80894E62DA1A6F4 /* [CP] Check Pods Manifest.lock */ = {
+		5AE8CD882C6F6BEEB9E1E818 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -433,6 +416,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B53A97B7BFBDCB2911CBB0D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-reactCapsone/Pods-reactCapsone-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-reactCapsone/Pods-reactCapsone-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-reactCapsone/Pods-reactCapsone-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -519,7 +519,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60530331C7522F4FF070E6B0 /* Pods-reactCapsone.debug.xcconfig */;
+			baseConfigurationReference = ED446445C2B505A8605797B1 /* Pods-reactCapsone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -550,7 +550,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 358FE4B8624D4382D71AF1CD /* Pods-reactCapsone.release.xcconfig */;
+			baseConfigurationReference = 9CCCF17D58FF8662EBDEEA76 /* Pods-reactCapsone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;

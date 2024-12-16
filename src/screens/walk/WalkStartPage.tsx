@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, Text, Alert, ActivityIndicator, Modal, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Text, Alert, Modal, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { BannerSection } from '@common/BannerSection';
 import WalkingdogIcon from '@image/icon/walkingDogIcon.png';
@@ -9,6 +9,7 @@ import StylizedText from '@common/StylizedText';
 import Avatar from '@common/Avatar';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { fetchRecentWalkRecords, fetchPetList } from '@api/walkApi';
+import { LoadingDots } from '@common/Loading';
 
 const WalkStartPage: React.FC = () => {
   const navigation = useNavigation();
@@ -99,7 +100,7 @@ const WalkStartPage: React.FC = () => {
 
      
           {loadingWalks ? (
-            <ActivityIndicator size="large" color="#0000ff" />
+            <LoadingDots />
           ) : recentWalks.length > 0 ? (
             recentWalks.map((walk, index) => (
               <WalkDetailsCard
@@ -136,7 +137,7 @@ const WalkStartPage: React.FC = () => {
             <View className="bg-white rounded-t-lg p-6">
               <Text className="text-lg font-bold mb-4">산책할 반려동물을 선택해주세요.</Text>
               {loadingPets ? (
-                <ActivityIndicator size="large" color="#0000ff" />
+                <LoadingDots />
               ) : (
                 pets.map((pet) => (
                   <TouchableOpacity
