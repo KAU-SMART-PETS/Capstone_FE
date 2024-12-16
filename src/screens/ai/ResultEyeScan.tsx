@@ -11,9 +11,9 @@ const ResultEyeScan: React.FC<{ route }> = ({
   const navigation = useNavigation();
   const route = useRoute();
   const {  diagnosis, imageUri, petName } = route?.params;
-  const handleRetestButtonPress = () => navigation.navigate('SelectPetToScan', { scanType });
+  const handleRetestButtonPress = () => navigation.navigate('SelectPetToScan', { scanType : 'EYE_SCAN' });
   const handleHospitalButtonPress = () => navigation.navigate('HospitalList');
-  console.log("홍채분석 디버그 :", diagnosis, imageUri, petName);
+  // console.log("홍채분석 디버그 :", diagnosis, imageUri, petName);
   return (
     <View className="flex-1 bg-white">
       <ScrollView contentContainerStyle={{ paddingHorizontal: 28, paddingTop: 30, paddingBottom: 80 }}>

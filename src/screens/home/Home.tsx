@@ -85,8 +85,8 @@ const HomeScreen: React.FC = () => {
     },
     {
       id: 'scan-iris',
-      title: '질병 분석하기',
-      content: '반려동물의 홍채를 스캔하여\n건강 상태를 확인해보세요!',
+      title: '질환 분석하기',
+      content: '반려동물의 안구를 스캔하여\n건강 상태를 확인해보세요!',
       avatar: require('@assets/image/scan.png'),
       onPress: () => navigation.navigate('SelectPetToScan', { scanType : 'EYE_SCAN' }),
     },

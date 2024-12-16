@@ -6,6 +6,7 @@ import StylizedText from '@common/StylizedText';
 import { useImageProcessing } from './useImageProcessing';
 import SCAN_TYPES from './ScanTypes';
 import { fetchUserPets, getPetDetails } from '@src/api/petApi';
+import CustomAlert from '@src/components/common/CustomAlert';
 
 const findPetDetails = async (closestPetId: number, navigation: any) => {
   const response = await fetchUserPets();
@@ -30,7 +31,7 @@ const ScanPetResult: React.FC<{ route: RouteProp<RootStackParamList, 'ScanPetRes
   const navigation = useNavigation();
   const { scanType, imageUri, petId, petType, petName } = route.params || {};
   const currentScan = SCAN_TYPES[scanType || ''];
-  const { isLoading, handleAlert, uploadImage } = useImageProcessing();
+  const { isLoading, alert, handleAlert, handleAlertClose, uploadImage } = useImageProcessing();
 
   useEffect(() => {
     if (imageUri && currentScan.apiEndpoint) {
@@ -74,6 +75,7 @@ const ScanPetResult: React.FC<{ route: RouteProp<RootStackParamList, 'ScanPetRes
           {SCAN_TYPES[scanType || ''].title}에는{"\n"}다소 시간이 걸릴 수 있습니다.
         </StylizedText>
         <ProgressDots />
+        <CustomAlert visible={alert['visible']} message={alert['message']} onClose={handleAlertClose} />
       </View>
       </>
     );

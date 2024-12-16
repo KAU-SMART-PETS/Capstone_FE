@@ -32,10 +32,10 @@ export interface ScanTypeConfig {
 const SCAN_TYPES: { [key: string]: ScanTypeConfig } = {
     EYE_SCAN: {
         key: 'EYE_SCAN',
-        title: '홍채 스캔',
-        selectIntro : '촬영 시\n반려동물의 홍채가\n잘 보일 수 있도록 찍어주세요.',
+        title: '안구 스캔',
+        selectIntro : '촬영 시\n반려동물의 안구가\n잘 보일 수 있도록 찍어주세요.',
         instruction: {
-            header: '홍채가 잘 보이도록\n눈을 크게 뜬 사진을 준비해주세요.',
+            header: '안구가 잘 보이도록\n눈을 크게 뜬 사진을 준비해주세요.',
             body: '준비된 사진이 적합하지 않으면 분석에 실패할 확률이 높습니다.',
             examples: {
                 correct: [
@@ -44,8 +44,8 @@ const SCAN_TYPES: { [key: string]: ScanTypeConfig } = {
                     { source: require('@image/example3.png') },
                 ],
                 incorrect: [
-                    { source: require('@image/example4.png'), description: '홍채의 크기가\n너무 작아요.' },
-                    { source: require('@image/example5.png'), description: '홍채의 전부가\n보이지 않아요.' },
+                    { source: require('@image/example4.png'), description: '안구의 크기가\n너무 작아요.' },
+                    { source: require('@image/example5.png'), description: '안구의 전부가\n보이지 않아요.' },
                 ],
             },
         },

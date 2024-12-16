@@ -50,7 +50,7 @@ export const useImageProcessing = () => {
         } else {
           const errorText = await response.text();
           console.log("서버 오류:", errorText);
-          if (errorText.includes("PetType")) {
+          if (errorText.includes("petType")) {
             handleAlert(`판별 결과 선택한 종이 아닌 것으로 보입니다.\n다시 시도해주세요.`);
           } else if (errorText.includes("이미 등록된 비문입니다")) {
             handleAlert(`이미 등록된 비문입니다.\n새로운 비문 이미지를 선택해주세요.`);
@@ -71,5 +71,5 @@ export const useImageProcessing = () => {
     [getMimeType, handleAlert]
   );
 
-  return { isLoading, handleAlert, uploadImage };
+  return { isLoading, alert, handleAlert, handleAlertClose, uploadImage };
 };
