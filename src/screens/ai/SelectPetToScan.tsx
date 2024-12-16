@@ -1,117 +1,199 @@
-import React, { useEffect, useState } from 'react';
-import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+// components/SelectPetToScan.tsx
+
+import React, { useEffect, useState, useCallback, memo } from 'react';
+import { View, FlatList } from 'react-native';
 import { fetchUserPets, getPetDetails } from '@api/petApi';
 import StylizedText from '@common/StylizedText';
 import Avatar from '@common/Avatar';
 import { RoundedTextButton } from '@common/RoundedButton';
 import CustomAlert from '@common/CustomAlert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
-import ColorMap from '@common/ColorMap';
+import { RouteProp, useNavigation } from '@react-navigation/native';
+import { BackArrowHeader } from '@src/components/HeaderBar';
+import RadioButton from '@src/components/common/RadioButton';
+import SCAN_TYPES from './ScanTypes';
 
-const defaultImage = require('../../assets/image/icon/pawprint.png');
-const backIcon = require('../../assets/image/icon/arrow_back.png');
+const defaultImage = require('@assets/image/icon/pawprint.png');
 
-const SelectPetToScan = () => {
+/**
+ * Memoized Pet Item Component to prevent unnecessary re-renders
+ */
+interface Pet {
+  id: string;
+  name: string;
+  petType: string;
+  imageUrl?: string;
+}
+
+interface PetItemProps {
+  pet: Pet;
+  isSelected: boolean;
+  onSelect: (pet: Pet) => void;
+}
+
+const PetItem: React.FC<PetItemProps> = memo(({ pet, isSelected, onSelect }) => (
+  <RadioButton
+    inactiveOutlineStyle='solid'
+    boxsize='md'
+    isSelected={isSelected}
+    onPress={() => onSelect(pet)}
+    >
+    <Avatar size={52} source={pet.imageUrl ? { uri: pet.imageUrl } : defaultImage} />
+    <StylizedText type="body1" styleClass="mt-2">
+      {pet.name}
+    </StylizedText>
+  </RadioButton>
+));
+
+const SelectPetToScan: React.FC<{ route: RouteProp<RootStackParamList, "SelectPetToScan"> }> = ({ route }) => {
+  const scanType:string = route.params?.scanType || "";
   const navigation = useNavigation();
-  const [petList, setPetList] = useState([]);
-  const [selectedPetId, setSelectedPetId] = useState(null);
-  const [selectedPetType, setSelectedPetType] = useState(null);
-  const [selectedPetName, setSelectedPetName] = useState(null);
-  const [isAlertVisible, setAlertVisible] = useState(false); // 알림창 상태 추가
-  const [alertMessage, setAlertMessage] = useState(''); // 알림창 메시지 상태 추가
-
+  const [petList, setPetList] = useState<Pet[]>([]);
+  const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
+  const [isAlertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  /**
+   * Initialize data on component mount
+   */
   useEffect(() => {
     const initializeData = async () => {
-      const sessionId = await AsyncStorage.getItem('JSESSIONID');
-      if (sessionId) {
-        console.log('Session ID found:', sessionId);
+      try {
+        const sessionId = await AsyncStorage.getItem('JSESSIONID');
+        if (sessionId) {
+          console.log('Session ID found:', sessionId);
+        }
+        await loadPets();
+      } catch (error) {
+        console.error('Initialization error:', error);
+        showAlert('초기화 과정에서 문제가 발생했습니다. 다시 시도해주세요.');
       }
-      await loadPets();
     };
-
     initializeData();
-  }, []);
+  }, [navigation]);
 
-  const loadPets = async () => {
+  /**
+   * Load pets from API
+   */
+  const loadPets = useCallback(async () => {
     try {
       const petIds = await fetchUserPets();
       const petsData = await Promise.all(
         petIds.map(async (petId) => {
-          const pet = await getPetDetails(petId);
-          if (pet) {
-            return { ...pet, id: petId, petType: pet.petType.toLowerCase() };
+          try {
+            const pet = await getPetDetails(petId);
+            if (pet) {
+              return { ...pet, id: petId, petType: pet.petType.toLowerCase() };
+            }
+            return null;
+          } catch (petError) {
+            console.error(`Error fetching details for pet ID ${petId}:`, petError);
+            return null;
           }
-          return null;
         })
       );
-      setPetList(petsData.filter(Boolean));
+      const validPets = petsData.filter(Boolean) as Pet[];
+      if (validPets.length === 0) {
+        showAlert('등록된 반려동물이 없습니다. 반려동물을 먼저 등록해주세요.');
+      }
+      setPetList(validPets);
     } catch (error) {
+      console.error('Error loading pets:', error);
       showAlert('반려동물 정보를 불러오는 데 실패했습니다. 다시 시도해주세요.');
     }
-  };
+  }, []);
 
-  const handlePetSelect = (petId, petType, petName) => {
-    if (petId === selectedPetId) {
-      setSelectedPetId(null);
-      setSelectedPetType(null);
-      setSelectedPetName(null);
-    } else {
-      setSelectedPetId(petId);
-      setSelectedPetType(petType);
-      setSelectedPetName(petName);
-    }
-  };
+  /**
+   * Handle pet selection
+   */
+  const handlePetSelect = useCallback(
+    (pet: Pet) => {
+      if (selectedPet?.id === pet.id) {
+        setSelectedPet(null);
+      } else {
+        setSelectedPet(pet);
+      }
+    },
+    [selectedPet]
+  );
 
-  const handleRegisterButtonPress = () => {
-    if (selectedPetId && selectedPetType) {
-      navigation.navigate('AlertEyeScan', {
-        petId: selectedPetId,
-        petType: selectedPetType,
-        petName: selectedPetName,
+  /**
+   * Handle register button press
+   */
+  const handleRegisterButtonPress = useCallback(() => {
+    if (selectedPet) {
+      navigation.navigate('AlertScan', {
+        scanType: scanType || '',
+        petId: selectedPet.id || '',
+        petType: selectedPet.petType || '',
+        petName: selectedPet.name || '',
       });
     } else {
       showAlert('반려동물을 선택해주세요.');
     }
-  };
+  }, [navigation, selectedPet]);
 
-  const showAlert = (message) => {
+  /**
+   * Show alert with message
+   */
+  const showAlert = useCallback((message: string) => {
     setAlertMessage(message);
     setAlertVisible(true);
-  };
+  }, []);
+
+  /**
+   * Render each pet item
+   */
+  const renderPetItem = useCallback(
+    ({ item }: { item: Pet }) => (
+      <PetItem
+        pet={item}
+        isSelected={selectedPet?.id === item.id}
+        onSelect={handlePetSelect}
+      />
+    ),
+    [selectedPet, handlePetSelect]
+  );
+
+  /**
+   * Extract unique key for each pet item
+   */
+  const keyExtractor = useCallback((item: Pet) => item.id.toString(), []);
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-        <Image source={backIcon} style={styles.backIcon} />
-      </TouchableOpacity>
-
-      <StylizedText type="header1" styleClass="text-black mb-4 mt-6">
-        촬영 시 {"\n"}반려동물의 홍채가 {"\n"}잘 보일 수 있도록 찍어주세요.
+    <View className="flex-1 bg-white px-8 pt-16">
+      {/* Back Button */}
+      <BackArrowHeader />
+      
+      {/* Header Text */}
+      <StylizedText type="header1" styleClass="mb-8 ml-2">
+        {SCAN_TYPES[scanType]['selectIntro']}
       </StylizedText>
 
-      <View style={styles.petListContainer}>
-        {petList.map((pet) => (
-          <TouchableOpacity
-            key={pet.id}
-            onPress={() => handlePetSelect(pet.id, pet.petType, pet.name)}
-            style={[
-              styles.petButton,
-              selectedPetId === pet.id ? styles.selectedPetButton : styles.unselectedPetButton,
-            ]}
-          >
-            <Avatar size={52} source={pet.imageUrl ? { uri: pet.imageUrl } : defaultImage} />
-            <StylizedText type="body1" styleClass="mt-3">{pet.name}</StylizedText>
-          </TouchableOpacity>
-        ))}
+      {/* Pet List */}
+      <FlatList
+        data={petList}
+        renderItem={renderPetItem}
+        keyExtractor={keyExtractor}
+        numColumns={2}
+        // contentContainerStyle="justify-around mt-5"
+        extraData={selectedPet}
+        ListEmptyComponent={
+          <StylizedText type="body1" className="text-gray-500 mt-4 text-center">
+            반려동물이 없습니다.
+          </StylizedText>
+        }
+      />
+
+      {/* Register Button */}
+      <View className="absolute bottom-4 left-0 right-0 items-center">
+        <RoundedTextButton
+          content="사진 등록하기"
+          widthOption="xl"
+          onPress={handleRegisterButtonPress}
+        />
       </View>
 
-      {/* "사진 등록하기" 버튼 */}
-      <View style={styles.bottomButtonContainer}>
-        <RoundedTextButton content="사진 등록하기" widthOption="xl" onPress={handleRegisterButtonPress} />
-      </View>
-
-      {/* CustomAlert 추가 */}
+      {/* Custom Alert */}
       <CustomAlert
         visible={isAlertVisible}
         message={alertMessage}
@@ -121,51 +203,8 @@ const SelectPetToScan = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    paddingHorizontal: 40,
-    paddingTop: 60,
-  },
-  backButton: {
-    position: 'absolute',
-    top: 30,
-    left: 10,
-    padding: 10,
-  },
-  backIcon: {
-    width: 20,
-    height: 20,
-  },
-  petListContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    marginTop: 20,
-  },
-  petButton: {
-    alignItems: 'center',
-    margin: 8,
-    padding: 10,
-    borderRadius: 8,
-  },
-  selectedPetButton: {
-    borderColor: ColorMap['primary'],
-    borderWidth: 2,
-  },
-  unselectedPetButton: {
-    borderColor: 'gray',
-    borderWidth: 1,
-  },
-  bottomButtonContainer: {
-      position: 'absolute',
-      bottom: 16,
-      left: 0,
-      right: 0,
-      alignItems: 'center',
-    },
-});
+/**
+ * Styles integrated with NativeWind classes, no need for separate StyleSheet
+ */
 
 export default SelectPetToScan;
-

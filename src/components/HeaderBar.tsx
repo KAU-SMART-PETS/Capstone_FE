@@ -53,19 +53,24 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
   );
 };
 
-export const BackArrowHeader: React.FC = ({
+interface ArrowHeaderProps {
+  arrowColor?: string;
+};
+export const BackArrowHeader: React.FC<ArrowHeaderProps> = ({
+  arrowColor = 'black'
 }) => {
   const navigation = useNavigation();
   const handleBackButton = () => {
     navigation.goBack();
   };
+  const color = (arrowColor == 'black') ? '#000000' : '#ffffff' 
   return (
     <View
       className={`absolute w-full flex-row items-center justify-between p-5 bg-opacity-0 bg-transparent z-10`}
     >
       {/* 왼쪽 영역: 뒤로가기 버튼 및 제목 */}
       <TouchableOpacity onPress={handleBackButton} className="w-1/3">
-        <Ionicons size={22} name="chevron-back-outline" />
+        <Ionicons size={22} name="chevron-back-outline" color={color} />
       </TouchableOpacity>
     </View>
   );

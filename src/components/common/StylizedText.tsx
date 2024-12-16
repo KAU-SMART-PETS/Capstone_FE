@@ -140,6 +140,11 @@ export const getStyles = (type: string) : StyledTextStyle => {
         fontFamily: 'Pretendard-Regular',
         fontSize:  responsiveFontSize(10.5),
     };
+    case 'caption-body':
+      return {
+      fontFamily: 'Pretendard-Regular',
+      fontSize:  responsiveFontSize(18.5),
+    };
     case 'label':
         return {
         fontFamily: 'Pretendard-Regular',

@@ -88,21 +88,21 @@ const HomeScreen: React.FC = () => {
       title: '질병 분석하기',
       content: '반려동물의 홍채를 스캔하여\n건강 상태를 확인해보세요!',
       avatar: require('@assets/image/scan.png'),
-      onPress: () => navigation.navigate('SelectPetToScan'),
+      onPress: () => navigation.navigate('SelectPetToScan', { scanType : 'EYE_SCAN' }),
     },
     {
       id: 'register-nose',
       title: '비문 등록하기',
       content: '반려동물의 안전을 위한\n비문을 등록해보세요!',
       avatar: require('@assets/image/nose.png'),
-      onPress: () => navigation.navigate('RegisterPetNose'),
+      onPress: () => navigation.navigate('SelectPetToScan', { scanType : 'NOSE_REGISTER' }),
     },
     {
       id: 'scan-nose',
       title: '비문 조회하기',
       content: '반려동물의 비문을 조회하여\n주인 정보를 확인해보세요!',
       avatar: require('@assets/image/scan_nose.png'),
-      onPress: () => navigation.navigate('ScanNose'),
+      onPress: () => navigation.navigate('AlertScan', { scanType : 'NOSE_SCAN', petId: '', petName: '', petType: '' }),
     },
   ];
 
@@ -117,7 +117,6 @@ const HomeScreen: React.FC = () => {
           //{ id: 'WalkWeeklyRecord', title: 'WalkWeeklyRecord', screen: 'WalkWeeklyRecord' },
           // { id: 'TodayWalk', title: 'Today Walk', screen: 'TodayWalk' },
           //{ id: 'WalkStartPage', title: 'WalkStartPage', screen: 'WalkStartPage' },
-          { id: 'Camera', title: 'Camera', screen: 'CameraView' },
           //{ id : 'SelectPetToScan', title:'ScanEye', screen: 'SelectPetToScan'},
           //{ id : 'RegisterPetNose', title:'RegisterNose', screen: 'RegisterPetNose'},
           //{ id: 'PetHealthInfo', title: 'Pet Health Info', screen: 'Analysis' },

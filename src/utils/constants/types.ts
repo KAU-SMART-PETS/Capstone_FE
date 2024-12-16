@@ -80,6 +80,14 @@ export interface UserData{
   emailOptIn: boolean;
 }
 
+export interface PetAIData {
+  scanType: string;
+  imageUri: string;
+  petId: string;
+  petType: string;
+  petName: string;
+};
+
 // 
 // COMPONENTS
 //

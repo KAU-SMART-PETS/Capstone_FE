@@ -48,7 +48,7 @@ const ModalBackground: React.FC<ModalBackgroundProps> = ({ onPress, children, po
 // 모달 내용 컴포넌트
 const ModalContent: React.FC<ModalContentProps> = ({ children, preset }) => {
   return (
-    <Animated.View entering={FadeInDown.duration(450)} exiting={FadeOutUp.duration(250)}>
+    <Animated.View exiting={FadeOutUp.duration(250)}>
       <RoundedBox shadow={false} preset={preset}>
         {children}
       </RoundedBox>

@@ -1,90 +1,35 @@
 import React from 'react';
-import { View, ScrollView, Image, StyleSheet } from 'react-native';
-import HealthCards from '@common/HealthCards';
-import { useRoute, useNavigation } from '@react-navigation/native';
-import StylizedText, { HeaderText } from '@common/StylizedText';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { View, ScrollView } from 'react-native';
 import { RoundedTextButton } from '@common/RoundedButton';
+import { HeaderText } from '@common/StylizedText';
+import HealthCards from '@common/HealthCards';
+import Avatar from '@common/Avatar';
 
-const ResultEyeScan = () => {
-  const route = useRoute();
+const ResultEyeScan: React.FC<{ route }> = ({
+}) => {
   const navigation = useNavigation();
-  const { diagnosis = {}, imageUri, petName = '' } = route.params || {};
-
-  const handleRetestButtonPress = () => {
-    navigation.navigate('SelectPetToScan');
-  };
-
-  const handleHospitalButtonPress = () => {
-    navigation.navigate('HospitalList');
-  };
-
+  const route = useRoute();
+  const {  diagnosis, imageUri, petName } = route?.params;
+  const handleRetestButtonPress = () => navigation.navigate('SelectPetToScan', { scanType });
+  const handleHospitalButtonPress = () => navigation.navigate('HospitalList');
+  console.log("홍채분석 디버그 :", diagnosis, imageUri, petName);
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Header Section */}
-        <View style={styles.headerContainer}>
-          <HeaderText
-            highlight={petName}
-            text={`${petName} 진단 리포트`}
-          />
+    <View className="flex-1 bg-white">
+      <ScrollView contentContainerStyle={{ paddingHorizontal: 28, paddingTop: 30, paddingBottom: 80 }}>
+        <View className="flex-1 w-full my-2 items-center">
+          <HeaderText highlight={petName} text={`${petName}의 진단 리포트`} className="mb-6 text-center" />
+          <Avatar source={{ uri: imageUri }} size={125} />
+          <View className="mb-6" />
         </View>
-
-        <Image source={{ uri: imageUri }} style={styles.image} />
-
         <HealthCards diagnosisData={diagnosis} />
-
-      <View style={styles.bottomButtonContainer}>
-        <RoundedTextButton
-          content="다시 검사하기"
-          widthOption="md"
-          onPress={handleRetestButtonPress}
-          style={styles.button}
-        />
-        <RoundedTextButton
-          content="인근 병원 찾기"
-          widthOption="md"
-          onPress={handleHospitalButtonPress}
-          style={styles.button}
-        />
-      </View>
+        <View className="flex-row justify-between w-full mt-8">
+          <RoundedTextButton content="다시 검사하기" widthOption="md" onPress={handleRetestButtonPress} />
+          <RoundedTextButton content="인근 병원 찾기" widthOption="md" onPress={handleHospitalButtonPress} />
+        </View>
       </ScrollView>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  scrollContent: {
-    paddingHorizontal: 16,
-    alignItems: 'center',
-    paddingBottom: 80,
-  },
-  headerContainer: {
-    marginTop: 30,
-    marginBottom: 20,
-    paddingHorizontal: 16,
-  },
-  image: {
-    width: 200,
-    height: 200,
-    borderRadius: 20,
-    marginBottom: 30,
-  },
-  bottomButtonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    position: 'absolute',
-    bottom: 16,
-    left: 16,
-    right: 16,
-  },
-  button: {
-    flex: 1,
-    marginHorizontal: 8,
-  },
-});
 
 export default ResultEyeScan;

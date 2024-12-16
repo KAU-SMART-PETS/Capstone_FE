@@ -1,7 +1,8 @@
 // routes.ts
 
 import React from 'react';
-import {PetData, PetDetails} from '@constants/types';
+import { ImageSourcePropType } from 'react-native';
+import {PetData, PetDetails, PetAIData} from '@constants/types';
 
 // Home
 import MainTab from '@screens/home/MainTab';
@@ -17,10 +18,9 @@ import PetProfile from '@screens/profile/PetProfile';
 // Health
 import Analysis from '@screens/health/Analysis';
 import HospitalList from '@screens/health/HospitalList';
-import CameraView from '@screens/health/CameraView';
+import CameraView from '@src/screens/ai/CameraView';
 import RegisterHealthInfo from '@screens/health/RegisterHealthInfo';
 import DiseaseDetail from '@screens/health/DiseaseDetail';
-import SelectPart from '@screens/health/SelectPart';
 import HospitalInfo from '@src/screens/health/HospitalInfo';
 import PetUpdate from '@src/screens/profile/PetUpdate';
 // Walk
@@ -47,19 +47,14 @@ import PaymentInformation from '@screens/feed/PaymentInformation';
 import PaymentSampleInformation from '@screens/feed/PaymentSampleInformation';
 import SearchAddress from '@screens/feed/SearchAddress';
 
-// AiEye
-import ReadyToScan from '@screens/ai/ReadyToScan';
+// Ai
 import SelectPetToScan from '@screens/ai/SelectPetToScan';
+import AlertScan from '@src/screens/ai/AlertScan';
+import ScanPetResult from '@src/screens/ai/ScanPetResult';
+// Ai 결과 화면
 import ResultEyeScan from '@screens/ai/ResultEyeScan';
-import AlertEyeScan from '@screens/ai/AlertEyeScan';
-
-// AiNose
-import RegisterPetNose from '@screens/ai/RegisterPetNose';
-import AlertNoseRegister from '@screens/ai/AlertNoseRegister';
-import ReadyToRegisterNose from '@screens/ai/ReadyToRegisterNose';
 import ResultNoseRegister from '@screens/ai/ResultNoseRegister';
-import ScanNose from '@screens/ai/ScanNose';
-import ScanNoseResult from '@screens/ai/ScanNoseResult';
+import ResultNoseScan from '@screens/ai/ResultNoseScan'; // 이미 등록된 비문과 사진 비교
 import ResultOwnerDetails from '@screens/ai/ResultOwnerDetails';
 
 //System
@@ -83,6 +78,9 @@ export const routesConfig: {
   PetProfile: RouteEntry<{id: string}>; // 주의!
   PetUpdate: RouteEntry<{id: string, data: PetDetails}>;
   OrderReceived: RouteEntry<OrderReceivedParams>;
+  SelectPetToScan: RouteEntry<{scanType: string}>;
+  AlertScan: RouteEntry<{scanType: string, petId: string, petType: string, petName: string}>;
+  ScanPetResult: RouteEntry<{scanType: string, imageUri: string, petId: string, petType: string, petName: string}>;
 } = {
   MainTab: { component: MainTab, params: undefined },
   Login: { component: Login, params: undefined },
@@ -95,22 +93,18 @@ export const routesConfig: {
   }, // PetProfile에 필요한 params 설정
   Analysis: { component: Analysis, params: undefined },
   HospitalList: { component: HospitalList, params: undefined },
-  CameraView: { component: CameraView, params: undefined },
+  CameraView: { component: CameraView, params: {onPhotoTaken : (photoUri: string) => {}} },
   RegisterHealthInfo: { component: RegisterHealthInfo, params: { id: 0 } }, // id를 number로 설정
   DiseaseDetail: { component: DiseaseDetail, params: undefined },
-  SelectPart: { component: SelectPart, params: undefined },
   HospitalInfo: {component: HospitalInfo, params: undefined},
   PetUpdate: { component: PetUpdate, params: undefined },
-  SelectPetToScan: { component: SelectPetToScan, params: undefined },
-  ReadyToScan: { component: ReadyToScan, params: undefined },
+  // AI
+  SelectPetToScan: { component: SelectPetToScan, params: {scanType : 'EYE_SCAN'} },
+  AlertScan: { component: AlertScan, params: undefined },
+  ScanPetResult: { component: ScanPetResult, params: undefined },
   ResultEyeScan: { component: ResultEyeScan, params: undefined },
-  AlertEyeScan: { component: AlertEyeScan, params: undefined },
-  RegisterPetNose: {component: RegisterPetNose, params: undefined},
-  ScanNose: {component: ScanNose, params: undefined},
-  ScanNoseResult: {component: ScanNoseResult, params: undefined},
-  AlertNoseRegister: {component: AlertNoseRegister, params: undefined},
-  ReadyToRegisterNose: {component: ReadyToRegisterNose, params: undefined},
-  ResultNoseRegister: {component: ResultNoseRegister, params: undefined},
+  ResultNoseRegister: { component: ResultNoseRegister, params: undefined },
+  ResultNoseScan: {component: ResultNoseScan, params: undefined},
   ResultOwnerDetails: {component: ResultOwnerDetails, params: undefined},
   Offline: {component: Offline, params: undefined},
   // reward pages
