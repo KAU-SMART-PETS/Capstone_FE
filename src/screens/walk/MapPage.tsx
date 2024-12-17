@@ -176,7 +176,10 @@ const MapPage: React.FC = () => {
   };
   return (
     <View style={{ flex: 1 }}>
-      <WalkRecordingPanel distanceInMeters={distance} timeInSeconds={time} />
+        {!isMapReady && (
+          <WalkingDog />
+        )}
+      {isMapReady && <WalkRecordingPanel distanceInMeters={distance * 1000} timeInSeconds={time} />}
 
       <MapView
         ref={mapRef}
@@ -188,13 +191,23 @@ const MapPage: React.FC = () => {
         showsUserLocation
         onRegionChangeComplete={(region) => setRegion(region)}
       >
-        {location && (
-          <Marker
-            coordinate={location}
-            title="내 위치"
-            description="현재 위치입니다."
-          />
-        )}
+        {location && 
+          <MapMarker coordinate={location}
+            anchor={{x: 0.5, y:1.0}}
+            >
+            <LottieView
+              source={require('@assets/lottie/MapPin.json')}
+              autoPlay
+              loop
+              style={{
+                position: `absolute`,
+                height: 35,
+                width: 35,
+              }}
+              resizeMode={'contain'}
+            />
+          </MapMarker>
+        }
       </MapView>
 
       <View className="absolute bottom-5 left-0 right-0 items-center">
