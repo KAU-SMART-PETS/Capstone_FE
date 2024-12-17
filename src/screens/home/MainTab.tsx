@@ -9,6 +9,7 @@ import { ColorMap } from '@common/ColorMap';
 import MyPage from '@screens/profile/MyPage';
 //import Analysis from '@screens/health/Analysis';
 import WalkStartPage from '@screens/walk/WalkStartPage';
+import RecordStartPage from '@screens/walk/RecordStartPage';
 import PetProfile from '@screens/profile/PetProfile';
 import RegisterHealthInfo from '@screens/health/RegisterHealthInfo';
 import Home from '@screens/home/Home';
@@ -20,7 +21,7 @@ const initTabIdx = 2;
 const tabScreens: TabScreen[] = [
   // 하단 탭 페이지 구성
   { id: 'walkTab', name: '산책', iconName: 'paw', iconType: 'mc', component: WalkStartPage },
-  { id: 'infoTab', name: '기록', iconName: 'calendar', iconType: 'mc', component: PetProfile },
+  { id: 'infoTab', name: '기록', iconName: 'calendar', iconType: 'mc', component: RecordStartPage },
   { id: 'homeTab', name: '홈', iconName: 'home', iconType: 'fa', component: Home },
   //{ id: 'healthTab', name: '건강', iconName: 'heartbeat', iconType: 'fa', component: RegisterHealthInfo },
   { id: 'profileTab', name: '마이페이지', iconName: 'user-circle-o', iconType: 'fa', component: MyPage },

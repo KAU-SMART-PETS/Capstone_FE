@@ -112,7 +112,7 @@ const HomeScreen: React.FC = () => {
           //{ id: 'PetInfo', title: 'Pet Information', screen: 'PetProfile' },
           //{ id: 'RegisterPet', title: 'Register Pet', screen: 'PetRegister' },
           //{ id: 'Bluetooth', title: 'Bluetooth', screen: 'BTView' },
-          { id: 'RecordStartPage', title: 'RecordStartPage', screen: 'RecordStartPage' },
+          //{ id: 'RecordStartPage', title: 'RecordStartPage', screen: 'RecordStartPage' },
           //{ id: 'MapPage', title: 'MapPage', screen: 'MapPage' },
           //{ id: 'WalkWeeklyRecord', title: 'WalkWeeklyRecord', screen: 'WalkWeeklyRecord' },
           // { id: 'TodayWalk', title: 'Today Walk', screen: 'TodayWalk' },
