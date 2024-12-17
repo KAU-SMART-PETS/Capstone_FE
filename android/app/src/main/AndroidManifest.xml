@@ -29,6 +29,7 @@
         android:supportsRtl="true">
         
         <!-- Google Maps API Key 설정 -->
+        <!-- NOTE : 팀원 개인 계정 api 사용. 변경 요망 -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBPeD4s_jU-hCCZnA2Sx_b0O3ZEwgO77Ho" />
