@@ -87,7 +87,7 @@ const MapPage: React.FC = () => {
         if (prevLocation) {
           const addedDistance = haversine(prevLocation.latitude, prevLocation.longitude, latitude, longitude);
           if (addedDistance > 0.001) {
-            setDistance((prevDistance) => prevDistance + addedDistance);
+            setDistance((distance) => distance + addedDistance);
           }
         }
 

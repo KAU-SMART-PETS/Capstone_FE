@@ -42,7 +42,7 @@ const HomeCarousel: React.FC = () => {
     },
     {
       imageSource: require('@image/banner/scanBanner.png'),
-      onPressAction: () => navigation.navigate('SelectPetToScan' as never),
+      onPressAction: () => navigation.navigate('SelectPetToScan' as never, {scanType: 'EYE_SCAN'}),
     },
     /*
     {
